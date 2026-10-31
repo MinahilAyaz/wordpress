@@ -1,0 +1,122 @@
+<?php
+/**
+ * NESPORTS3 - Template helpers and the product catalog used by the home page.
+ * Images live in assets/images/ (copied from the project's /images folder).
+ */
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+function nesports_img($file) {
+    return NESPORTS_PLUGIN_URL . 'assets/images/' . rawurlencode($file);
+}
+
+function nesports_money($value) {
+    return '€' . number_format((float) $value, 2);
+}
+
+/** Category key => pill label (order = pill order). */
+function nesports_categories() {
+    return array(
+        'belts'  => 'WEIGHTLIFTING BELTS',
+        'straps' => 'LIFTING STRAPS',
+        'knee'   => 'KNEE WRAPS',
+        'elbow'  => 'ELBOW WRAPS',
+        'speed'  => 'SPEED BALL',
+        'wrist'  => 'WRIST WRAPS',
+        'bags'   => 'GYM BAGS',
+    );
+}
+
+/**
+ * Product catalog (names, prices and images from nesports3.com).
+ * price = current price, old = regular price, main/hover = files in assets/images/.
+ */
+function nesports_catalog() {
+    return array(
+        array('name' => 'Pro Leather Weightlifting Lever Belt 10mm',     'slug' => 'pro-leather-weightlifting-lever-belt-10mm',     'cat' => 'belts',  'price' => 59.99, 'old' => 79.99, 'main' => 'DSC_2246-400x266-1.jpg',                     'hover' => 'DSC_0750-400x266-1.jpg'),
+        array('name' => 'Competition Weightlifting Belt 13mm (Black)',   'slug' => 'competition-weightlifting-belt-13mm-black',   'cat' => 'belts',  'price' => 69.99, 'old' => 89.99, 'main' => 'DSC_0749-400x266-1.jpg',                     'hover' => 'DSC_2246-400x266-1.jpg'),
+        array('name' => 'Quick-Release Lever Power Belt (Steel Buckle)', 'slug' => 'quick-release-lever-power-belt',             'cat' => 'belts',  'price' => 64.99, 'old' => 84.99, 'main' => 'DSC_0750-400x266-1.jpg',                     'hover' => 'DSC_0749-400x266-1.jpg'),
+        array('name' => 'Heavy Duty Neoprene Elbow Wraps (Pair)',        'slug' => 'heavy-duty-neoprene-elbow-wraps',             'cat' => 'elbow',  'price' => 24.99, 'old' => 34.99, 'main' => 'Knee-Wrap-800x800.jpg',                       'hover' => 'Knee-wrap-1-800x800.jpg'),
+        array('name' => 'Lifting Strap Padded (Blue)',                  'slug' => 'lifting-strap-padded-blue',                  'cat' => 'straps', 'price' => 9.99,  'old' => 14.99, 'main' => 'A2.jpg',                                     'hover' => 'A3-1-800x800.jpg'),
+        array('name' => 'Lifting Strap Padded (Red)',                   'slug' => 'lifting-strap-padded-red',                   'cat' => 'straps', 'price' => 9.99,  'old' => 19.99, 'main' => '2-red-800x800.jpg',                           'hover' => 'A8-800x800.jpg'),
+        array('name' => 'Lifting Straps with Extra Padded (Black)',     'slug' => 'lifting-straps-with-extra-padded-black',     'cat' => 'straps', 'price' => 9.99,  'old' => 19.99, 'main' => '1-800x800.jpg',                               'hover' => '2-800x800.jpg'),
+        array('name' => 'Lifting Straps (Padded) Blue',                 'slug' => 'lifting-straps-padded-blue-2',               'cat' => 'straps', 'price' => 9.99,  'old' => 19.99, 'main' => 'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg', 'hover' => 'WhatsApp-Image-2024-07-08-at-19.20.29_13856fb5-Copy-800x800.jpg'),
+        array('name' => 'Knee Wrap (Blue)',                             'slug' => 'knee-wrap-copy',                             'cat' => 'knee',   'price' => 29.99, 'old' => 39.99, 'main' => 'Knee-Wrap-9-800x800.jpg',                     'hover' => 'Kne-wrap-4-800x800.jpg'),
+        array('name' => 'Knee Wrap (Red)',                              'slug' => 'knee-wrap',                                  'cat' => 'knee',   'price' => 29.99, 'old' => 39.99, 'main' => 'Knee-Wrap-800x800.jpg',                       'hover' => 'Knee-wrap-1-800x800.jpg'),
+        array('name' => 'Speed Ball Set Maya Hide Leather Red Black',   'slug' => 'speed-ball-set-maya-hide-leather-red-black', 'cat' => 'speed',  'price' => 24.99, 'old' => 39.99, 'main' => '1-1-2-800x800.jpg',                        'hover' => '2-1-2-800x800.jpg'),
+        array('name' => 'Speed Ball Set Maya Hide Leather',             'slug' => 'speed-ball-set-maya-hide-leather-2',         'cat' => 'speed',  'price' => 24.99, 'old' => 39.99, 'main' => '1-1-1-800x800.jpg',                           'hover' => '2-1-1-800x800.jpg'),
+        array('name' => 'Speed Ball Set Maya Hide Leather Black Gold',  'slug' => 'speed-ball-set-maya-hide-leather',           'cat' => 'speed',  'price' => 24.99, 'old' => 39.99, 'main' => '1-1-800x800.jpg',                             'hover' => '2-1-800x800.jpg'),
+        array('name' => 'Wrist Bandages 45 cm (Black)',                 'slug' => 'wrist-bandages-45-cm-wrist-black-2',         'cat' => 'wrist',  'price' => 9.99,  'old' => 19.99, 'main' => 'Wrist-Bandage-Black-800x800.jpg',             'hover' => 'Wrist-Bandage-1-800x800.jpg'),
+        array('name' => 'Water Proof Gym Bag (Gray)',                   'slug' => 'water-proof-gym-bag-gray',                   'cat' => 'bags',   'price' => 11.99, 'old' => 19.99, 'main' => 'Gym-Bag-9-800x800.jpg',                       'hover' => 'Gym-Bag-1-2-800x800.jpg'),
+        array('name' => 'Water Proof Gym Bag (Blue)',                   'slug' => 'water-proof-gym-bag-blue',                   'cat' => 'bags',   'price' => 11.99, 'old' => 19.99, 'main' => 'Gym-Bag-8-800x800.jpg',                       'hover' => 'Gym-Bag-1-800x800.jpg'),
+    );
+}
+
+/** Collections carousel tiles (label, image, 'product' = light tile / 'photo' = full-bleed tile, link). */
+function nesports_collections() {
+    return array(
+        array('label' => 'Lifting Straps',      'img' => 'A2.jpg',                         'type' => 'product', 'url' => '/product-category/lifting-straps/'),
+        array('label' => 'Knee Wraps',          'img' => 'Knee-Wrap-800x800.jpg',          'type' => 'product', 'url' => '/product-category/knee-wrap/'),
+        array('label' => 'Wrist Wraps',         'img' => 'Wrist-Bandage-Black-800x800.jpg','type' => 'product', 'url' => '/product-category/wrist-straps/'),
+        array('label' => 'Speed Ball',          'img' => '1-1-2-800x800.jpg',              'type' => 'product', 'url' => '/category/decoration/'),
+        array('label' => 'Gym Bags',            'img' => 'Gym-Bag-8-800x800.jpg',          'type' => 'product', 'url' => '/product-category/gym-bag/'),
+        array('label' => 'Barbell Pad',         'img' => 'DSC_0749-400x266-1.jpg',         'type' => 'photo',   'url' => '/product-category/barbell-pad/'),
+        array('label' => 'Weightlifting Belts', 'img' => 'DSC_2246-400x266-1.jpg',         'type' => 'photo',   'url' => '/product-category/weightlifting-belts/'),
+    );
+}
+
+/** Bundle pills: key => label. */
+function nesports_bundle_tabs() {
+    return array(
+        'lifting'  => 'LIFTING PACKS',
+        'legs'     => 'KNEE & LEG PACKS',
+        'training' => 'TRAINING PACKS',
+    );
+}
+
+/**
+ * Bundles are built from catalog products (by slug). Bundle price = sum of the
+ * items' current prices minus NESPORTS_BUNDLE_DISCOUNT percent.
+ * NOTE: these bundles are placeholders; edit names/items/discount to match real offers.
+ */
+function nesports_bundles() {
+    $discount = 15;
+    $defs = array(
+        array('name' => 'Pull Day Pack (Blue)',        'cat' => 'lifting',  'items' => array('lifting-strap-padded-blue', 'wrist-bandages-45-cm-wrist-black-2')),
+        array('name' => 'Heavy Lifter Pack (Black)',   'cat' => 'lifting',  'items' => array('lifting-straps-with-extra-padded-black', 'knee-wrap-copy')),
+        array('name' => 'Red Edition Pack',            'cat' => 'legs',     'items' => array('lifting-strap-padded-red', 'knee-wrap')),
+        array('name' => 'Leg Day Pack (Blue)',         'cat' => 'legs',     'items' => array('lifting-straps-padded-blue-2', 'knee-wrap-copy')),
+        array('name' => 'Gym Carry Pack (Gray)',       'cat' => 'training', 'items' => array('water-proof-gym-bag-gray', 'wrist-bandages-45-cm-wrist-black-2')),
+        array('name' => 'Speed & Strength Pack',       'cat' => 'training', 'items' => array('speed-ball-set-maya-hide-leather-red-black', 'water-proof-gym-bag-blue')),
+    );
+
+    $by_slug = array();
+    foreach (nesports_catalog() as $p) {
+        $by_slug[$p['slug']] = $p;
+    }
+
+    $bundles = array();
+    foreach ($defs as $d) {
+        $items = array();
+        $sum = 0;
+        foreach ($d['items'] as $slug) {
+            if (isset($by_slug[$slug])) {
+                $items[] = $by_slug[$slug];
+                $sum += $by_slug[$slug]['price'];
+            }
+        }
+        if (count($items) < 2) {
+            continue;
+        }
+        $bundles[] = array(
+            'name'  => $d['name'],
+            'cat'   => $d['cat'],
+            'imgs'  => array($items[0]['main'], $items[1]['main']),
+            'old'   => round($sum, 2),
+            'price' => round($sum * (100 - $discount) / 100, 2),
+            'url'   => '/shop/',
+        );
+    }
+    return $bundles;
+}
