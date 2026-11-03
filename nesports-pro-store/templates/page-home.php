@@ -4,7 +4,7 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-// Hero slides: 100% Unified Dark Cinematic Theme across ALL slides (Consistent with VelocityX reference)
+// Hero slides: 100% Unified Dark Gym Cinematic Photoshoot Theme (Consistent with VelocityX reference)
 $hero_slides = array(
     array(
         'type'     => 'photo',
@@ -13,7 +13,6 @@ $hero_slides = array(
         'sub'      => 'MAXIMUM CORE STABILITY',
         'title'    => 'Pro Lever Lifting Belts',
         'desc'     => 'Competition-grade 10mm & 13mm leather belts with stainless steel lever buckle for heavy squats and pulls.',
-        'features' => array('10mm & 13mm Thickness', 'Steel Quick-Lock Buckle', 'IPF Specs'),
         'price'    => '€59.99',
         'old'      => '€79.99',
         'url'      => '/product-category/weightlifting-belts/'
@@ -25,43 +24,39 @@ $hero_slides = array(
         'sub'      => 'CARRY EVERYTHING',
         'title'    => 'Water Proof Gym Bags',
         'desc'     => 'Durable, waterproof multi-compartment gym backpacks and duffels built for serious athletes.',
-        'features' => array('Waterproof Nylon', 'Shoe Compartment', 'Heavy-Duty Zips'),
         'price'    => '€11.99',
         'old'      => '€19.99',
         'url'      => '/product-category/gym-bag/'
     ),
     array(
-        'type'     => 'product',
+        'type'     => 'photo',
         'badge'    => 'POWER GEAR',
-        'img'      => 'hero-knee-wrap.png',
+        'img'      => 'hero-slide-knee-wraps.jpg',
         'sub'      => 'SQUAT WITH CONFIDENCE',
         'title'    => 'Heavy Duty Knee Wraps',
         'desc'     => 'Elastic reinforced knee wraps for maximum rebound, joint stabilization, and heavy squat performance.',
-        'features' => array('Heavy Rebound Elastic', 'Adjustable Tension', 'Joint Protection'),
         'price'    => '€29.99',
         'old'      => '€39.99',
         'url'      => '/product-category/knee-wrap/'
     ),
     array(
-        'type'     => 'product',
+        'type'     => 'photo',
         'badge'    => 'BEST SELLER',
-        'img'      => 'hero-lifting-straps.png',
+        'img'      => 'hero-slide-lifting-straps.jpg',
         'sub'      => 'BUILT FOR HEAVY PULLS',
         'title'    => 'Padded Lifting Straps',
         'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
-        'features' => array('5mm Neoprene Cushion', 'Reinforced Webbing', 'No Grip Fatigue'),
         'price'    => '€9.99',
         'old'      => '€14.99',
         'url'      => '/product-category/lifting-straps/'
     ),
     array(
-        'type'     => 'product',
+        'type'     => 'photo',
         'badge'    => 'BOXING & SPEED',
-        'img'      => 'hero-speed-ball.png',
+        'img'      => 'hero-slide-speed-ball.jpg',
         'sub'      => 'TRAIN YOUR SPEED',
         'title'    => 'Speed Ball Sets',
         'desc'     => 'Genuine Maya Hide leather speed balls designed for boxing precision, reflex conditioning, and endurance.',
-        'features' => array('Maya Hide Leather', 'High Rebound Bladder', 'Double Stitching'),
         'price'    => '€24.99',
         'old'      => '€39.99',
         'url'      => '/category/decoration/'
@@ -98,14 +93,6 @@ $bundle_tabs  = nesports_bundle_tabs();
                     
                     <?php if (!empty($s['desc'])): ?>
                         <p class="hb-hero-desc"><?php echo esc_html($s['desc']); ?></p>
-                    <?php endif; ?>
-
-                    <?php if (!empty($s['features'])): ?>
-                        <div class="hb-hero-features">
-                            <?php foreach ($s['features'] as $f): ?>
-                                <span class="hb-hero-feat"><i class="fa-solid fa-check"></i> <?php echo esc_html($f); ?></span>
-                            <?php endforeach; ?>
-                        </div>
                     <?php endif; ?>
 
                     <div class="hb-hero-bottom-row">
