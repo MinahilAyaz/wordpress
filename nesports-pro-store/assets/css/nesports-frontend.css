@@ -155,54 +155,84 @@ body.hb-theme button { font-family: inherit; }
     color: #64748b;
 }
 
-/* 2. SPLIT SLIDE: Clean studio background for isolated product cutouts (Straps, Wraps, Speed Balls) */
+/* 2. PRODUCT SLIDE ON DARK STAGE: Floating gear on dark cinematic canvas with ambient red spotlight */
+.hb-hero-slide--product,
 .hb-hero-slide--split {
-    background: radial-gradient(circle at 74% 50%, rgba(225, 29, 72, 0.08) 0%, rgba(225, 29, 72, 0.02) 42%, transparent 70%),
-                linear-gradient(120deg, #f1f2f6 0%, #f8f9fb 45%, #ffffff 88%);
+    background: radial-gradient(circle at 75% 50%, rgba(225, 29, 72, 0.22) 0%, rgba(20, 24, 34, 0.65) 45%, #08090c 78%);
     position: relative;
 }
+.hb-hero-slide--product .hb-hero-watermark,
 .hb-hero-slide--split .hb-hero-watermark {
-    -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.04);
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.04);
 }
+.hb-hero-slide--product .hb-hero-media,
 .hb-hero-slide--split .hb-hero-media {
     position: absolute;
-    right: 4%;
+    right: 5%;
     top: 50%;
     transform: translateY(-50%);
     width: 48%;
-    height: 90%;
+    height: 88%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
     pointer-events: none;
 }
+.hb-hero-slide--product .hb-hero-media img,
 .hb-hero-slide--split .hb-hero-media img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 95%;
+    max-height: 95%;
     width: auto;
     height: auto;
     object-fit: contain;
-    mix-blend-mode: multiply;
-    transform: scale(1.05);
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 35px rgba(225, 29, 72, 0.2));
     transition: transform .6s cubic-bezier(.2,.8,.2,1);
-    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.08));
 }
+.hb-hero-slide--product:hover .hb-hero-media img,
 .hb-hero-slide--split:hover .hb-hero-media img {
-    transform: scale(1.1);
+    transform: scale(1.08) rotate(-1deg);
 }
+.hb-hero-slide--product .hb-hero-caption,
 .hb-hero-slide--split .hb-hero-caption {
     position: absolute;
     left: clamp(36px, 5.5vw, 72px);
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
-    width: 46%;
-    max-width: 580px;
+    width: 48%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    color: var(--hb-ink);
+}
+.hb-hero-slide--product .hb-hero-title,
+.hb-hero-slide--split .hb-hero-title {
+    color: #ffffff;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+.hb-hero-slide--product .hb-hero-sub,
+.hb-hero-slide--split .hb-hero-sub {
+    color: #94a3b8;
+}
+.hb-hero-slide--product .hb-hero-desc,
+.hb-hero-slide--split .hb-hero-desc {
+    color: #cbd5e1;
+}
+.hb-hero-slide--product .hb-hero-feat,
+.hb-hero-slide--split .hb-hero-feat {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+.hb-hero-slide--product .hb-hero-price-now,
+.hb-hero-slide--split .hb-hero-price-now {
+    color: #ffffff;
+}
+.hb-hero-slide--product .hb-hero-price-old,
+.hb-hero-slide--split .hb-hero-price-old {
+    color: #64748b;
 }
 
 /* Hero typography & elements (Matched to VelocityX Bold Athletic Tone) */
@@ -615,8 +645,10 @@ body.hb-theme button { font-family: inherit; }
         max-width: 440px;
     }
 
-    /* Split slide tablet: clean separation */
+    /* Product slide tablet: clean separation */
+    .hb-hero-slide--product .hb-hero-media,
     .hb-hero-slide--split .hb-hero-media { width: 44%; right: 2%; }
+    .hb-hero-slide--product .hb-hero-caption,
     .hb-hero-slide--split .hb-hero-caption { left: 28px; width: 54%; max-width: 420px; }
 
     .hb-footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -666,7 +698,8 @@ body.hb-theme button { font-family: inherit; }
         padding: 0;
     }
 
-    /* Split slide mobile: stacked layout */
+    /* Product slide mobile: stacked on dark stage */
+    .hb-hero-slide--product,
     .hb-hero-slide--split {
         display: flex;
         flex-direction: column;
@@ -674,6 +707,7 @@ body.hb-theme button { font-family: inherit; }
         padding: 20px 18px 36px;
         min-height: 480px;
     }
+    .hb-hero-slide--product .hb-hero-media,
     .hb-hero-slide--split .hb-hero-media {
         position: relative;
         right: auto;
@@ -683,10 +717,12 @@ body.hb-theme button { font-family: inherit; }
         height: 200px;
         margin-bottom: 8px;
     }
+    .hb-hero-slide--product .hb-hero-media img,
     .hb-hero-slide--split .hb-hero-media img {
         max-height: 100%;
         transform: none;
     }
+    .hb-hero-slide--product .hb-hero-caption,
     .hb-hero-slide--split .hb-hero-caption {
         position: relative;
         left: 0;

@@ -4,7 +4,7 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-// Hero slides: Pro Lever Belts hero first (matches VelocityX dark athletic reference), followed by full gear lineup
+// Hero slides: 100% Unified Dark Cinematic Theme across ALL slides (Consistent with VelocityX reference)
 $hero_slides = array(
     array(
         'type'     => 'photo',
@@ -19,18 +19,6 @@ $hero_slides = array(
         'url'      => '/product-category/weightlifting-belts/'
     ),
     array(
-        'type'     => 'split',
-        'badge'    => 'BEST SELLER',
-        'img'      => 'A2.jpg',
-        'sub'      => 'BUILT FOR HEAVY PULLS',
-        'title'    => 'Padded Lifting Straps',
-        'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
-        'features' => array('5mm Neoprene Cushion', 'Reinforced Webbing', 'No Grip Fatigue'),
-        'price'    => '€9.99',
-        'old'      => '€14.99',
-        'url'      => '/product-category/lifting-straps/'
-    ),
-    array(
         'type'     => 'photo',
         'badge'    => 'ATHLETE SERIES',
         'img'      => 'WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg',
@@ -43,9 +31,9 @@ $hero_slides = array(
         'url'      => '/product-category/gym-bag/'
     ),
     array(
-        'type'     => 'split',
+        'type'     => 'product',
         'badge'    => 'POWER GEAR',
-        'img'      => 'Knee-Wrap-800x800.jpg',
+        'img'      => 'hero-knee-wrap.png',
         'sub'      => 'SQUAT WITH CONFIDENCE',
         'title'    => 'Heavy Duty Knee Wraps',
         'desc'     => 'Elastic reinforced knee wraps for maximum rebound, joint stabilization, and heavy squat performance.',
@@ -55,9 +43,21 @@ $hero_slides = array(
         'url'      => '/product-category/knee-wrap/'
     ),
     array(
-        'type'     => 'split',
+        'type'     => 'product',
+        'badge'    => 'BEST SELLER',
+        'img'      => 'hero-lifting-straps.png',
+        'sub'      => 'BUILT FOR HEAVY PULLS',
+        'title'    => 'Padded Lifting Straps',
+        'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
+        'features' => array('5mm Neoprene Cushion', 'Reinforced Webbing', 'No Grip Fatigue'),
+        'price'    => '€9.99',
+        'old'      => '€14.99',
+        'url'      => '/product-category/lifting-straps/'
+    ),
+    array(
+        'type'     => 'product',
         'badge'    => 'BOXING & SPEED',
-        'img'      => '1-1-2-800x800.jpg',
+        'img'      => 'hero-speed-ball.png',
         'sub'      => 'TRAIN YOUR SPEED',
         'title'    => 'Speed Ball Sets',
         'desc'     => 'Genuine Maya Hide leather speed balls designed for boxing precision, reflex conditioning, and endurance.',
