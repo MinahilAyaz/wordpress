@@ -34,9 +34,9 @@ function nesports_categories() {
  */
 function nesports_catalog() {
     return array(
-        array('name' => 'Pro Leather Weightlifting Lever Belt 10mm',     'slug' => 'pro-leather-weightlifting-lever-belt-10mm',     'cat' => 'belts',  'price' => 59.99, 'old' => 79.99, 'main' => 'DSC_2246-400x266-1.jpg',                     'hover' => 'DSC_0750-400x266-1.jpg'),
-        array('name' => 'Competition Weightlifting Belt 13mm (Black)',   'slug' => 'competition-weightlifting-belt-13mm-black',   'cat' => 'belts',  'price' => 69.99, 'old' => 89.99, 'main' => 'DSC_0749-400x266-1.jpg',                     'hover' => 'DSC_2246-400x266-1.jpg'),
-        array('name' => 'Quick-Release Lever Power Belt (Steel Buckle)', 'slug' => 'quick-release-lever-power-belt',             'cat' => 'belts',  'price' => 64.99, 'old' => 84.99, 'main' => 'DSC_0750-400x266-1.jpg',                     'hover' => 'DSC_0749-400x266-1.jpg'),
+        array('name' => 'Pro Leather Weightlifting Lever Belt 10mm',     'slug' => 'pro-leather-weightlifting-lever-belt-10mm',     'cat' => 'belts',  'price' => 59.99, 'old' => 79.99, 'main' => 'DSC_2246-scaled.jpg',                        'hover' => 'DSC_0750-scaled.jpg'),
+        array('name' => 'Competition Weightlifting Belt 13mm (Black)',   'slug' => 'competition-weightlifting-belt-13mm-black',   'cat' => 'belts',  'price' => 69.99, 'old' => 89.99, 'main' => 'DSC_0749-scaled.jpg',                        'hover' => 'DSC_2246-scaled.jpg'),
+        array('name' => 'Quick-Release Lever Power Belt (Steel Buckle)', 'slug' => 'quick-release-lever-power-belt',             'cat' => 'belts',  'price' => 64.99, 'old' => 84.99, 'main' => 'DSC_0750-scaled.jpg',                        'hover' => 'DSC_0749-scaled.jpg'),
         array('name' => 'Heavy Duty Neoprene Elbow Wraps (Pair)',        'slug' => 'heavy-duty-neoprene-elbow-wraps',             'cat' => 'elbow',  'price' => 24.99, 'old' => 34.99, 'main' => 'Knee-Wrap-800x800.jpg',                       'hover' => 'Knee-wrap-1-800x800.jpg'),
         array('name' => 'Lifting Strap Padded (Blue)',                  'slug' => 'lifting-strap-padded-blue',                  'cat' => 'straps', 'price' => 9.99,  'old' => 14.99, 'main' => 'A2.jpg',                                     'hover' => 'A3-1-800x800.jpg'),
         array('name' => 'Lifting Strap Padded (Red)',                   'slug' => 'lifting-strap-padded-red',                   'cat' => 'straps', 'price' => 9.99,  'old' => 19.99, 'main' => '2-red-800x800.jpg',                           'hover' => 'A8-800x800.jpg'),
@@ -61,8 +61,8 @@ function nesports_collections() {
         array('label' => 'Wrist Wraps',         'img' => 'Wrist-Bandage-Black-800x800.jpg','type' => 'product', 'url' => '/product-category/wrist-straps/'),
         array('label' => 'Speed Ball',          'img' => '1-1-2-800x800.jpg',              'type' => 'product', 'url' => '/category/decoration/'),
         array('label' => 'Gym Bags',            'img' => 'Gym-Bag-8-800x800.jpg',          'type' => 'product', 'url' => '/product-category/gym-bag/'),
-        array('label' => 'Barbell Pad',         'img' => 'DSC_0749-400x266-1.jpg',         'type' => 'photo',   'url' => '/product-category/barbell-pad/'),
-        array('label' => 'Weightlifting Belts', 'img' => 'DSC_2246-400x266-1.jpg',         'type' => 'photo',   'url' => '/product-category/weightlifting-belts/'),
+        array('label' => 'Barbell Pad',         'img' => 'DSC_0749-scaled.jpg',            'type' => 'photo',   'url' => '/product-category/barbell-pad/'),
+        array('label' => 'Weightlifting Belts', 'img' => 'DSC_2246-scaled.jpg',            'type' => 'photo',   'url' => '/product-category/weightlifting-belts/'),
     );
 }
 

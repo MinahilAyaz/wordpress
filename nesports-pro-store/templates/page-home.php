@@ -4,12 +4,12 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-// Hero slides: 100% Authentic Gym Photoshoot Series (Consistent, high-impact athletic banners)
+// Hero slides: 100% Authentic Gym Photoshoot Series (Ultra High-Res 2560x1703 DSLR Photography)
 $hero_slides = array(
     array(
         'type'     => 'photo',
         'badge'    => 'NEW DROP',
-        'img'      => 'DSC_2246-400x266-1.jpg',
+        'img'      => 'DSC_2246-scaled.jpg',
         'sub'      => 'MAXIMUM CORE STABILITY',
         'title'    => 'Pro Lever Lifting Belts',
         'desc'     => 'Competition-grade 10mm & 13mm leather belts with stainless steel lever buckle for heavy squats and pulls.',
@@ -31,7 +31,7 @@ $hero_slides = array(
     array(
         'type'     => 'photo',
         'badge'    => 'BEST SELLER',
-        'img'      => 'DSC_0750-400x266-1.jpg',
+        'img'      => 'DSC_0750-scaled.jpg',
         'sub'      => 'BUILT FOR HEAVY PULLS',
         'title'    => 'Padded Lifting Straps',
         'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
@@ -42,7 +42,7 @@ $hero_slides = array(
     array(
         'type'     => 'photo',
         'badge'    => 'POWER GEAR',
-        'img'      => 'DSC_0749-400x266-1.jpg',
+        'img'      => 'DSC_0749-scaled.jpg',
         'sub'      => 'SQUAT WITH CONFIDENCE',
         'title'    => 'Competition Power Gear',
         'desc'     => 'Heavy-duty competition pads, knee wraps and supportive accessories engineered for record-breaking lifts.',
