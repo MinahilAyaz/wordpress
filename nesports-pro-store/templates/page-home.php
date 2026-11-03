@@ -4,8 +4,20 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-// Hero slides with rich content that eliminates empty space
+// Hero slides: Pro Lever Belts hero first (matches VelocityX dark athletic reference), followed by full gear lineup
 $hero_slides = array(
+    array(
+        'type'     => 'photo',
+        'badge'    => 'NEW DROP',
+        'img'      => 'DSC_2246-400x266-1.jpg',
+        'sub'      => 'MAXIMUM CORE STABILITY',
+        'title'    => 'Pro Lever Lifting Belts',
+        'desc'     => 'Competition-grade 10mm & 13mm leather belts with stainless steel lever buckle for heavy squats and pulls.',
+        'features' => array('10mm & 13mm Thickness', 'Steel Quick-Lock Buckle', 'IPF Specs'),
+        'price'    => '€59.99',
+        'old'      => '€79.99',
+        'url'      => '/product-category/weightlifting-belts/'
+    ),
     array(
         'type'     => 'split',
         'badge'    => 'BEST SELLER',
@@ -20,15 +32,15 @@ $hero_slides = array(
     ),
     array(
         'type'     => 'photo',
-        'badge'    => 'NEW DROP',
-        'img'      => 'DSC_2246-400x266-1.jpg',
-        'sub'      => 'MAXIMUM CORE STABILITY',
-        'title'    => 'Pro Lever Lifting Belts',
-        'desc'     => 'Competition-grade 10mm & 13mm leather belts with stainless steel lever buckle for heavy squats and pulls.',
-        'features' => array('10mm & 13mm Thickness', 'Steel Quick-Lock Buckle', 'IPF Specs'),
-        'price'    => '€59.99',
-        'old'      => '€79.99',
-        'url'      => '/product-category/weightlifting-belts/'
+        'badge'    => 'ATHLETE SERIES',
+        'img'      => 'WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg',
+        'sub'      => 'CARRY EVERYTHING',
+        'title'    => 'Water Proof Gym Bags',
+        'desc'     => 'Durable, waterproof multi-compartment gym backpacks and duffels built for serious athletes.',
+        'features' => array('Waterproof Nylon', 'Shoe Compartment', 'Heavy-Duty Zips'),
+        'price'    => '€11.99',
+        'old'      => '€19.99',
+        'url'      => '/product-category/gym-bag/'
     ),
     array(
         'type'     => 'split',
@@ -53,18 +65,6 @@ $hero_slides = array(
         'price'    => '€24.99',
         'old'      => '€39.99',
         'url'      => '/category/decoration/'
-    ),
-    array(
-        'type'     => 'photo',
-        'badge'    => 'ATHLETE SERIES',
-        'img'      => 'WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg',
-        'sub'      => 'CARRY EVERYTHING',
-        'title'    => 'Water Proof Gym Bags',
-        'desc'     => 'Durable, waterproof multi-compartment gym backpacks and duffels built for serious athletes.',
-        'features' => array('Waterproof Nylon', 'Shoe Compartment', 'Heavy-Duty Zips'),
-        'price'    => '€11.99',
-        'old'      => '€19.99',
-        'url'      => '/product-category/gym-bag/'
     ),
 );
 

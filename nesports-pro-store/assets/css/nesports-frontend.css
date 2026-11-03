@@ -40,42 +40,42 @@ body.hb-theme button { font-family: inherit; }
 .hb-mobile-btn span { width: 22px; height: 2px; background: #000; display: block; }
 
 /* Hero */
-.hb-hero { position: relative; overflow: hidden; background: #fff; padding: 0 0 16px; }
+.hb-hero { position: relative; overflow: hidden; background: #000; padding: 0 0 16px; }
 .hb-hero-track { display: flex; gap: 14px; transition: transform .6s cubic-bezier(.2,.8,.2,1); will-change: transform; }
 .hb-hero-slide {
     position: relative;
     flex: 0 0 calc(100% - 80px);
-    height: 520px;
-    max-height: 80vh;
-    min-height: 420px;
-    border-radius: 24px;
+    height: 560px;
+    max-height: 82vh;
+    min-height: 480px;
+    border-radius: 26px;
     overflow: hidden;
     display: flex;
     text-decoration: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* Watermark background text */
 .hb-hero-watermark {
     position: absolute;
-    right: 6%;
+    right: 5%;
     top: 50%;
     transform: translateY(-50%);
-    font-size: clamp(80px, 13vw, 160px);
-    font-weight: 900;
+    font-size: clamp(90px, 15vw, 180px);
+    font-weight: 950;
     letter-spacing: -2px;
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.04);
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.04);
     user-select: none;
     pointer-events: none;
     z-index: 1;
     white-space: nowrap;
 }
 
-/* 1. PHOTO SLIDE: Dark cinematic athletic presentation (for Belts & Athlete Gym shots) */
+/* 1. PHOTO SLIDE: Dark cinematic athletic presentation (Matched to VelocityX Reference) */
 .hb-hero-slide--photo {
-    background: #090a0e;
+    background: #08090c;
     position: relative;
 }
 .hb-hero-slide--photo .hb-hero-media {
@@ -83,7 +83,7 @@ body.hb-theme button { font-family: inherit; }
     right: 0;
     top: 0;
     bottom: 0;
-    width: 62%;
+    width: 64%;
     z-index: 1;
     overflow: hidden;
 }
@@ -105,26 +105,26 @@ body.hb-theme button { font-family: inherit; }
     inset: 0;
     z-index: 2;
     background: linear-gradient(90deg, 
-        #090a0e 0%, 
-        #090a0e 34%, 
-        rgba(9, 10, 14, 0.96) 46%, 
-        rgba(9, 10, 14, 0.60) 65%, 
-        rgba(9, 10, 14, 0.15) 85%, 
-        rgba(9, 10, 14, 0.40) 100%
+        #08090c 0%, 
+        #08090c 32%, 
+        rgba(8, 9, 12, 0.96) 46%, 
+        rgba(8, 9, 12, 0.55) 66%, 
+        rgba(8, 9, 12, 0.12) 86%, 
+        rgba(8, 9, 12, 0.35) 100%
     );
     pointer-events: none;
 }
 .hb-hero-slide--photo .hb-hero-caption {
     position: absolute;
-    left: clamp(36px, 5vw, 64px);
+    left: clamp(36px, 5.5vw, 72px);
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
-    width: 48%;
-    max-width: 580px;
+    width: 50%;
+    max-width: 620px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 .hb-hero-slide--photo .hb-hero-badge {
     background: rgba(225, 29, 72, 0.22);
@@ -133,11 +133,11 @@ body.hb-theme button { font-family: inherit; }
 }
 .hb-hero-slide--photo .hb-hero-sub {
     color: #94a3b8;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 .hb-hero-slide--photo .hb-hero-title {
     color: #ffffff;
-    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 .hb-hero-slide--photo .hb-hero-desc {
     color: #cbd5e1;
@@ -145,7 +145,7 @@ body.hb-theme button { font-family: inherit; }
 .hb-hero-slide--photo .hb-hero-feat {
     background: rgba(255, 255, 255, 0.08);
     color: #f1f5f9;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
 }
 .hb-hero-slide--photo .hb-hero-price-now {
@@ -154,25 +154,15 @@ body.hb-theme button { font-family: inherit; }
 .hb-hero-slide--photo .hb-hero-price-old {
     color: #64748b;
 }
-.hb-hero-slide--photo .hb-hero-btn {
-    background: #e11d48;
-    color: #ffffff;
-    box-shadow: 0 4px 18px rgba(225, 29, 72, 0.4);
-}
-.hb-hero-slide--photo:hover .hb-hero-btn {
-    background: #be123c;
-    box-shadow: 0 6px 24px rgba(225, 29, 72, 0.55);
-    transform: translateX(3px);
-}
-.hb-hero-slide--photo .hb-hero-watermark {
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.04);
-}
 
 /* 2. SPLIT SLIDE: Clean studio background for isolated product cutouts (Straps, Wraps, Speed Balls) */
 .hb-hero-slide--split {
     background: radial-gradient(circle at 74% 50%, rgba(225, 29, 72, 0.08) 0%, rgba(225, 29, 72, 0.02) 42%, transparent 70%),
                 linear-gradient(120deg, #f1f2f6 0%, #f8f9fb 45%, #ffffff 88%);
     position: relative;
+}
+.hb-hero-slide--split .hb-hero-watermark {
+    -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.04);
 }
 .hb-hero-slide--split .hb-hero-media {
     position: absolute;
@@ -203,62 +193,63 @@ body.hb-theme button { font-family: inherit; }
 }
 .hb-hero-slide--split .hb-hero-caption {
     position: absolute;
-    left: clamp(36px, 5vw, 64px);
+    left: clamp(36px, 5.5vw, 72px);
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
-    width: 45%;
-    max-width: 560px;
+    width: 46%;
+    max-width: 580px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     color: var(--hb-ink);
 }
 
-/* Hero typography & elements */
+/* Hero typography & elements (Matched to VelocityX Bold Athletic Tone) */
 .hb-hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(225, 29, 72, 0.1);
+    background: rgba(225, 29, 72, 0.12);
     color: #e11d48;
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 5px 12px;
+    padding: 6px 14px;
     border-radius: 999px;
     align-self: flex-start;
-    border: 1px solid rgba(225, 29, 72, 0.22);
+    border: 1px solid rgba(225, 29, 72, 0.28);
 }
 .hb-hero-sub {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3px;
     color: #64748b;
     text-transform: uppercase;
     margin-top: 2px;
 }
 .hb-hero-title {
-    font-size: clamp(28px, 3.6vw, 48px);
-    font-weight: 900;
-    letter-spacing: -1.2px;
-    line-height: 1.05;
+    font-size: clamp(34px, 4.8vw, 64px);
+    font-weight: 950;
+    letter-spacing: -1.6px;
+    line-height: 0.98;
     color: #0f172a;
-    margin: 2px 0;
+    text-transform: uppercase;
+    margin: 2px 0 4px;
 }
 .hb-hero-desc {
-    font-size: 14.5px;
+    font-size: 15px;
     line-height: 1.55;
     color: #475569;
-    margin: 2px 0 4px;
-    max-width: 480px;
+    margin: 0;
+    max-width: 490px;
 }
 .hb-hero-features {
     display: flex;
     flex-wrap: wrap;
     gap: 8px 12px;
-    margin: 2px 0 6px;
+    margin: 2px 0 4px;
 }
 .hb-hero-feat {
     display: inline-flex;
@@ -268,7 +259,7 @@ body.hb-theme button { font-family: inherit; }
     font-weight: 600;
     color: #1e293b;
     background: rgba(255, 255, 255, 0.75);
-    padding: 5px 12px;
+    padding: 6px 13px;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow: 0 1px 3px rgba(0,0,0,0.03);
@@ -280,8 +271,9 @@ body.hb-theme button { font-family: inherit; }
 .hb-hero-bottom-row {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 22px;
     margin-top: 6px;
+    flex-wrap: wrap;
 }
 .hb-hero-price-wrap {
     display: flex;
@@ -295,39 +287,48 @@ body.hb-theme button { font-family: inherit; }
     text-transform: uppercase;
 }
 .hb-hero-price-now {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 900;
     color: #0f172a;
     letter-spacing: -0.5px;
 }
 .hb-hero-price-old {
-    font-size: 14px;
+    font-size: 15px;
     color: #94a3b8;
     text-decoration: line-through;
 }
+
+/* Punchy Hero Button (Inspired by VelocityX CTA) */
 .hb-hero-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: #0f172a;
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: all .25s ease;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
-}
-.hb-hero-slide--split:hover .hb-hero-btn {
+    gap: 12px;
     background: #e11d48;
-    box-shadow: 0 6px 20px rgba(225, 29, 72, 0.35);
-    transform: translateX(3px);
+    color: #ffffff !important;
+    padding: 16px 36px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all .25s cubic-bezier(.2,.8,.2,1);
+    box-shadow: 0 8px 24px rgba(225, 29, 72, 0.45);
+}
+.hb-hero-btn:hover {
+    background: #f43f5e;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(225, 29, 72, 0.65);
+}
+.hb-hero-btn i {
+    transition: transform .25s ease;
+}
+.hb-hero-btn:hover i {
+    transform: translateX(4px);
 }
 
-.hb-hero-dots { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; gap: 8px; z-index: 4; }
-.hb-hero-dots button { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: rgba(0,0,0,.25); cursor: pointer; transition: all .25s; }
-.hb-hero-dots button.is-active { width: 26px; border-radius: 6px; background: #0f172a; }
+.hb-hero-dots { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; gap: 8px; z-index: 4; }
+.hb-hero-dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,.35); cursor: pointer; transition: all .25s; }
+.hb-hero-dots button.is-active { width: 32px; border-radius: 6px; background: #e11d48; box-shadow: 0 0 12px rgba(225, 29, 72, 0.6); }
 
 /* Collection slider */
 .hb-collection { padding: 34px 32px 56px; }
