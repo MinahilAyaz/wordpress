@@ -106,10 +106,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /* ---------- Mobile nav ---------- */
+    /* ---------- Mobile nav & accordion dropdown ---------- */
     var btn = document.getElementById('hb-mobile-toggle');
     var nav = document.getElementById('hb-primary-nav');
-    if (btn && nav) btn.addEventListener('click', function () { nav.classList.toggle('is-open'); });
+    if (btn && nav) {
+        btn.addEventListener('click', function () { 
+            nav.classList.toggle('is-open'); 
+        });
+    }
+
+    var dropdownItems = document.querySelectorAll('.hb-has-dropdown');
+    dropdownItems.forEach(function (item) {
+        var trigger = item.querySelector('a');
+        if (trigger) {
+            trigger.addEventListener('click', function (e) {
+                if (window.innerWidth <= 820) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    item.classList.toggle('is-open');
+                }
+            });
+        }
+    });
 
     /* ---------- Sign In Drawer (Matched to Screenshot 2) ---------- */
     var drawer = document.getElementById('hb-side-drawer');
