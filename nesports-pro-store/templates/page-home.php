@@ -19,7 +19,7 @@ $hero_slides = array(
         'url'      => '/product-category/lifting-straps/'
     ),
     array(
-        'type'     => 'split',
+        'type'     => 'photo',
         'badge'    => 'NEW DROP',
         'img'      => 'DSC_2246-400x266-1.jpg',
         'sub'      => 'MAXIMUM CORE STABILITY',
