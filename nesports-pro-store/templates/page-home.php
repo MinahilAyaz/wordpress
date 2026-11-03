@@ -4,7 +4,7 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-// Hero slides: 100% Unified Dark Gym Cinematic Photoshoot Theme (Consistent with VelocityX reference)
+// Hero slides: 100% Authentic Gym Photoshoot Series (Consistent, high-impact athletic banners)
 $hero_slides = array(
     array(
         'type'     => 'photo',
@@ -30,19 +30,8 @@ $hero_slides = array(
     ),
     array(
         'type'     => 'photo',
-        'badge'    => 'POWER GEAR',
-        'img'      => 'hero-slide-knee-wraps.jpg',
-        'sub'      => 'SQUAT WITH CONFIDENCE',
-        'title'    => 'Heavy Duty Knee Wraps',
-        'desc'     => 'Elastic reinforced knee wraps for maximum rebound, joint stabilization, and heavy squat performance.',
-        'price'    => '€29.99',
-        'old'      => '€39.99',
-        'url'      => '/product-category/knee-wrap/'
-    ),
-    array(
-        'type'     => 'photo',
         'badge'    => 'BEST SELLER',
-        'img'      => 'hero-slide-lifting-straps.jpg',
+        'img'      => 'DSC_0750-400x266-1.jpg',
         'sub'      => 'BUILT FOR HEAVY PULLS',
         'title'    => 'Padded Lifting Straps',
         'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
@@ -52,14 +41,14 @@ $hero_slides = array(
     ),
     array(
         'type'     => 'photo',
-        'badge'    => 'BOXING & SPEED',
-        'img'      => 'hero-slide-speed-ball.jpg',
-        'sub'      => 'TRAIN YOUR SPEED',
-        'title'    => 'Speed Ball Sets',
-        'desc'     => 'Genuine Maya Hide leather speed balls designed for boxing precision, reflex conditioning, and endurance.',
+        'badge'    => 'POWER GEAR',
+        'img'      => 'DSC_0749-400x266-1.jpg',
+        'sub'      => 'SQUAT WITH CONFIDENCE',
+        'title'    => 'Competition Power Gear',
+        'desc'     => 'Heavy-duty competition pads, knee wraps and supportive accessories engineered for record-breaking lifts.',
         'price'    => '€24.99',
         'old'      => '€39.99',
-        'url'      => '/category/decoration/'
+        'url'      => '/shop/'
     ),
 );
 
