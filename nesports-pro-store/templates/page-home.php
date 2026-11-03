@@ -4,12 +4,68 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-// Hero slides: 'photo' = full-bleed photo, 'split' = product beside the headline.
+// Hero slides with rich content that eliminates empty space
 $hero_slides = array(
-    array('type' => 'photo', 'img' => 'WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg', 'sub' => 'Carry everything',   'title' => 'Water Proof Gym Bags',   'url' => '/product-category/gym-bag/'),
-    array('type' => 'split', 'img' => 'A2.jpg',                'sub' => 'Built for heavy pulls', 'title' => 'Padded Lifting Straps', 'url' => '/product-category/lifting-straps/'),
-    array('type' => 'split', 'img' => '1-1-2-800x800.jpg',     'sub' => 'Train your speed',      'title' => 'Speed Ball Sets',       'url' => '/category/decoration/'),
-    array('type' => 'split', 'img' => 'Knee-Wrap-800x800.jpg', 'sub' => 'Squat with support',    'title' => 'Knee Wraps',            'url' => '/product-category/knee-wrap/'),
+    array(
+        'type'     => 'split',
+        'badge'    => 'BEST SELLER',
+        'img'      => 'A2.jpg',
+        'sub'      => 'BUILT FOR HEAVY PULLS',
+        'title'    => 'Padded Lifting Straps',
+        'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
+        'features' => array('5mm Neoprene Cushion', 'Reinforced Webbing', 'No Grip Fatigue'),
+        'price'    => '€9.99',
+        'old'      => '€14.99',
+        'url'      => '/product-category/lifting-straps/'
+    ),
+    array(
+        'type'     => 'split',
+        'badge'    => 'NEW DROP',
+        'img'      => 'DSC_2246-400x266-1.jpg',
+        'sub'      => 'MAXIMUM CORE STABILITY',
+        'title'    => 'Pro Lever Lifting Belts',
+        'desc'     => 'Competition-grade 10mm & 13mm leather belts with stainless steel lever buckle for heavy squats and pulls.',
+        'features' => array('10mm & 13mm Thickness', 'Steel Quick-Lock Buckle', 'IPF Specs'),
+        'price'    => '€59.99',
+        'old'      => '€79.99',
+        'url'      => '/product-category/weightlifting-belts/'
+    ),
+    array(
+        'type'     => 'split',
+        'badge'    => 'POWER GEAR',
+        'img'      => 'Knee-Wrap-800x800.jpg',
+        'sub'      => 'SQUAT WITH CONFIDENCE',
+        'title'    => 'Heavy Duty Knee Wraps',
+        'desc'     => 'Elastic reinforced knee wraps for maximum rebound, joint stabilization, and heavy squat performance.',
+        'features' => array('Heavy Rebound Elastic', 'Adjustable Tension', 'Joint Protection'),
+        'price'    => '€29.99',
+        'old'      => '€39.99',
+        'url'      => '/product-category/knee-wrap/'
+    ),
+    array(
+        'type'     => 'split',
+        'badge'    => 'BOXING & SPEED',
+        'img'      => '1-1-2-800x800.jpg',
+        'sub'      => 'TRAIN YOUR SPEED',
+        'title'    => 'Speed Ball Sets',
+        'desc'     => 'Genuine Maya Hide leather speed balls designed for boxing precision, reflex conditioning, and endurance.',
+        'features' => array('Maya Hide Leather', 'High Rebound Bladder', 'Double Stitching'),
+        'price'    => '€24.99',
+        'old'      => '€39.99',
+        'url'      => '/category/decoration/'
+    ),
+    array(
+        'type'     => 'photo',
+        'badge'    => 'ATHLETE SERIES',
+        'img'      => 'WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg',
+        'sub'      => 'CARRY EVERYTHING',
+        'title'    => 'Water Proof Gym Bags',
+        'desc'     => 'Durable, waterproof multi-compartment gym backpacks and duffels built for serious athletes.',
+        'features' => array('Waterproof Nylon', 'Shoe Compartment', 'Heavy-Duty Zips'),
+        'price'    => '€11.99',
+        'old'      => '€19.99',
+        'url'      => '/product-category/gym-bag/'
+    ),
 );
 
 $products     = nesports_catalog();
@@ -26,12 +82,46 @@ $bundle_tabs  = nesports_bundle_tabs();
         <div class="hb-hero-track" id="hb-hero-track">
             <?php foreach ($hero_slides as $i => $s): ?>
             <a class="hb-hero-slide hb-hero-slide--<?php echo esc_attr($s['type']); ?><?php echo $i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url(home_url($s['url'])); ?>">
-                <img src="<?php echo esc_url(nesports_img($s['img'])); ?>" alt="<?php echo esc_attr($s['title']); ?>"<?php echo $i > 0 ? ' loading="lazy"' : ''; ?>>
-                <span class="hb-hero-caption">
-                    <small><?php echo esc_html($s['sub']); ?></small>
-                    <strong><?php echo esc_html($s['title']); ?></strong>
-                    <em>Shop now <i class="fa-solid fa-arrow-right"></i></em>
-                </span>
+                <span class="hb-hero-watermark" aria-hidden="true">NESPORTS3</span>
+                
+                <div class="hb-hero-media">
+                    <img src="<?php echo esc_url(nesports_img($s['img'])); ?>" alt="<?php echo esc_attr($s['title']); ?>"<?php echo $i > 0 ? ' loading="lazy"' : ''; ?>>
+                </div>
+
+                <div class="hb-hero-caption">
+                    <?php if (!empty($s['badge'])): ?>
+                        <span class="hb-hero-badge"><i class="fa-solid fa-bolt"></i> <?php echo esc_html($s['badge']); ?></span>
+                    <?php endif; ?>
+
+                    <span class="hb-hero-sub"><?php echo esc_html($s['sub']); ?></span>
+                    <strong class="hb-hero-title"><?php echo esc_html($s['title']); ?></strong>
+                    
+                    <?php if (!empty($s['desc'])): ?>
+                        <p class="hb-hero-desc"><?php echo esc_html($s['desc']); ?></p>
+                    <?php endif; ?>
+
+                    <?php if (!empty($s['features'])): ?>
+                        <div class="hb-hero-features">
+                            <?php foreach ($s['features'] as $f): ?>
+                                <span class="hb-hero-feat"><i class="fa-solid fa-check"></i> <?php echo esc_html($f); ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="hb-hero-bottom-row">
+                        <?php if (!empty($s['price'])): ?>
+                            <div class="hb-hero-price-wrap">
+                                <span class="hb-hero-price-label">From</span>
+                                <span class="hb-hero-price-now"><?php echo esc_html($s['price']); ?></span>
+                                <?php if (!empty($s['old'])): ?>
+                                    <s class="hb-hero-price-old"><?php echo esc_html($s['old']); ?></s>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <span class="hb-hero-btn">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
             </a>
             <?php endforeach; ?>
         </div>
