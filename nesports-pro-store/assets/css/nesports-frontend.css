@@ -2528,130 +2528,57 @@ body.hb-theme button { font-family: inherit; }
     object-fit: contain;
 }
 
+/* ==========================================================================
+   STOCKHOLM 36 MINIMAL PRODUCT DETAIL VIEW
+   ========================================================================== */
 .hb-pdp-info {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-.hb-pdp-cat-eyebrow {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--hb-accent);
-    text-transform: uppercase;
+    gap: 12px;
+    padding-top: 6px;
 }
 
 .hb-pdp-title {
-    font-size: clamp(26px, 3.2vw, 36px);
-    font-weight: 800;
-    color: #111827;
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 500;
+    color: #18181b;
     margin: 0;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-}
-
-.hb-pdp-reviews-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13.5px;
-}
-
-.hb-stars {
-    color: #f59e0b;
-    font-size: 13px;
-}
-
-.hb-pdp-rating-score {
-    font-weight: 700;
-    color: #111827;
-}
-
-.hb-pdp-review-count {
-    color: #6b7280;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
 }
 
 .hb-pdp-price-wrap {
     display: flex;
     align-items: baseline;
-    gap: 14px;
-    margin: 4px 0;
+    gap: 10px;
+    margin: 2px 0 4px;
 }
 
 .hb-pdp-price-now {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--hb-accent);
+    font-size: 20px;
+    font-weight: 500;
+    color: #18181b; /* Clean black, NO red/pink */
 }
 
 .hb-pdp-price-old {
-    font-size: 20px;
-    color: #9ca3af;
+    font-size: 16px;
+    color: #a1a1aa;
     text-decoration: line-through;
-}
-
-.hb-pdp-save-pill {
-    background: #fef2f2;
-    color: var(--hb-accent);
-    border: 1px solid #fecaca;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 999px;
-}
-
-.hb-pdp-stock-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: #16a34a;
-}
-
-.hb-stock-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #16a34a;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+    font-weight: 400;
 }
 
 .hb-pdp-description {
-    color: #4b5563;
-    font-size: 15px;
+    color: #71717a;
+    font-size: 14.5px;
     line-height: 1.6;
-    margin: 4px 0;
-}
-
-.hb-pdp-highlights {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px 0;
-    border-top: 1px solid #f3f4f6;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.hb-pdp-hl {
-    font-size: 13.5px;
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-}
-
-.hb-pdp-hl i {
-    color: #16a34a;
-    font-size: 13px;
+    margin: 6px 0 12px;
+    max-width: 480px;
 }
 
 .hb-pdp-actions {
     display: flex;
-    gap: 14px;
-    margin-top: 10px;
+    gap: 12px;
+    margin: 8px 0 18px;
     align-items: stretch;
 }
 
@@ -2659,20 +2586,20 @@ body.hb-theme button { font-family: inherit; }
     display: inline-flex;
     align-items: center;
     border: 1px solid #e4e4e7;
-    border-radius: 6px;
+    border-radius: 2px;
     overflow: hidden;
     background: #ffffff;
 }
 
 .hb-qty-btn {
-    width: 44px;
-    height: 50px;
-    background: #fafafa;
+    width: 38px;
+    height: 46px;
+    background: #ffffff;
     border: none;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 400;
     cursor: pointer;
-    color: #111827;
+    color: #18181b;
     transition: background 0.15s;
 }
 
@@ -2681,42 +2608,59 @@ body.hb-theme button { font-family: inherit; }
 }
 
 #hb-pdp-qty-input {
-    width: 48px;
-    height: 50px;
+    width: 40px;
+    height: 46px;
     border: none;
     text-align: center;
-    font-size: 15px;
-    font-weight: 700;
-    color: #111827;
+    font-size: 14px;
+    font-weight: 500;
+    color: #18181b;
     outline: none;
     background: transparent;
 }
 
 .hb-pdp-add-btn {
     flex: 1;
-    height: 50px;
-    background: #111111;
-    color: #ffffff;
-    border: 1px solid #111111;
-    border-radius: 6px;
-    font-size: 12.5px;
+    max-width: 220px;
+    height: 46px;
+    background: #18181b !important;
+    color: #ffffff !important;
+    border: 1px solid #18181b !important;
+    border-radius: 2px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
 .hb-pdp-add-btn:hover {
-    background: #ffffff;
-    color: #111111;
-    border-color: #111111;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    background: #ffffff !important;
+    color: #18181b !important;
+    border-color: #18181b !important;
+}
+
+.hb-pdp-meta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12.5px;
+    color: #8e8e93;
+    padding-top: 16px;
+    border-top: 1px solid #f1f2f5;
+}
+
+.hb-pdp-meta-item a {
+    color: #18181b;
+    text-decoration: none;
+}
+
+.hb-pdp-meta-item a:hover {
+    text-decoration: underline;
 }
 
 .hb-pdp-add-btn:active {

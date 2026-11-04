@@ -67,22 +67,9 @@ $related = array_slice($related, 0, 4);
                 </div>
             </div>
 
-            <!-- Right: Details & Buying Box -->
+            <!-- Right: Details & Buying Box (Clean Stockholm Minimalist) -->
             <div class="hb-pdp-info">
-                <span class="hb-pdp-cat-eyebrow"><?php echo esc_html($cat_name); ?></span>
                 <h1 class="hb-pdp-title"><?php echo esc_html($product['name']); ?></h1>
-
-                <div class="hb-pdp-reviews-row">
-                    <div class="hb-stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="hb-pdp-rating-score">4.9 / 5.0</span>
-                    <span class="hb-pdp-review-count">(54 verified reviews)</span>
-                </div>
 
                 <div class="hb-pdp-price-wrap">
                     <span class="hb-pdp-price-now"><?php echo esc_html(nesports_money($product['price'])); ?></span>
@@ -91,19 +78,8 @@ $related = array_slice($related, 0, 4);
                     <?php endif; ?>
                 </div>
 
-                <div class="hb-pdp-stock-status">
-                    <span class="hb-stock-dot"></span>
-                    <span>In stock &bull; Dispatches within 24 hours</span>
-                </div>
-
                 <div class="hb-pdp-description">
-                    <p>Engineered for maximum power and brutal gym sessions. Built using reinforced competition-grade materials with heavy-duty bar grip, ergonomic support, and industrial stitching to prevent tearing under extreme poundages.</p>
-                </div>
-
-                <div class="hb-pdp-highlights">
-                    <div class="hb-pdp-hl"><i class="fa-solid fa-check"></i> Heavy-duty industrial reinforced construction</div>
-                    <div class="hb-pdp-hl"><i class="fa-solid fa-check"></i> Tested and approved by competitive lifters</div>
-                    <div class="hb-pdp-hl"><i class="fa-solid fa-check"></i> Sweat-resistant, non-slip ergonomic finish</div>
+                    <p>Competition-grade construction engineered for stability, joint protection, and maximum lifting performance.</p>
                 </div>
 
                 <!-- Add to Cart Form -->
@@ -119,8 +95,13 @@ $related = array_slice($related, 0, 4);
                         data-name="<?php echo esc_attr($product['name']); ?>"
                         data-price="<?php echo esc_attr($product['price']); ?>"
                         data-img="<?php echo esc_url(nesports_img($product['main'])); ?>">
-                        <i class="fa-solid fa-cart-shopping"></i> ADD TO CART
+                        Add to cart
                     </button>
+                </div>
+
+                <div class="hb-pdp-meta-list">
+                    <div class="hb-pdp-meta-item"><span>Category:</span> <a href="<?php echo esc_url(home_url('/product-category/' . $product['cat'] . '/')); ?>"><?php echo esc_html(ucwords(strtolower($cat_name))); ?></a></div>
+                    <div class="hb-pdp-meta-item"><span>Shipping:</span> Free shipping on all orders</div>
                 </div>
             </div>
         </div>
