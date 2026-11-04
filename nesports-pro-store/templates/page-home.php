@@ -130,7 +130,6 @@ $bundle_tabs  = nesports_bundle_tabs();
                 $pct     = $on_sale ? round((1 - $p['price'] / $p['old']) * 100) : 0; ?>
             <article class="hb-card" data-cat="<?php echo esc_attr($p['cat']); ?>">
                 <a class="hb-card-media" href="<?php echo esc_url($url); ?>">
-                    <?php if ($on_sale): ?><span class="hb-save">Save <?php echo (int) $pct; ?>%</span><?php endif; ?>
                     <img class="hb-img-main" src="<?php echo esc_url(nesports_img($p['main'])); ?>" alt="<?php echo esc_attr($p['name']); ?>" loading="lazy">
                     <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                 </a>
@@ -205,7 +204,6 @@ $bundle_tabs  = nesports_bundle_tabs();
                 $pct = round((1 - $b['price'] / $b['old']) * 100); ?>
             <article class="hb-card" data-cat="<?php echo esc_attr($b['cat']); ?>">
                 <a class="hb-card-media hb-card-media--pair" href="<?php echo esc_url(home_url($b['url'])); ?>">
-                    <span class="hb-save">Save <?php echo (int) $pct; ?>%</span>
                     <img class="hb-pair-a" src="<?php echo esc_url(nesports_img($b['imgs'][0])); ?>" alt="" loading="lazy">
                     <img class="hb-pair-b" src="<?php echo esc_url(nesports_img($b['imgs'][1])); ?>" alt="" loading="lazy">
                 </a>

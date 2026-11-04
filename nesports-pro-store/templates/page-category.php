@@ -109,7 +109,6 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
                         $pct     = $on_sale ? round((1 - $p['price'] / $p['old']) * 100) : 0; ?>
                     <article class="hb-card">
                         <a class="hb-card-media" href="<?php echo esc_url($url); ?>">
-                            <?php if ($on_sale): ?><span class="hb-save">Save <?php echo (int) $pct; ?>%</span><?php endif; ?>
                             <img class="hb-img-main" src="<?php echo esc_url(nesports_img($p['main'])); ?>" alt="<?php echo esc_attr($p['name']); ?>" loading="lazy">
                             <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                         </a>

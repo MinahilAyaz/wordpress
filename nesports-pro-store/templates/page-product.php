@@ -52,9 +52,6 @@ $related = array_slice($related, 0, 4);
             <!-- Left: Gallery -->
             <div class="hb-pdp-gallery">
                 <div class="hb-pdp-main-img-wrap">
-                    <?php if ($on_sale): ?>
-                        <span class="hb-pdp-badge">Save <?php echo (int) $pct; ?>%</span>
-                    <?php endif; ?>
                     <img id="hb-pdp-active-img" src="<?php echo esc_url(nesports_img($product['main'])); ?>" alt="<?php echo esc_attr($product['name']); ?>" class="hb-pdp-active-img">
                 </div>
 
@@ -91,7 +88,6 @@ $related = array_slice($related, 0, 4);
                     <span class="hb-pdp-price-now"><?php echo esc_html(nesports_money($product['price'])); ?></span>
                     <?php if ($on_sale): ?>
                         <s class="hb-pdp-price-old"><?php echo esc_html(nesports_money($product['old'])); ?></s>
-                        <span class="hb-pdp-save-pill">Save <?php echo esc_html(nesports_money($product['old'] - $product['price'])); ?></span>
                     <?php endif; ?>
                 </div>
 
@@ -166,7 +162,6 @@ $related = array_slice($related, 0, 4);
                     $r_pct     = $r_sale ? round((1 - $r['price'] / $r['old']) * 100) : 0; ?>
                 <article class="hb-card">
                     <a class="hb-card-media" href="<?php echo esc_url($r_url); ?>">
-                        <?php if ($r_sale): ?><span class="hb-save">Save <?php echo (int) $r_pct; ?>%</span><?php endif; ?>
                         <img class="hb-img-main" src="<?php echo esc_url(nesports_img($r['main'])); ?>" alt="<?php echo esc_attr($r['name']); ?>" loading="lazy">
                         <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($r['hover'])); ?>" alt="" loading="lazy">
                     </a>
