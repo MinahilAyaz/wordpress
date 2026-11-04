@@ -61,50 +61,26 @@ $bundle_tabs  = nesports_bundle_tabs();
 
 <main class="hb-main">
 
-    <!-- HERO CAROUSEL (neighbouring slides peek at both edges) -->
-    <section class="hb-hero" id="hb-hero">
-        <div class="hb-hero-track" id="hb-hero-track">
-            <?php foreach ($hero_slides as $i => $s): ?>
-            <a class="hb-hero-slide hb-hero-slide--<?php echo esc_attr($s['type']); ?><?php echo $i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url(home_url($s['url'])); ?>">
-                <span class="hb-hero-watermark" aria-hidden="true">NESPORTS3</span>
-                
-                <div class="hb-hero-media">
-                    <img src="<?php echo esc_url(nesports_img($s['img'])); ?>" alt="<?php echo esc_attr($s['title']); ?>"<?php echo $i > 0 ? ' loading="lazy"' : ''; ?>>
-                </div>
-
-                <div class="hb-hero-caption">
-                    <?php if (!empty($s['badge'])): ?>
-                        <span class="hb-hero-badge"><i class="fa-solid fa-bolt"></i> <?php echo esc_html($s['badge']); ?></span>
-                    <?php endif; ?>
-
-                    <span class="hb-hero-sub"><?php echo esc_html($s['sub']); ?></span>
-                    <strong class="hb-hero-title"><?php echo esc_html($s['title']); ?></strong>
-                    
-                    <?php if (!empty($s['desc'])): ?>
-                        <p class="hb-hero-desc"><?php echo esc_html($s['desc']); ?></p>
-                    <?php endif; ?>
-
-                    <div class="hb-hero-bottom-row">
-                        <?php if (!empty($s['price'])): ?>
-                            <div class="hb-hero-price-wrap">
-                                <span class="hb-hero-price-label">From</span>
-                                <span class="hb-hero-price-now"><?php echo esc_html($s['price']); ?></span>
-                                <?php if (!empty($s['old'])): ?>
-                                    <s class="hb-hero-price-old"><?php echo esc_html($s['old']); ?></s>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-
-                        <span class="hb-hero-btn">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </div>
+    <!-- STATIC HERO BANNER (Stockholm 103 Scandinavian Style) -->
+    <section class="hb-static-hero" id="hb-hero">
+        <div class="hb-static-hero-media">
+            <img src="<?php echo esc_url(nesports_img('DSC_2246-scaled.jpg')); ?>" alt="NESPORTS3 Power Gear" class="hb-static-hero-img">
+            <div class="hb-static-hero-overlay"></div>
+            
+            <a class="hb-static-hero-play" href="<?php echo esc_url(home_url('/shop/')); ?>" aria-label="Explore NESPORTS3 Gear">
+                <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="27" cy="27" r="25.5" stroke="rgba(255,255,255,0.75)" stroke-width="1.8"/>
+                    <polygon points="22,17 38,27 22,37" fill="rgba(255,255,255,0.9)" stroke="none"/>
+                </svg>
             </a>
-            <?php endforeach; ?>
-        </div>
-        <div class="hb-hero-dots" id="hb-hero-dots">
-            <?php foreach ($hero_slides as $i => $s): ?>
-                <button type="button" class="<?php echo $i === 0 ? 'is-active' : ''; ?>" data-slide="<?php echo (int) $i; ?>" aria-label="Slide <?php echo (int) $i + 1; ?>"></button>
-            <?php endforeach; ?>
+
+            <div class="hb-static-hero-caption">
+                <span class="hb-static-hero-sub">AUTHENTIC ATHLETE SERIES</span>
+                <h1 class="hb-static-hero-title">Strength Is Earned.</h1>
+                <a class="hb-static-hero-btn" href="<?php echo esc_url(home_url('/shop/')); ?>">
+                    Shop Collection
+                </a>
+            </div>
         </div>
     </section>
 
@@ -150,48 +126,6 @@ $bundle_tabs  = nesports_bundle_tabs();
                 </div>
             </article>
             <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- MID-PAGE SPLIT EDITORIAL BANNER (Stockholm 103 Scandinavian Style) -->
-    <section class="hb-editorial-section">
-        <div class="hb-editorial-container">
-            <div class="hb-editorial-media">
-                <img src="<?php echo esc_url(nesports_img('DSC_2246-scaled.jpg')); ?>" alt="NESPORTS3 Pro Powerlifting Series" loading="lazy">
-                <div class="hb-editorial-badge">
-                    <span>100% AUTHENTIC</span>
-                    <strong>PRO POWER SERIES</strong>
-                </div>
-            </div>
-            <div class="hb-editorial-content">
-                <span class="hb-editorial-eyebrow">BEHIND THE CRAFT &bull; ATHLETE SERIES</span>
-                <h2 class="hb-editorial-title">Engineered for brutal lifts &amp; record PRs.</h2>
-                <p class="hb-editorial-lead">
-                    Built for lifters who refuse to compromise on core stability. Every belt and wrap is crafted from competition-grade leather with industrial reinforced stitching that will never buckle under maximum load.
-                </p>
-                <div class="hb-editorial-specs">
-                    <div class="hb-editorial-spec">
-                        <span class="hb-spec-num">10mm / 13mm</span>
-                        <span class="hb-spec-lbl">Competition Leather</span>
-                    </div>
-                    <div class="hb-editorial-spec">
-                        <span class="hb-spec-num">Stainless Steel</span>
-                        <span class="hb-spec-lbl">Quick-Release Buckle</span>
-                    </div>
-                    <div class="hb-editorial-spec">
-                        <span class="hb-spec-num">IPF Spec</span>
-                        <span class="hb-spec-lbl">Maximum Core Bracing</span>
-                    </div>
-                </div>
-                <div class="hb-editorial-actions">
-                    <a class="hb-editorial-btn" href="<?php echo esc_url(home_url('/product-category/weightlifting-belts/')); ?>">
-                        Explore Power Belts <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a class="hb-editorial-link" href="<?php echo esc_url(home_url('/our-story/')); ?>">
-                        Our Story
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
 
