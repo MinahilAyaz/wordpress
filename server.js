@@ -91,9 +91,14 @@ http.createServer((req, res) => {
         const relative = cleanPath.replace(/^\/nesports-pro-store\//, '');
         const file = path.normalize(path.join(PLUGIN_DIR, relative));
         if (file.startsWith(PLUGIN_DIR) && fs.existsSync(file) && fs.statSync(file).isFile()) {
+            const ext = path.extname(file).toLowerCase();
             res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Cache-Control', 'public, max-age=86400');
-            res.writeHead(200, { 'Content-Type': mime[path.extname(file).toLowerCase()] || 'application/octet-stream' });
+            if (ext === '.css' || ext === '.js') {
+                res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            } else {
+                res.setHeader('Cache-Control', 'public, max-age=86400');
+            }
+            res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
             return fs.createReadStream(file).pipe(res);
         }
         res.writeHead(404);

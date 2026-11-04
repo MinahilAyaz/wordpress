@@ -127,41 +127,26 @@ $bundle_tabs  = nesports_bundle_tabs();
             <?php foreach ($products as $p):
                 $url     = home_url('/product/' . $p['slug'] . '/');
                 $on_sale = $p['old'] > $p['price'];
-                $pct     = $on_sale ? round((1 - $p['price'] / $p['old']) * 100) : 0;
-                $cat_lbl = $categories[$p['cat']] ?? 'TRAINING GEAR';
-                $rev_cnt = $p['reviews'] ?? 50; ?>
+                $pct     = $on_sale ? round((1 - $p['price'] / $p['old']) * 100) : 0; ?>
             <article class="hb-card" data-cat="<?php echo esc_attr($p['cat']); ?>">
                 <div class="hb-card-top-wrap">
                     <a class="hb-card-media" href="<?php echo esc_url($url); ?>">
                         <?php if ($on_sale): ?>
-                            <span class="hb-card-badge">Save <?php echo (int) $pct; ?>%</span>
+                            <span class="hb-card-badge">Sale</span>
                         <?php endif; ?>
                         <img class="hb-img-main" src="<?php echo esc_url(nesports_img($p['main'])); ?>" alt="<?php echo esc_attr($p['name']); ?>" loading="lazy">
                         <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                     </a>
+                    <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr($p['slug']); ?>" data-name="<?php echo esc_attr($p['name']); ?>" data-price="<?php echo esc_attr($p['price']); ?>" data-img="<?php echo esc_url(nesports_img($p['main'])); ?>" aria-label="Add <?php echo esc_attr($p['name']); ?> to cart">
+                        Add to cart
+                    </button>
                 </div>
                 <div class="hb-card-body">
-                    <span class="hb-card-cat"><?php echo esc_html($cat_lbl); ?></span>
                     <h3 class="hb-card-title"><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($p['name']); ?></a></h3>
-                    <div class="hb-card-rating">
-                        <div class="hb-stars">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <span class="hb-review-count">(<?php echo (int) $rev_cnt; ?>)</span>
+                    <div class="hb-card-price<?php echo $on_sale ? ' is-sale' : ''; ?>">
+                        <span class="now"><?php echo esc_html(nesports_money($p['price'])); ?></span>
+                        <?php if ($on_sale): ?><s><?php echo esc_html(nesports_money($p['old'])); ?></s><?php endif; ?>
                     </div>
-                    <div class="hb-card-price-row">
-                        <div class="hb-card-price<?php echo $on_sale ? ' is-sale' : ''; ?>">
-                            <span class="now"><?php echo esc_html(nesports_money($p['price'])); ?></span>
-                            <?php if ($on_sale): ?><s><?php echo esc_html(nesports_money($p['old'])); ?></s><?php endif; ?>
-                        </div>
-                    </div>
-                    <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr($p['slug']); ?>" data-name="<?php echo esc_attr($p['name']); ?>" data-price="<?php echo esc_attr($p['price']); ?>" data-img="<?php echo esc_url(nesports_img($p['main'])); ?>" aria-label="Add <?php echo esc_attr($p['name']); ?> to cart">
-                        <i class="fa-solid fa-plus"></i> QUICK ADD
-                    </button>
                 </div>
             </article>
             <?php endforeach; ?>
