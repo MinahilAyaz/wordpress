@@ -24,15 +24,15 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
                 <!-- Right: Official Extracted Story Text -->
                 <div class="hb-about-text-col">
-                    <p>At <strong>NE Sports3</strong>, we believe sports and fitness are more than just activities – they are a lifestyle. Our mission is to empower athletes, fitness enthusiasts, and everyday champions with the <strong>highest-quality sports and gym products</strong> that inspire performance, strength, and confidence.</p>
+                    <p>At NE Sports3, we believe sports and fitness are more than just activities – they are a lifestyle. Our mission is to empower athletes, fitness enthusiasts, and everyday champions with the highest-quality sports and gym products that inspire performance, strength, and confidence.</p>
 
                     <p>From durable gym equipment and training accessories to premium sports gear, we carefully select every product to ensure it meets the needs of both beginners and professionals. Whether you’re building strength in the gym, training for competition, or simply staying active, NE Sports3 is here to support your journey.</p>
 
-                    <p>We are passionate about helping our community stay fit, healthy, and motivated. That’s why we combine <strong>top-notch products, affordable prices, and reliable service</strong> – because your goals matter to us.</p>
+                    <p>We are passionate about helping our community stay fit, healthy, and motivated. That’s why we combine top-notch products, affordable prices, and reliable service – because your goals matter to us.</p>
 
                     <p>At NE Sports3, it’s not just about products, it’s about progress. Let us be your trusted partner in achieving your fitness and sports ambitions.</p>
 
-                    <p class="hb-about-motto"><strong>Train harder. Play stronger. Live better – with NE Sports3.</strong></p>
+                    <p class="hb-about-motto">Train harder. Play stronger. Live better – with NE Sports3.</p>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
 .hb-about-banner-title {
     font-size: clamp(32px, 4vw, 48px);
-    font-weight: 700;
+    font-weight: 400;
     color: #ffffff;
     margin: 0;
     font-family: var(--hb-font);
@@ -106,7 +106,7 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
 .hb-about-text-col strong {
     color: #111827;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .hb-about-motto {

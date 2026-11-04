@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!s.length) return;
         idx = (i + s.length) % s.length;
         var w = s[0].getBoundingClientRect().width;
-        var gap = parseFloat(getComputedStyle(track).columnGap) || 14;
+        var cs = getComputedStyle(track);
+        var gap = parseFloat(cs.gap) || parseFloat(cs.columnGap) || 0;
         track.style.transform = 'translateX(' + ((hero.clientWidth - w) / 2 - idx * (w + gap)) + 'px)';
         Array.prototype.forEach.call(s, function (el, n) { el.classList.toggle('is-active', n === idx); });
         dots.forEach(function (d, n) { d.classList.toggle('is-active', n === idx); });
@@ -455,6 +456,28 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 1200);
         });
     });
+
+    // Sticky Transparent / Frosted Header on Scroll
+    var header = document.getElementById('hb-main-header');
+    if (header) {
+        var heroEl = document.getElementById('hb-hero');
+        var handleScroll = function () {
+            var scrollY = window.scrollY || window.pageYOffset || 0;
+            if (scrollY > 39) {
+                header.classList.add('is-sticky');
+            } else {
+                header.classList.remove('is-sticky');
+            }
+            var scrollThreshold = heroEl ? Math.max(heroEl.offsetHeight - 90, 420) : 39;
+            if (scrollY > scrollThreshold) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+    }
 
     // Initial render of cart
     renderCart();

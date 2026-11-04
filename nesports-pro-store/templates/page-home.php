@@ -61,11 +61,11 @@ $bundle_tabs  = nesports_bundle_tabs();
 
 <main class="hb-main">
 
-    <!-- HERO CAROUSEL (neighbouring slides peek at both edges) -->
+    <!-- HERO CAROUSEL -->
     <section class="hb-hero" id="hb-hero">
         <div class="hb-hero-track" id="hb-hero-track">
             <?php foreach ($hero_slides as $i => $s): ?>
-            <a class="hb-hero-slide hb-hero-slide--<?php echo esc_attr($s['type']); ?><?php echo $i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url(home_url($s['url'])); ?>">
+            <div class="hb-hero-slide hb-hero-slide--<?php echo esc_attr($s['type']); ?><?php echo $i === 0 ? ' is-active' : ''; ?>">
                 <span class="hb-hero-watermark" aria-hidden="true">NESPORTS3</span>
                 
                 <div class="hb-hero-media">
@@ -73,32 +73,19 @@ $bundle_tabs  = nesports_bundle_tabs();
                 </div>
 
                 <div class="hb-hero-caption">
-                    <?php if (!empty($s['badge'])): ?>
-                        <span class="hb-hero-badge"><i class="fa-solid fa-bolt"></i> <?php echo esc_html($s['badge']); ?></span>
-                    <?php endif; ?>
-
                     <span class="hb-hero-sub"><?php echo esc_html($s['sub']); ?></span>
-                    <strong class="hb-hero-title"><?php echo esc_html($s['title']); ?></strong>
+                    <h2 class="hb-hero-title"><?php echo esc_html($s['title']); ?></h2>
                     
                     <?php if (!empty($s['desc'])): ?>
                         <p class="hb-hero-desc"><?php echo esc_html($s['desc']); ?></p>
                     <?php endif; ?>
 
                     <div class="hb-hero-bottom-row">
-                        <?php if (!empty($s['price'])): ?>
-                            <div class="hb-hero-price-wrap">
-                                <span class="hb-hero-price-label">From</span>
-                                <span class="hb-hero-price-now"><?php echo esc_html($s['price']); ?></span>
-                                <?php if (!empty($s['old'])): ?>
-                                    <s class="hb-hero-price-old"><?php echo esc_html($s['old']); ?></s>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-
-                        <span class="hb-hero-btn">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+                        <a href="<?php echo esc_url(home_url($s['url'])); ?>" class="hb-hero-btn hb-hero-btn--red">SHOP NOW</a>
+                        <a href="<?php echo esc_url(home_url('/shop/')); ?>" class="hb-hero-btn hb-hero-btn--white">VIEW ALL PRODUCTS</a>
                     </div>
                 </div>
-            </a>
+            </div>
             <?php endforeach; ?>
         </div>
         <div class="hb-hero-dots" id="hb-hero-dots">

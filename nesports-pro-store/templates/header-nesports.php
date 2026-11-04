@@ -5,6 +5,8 @@
 $settings = get_option('nesports_store_settings', array());
 $announcement = !empty($settings['announcement_text']) ? $settings['announcement_text'] : 'Free shipping on all orders';
 $current_page = basename($_SERVER['REQUEST_URI'] ?? '');
+$request_path = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
+$is_home_page = getenv('NES_PAGE') !== false ? (getenv('NES_PAGE') === 'home') : (empty($request_path) || $request_path === 'home' || $request_path === 'wordpress' || (function_exists('is_front_page') && (is_front_page() || is_home())));
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -39,7 +41,7 @@ $current_page = basename($_SERVER['REQUEST_URI'] ?? '');
 </div>
 
 <!-- 2. Main Navigation Header -->
-<header class="hb-header" id="hb-main-header">
+<header class="hb-header<?php echo $is_home_page ? ' hb-header--overlay' : ''; ?>" id="hb-main-header">
     <div class="hb-header-inner">
         <a class="hb-logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="NESPORTS3">
             <img src="<?php echo esc_url(nesports_img('logo-1.png')); ?>" alt="NESPORTS3">

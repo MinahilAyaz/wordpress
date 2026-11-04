@@ -22,7 +22,7 @@ function wp_title() { echo 'NESPORTS3 | Lifting Gear'; }
 function body_class($c = '') { echo 'class="' . esc_attr($c) . '"'; }
 function wp_head() {
     $accent = $GLOBALS['nes_settings']['accent_color'] ?? '#e11d48';
-    echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">';
+    echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap">';
     echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">';
     echo '<link rel="stylesheet" href="' . NESPORTS_PLUGIN_URL . 'assets/css/nesports-frontend.css?v=' . time() . '">';
     echo '<style>:root{--hb-accent:' . esc_attr($accent) . ';}</style>';

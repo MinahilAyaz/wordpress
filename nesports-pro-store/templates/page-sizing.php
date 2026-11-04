@@ -103,7 +103,7 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
         </section>
 
         <div style="margin-top: 50px; text-align: center;">
-            <a href="<?php echo esc_url(home_url('/shop/')); ?>" class="hb-btn-red" style="display: inline-block; padding: 14px 32px; font-size: 14px; font-weight: 700; border-radius: 8px; text-decoration: none;">EXPLORE THE COLLECTION</a>
+            <a href="<?php echo esc_url(home_url('/shop/')); ?>" class="hb-btn-red" style="display: inline-block; padding: 14px 32px; font-size: 14px; font-weight: 400; border-radius: 8px; text-decoration: none;">EXPLORE THE COLLECTION</a>
         </div>
     </div>
 </main>
@@ -118,7 +118,7 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 }
 .hb-sizing-head h2 {
     font-size: 19px;
-    font-weight: 700;
+    font-weight: 400;
     color: #111827;
     margin: 0 0 6px;
     display: flex;
@@ -137,7 +137,7 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 .hb-spec-row--head {
     background: #111827 !important;
     color: #ffffff;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 13px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
