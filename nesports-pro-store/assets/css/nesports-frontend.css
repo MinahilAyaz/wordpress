@@ -470,27 +470,41 @@ body.hb-theme button { font-family: inherit; }
 
 .hb-card-media {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    width: 100%;
     aspect-ratio: 1 / 1;
     background: #f6f6f8;
-    padding: 24px;
     overflow: hidden;
+    border-radius: 18px 18px 0 0;
 }
 .hb-card-media img {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 12px;
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
     object-fit: contain;
+    object-position: center center;
     mix-blend-mode: multiply;
     transition: opacity .35s ease, transform .45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .hb-card:hover .hb-card-media img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
-.hb-img-hover { opacity: 0; }
-.hb-card:hover .hb-img-hover { opacity: 1; }
-.hb-card:hover .hb-img-main { opacity: 0; }
+.hb-img-main {
+    opacity: 1;
+    z-index: 1;
+}
+.hb-img-hover {
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+.hb-card:hover .hb-img-hover {
+    opacity: 1;
+}
+.hb-card:hover .hb-img-main {
+    opacity: 0;
+}
 
 .hb-card-body {
     padding: 18px 18px 22px;
