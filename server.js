@@ -82,9 +82,17 @@ http.createServer((req, res) => {
         return res.end(renderAdmin());
     }
 
-    if (pathname.startsWith('/nesports-pro-store/')) {
-        const file = path.normalize(path.join(ROOT, pathname));
+    let cleanPath = decodeURIComponent(pathname);
+    if (cleanPath.startsWith('/wp-content/plugins/nesports-pro-store/')) {
+        cleanPath = cleanPath.replace('/wp-content/plugins', '');
+    }
+
+    if (cleanPath.startsWith('/nesports-pro-store/')) {
+        const relative = cleanPath.replace(/^\/nesports-pro-store\//, '');
+        const file = path.normalize(path.join(PLUGIN_DIR, relative));
         if (file.startsWith(PLUGIN_DIR) && fs.existsSync(file) && fs.statSync(file).isFile()) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Cache-Control', 'public, max-age=86400');
             res.writeHead(200, { 'Content-Type': mime[path.extname(file).toLowerCase()] || 'application/octet-stream' });
             return fs.createReadStream(file).pipe(res);
         }
