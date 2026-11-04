@@ -153,6 +153,48 @@ $bundle_tabs  = nesports_bundle_tabs();
         </div>
     </section>
 
+    <!-- MID-PAGE SPLIT EDITORIAL BANNER (Stockholm 103 Scandinavian Style) -->
+    <section class="hb-editorial-section">
+        <div class="hb-editorial-container">
+            <div class="hb-editorial-media">
+                <img src="<?php echo esc_url(nesports_img('DSC_2246-scaled.jpg')); ?>" alt="NESPORTS3 Pro Powerlifting Series" loading="lazy">
+                <div class="hb-editorial-badge">
+                    <span>100% AUTHENTIC</span>
+                    <strong>PRO POWER SERIES</strong>
+                </div>
+            </div>
+            <div class="hb-editorial-content">
+                <span class="hb-editorial-eyebrow">BEHIND THE CRAFT &bull; ATHLETE SERIES</span>
+                <h2 class="hb-editorial-title">Engineered for brutal lifts &amp; record PRs.</h2>
+                <p class="hb-editorial-lead">
+                    Built for lifters who refuse to compromise on core stability. Every belt and wrap is crafted from competition-grade leather with industrial reinforced stitching that will never buckle under maximum load.
+                </p>
+                <div class="hb-editorial-specs">
+                    <div class="hb-editorial-spec">
+                        <span class="hb-spec-num">10mm / 13mm</span>
+                        <span class="hb-spec-lbl">Competition Leather</span>
+                    </div>
+                    <div class="hb-editorial-spec">
+                        <span class="hb-spec-num">Stainless Steel</span>
+                        <span class="hb-spec-lbl">Quick-Release Buckle</span>
+                    </div>
+                    <div class="hb-editorial-spec">
+                        <span class="hb-spec-num">IPF Spec</span>
+                        <span class="hb-spec-lbl">Maximum Core Bracing</span>
+                    </div>
+                </div>
+                <div class="hb-editorial-actions">
+                    <a class="hb-editorial-btn" href="<?php echo esc_url(home_url('/product-category/weightlifting-belts/')); ?>">
+                        Explore Power Belts <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a class="hb-editorial-link" href="<?php echo esc_url(home_url('/our-story/')); ?>">
+                        Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- YOURS TO MAKE (dark brand band) -->
     <section class="hb-make" style="--make-bg: url('<?php echo esc_url(nesports_img('WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg')); ?>');">
         <div class="hb-make-inner">
