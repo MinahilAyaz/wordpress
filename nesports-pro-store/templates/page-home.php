@@ -61,26 +61,50 @@ $bundle_tabs  = nesports_bundle_tabs();
 
 <main class="hb-main">
 
-    <!-- STATIC HERO BANNER (Stockholm 103 Scandinavian Style) -->
-    <section class="hb-static-hero" id="hb-hero">
-        <div class="hb-static-hero-media">
-            <img src="<?php echo esc_url(nesports_img('DSC_2246-scaled.jpg')); ?>" alt="NESPORTS3 Power Gear" class="hb-static-hero-img">
-            <div class="hb-static-hero-overlay"></div>
-            
-            <a class="hb-static-hero-play" href="<?php echo esc_url(home_url('/shop/')); ?>" aria-label="Explore NESPORTS3 Gear">
-                <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="27" cy="27" r="25.5" stroke="rgba(255,255,255,0.75)" stroke-width="1.8"/>
-                    <polygon points="22,17 38,27 22,37" fill="rgba(255,255,255,0.9)" stroke="none"/>
-                </svg>
-            </a>
+    <!-- HERO CAROUSEL (neighbouring slides peek at both edges) -->
+    <section class="hb-hero" id="hb-hero">
+        <div class="hb-hero-track" id="hb-hero-track">
+            <?php foreach ($hero_slides as $i => $s): ?>
+            <a class="hb-hero-slide hb-hero-slide--<?php echo esc_attr($s['type']); ?><?php echo $i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url(home_url($s['url'])); ?>">
+                <span class="hb-hero-watermark" aria-hidden="true">NESPORTS3</span>
+                
+                <div class="hb-hero-media">
+                    <img src="<?php echo esc_url(nesports_img($s['img'])); ?>" alt="<?php echo esc_attr($s['title']); ?>"<?php echo $i > 0 ? ' loading="lazy"' : ''; ?>>
+                </div>
 
-            <div class="hb-static-hero-caption">
-                <span class="hb-static-hero-sub">AUTHENTIC ATHLETE SERIES</span>
-                <h1 class="hb-static-hero-title">Strength Is Earned.</h1>
-                <a class="hb-static-hero-btn" href="<?php echo esc_url(home_url('/shop/')); ?>">
-                    Shop Collection
-                </a>
-            </div>
+                <div class="hb-hero-caption">
+                    <?php if (!empty($s['badge'])): ?>
+                        <span class="hb-hero-badge"><i class="fa-solid fa-bolt"></i> <?php echo esc_html($s['badge']); ?></span>
+                    <?php endif; ?>
+
+                    <span class="hb-hero-sub"><?php echo esc_html($s['sub']); ?></span>
+                    <strong class="hb-hero-title"><?php echo esc_html($s['title']); ?></strong>
+                    
+                    <?php if (!empty($s['desc'])): ?>
+                        <p class="hb-hero-desc"><?php echo esc_html($s['desc']); ?></p>
+                    <?php endif; ?>
+
+                    <div class="hb-hero-bottom-row">
+                        <?php if (!empty($s['price'])): ?>
+                            <div class="hb-hero-price-wrap">
+                                <span class="hb-hero-price-label">From</span>
+                                <span class="hb-hero-price-now"><?php echo esc_html($s['price']); ?></span>
+                                <?php if (!empty($s['old'])): ?>
+                                    <s class="hb-hero-price-old"><?php echo esc_html($s['old']); ?></s>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <span class="hb-hero-btn">SHOP NOW <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </a>
+            <?php endforeach; ?>
+        </div>
+        <div class="hb-hero-dots" id="hb-hero-dots">
+            <?php foreach ($hero_slides as $i => $s): ?>
+                <button type="button" class="<?php echo $i === 0 ? 'is-active' : ''; ?>" data-slide="<?php echo (int) $i; ?>" aria-label="Slide <?php echo (int) $i + 1; ?>"></button>
+            <?php endforeach; ?>
         </div>
     </section>
 
@@ -129,15 +153,22 @@ $bundle_tabs  = nesports_bundle_tabs();
         </div>
     </section>
 
-    <!-- YOURS TO MAKE (dark brand band) -->
-    <section class="hb-make" style="--make-bg: url('<?php echo esc_url(nesports_img('WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg')); ?>');">
-        <div class="hb-make-inner">
-            <span class="hb-eyebrow">STRENGTH ISN'T GIVEN. IT'S EARNED.</span>
-            <h2>Yours To Make</h2>
-            <p>NESPORTS3 is a community of lifters built on self-development, discipline and drive.</p>
-            <p>Every piece of gear we make is designed for the way you train: padded straps for heavy pulls, wraps for heavy squats, speed balls for fast hands and bags that carry it all. Our products are made to be used hard, session after session.</p>
-            <p>We build for progress. Whether you are chasing your first PR or your hundredth, NESPORTS3 is here to help you get there.</p>
-            <a class="hb-btn" href="<?php echo esc_url(home_url('/our-story/')); ?>">Our story</a>
+    <!-- STOCKHOLM 103 MID-PAGE STATIC PARALLAX BANNER -->
+    <section class="hb-static-banner" style="--static-bg: url('<?php echo esc_url(nesports_img('DSC_2246-scaled.jpg')); ?>');">
+        <div class="hb-static-banner-overlay"></div>
+        <div class="hb-static-banner-content">
+            <span class="hb-static-banner-eyebrow">STRENGTH ISN'T GIVEN. IT'S EARNED.</span>
+            <h2 class="hb-static-banner-title">BUILT FOR PROGRESS.<br>ENGINEERED TO ENDURE.</h2>
+            <div class="hb-static-banner-action">
+                <a class="hb-static-play-btn" href="<?php echo esc_url(home_url('/our-story/')); ?>" aria-label="Explore our story">
+                    <span class="hb-static-play-icon">
+                        <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.5 13.134C23.1667 13.5189 23.1667 14.4811 22.5 14.866L3 26.1244C2.33333 26.5093 1.5 26.0281 1.5 25.2583L1.5 2.74167C1.5 1.97187 2.33333 1.49074 3 1.87564L22.5 13.134Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="hb-static-play-label">OUR STORY</span>
+                </a>
+            </div>
         </div>
     </section>
 
