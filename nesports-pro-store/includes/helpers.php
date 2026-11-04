@@ -53,16 +53,40 @@ function nesports_catalog() {
     );
 }
 
-/** Collections carousel tiles (label, image, 'product' = light tile / 'photo' = full-bleed tile, link). */
+/**
+ * 4 Clean Aesthetic Curated Categories (Stockholm Scandinavian Style).
+ * Replaces repetitive single-product tiles with high-level category cards.
+ */
 function nesports_collections() {
     return array(
-        array('label' => 'Lifting Straps',      'img' => 'A2.jpg',                         'type' => 'product', 'url' => '/product-category/lifting-straps/'),
-        array('label' => 'Knee Wraps',          'img' => 'Knee-Wrap-800x800.jpg',          'type' => 'product', 'url' => '/product-category/knee-wrap/'),
-        array('label' => 'Wrist Wraps',         'img' => 'Wrist-Bandage-Black-800x800.jpg','type' => 'product', 'url' => '/product-category/wrist-straps/'),
-        array('label' => 'Speed Ball',          'img' => '1-1-2-800x800.jpg',              'type' => 'product', 'url' => '/category/decoration/'),
-        array('label' => 'Gym Bags',            'img' => 'Gym-Bag-8-800x800.jpg',          'type' => 'product', 'url' => '/product-category/gym-bag/'),
-        array('label' => 'Barbell Pad',         'img' => 'DSC_0749-scaled.jpg',            'type' => 'photo',   'url' => '/product-category/barbell-pad/'),
-        array('label' => 'Weightlifting Belts', 'img' => 'DSC_0166-scaled-1.jpg',          'type' => 'product', 'url' => '/product-category/weightlifting-belts/'),
+        array(
+            'title'    => 'Weightlifting Belts',
+            'sub'      => '10mm & 13mm Lever Power Belts',
+            'img'      => 'DSC_0166-scaled-1.jpg',
+            'action'   => 'Explore Belts',
+            'url'      => '/product-category/weightlifting-belts/'
+        ),
+        array(
+            'title'    => 'Straps & Joint Wraps',
+            'sub'      => 'Knee Wraps & Padded Deadlift Straps',
+            'img'      => 'Knee-Wrap-800x800.jpg',
+            'action'   => 'Explore Wraps',
+            'url'      => '/product-category/lifting-straps/'
+        ),
+        array(
+            'title'    => 'Boxing & Speed Balls',
+            'sub'      => 'Maya Hide Leather Reflex Gear',
+            'img'      => '1-1-2-800x800.jpg',
+            'action'   => 'Explore Speed Gear',
+            'url'      => '/product-category/speed-ball/'
+        ),
+        array(
+            'title'    => 'Athlete Bags & Packs',
+            'sub'      => 'Waterproof Multi-Compartment Duffels',
+            'img'      => 'Gym-Bag-8-800x800.jpg',
+            'action'   => 'Explore Bags',
+            'url'      => '/product-category/gym-bag/'
+        ),
     );
 }
 

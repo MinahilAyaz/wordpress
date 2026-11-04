@@ -1073,7 +1073,181 @@ body.hb-theme button { font-family: inherit; }
 .hb-make p { color: #c9c9ce; font-size: 14px; line-height: 1.7; margin: 0 0 14px; }
 .hb-make .hb-btn { margin-top: 10px; }
 
-/* ---------- Generic content block (Collections / Bundles) ---------- */
+/* ==========================================================================
+   STOCKHOLM 36 SECTION HEADERS (Centered Scandinavian Luxury)
+   ========================================================================== */
+.hb-section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 36px;
+    padding: 0 16px;
+}
+
+.hb-section-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+
+.hb-section-title {
+    font-size: clamp(26px, 3.4vw, 38px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #18181b;
+    margin: 0 0 10px;
+}
+
+.hb-section-sub {
+    font-size: 14.5px;
+    color: #71717a;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* ==========================================================================
+   4 CLEAN AESTHETIC CATEGORY CARDS
+   ========================================================================== */
+.hb-collections-section {
+    padding: 64px 32px 56px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.hb-category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+}
+
+.hb-category-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none !important;
+    color: inherit !important;
+    background: transparent;
+    transition: transform 0.3s ease;
+}
+
+.hb-category-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #f6f6f7;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hb-category-media img {
+    position: absolute;
+    inset: 24px;
+    width: calc(100% - 48px);
+    height: calc(100% - 48px);
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hb-category-card:hover .hb-category-media img {
+    transform: scale(1.06);
+}
+
+.hb-category-info {
+    padding: 16px 4px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.hb-category-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #18181b;
+    margin: 0;
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+}
+
+.hb-category-card:hover .hb-category-title {
+    color: #000000;
+}
+
+.hb-category-sub {
+    font-size: 13px;
+    color: #8e8e93;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.hb-category-link {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #18181b;
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s ease;
+}
+
+.hb-category-card:hover .hb-category-link {
+    gap: 10px;
+}
+
+.hb-category-link i {
+    font-size: 10px;
+}
+
+/* ==========================================================================
+   BUNDLES SECTION (Clean Scandinavian Presentation)
+   ========================================================================== */
+.hb-bundles-section {
+    padding: 56px 32px 72px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid #f1f2f5;
+}
+
+.hb-pills--center {
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.hb-cards--center {
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .hb-category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hb-collections-section,
+    .hb-bundles-section {
+        padding: 40px 16px;
+    }
+    .hb-category-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .hb-category-media {
+        aspect-ratio: 1 / 1;
+    }
+}
+
+/* ---------- Legacy content block fallback ---------- */
 .hb-block { padding: 48px 32px 12px; }
 .hb-block-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; }
 .hb-block-title { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -.6px; }

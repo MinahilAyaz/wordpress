@@ -172,44 +172,43 @@ $bundle_tabs  = nesports_bundle_tabs();
         </div>
     </section>
 
-    <!-- COLLECTIONS -->
-    <section class="hb-block" id="collections" data-slider>
-        <div class="hb-block-head">
-            <h2 class="hb-block-title">Collections</h2>
-            <div class="hb-slider-arrows hb-slider-arrows--sm">
-                <button type="button" class="hb-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-                <button type="button" class="hb-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
+    <!-- FEATURED COLLECTIONS (4 Clean Aesthetic Category Cards) -->
+    <section class="hb-collections-section" id="collections">
+        <div class="hb-section-header">
+            <span class="hb-section-eyebrow">SHOP BY CATEGORY</span>
+            <h2 class="hb-section-title">Curated Collections</h2>
+            <p class="hb-section-sub">Explore our core product lines built for competitive lifting and high-intensity training.</p>
         </div>
-        <div class="hb-cards hb-tiles">
+        <div class="hb-category-grid">
             <?php foreach ($collections as $c): ?>
-            <a class="hb-tile hb-tile--<?php echo esc_attr($c['type']); ?>" href="<?php echo esc_url(home_url($c['url'])); ?>">
-                <img src="<?php echo esc_url(nesports_img($c['img'])); ?>" alt="<?php echo esc_attr($c['label']); ?>" loading="lazy">
-                <span class="hb-tile-label"><?php echo esc_html($c['label']); ?> <i class="fa-solid fa-arrow-right"></i></span>
+            <a class="hb-category-card" href="<?php echo esc_url(home_url($c['url'])); ?>">
+                <div class="hb-category-media">
+                    <img src="<?php echo esc_url(nesports_img($c['img'])); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+                </div>
+                <div class="hb-category-info">
+                    <h3 class="hb-category-title"><?php echo esc_html($c['title']); ?></h3>
+                    <p class="hb-category-sub"><?php echo esc_html($c['sub']); ?></p>
+                    <span class="hb-category-link"><?php echo esc_html($c['action']); ?> <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
             </a>
             <?php endforeach; ?>
         </div>
     </section>
 
-    <!-- BUNDLES -->
-    <section class="hb-block" id="bundles" data-slider>
-        <div class="hb-block-head hb-block-head--stack">
-            <div>
-                <h2 class="hb-block-title">NESPORTS3 Bundles</h2>
-                <p class="hb-block-sub">Power, protection &amp; performance built into every pack. Bundle and save.</p>
-            </div>
-            <div class="hb-slider-arrows hb-slider-arrows--sm">
-                <button type="button" class="hb-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-                <button type="button" class="hb-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
+    <!-- CURATED BUNDLES (Clean Scandinavian Layout) -->
+    <section class="hb-bundles-section" id="bundles" data-slider>
+        <div class="hb-section-header">
+            <span class="hb-section-eyebrow">SAVE 15% ON TRAINING KITS</span>
+            <h2 class="hb-section-title">Power Packs &amp; Bundles</h2>
+            <p class="hb-section-sub">Essential gear combinations engineered to work together. Hand-picked and bundled with exclusive savings.</p>
         </div>
-        <div class="hb-pills hb-pills--sm">
+        <div class="hb-pills hb-pills--center">
             <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>
             <?php foreach ($bundle_tabs as $key => $label): ?>
                 <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
             <?php endforeach; ?>
         </div>
-        <div class="hb-cards">
+        <div class="hb-cards hb-cards--center">
             <?php foreach ($bundles as $b):
                 $pct = round((1 - $b['price'] / $b['old']) * 100); ?>
             <article class="hb-card" data-cat="<?php echo esc_attr($b['cat']); ?>">
@@ -220,13 +219,11 @@ $bundle_tabs  = nesports_bundle_tabs();
                         <img class="hb-pair-b" src="<?php echo esc_url(nesports_img($b['imgs'][1])); ?>" alt="" loading="lazy">
                     </a>
                     <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr('bundle-' . $b['cat']); ?>" data-name="<?php echo esc_attr($b['name']); ?>" data-price="<?php echo esc_attr($b['price']); ?>" data-img="<?php echo esc_url(nesports_img($b['imgs'][0])); ?>" aria-label="Add <?php echo esc_attr($b['name']); ?> to cart">
-                        <i class="fa-solid fa-plus"></i> QUICK ADD
+                        Add to cart
                     </button>
                 </div>
                 <div class="hb-card-body">
-                    <div class="hb-card-meta">
-                        <h3><a href="<?php echo esc_url(home_url($b['url'])); ?>"><?php echo esc_html($b['name']); ?></a></h3>
-                    </div>
+                    <h3 class="hb-card-title"><a href="<?php echo esc_url(home_url($b['url'])); ?>"><?php echo esc_html($b['name']); ?></a></h3>
                     <div class="hb-card-price is-sale">
                         <span class="now"><?php echo esc_html(nesports_money($b['price'])); ?></span>
                         <s><?php echo esc_html(nesports_money($b['old'])); ?></s>
