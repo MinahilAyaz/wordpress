@@ -21,7 +21,6 @@ $email = !empty($settings['support_email']) ? $settings['support_email'] : 'supp
         </div>
         <div>
             <h4>SUPPORT</h4>
-            <a href="<?php echo esc_url(home_url('/sizing-guide/')); ?>">Sizing Guide</a>
             <a href="<?php echo esc_url(home_url('/our-story/')); ?>">Our Story</a>
             <a href="<?php echo esc_url(home_url('/contact-us/')); ?>">Contact</a>
         </div>

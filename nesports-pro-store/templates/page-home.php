@@ -104,10 +104,6 @@ $bundle_tabs  = nesports_bundle_tabs();
                     <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
                 <?php endforeach; ?>
             </div>
-            <div class="hb-slider-arrows">
-                <button type="button" class="hb-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-                <button type="button" class="hb-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
         </div>
 
         <div class="hb-cards">
@@ -118,9 +114,6 @@ $bundle_tabs  = nesports_bundle_tabs();
             <article class="hb-card" data-cat="<?php echo esc_attr($p['cat']); ?>">
                 <div class="hb-card-top-wrap">
                     <a class="hb-card-media" href="<?php echo esc_url($url); ?>">
-                        <?php if ($on_sale): ?>
-                            <span class="hb-card-badge">Sale</span>
-                        <?php endif; ?>
                         <img class="hb-img-main" src="<?php echo esc_url(nesports_img($p['main'])); ?>" alt="<?php echo esc_attr($p['name']); ?>" loading="lazy">
                         <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                     </a>
@@ -185,7 +178,7 @@ $bundle_tabs  = nesports_bundle_tabs();
     <!-- CURATED BUNDLES (Clean Scandinavian Layout) -->
     <section class="hb-bundles-section" id="bundles" data-slider>
         <div class="hb-section-header">
-            <span class="hb-section-eyebrow">SAVE 15% ON TRAINING KITS</span>
+            <span class="hb-section-eyebrow">CURATED TRAINING KITS</span>
             <h2 class="hb-section-title">Power Packs &amp; Bundles</h2>
             <p class="hb-section-sub">Essential gear combinations engineered to work together. Hand-picked and bundled with exclusive savings.</p>
         </div>
@@ -201,7 +194,6 @@ $bundle_tabs  = nesports_bundle_tabs();
             <article class="hb-card" data-cat="<?php echo esc_attr($b['cat']); ?>">
                 <div class="hb-card-top-wrap">
                     <a class="hb-card-media hb-card-media--pair" href="<?php echo esc_url(home_url($b['url'])); ?>">
-                        <span class="hb-card-badge">Save <?php echo (int) $pct; ?>%</span>
                         <img class="hb-pair-a" src="<?php echo esc_url(nesports_img($b['imgs'][0])); ?>" alt="" loading="lazy">
                         <img class="hb-pair-b" src="<?php echo esc_url(nesports_img($b['imgs'][1])); ?>" alt="" loading="lazy">
                     </a>

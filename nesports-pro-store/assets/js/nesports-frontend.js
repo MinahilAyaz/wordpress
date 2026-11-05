@@ -55,8 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         pills.forEach(function (pill) {
             pill.addEventListener('click', function () {
+                if (pill.classList.contains('is-active')) return;
                 pills.forEach(function (p) { p.classList.remove('is-active'); });
                 pill.classList.add('is-active');
+
+                // Smoothly bring the active pill into view if needed
+                if (typeof pill.scrollIntoView === 'function') {
+                    pill.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+                }
+
                 var f = pill.dataset.filter;
                 var visibleCount = 0;
                 Array.prototype.forEach.call(items, function (c) {
@@ -65,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (match) {
                         c.style.animation = 'none';
                         void c.offsetHeight; /* trigger reflow */
-                        c.style.animation = 'fadeInLeft 1.1s cubic-bezier(0.22, 1, 0.36, 1) both';
-                        c.style.animationDelay = (visibleCount * 0.14) + 's';
+                        c.style.animation = 'hbCardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both';
+                        c.style.animationDelay = (visibleCount * 0.045) + 's';
                         visibleCount++;
                     }
                 });
@@ -78,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (next) next.addEventListener('click', function () { wrap.scrollBy({ left: step() * 2 }); });
     });
 
-    /* ---------- Scroll Observer: Trigger Fade-In-Left on ALL Cards (Slightly Slow & Fluid) ---------- */
+    /* ---------- Scroll Observer: Trigger Minimal Card Reveal on ALL Cards ---------- */
     if ('IntersectionObserver' in window) {
         var cardSectionObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
@@ -89,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (!c.classList.contains('is-hidden')) {
                             c.style.animation = 'none';
                             void c.offsetHeight; /* trigger reflow */
-                            c.style.animation = 'fadeInLeft 1.1s cubic-bezier(0.22, 1, 0.36, 1) both';
-                            c.style.animationDelay = (count * 0.14) + 's';
+                            c.style.animation = 'hbCardReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) both';
+                            c.style.animationDelay = (count * 0.05) + 's';
                             count++;
                         }
                     });
@@ -130,20 +137,375 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    /* ---------- Sign In Drawer (Matched to Screenshot 2) ---------- */
+    /* ---------- Sign In & Account Drawer (Fully Functional with Real Restrictions) ---------- */
     var drawer = document.getElementById('hb-side-drawer');
     var overlay = document.getElementById('hb-drawer-overlay');
     var closeBtn = document.getElementById('hb-drawer-close');
     var textTrigger = document.getElementById('hb-auth-text-trigger');
     var iconTrigger = document.getElementById('hb-auth-icon-trigger');
+    var backBtn = document.getElementById('hb-auth-back-btn');
+    var drawerTitle = document.getElementById('hb-drawer-title');
+    var authAlert = document.getElementById('hb-auth-alert');
+
+    // Views
+    var viewLogin    = document.getElementById('hb-view-login');
+    var viewRegister = document.getElementById('hb-view-register');
+    var viewForgot   = document.getElementById('hb-view-forgot');
+    var viewAccount  = document.getElementById('hb-view-account');
+    var viewOrders   = document.getElementById('hb-view-orders');
+    var viewAddress  = document.getElementById('hb-view-address');
+    var viewWishlist = document.getElementById('hb-view-wishlist');
+
+    var currentView = 'login';
+
+    // 1. Validation Rules
+    function isValidEmail(email) {
+        if (!email) return false;
+        var re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(String(email).trim());
+    }
+
+    function isValidPassword(pass) {
+        if (!pass) return false;
+        var p = String(pass);
+        // At least 8 characters, must have at least 1 letter and 1 number
+        return p.length >= 8 && /[a-zA-Z]/.test(p) && /[0-9]/.test(p);
+    }
+
+    // 2. Database of Registered Users in localStorage
+    function getRegisteredUsers() {
+        try {
+            var raw = localStorage.getItem('nesports_registered_users');
+            if (raw) return JSON.parse(raw);
+        } catch (e) {}
+
+        // Initial default demo user
+        var defaultUsers = [
+            {
+                name: "Alex Miller",
+                email: "alex@nesports3.com",
+                password: "Password123",
+                phone: "+49 30 123456",
+                address: {
+                    name: "Alex Miller",
+                    street: "24 Olympic Way, Suite 4B",
+                    city: "Berlin",
+                    zip: "10115",
+                    country: "Germany",
+                    phone: "+49 30 123456"
+                },
+                orders: [
+                    {
+                        id: "NES-8492",
+                        date: "Nov 04, 2026",
+                        status: "Dispatched",
+                        tracking: "DHL Express #NE849201",
+                        items: [
+                            { name: "Classic Weightlifting Belt Leather (M)", price: 59.99, qty: 1, img: "/nesports-pro-store/assets/images/DSC_0166-scaled-1.jpg" }
+                        ],
+                        total: 59.99
+                    }
+                ]
+            }
+        ];
+        try {
+            localStorage.setItem('nesports_registered_users', JSON.stringify(defaultUsers));
+        } catch (e) {}
+        return defaultUsers;
+    }
+
+    function saveRegisteredUsers(users) {
+        try {
+            localStorage.setItem('nesports_registered_users', JSON.stringify(users));
+        } catch (e) {}
+    }
+
+    function getStoredUser() {
+        try {
+            var raw = localStorage.getItem('nesports_user');
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function setStoredUser(user) {
+        try {
+            localStorage.setItem('nesports_user', JSON.stringify(user));
+        } catch (e) {}
+    }
+
+    // 3. Wishlist Storage
+    function getWishlist() {
+        try {
+            var raw = localStorage.getItem('nesports_wishlist');
+            if (raw) return JSON.parse(raw);
+        } catch (e) {}
+
+        var defaultWish = [
+            { id: "pro-leather-weightlifting-lever-belt-10mm", name: "Classic Weightlifting Belt Leather", price: 59.99, img: "/nesports-pro-store/assets/images/DSC_0166-scaled-1.jpg" },
+            { id: "lifting-strap-padded-blue", name: "Lifting Strap Padded (Blue)", price: 9.99, img: "/nesports-pro-store/assets/images/A2.jpg" }
+        ];
+        try {
+            localStorage.setItem('nesports_wishlist', JSON.stringify(defaultWish));
+        } catch (e) {}
+        return defaultWish;
+    }
+
+    function saveWishlist(items) {
+        try {
+            localStorage.setItem('nesports_wishlist', JSON.stringify(items));
+        } catch (e) {}
+    }
+
+    // 4. Alerts
+    function showAuthAlert(msg, type) {
+        if (!authAlert) return;
+        type = type || 'error';
+        authAlert.className = 'hb-auth-alert hb-auth-alert--' + type;
+        var icon = type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-circle-exclamation"></i>';
+        authAlert.innerHTML = icon + ' <span>' + msg + '</span>';
+        authAlert.style.display = 'flex';
+    }
+
+    function hideAuthAlert() {
+        if (authAlert) authAlert.style.display = 'none';
+    }
+
+    // 5. Views Switcher
+    function switchAuthView(viewName) {
+        hideAuthAlert();
+        currentView = viewName;
+
+        var allViews = [viewLogin, viewRegister, viewForgot, viewAccount, viewOrders, viewAddress, viewWishlist];
+        allViews.forEach(function(v) { if (v) v.style.display = 'none'; });
+
+        var user = getStoredUser();
+
+        if (viewName === 'register') {
+            if (viewRegister) viewRegister.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'Create account';
+            if (backBtn) backBtn.style.display = 'flex';
+            var n = document.getElementById('hb-reg-name');
+            if (n) setTimeout(function() { n.focus(); }, 120);
+        } else if (viewName === 'forgot') {
+            if (viewForgot) viewForgot.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'Reset password';
+            if (backBtn) backBtn.style.display = 'flex';
+            var em = document.getElementById('hb-forgot-email');
+            if (em) setTimeout(function() { em.focus(); }, 120);
+        } else if (viewName === 'account') {
+            if (viewAccount) viewAccount.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'My Account';
+            if (backBtn) backBtn.style.display = 'none';
+            renderAccountDashboard();
+        } else if (viewName === 'orders') {
+            if (viewOrders) viewOrders.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'Order History';
+            if (backBtn) backBtn.style.display = 'flex';
+            renderOrdersList();
+        } else if (viewName === 'address') {
+            if (viewAddress) viewAddress.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'Saved Address';
+            if (backBtn) backBtn.style.display = 'flex';
+            renderAddressForm();
+        } else if (viewName === 'wishlist') {
+            if (viewWishlist) viewWishlist.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'Saved Gear';
+            if (backBtn) backBtn.style.display = 'flex';
+            renderWishlistList();
+        } else {
+            // Default: login
+            if (viewLogin) viewLogin.style.display = 'block';
+            if (drawerTitle) drawerTitle.textContent = 'Sign in';
+            if (backBtn) backBtn.style.display = 'none';
+            var u = document.getElementById('hb-auth-user');
+            if (u) setTimeout(function() { u.focus(); }, 120);
+        }
+    }
+
+    // 6. Sub-view Renderers
+    function renderAccountDashboard() {
+        var user = getStoredUser();
+        if (!user) {
+            switchAuthView('login');
+            return;
+        }
+
+        var nameEl = document.getElementById('hb-acc-name');
+        var emailEl = document.getElementById('hb-acc-email');
+        var avatarEl = document.getElementById('hb-acc-avatar-letter');
+        var ordersCountEl = document.getElementById('hb-acc-orders-count');
+        var addressStatusEl = document.getElementById('hb-acc-address-status');
+        var wishlistCountEl = document.getElementById('hb-acc-wishlist-count');
+
+        if (nameEl) nameEl.textContent = user.name || 'Athlete Member';
+        if (emailEl) emailEl.textContent = user.email || 'user@nesports3.com';
+        if (avatarEl) avatarEl.textContent = (user.name ? user.name.charAt(0).toUpperCase() : 'A');
+
+        var orders = user.orders || [];
+        if (ordersCountEl) ordersCountEl.textContent = orders.length + (orders.length === 1 ? ' Order' : ' Orders');
+
+        if (addressStatusEl) {
+            addressStatusEl.textContent = (user.address && user.address.street) ? 'Default Saved' : 'Not Set';
+        }
+
+        var wish = getWishlist();
+        if (wishlistCountEl) wishlistCountEl.textContent = wish.length + (wish.length === 1 ? ' Item' : ' Items');
+    }
+
+    function renderOrdersList() {
+        var wrap = document.getElementById('hb-orders-list-wrap');
+        if (!wrap) return;
+
+        var user = getStoredUser();
+        var orders = (user && user.orders) ? user.orders : [];
+
+        if (orders.length === 0) {
+            wrap.innerHTML = ''
+                + '<div class="hb-empty-subview">'
+                + '  <i class="fa-solid fa-box-open"></i>'
+                + '  <h4>No orders placed yet</h4>'
+                + '  <p>When you checkout with competition gear, tracking details and delivery receipts will appear here.</p>'
+                + '  <a href="/shop/" class="hb-empty-subview-btn">EXPLORE SHOP</a>'
+                + '</div>';
+            return;
+        }
+
+        var html = '';
+        orders.forEach(function(ord) {
+            html += '<div class="hb-order-card">';
+            html += '  <div class="hb-order-header">';
+            html += '    <div>';
+            html += '      <span class="hb-order-num">Order #' + ord.id + '</span>';
+            html += '      <span class="hb-order-date">' + ord.date + '</span>';
+            html += '    </div>';
+            html += '    <span class="hb-order-badge hb-order-badge--shipped">' + ord.status + '</span>';
+            html += '  </div>';
+
+            ord.items.forEach(function(it) {
+                html += '  <div class="hb-order-item-row">';
+                html += '    <img src="' + it.img + '" alt="" class="hb-order-item-img">';
+                html += '    <div class="hb-order-item-info">';
+                html += '      <div class="hb-order-item-title">' + it.name + '</div>';
+                html += '      <div class="hb-order-item-meta">Qty: ' + it.qty + ' &bull; €' + parseFloat(it.price).toFixed(2) + '</div>';
+                html += '    </div>';
+                html += '  </div>';
+            });
+
+            html += '  <div class="hb-order-footer">';
+            html += '    <span class="hb-order-total">Total: €' + parseFloat(ord.total).toFixed(2) + '</span>';
+            html += '    <span class="hb-order-track-tag"><i class="fa-solid fa-truck-fast"></i> ' + (ord.tracking || 'Tracked Delivery') + '</span>';
+            html += '  </div>';
+            html += '</div>';
+        });
+
+        wrap.innerHTML = html;
+    }
+
+    function renderAddressForm() {
+        var user = getStoredUser();
+        var addr = (user && user.address) ? user.address : {};
+
+        var nameInput = document.getElementById('hb-addr-name');
+        var streetInput = document.getElementById('hb-addr-street');
+        var cityInput = document.getElementById('hb-addr-city');
+        var zipInput = document.getElementById('hb-addr-zip');
+        var countryInput = document.getElementById('hb-addr-country');
+        var phoneInput = document.getElementById('hb-addr-phone');
+
+        if (nameInput) nameInput.value = addr.name || user.name || '';
+        if (streetInput) streetInput.value = addr.street || '';
+        if (cityInput) cityInput.value = addr.city || '';
+        if (zipInput) zipInput.value = addr.zip || '';
+        if (countryInput && addr.country) countryInput.value = addr.country;
+        if (phoneInput) phoneInput.value = addr.phone || user.phone || '';
+    }
+
+    function renderWishlistList() {
+        var wrap = document.getElementById('hb-wishlist-items-wrap');
+        if (!wrap) return;
+
+        var wish = getWishlist();
+        if (wish.length === 0) {
+            wrap.innerHTML = ''
+                + '<div class="hb-empty-subview">'
+                + '  <i class="fa-regular fa-heart"></i>'
+                + '  <h4>Your saved list is empty</h4>'
+                + '  <p>Save items you want to keep an eye on by adding them to your athlete wishlist.</p>'
+                + '  <a href="/shop/" class="hb-empty-subview-btn">VIEW ALL GEAR</a>'
+                + '</div>';
+            return;
+        }
+
+        var html = '';
+        wish.forEach(function(item, idx) {
+            html += '<div class="hb-wishlist-card">';
+            html += '  <img src="' + item.img + '" alt="" class="hb-wishlist-thumb">';
+            html += '  <div class="hb-wishlist-info">';
+            html += '    <div class="hb-wishlist-title">' + item.name + '</div>';
+            html += '    <div class="hb-wishlist-price">€' + parseFloat(item.price).toFixed(2) + '</div>';
+            html += '  </div>';
+            html += '  <div class="hb-wishlist-actions">';
+            html += '    <button type="button" class="hb-wishlist-btn-add" data-id="' + item.id + '" data-name="' + item.name + '" data-price="' + item.price + '" data-img="' + item.img + '">ADD TO CART</button>';
+            html += '    <button type="button" class="hb-wishlist-btn-del" data-idx="' + idx + '" title="Remove item"><i class="fa-solid fa-trash-can"></i></button>';
+            html += '  </div>';
+            html += '</div>';
+        });
+
+        wrap.innerHTML = html;
+
+        // Wire Add to cart from wishlist
+        wrap.querySelectorAll('.hb-wishlist-btn-add').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var id = btn.dataset.id;
+                var name = btn.dataset.name;
+                var price = parseFloat(btn.dataset.price);
+                var img = btn.dataset.img;
+                if (typeof window.hbAddToCart === 'function') {
+                    window.hbAddToCart(id, name, price, img, 1);
+                    btn.textContent = 'ADDED!';
+                    setTimeout(function() { btn.textContent = 'ADD TO CART'; }, 1200);
+                }
+            });
+        });
+
+        // Wire delete from wishlist
+        wrap.querySelectorAll('.hb-wishlist-btn-del').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var idx = parseInt(btn.dataset.idx, 10);
+                var cur = getWishlist();
+                cur.splice(idx, 1);
+                saveWishlist(cur);
+                renderWishlistList();
+                renderAccountDashboard();
+            });
+        });
+    }
+
+    // 7. Global Header Sync
+    function syncAuthUI() {
+        var user = getStoredUser();
+        if (user) {
+            if (textTrigger) textTrigger.textContent = (user.name ? user.name.toUpperCase().split(' ')[0] : 'MY ACCOUNT');
+            renderAccountDashboard();
+        } else {
+            if (textTrigger) textTrigger.textContent = 'LOGIN / REGISTER';
+        }
+    }
 
     function openDrawer() {
         if (drawer && overlay) {
             drawer.classList.add('is-open');
             overlay.classList.add('is-visible');
             document.body.style.overflow = 'hidden';
-            var u = document.getElementById('hb-auth-user');
-            if (u) setTimeout(function() { u.focus(); }, 150);
+
+            var user = getStoredUser();
+            if (user) {
+                switchAuthView('account');
+            } else {
+                switchAuthView('login');
+            }
         }
     }
 
@@ -152,6 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
             drawer.classList.remove('is-open');
             overlay.classList.remove('is-visible');
             document.body.style.overflow = '';
+            hideAuthAlert();
         }
     }
 
@@ -159,6 +522,332 @@ document.addEventListener('DOMContentLoaded', function () {
     if (iconTrigger) iconTrigger.addEventListener('click', openDrawer);
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
     if (overlay) overlay.addEventListener('click', closeDrawer);
+
+    // Back button routing
+    if (backBtn) {
+        backBtn.addEventListener('click', function() {
+            if (currentView === 'orders' || currentView === 'address' || currentView === 'wishlist') {
+                switchAuthView('account');
+            } else {
+                switchAuthView('login');
+            }
+        });
+    }
+
+    // Sub-view button listeners
+    var btnOpenOrders = document.getElementById('hb-btn-open-orders');
+    if (btnOpenOrders) btnOpenOrders.addEventListener('click', function() { switchAuthView('orders'); });
+
+    var btnOpenAddress = document.getElementById('hb-btn-open-address');
+    if (btnOpenAddress) btnOpenAddress.addEventListener('click', function() { switchAuthView('address'); });
+
+    var btnOpenWishlist = document.getElementById('hb-btn-open-wishlist');
+    if (btnOpenWishlist) btnOpenWishlist.addEventListener('click', function() { switchAuthView('wishlist'); });
+
+    // Switch buttons
+    var gotoRegister = document.getElementById('hb-goto-register');
+    if (gotoRegister) gotoRegister.addEventListener('click', function() { switchAuthView('register'); });
+
+    var switchToLogin = document.getElementById('hb-switch-to-login');
+    if (switchToLogin) switchToLogin.addEventListener('click', function(e) { e.preventDefault(); switchAuthView('login'); });
+
+    var gotoForgot = document.getElementById('hb-goto-forgot');
+    if (gotoForgot) gotoForgot.addEventListener('click', function(e) { e.preventDefault(); switchAuthView('forgot'); });
+
+    var forgotToLogin = document.getElementById('hb-forgot-to-login');
+    if (forgotToLogin) forgotToLogin.addEventListener('click', function(e) { e.preventDefault(); switchAuthView('login'); });
+
+    // Password visibility toggles
+    var togglePassBtn = document.getElementById('hb-toggle-pass-visibility');
+    var passInput = document.getElementById('hb-auth-pass');
+    var eyeIcon = document.getElementById('hb-eye-icon');
+    if (togglePassBtn && passInput && eyeIcon) {
+        togglePassBtn.addEventListener('click', function() {
+            var isPass = passInput.type === 'password';
+            passInput.type = isPass ? 'text' : 'password';
+            eyeIcon.className = isPass ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+        });
+    }
+
+    var toggleRegPassBtn = document.getElementById('hb-toggle-reg-pass');
+    var regPassInput = document.getElementById('hb-reg-pass');
+    var regEyeIcon = document.getElementById('hb-reg-eye-icon');
+    if (toggleRegPassBtn && regPassInput && regEyeIcon) {
+        toggleRegPassBtn.addEventListener('click', function() {
+            var isPass = regPassInput.type === 'password';
+            regPassInput.type = isPass ? 'text' : 'password';
+            regEyeIcon.className = isPass ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+        });
+    }
+
+    // 8. LOGIN FORM SUBMIT (Strict Restrictions & Validation)
+    var loginForm = document.getElementById('hb-login-form');
+    var loginBtn = document.getElementById('hb-login-submit-btn');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var userInput = document.getElementById('hb-auth-user');
+            var passInput = document.getElementById('hb-auth-pass');
+
+            var userVal = userInput ? userInput.value.trim() : '';
+            var passVal = passInput ? passInput.value.trim() : '';
+
+            // Rule 1: Email Restriction
+            if (!isValidEmail(userVal)) {
+                showAuthAlert('Please enter a valid email address (e.g. name@example.com).', 'error');
+                if (userInput) userInput.focus();
+                return;
+            }
+
+            // Rule 2: Password Restriction
+            if (!isValidPassword(passVal)) {
+                showAuthAlert('Password must be at least 8 characters long and contain both letters and numbers.', 'error');
+                if (passInput) passInput.focus();
+                return;
+            }
+
+            // Rule 3: Check against registered accounts database
+            var users = getRegisteredUsers();
+            var matchedUser = null;
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].email.toLowerCase() === userVal.toLowerCase()) {
+                    matchedUser = users[i];
+                    break;
+                }
+            }
+
+            if (!matchedUser) {
+                showAuthAlert('No account found with this email. Please check your spelling or click "CREATE AN ACCOUNT" below.', 'error');
+                return;
+            }
+
+            if (matchedUser.password !== passVal) {
+                showAuthAlert('Incorrect password. Please verify your credentials or click "Lost your password?".', 'error');
+                return;
+            }
+
+            // Successful Login
+            if (loginBtn) {
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> LOGGING IN...';
+            }
+
+            setTimeout(function() {
+                setStoredUser(matchedUser);
+                syncAuthUI();
+
+                if (loginBtn) {
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'LOG IN';
+                }
+
+                showAuthAlert('Welcome back, ' + matchedUser.name + '!', 'success');
+
+                setTimeout(function() {
+                    switchAuthView('account');
+                }, 500);
+            }, 400);
+        });
+    }
+
+    // 9. REGISTER FORM SUBMIT (Strict Restrictions & Validation)
+    var registerForm = document.getElementById('hb-register-form');
+    var registerBtn = document.getElementById('hb-reg-submit-btn');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var nameInput = document.getElementById('hb-reg-name');
+            var emailInput = document.getElementById('hb-reg-email');
+            var passInput = document.getElementById('hb-reg-pass');
+
+            var nameVal = nameInput ? nameInput.value.trim() : '';
+            var emailVal = emailInput ? emailInput.value.trim() : '';
+            var passVal = passInput ? passInput.value.trim() : '';
+
+            // Rule 1: Full Name Check
+            if (nameVal.length < 2) {
+                showAuthAlert('Please enter your full name (at least 2 characters).', 'error');
+                if (nameInput) nameInput.focus();
+                return;
+            }
+
+            // Rule 2: Strict Email Validation
+            if (!isValidEmail(emailVal)) {
+                showAuthAlert('Please enter a valid email address (e.g. name@example.com).', 'error');
+                if (emailInput) emailInput.focus();
+                return;
+            }
+
+            // Rule 3: Existing Email Check
+            var users = getRegisteredUsers();
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].email.toLowerCase() === emailVal.toLowerCase()) {
+                    showAuthAlert('An account with this email already exists. Please sign in.', 'error');
+                    return;
+                }
+            }
+
+            // Rule 4: Strict Password Strength Validation
+            if (!isValidPassword(passVal)) {
+                showAuthAlert('Password must be at least 8 characters long and contain both letters and numbers.', 'error');
+                if (passInput) passInput.focus();
+                return;
+            }
+
+            if (registerBtn) {
+                registerBtn.disabled = true;
+                registerBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> CREATING ACCOUNT...';
+            }
+
+            setTimeout(function() {
+                var newUser = {
+                    name: nameVal,
+                    email: emailVal,
+                    password: passVal,
+                    phone: '',
+                    address: {
+                        name: nameVal,
+                        street: '',
+                        city: '',
+                        zip: '',
+                        country: 'Germany',
+                        phone: ''
+                    },
+                    orders: []
+                };
+
+                users.push(newUser);
+                saveRegisteredUsers(users);
+                setStoredUser(newUser);
+                syncAuthUI();
+
+                if (registerBtn) {
+                    registerBtn.disabled = false;
+                    registerBtn.textContent = 'CREATE ACCOUNT';
+                }
+
+                showAuthAlert('Account created successfully! Welcome to NESPORTS3.', 'success');
+
+                setTimeout(function() {
+                    switchAuthView('account');
+                }, 500);
+            }, 500);
+        });
+    }
+
+    // 10. SAVED ADDRESS FORM SUBMIT
+    var addressForm = document.getElementById('hb-address-form');
+    var addressBtn = document.getElementById('hb-save-address-btn');
+    if (addressForm) {
+        addressForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var user = getStoredUser();
+            if (!user) return;
+
+            var nameVal = document.getElementById('hb-addr-name').value.trim();
+            var streetVal = document.getElementById('hb-addr-street').value.trim();
+            var cityVal = document.getElementById('hb-addr-city').value.trim();
+            var zipVal = document.getElementById('hb-addr-zip').value.trim();
+            var countryVal = document.getElementById('hb-addr-country').value;
+            var phoneVal = document.getElementById('hb-addr-phone').value.trim();
+
+            if (!nameVal || !streetVal || !cityVal || !zipVal || !phoneVal) {
+                showAuthAlert('Please complete all address fields.', 'error');
+                return;
+            }
+
+            if (addressBtn) {
+                addressBtn.disabled = true;
+                addressBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SAVING...';
+            }
+
+            setTimeout(function() {
+                user.address = {
+                    name: nameVal,
+                    street: streetVal,
+                    city: cityVal,
+                    zip: zipVal,
+                    country: countryVal,
+                    phone: phoneVal
+                };
+                user.phone = phoneVal;
+
+                setStoredUser(user);
+
+                // Also update in registered users database
+                var users = getRegisteredUsers();
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].email.toLowerCase() === user.email.toLowerCase()) {
+                        users[i].address = user.address;
+                        users[i].phone = user.phone;
+                        break;
+                    }
+                }
+                saveRegisteredUsers(users);
+
+                if (addressBtn) {
+                    addressBtn.disabled = false;
+                    addressBtn.textContent = 'SAVE ADDRESS';
+                }
+
+                showAuthAlert('Default shipping address updated successfully!', 'success');
+                renderAccountDashboard();
+            }, 400);
+        });
+    }
+
+    // 11. FORGOT PASSWORD FORM SUBMIT
+    var forgotForm = document.getElementById('hb-forgot-form');
+    var forgotBtn = document.getElementById('hb-forgot-submit-btn');
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var emailInput = document.getElementById('hb-forgot-email');
+            var emailVal = emailInput ? emailInput.value.trim() : '';
+
+            if (!isValidEmail(emailVal)) {
+                showAuthAlert('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            if (forgotBtn) {
+                forgotBtn.disabled = true;
+                forgotBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SENDING LINK...';
+            }
+
+            setTimeout(function() {
+                if (forgotBtn) {
+                    forgotBtn.disabled = false;
+                    forgotBtn.textContent = 'RESET PASSWORD';
+                }
+                showAuthAlert('A secure password reset link has been dispatched to ' + emailVal + '.', 'success');
+                if (emailInput) emailInput.value = '';
+            }, 450);
+        });
+    }
+
+    // 12. LOGOUT BUTTON
+    var logoutBtn = document.getElementById('hb-logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('nesports_user');
+            syncAuthUI();
+            switchAuthView('login');
+            showAuthAlert('You have been logged out successfully.', 'success');
+        });
+    }
+
+    // Initialize Auth UI state on load
+    syncAuthUI();
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
+            closeDrawer();
+        }
+    });
+
+    // Initialize Auth UI state on load
+    syncAuthUI();
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
@@ -412,22 +1101,117 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Expose addToCart globally for products
     window.nesportsAddToCart = function(product) {
-        var existing = cart.find(function(item) { return item.id === product.id; });
+        if (!product) return;
+        var id = product.id || product.slug;
+        var existing = cart.find(function(item) { return item.id === id; });
+        var addQty = parseInt(product.qty, 10) || 1;
         if (existing) {
-            existing.qty += (product.qty || 1);
+            existing.qty += addQty;
         } else {
             cart.push({
-                id: product.id || product.slug,
+                id: id,
                 name: product.name,
                 price: parseFloat(product.price) || 0,
                 img: product.img || '',
-                qty: product.qty || 1
+                qty: addQty
             });
         }
         saveCart();
         renderCart();
         openCart();
     };
+
+    window.hbAddToCart = function(id, name, price, img, qty) {
+        if (typeof id === 'object' && id !== null) {
+            window.nesportsAddToCart(id);
+        } else {
+            window.nesportsAddToCart({
+                id: id,
+                name: name,
+                price: parseFloat(price) || 0,
+                img: img || '',
+                qty: parseInt(qty, 10) || 1
+            });
+        }
+    };
+
+    // Checkout Button Action with Login Restriction & Order Creation
+    var cartCheckoutBtn = document.getElementById('hb-cart-checkout-btn');
+    if (cartCheckoutBtn) {
+        cartCheckoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var user = getStoredUser();
+            if (!user) {
+                // If not logged in, prevent checkout and open Sign In drawer
+                closeCart();
+                openDrawer();
+                switchAuthView('login');
+                showAuthAlert('Please sign in or create an account to proceed to checkout.', 'error');
+                return;
+            }
+
+            if (cart.length === 0) return;
+
+            cartCheckoutBtn.disabled = true;
+            cartCheckoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PLACING ORDER...';
+
+            setTimeout(function() {
+                var orderId = 'NES-' + Math.floor(1000 + Math.random() * 9000);
+                var subtotal = 0;
+                var orderItems = [];
+                cart.forEach(function(ci) {
+                    subtotal += ci.price * ci.qty;
+                    orderItems.push({
+                        name: ci.name,
+                        price: ci.price,
+                        qty: ci.qty,
+                        img: ci.img
+                    });
+                });
+
+                var now = new Date();
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var dateStr = months[now.getMonth()] + ' ' + String(now.getDate()).padStart(2, '0') + ', ' + now.getFullYear();
+
+                var newOrder = {
+                    id: orderId,
+                    date: dateStr,
+                    status: 'Dispatched',
+                    tracking: 'DHL Express #' + Math.floor(10000000 + Math.random() * 90000000),
+                    items: orderItems,
+                    total: subtotal
+                };
+
+                user.orders = user.orders || [];
+                user.orders.unshift(newOrder);
+                setStoredUser(user);
+
+                // Update users database
+                var users = getRegisteredUsers();
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].email.toLowerCase() === user.email.toLowerCase()) {
+                        users[i].orders = user.orders;
+                        break;
+                    }
+                }
+                saveRegisteredUsers(users);
+
+                // Clear Cart
+                cart = [];
+                saveCart();
+                renderCart();
+
+                cartCheckoutBtn.disabled = false;
+                cartCheckoutBtn.textContent = 'CHECKOUT';
+
+                // Close cart and open Account Order History with Success banner
+                closeCart();
+                openDrawer();
+                switchAuthView('orders');
+                showAuthAlert('Order #' + orderId + ' placed successfully! Your tracking details are active below.', 'success');
+            }, 600);
+        });
+    }
 
     // Bind quick add buttons on cards with instant interactive feedback
     document.querySelectorAll('.hb-card-quick-add').forEach(function(btn) {

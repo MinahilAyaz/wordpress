@@ -110,9 +110,6 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
                     <article class="hb-card">
                         <div class="hb-card-top-wrap">
                             <a class="hb-card-media" href="<?php echo esc_url($url); ?>">
-                                <?php if ($on_sale): ?>
-                                    <span class="hb-card-badge">Sale</span>
-                                <?php endif; ?>
                                 <img class="hb-img-main" src="<?php echo esc_url(nesports_img($p['main'])); ?>" alt="<?php echo esc_attr($p['name']); ?>" loading="lazy">
                                 <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                             </a>

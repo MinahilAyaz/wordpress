@@ -29,13 +29,16 @@ $is_home_page = getenv('NES_PAGE') !== false ? (getenv('NES_PAGE') === 'home') :
             <span><?php echo esc_html($announcement); ?></span>
         </div>
         <div class="hb-topbar-right">
-            <i class="fa-solid fa-money-bill-1"></i>
-            <select id="hb-currency-select" aria-label="Country / currency">
-                <option>Europe (EUR €)</option>
-                <option>United States (USD $)</option>
-                <option>United Kingdom (GBP £)</option>
-                <option>Pakistan (PKR Rs)</option>
-            </select>
+            <div class="hb-currency-pill">
+                <i class="fa-solid fa-money-bill-1"></i>
+                <select id="hb-currency-select" aria-label="Country / currency">
+                    <option>Europe (EUR €)</option>
+                    <option>United States (USD $)</option>
+                    <option>United Kingdom (GBP £)</option>
+                    <option>Pakistan (PKR Rs)</option>
+                </select>
+                <i class="fa-solid fa-chevron-down hb-currency-arrow"></i>
+            </div>
         </div>
     </div>
 </div>
@@ -77,13 +80,13 @@ $is_home_page = getenv('NES_PAGE') !== false ? (getenv('NES_PAGE') === 'home') :
         </nav>
 
         <div class="hb-header-actions">
-            <!-- LOGIN / REGISTER text button matching user screenshot -->
-            <button type="button" class="hb-auth-text-btn" id="hb-auth-text-trigger">LOGIN / REGISTER</button>
             <button type="button" class="hb-icon-btn" id="hb-search-trigger" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <button type="button" class="hb-icon-btn" id="hb-auth-icon-trigger" aria-label="Account"><i class="fa-regular fa-user"></i></button>
+            <button type="button" class="hb-icon-btn" id="hb-auth-icon-trigger" aria-label="Account" title="Sign in / My Account"><i class="fa-regular fa-user"></i></button>
             <button type="button" class="hb-icon-btn hb-cart" id="hb-cart-trigger" aria-label="Open Shopping Cart">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="hb-cart-badge" id="hb-cart-badge"><?php echo (function_exists('WC') && WC()->cart) ? (int) WC()->cart->get_cart_contents_count() : 0; ?></span>
+                <span class="hb-cart-icon-box">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="hb-cart-badge" id="hb-cart-badge"><?php echo (function_exists('WC') && WC()->cart) ? (int) WC()->cart->get_cart_contents_count() : 0; ?></span>
+                </span>
                 <span class="hb-cart-total-text" id="hb-cart-total-text">€0.00</span>
             </button>
             <button class="hb-mobile-btn" id="hb-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -143,50 +146,210 @@ window.nesportsCatalog = <?php echo json_encode(array_map(function($p) {
 }, nesports_catalog())); ?>;
 </script>
 
-<!-- 3. Slide-Out Sign In Drawer (Matched to Screenshot 2) -->
+<!-- 3. Slide-Out Sign In & Account Drawer (Clean & Fully Functional) -->
 <div class="hb-drawer-overlay" id="hb-drawer-overlay"></div>
 
-<aside class="hb-side-drawer" id="hb-side-drawer" aria-label="Sign in">
+<aside class="hb-side-drawer" id="hb-side-drawer" aria-label="Account">
     <div class="hb-drawer-header">
-        <h2>Sign in</h2>
-        <button type="button" class="hb-drawer-close" id="hb-drawer-close" aria-label="Close sign in drawer">
+        <div class="hb-drawer-header-left">
+            <button type="button" class="hb-drawer-back-btn" id="hb-auth-back-btn" aria-label="Go back" style="display: none;">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h2 id="hb-drawer-title">Sign in</h2>
+        </div>
+        <button type="button" class="hb-drawer-close" id="hb-drawer-close" aria-label="Close drawer">
             <i class="fa-solid fa-xmark"></i> Close
         </button>
     </div>
     
     <div class="hb-drawer-body">
-        <form class="hb-auth-form" id="hb-login-form" onsubmit="handleLoginSubmit(event)">
-            <div class="hb-field-group">
-                <label for="hb-auth-user">Username or email address <span class="hb-req">*</span></label>
-                <input type="text" id="hb-auth-user" required autocomplete="username">
-            </div>
+        <!-- Notification Alert Banner -->
+        <div class="hb-auth-alert" id="hb-auth-alert" style="display: none;" role="alert"></div>
 
-            <div class="hb-field-group">
-                <label for="hb-auth-pass">Password <span class="hb-req">*</span></label>
-                <div class="hb-pass-field-wrap">
-                    <input type="password" id="hb-auth-pass" required autocomplete="current-password">
-                    <button type="button" class="hb-eye-btn" id="hb-toggle-pass-visibility" aria-label="Toggle password visibility">
-                        <i class="fa-regular fa-eye" id="hb-eye-icon"></i>
-                    </button>
+        <!-- VIEW 1: SIGN IN -->
+        <div class="hb-auth-view" id="hb-view-login">
+            <form class="hb-auth-form" id="hb-login-form">
+                <div class="hb-field-group">
+                    <label for="hb-auth-user">Username or email address</label>
+                    <input type="text" id="hb-auth-user" placeholder="Enter your username or email" required autocomplete="username">
+                </div>
+
+                <div class="hb-field-group">
+                    <label for="hb-auth-pass">Password</label>
+                    <div class="hb-pass-field-wrap">
+                        <input type="password" id="hb-auth-pass" placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="hb-eye-btn" id="hb-toggle-pass-visibility" aria-label="Toggle password visibility">
+                            <i class="fa-regular fa-eye" id="hb-eye-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="hb-btn-login" id="hb-login-submit-btn">LOG IN</button>
+
+                <div class="hb-auth-helpers">
+                    <label class="hb-checkbox-label">
+                        <input type="checkbox" id="hb-remember-me" checked> Remember me
+                    </label>
+                    <button type="button" class="hb-lost-link-btn" id="hb-goto-forgot">Lost your password?</button>
+                </div>
+            </form>
+
+            <div class="hb-drawer-register-callout">
+                <div class="hb-reg-avatar-icon">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <p class="hb-reg-question">No account yet?</p>
+                <button type="button" class="hb-reg-link-btn" id="hb-goto-register">CREATE AN ACCOUNT</button>
+            </div>
+        </div>
+
+        <!-- VIEW 2: REGISTER -->
+        <div class="hb-auth-view" id="hb-view-register" style="display: none;">
+            <p class="hb-auth-subtitle">Create an athlete account for order tracking, express checkout, and exclusive gear updates.</p>
+            <form class="hb-auth-form" id="hb-register-form">
+                <div class="hb-field-group">
+                    <label for="hb-reg-name">Full name</label>
+                    <input type="text" id="hb-reg-name" placeholder="e.g. John Doe" required autocomplete="name">
+                </div>
+
+                <div class="hb-field-group">
+                    <label for="hb-reg-email">Email address</label>
+                    <input type="email" id="hb-reg-email" placeholder="name@example.com" required autocomplete="email">
+                </div>
+
+                <div class="hb-field-group">
+                    <label for="hb-reg-pass">Create password</label>
+                    <div class="hb-pass-field-wrap">
+                        <input type="password" id="hb-reg-pass" placeholder="Minimum 8 characters (letters & numbers)" required autocomplete="new-password">
+                        <button type="button" class="hb-eye-btn" id="hb-toggle-reg-pass" aria-label="Toggle password visibility">
+                            <i class="fa-regular fa-eye" id="hb-reg-eye-icon"></i>
+                        </button>
+                    </div>
+                    <span class="hb-field-hint" style="font-size: 11.5px; color: #71717a; margin-top: 2px;">At least 8 characters including letters and numbers</span>
+                </div>
+
+                <button type="submit" class="hb-btn-login" id="hb-reg-submit-btn">CREATE ACCOUNT</button>
+            </form>
+
+            <div class="hb-switch-auth-bottom">
+                <span>Already have an account?</span>
+                <button type="button" class="hb-switch-text-btn" id="hb-switch-to-login">Sign in here</button>
+            </div>
+        </div>
+
+        <!-- VIEW 3: FORGOT PASSWORD -->
+        <div class="hb-auth-view" id="hb-view-forgot" style="display: none;">
+            <p class="hb-auth-subtitle">Enter your email address and we will send you a secure link to reset your password.</p>
+            <form class="hb-auth-form" id="hb-forgot-form">
+                <div class="hb-field-group">
+                    <label for="hb-forgot-email">Email address</label>
+                    <input type="email" id="hb-forgot-email" placeholder="name@example.com" required autocomplete="email">
+                </div>
+
+                <button type="submit" class="hb-btn-login" id="hb-forgot-submit-btn">RESET PASSWORD</button>
+            </form>
+
+            <div class="hb-switch-auth-bottom">
+                <button type="button" class="hb-switch-text-btn" id="hb-forgot-to-login">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Sign in
+                </button>
+            </div>
+        </div>
+
+        <!-- VIEW 4: LOGGED IN ACCOUNT DASHBOARD -->
+        <div class="hb-auth-view" id="hb-view-account" style="display: none;">
+            <div class="hb-acc-profile-card">
+                <div class="hb-acc-avatar" id="hb-acc-avatar-letter">A</div>
+                <div class="hb-acc-info">
+                    <h3 class="hb-acc-name" id="hb-acc-name">Alex Miller</h3>
+                    <p class="hb-acc-email" id="hb-acc-email">alex@nesports3.com</p>
+                    <span class="hb-acc-badge">PRO ATHLETE MEMBER</span>
                 </div>
             </div>
 
-            <button type="submit" class="hb-btn-login">LOG IN</button>
-
-            <div class="hb-auth-helpers">
-                <label class="hb-checkbox-label">
-                    <input type="checkbox" name="rememberme" value="forever"> Remember me
-                </label>
-                <a href="<?php echo esc_url(home_url('/my-account/lost-password/')); ?>" class="hb-lost-link">Lost your password?</a>
+            <div class="hb-acc-menu">
+                <button type="button" class="hb-acc-menu-item" id="hb-btn-open-orders">
+                    <div class="hb-acc-menu-left">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span>Order History</span>
+                    </div>
+                    <span class="hb-acc-count" id="hb-acc-orders-count">1 Order</span>
+                </button>
+                <button type="button" class="hb-acc-menu-item" id="hb-btn-open-address">
+                    <div class="hb-acc-menu-left">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Saved Address</span>
+                    </div>
+                    <span class="hb-acc-count" id="hb-acc-address-status">Default Saved</span>
+                </button>
+                <button type="button" class="hb-acc-menu-item" id="hb-btn-open-wishlist">
+                    <div class="hb-acc-menu-left">
+                        <i class="fa-regular fa-heart"></i>
+                        <span>Saved Gear</span>
+                    </div>
+                    <span class="hb-acc-count" id="hb-acc-wishlist-count">2 Items</span>
+                </button>
             </div>
-        </form>
 
-        <div class="hb-drawer-register-callout">
-            <div class="hb-reg-avatar-icon">
-                <i class="fa-regular fa-user"></i>
-            </div>
-            <p class="hb-reg-question">No account yet?</p>
-            <a href="<?php echo esc_url(home_url('/my-account/?action=register')); ?>" class="hb-reg-link">CREATE AN ACCOUNT</a>
+            <button type="button" class="hb-btn-logout" id="hb-logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> LOG OUT
+            </button>
+        </div>
+
+        <!-- VIEW 5: ORDER HISTORY (Fully Functional) -->
+        <div class="hb-auth-view" id="hb-view-orders" style="display: none;">
+            <p class="hb-auth-subtitle">Track your recent shipments, carrier delivery status, and order receipts.</p>
+            <div class="hb-orders-list-wrap" id="hb-orders-list-wrap"></div>
+        </div>
+
+        <!-- VIEW 6: SAVED ADDRESS (Fully Functional) -->
+        <div class="hb-auth-view" id="hb-view-address" style="display: none;">
+            <p class="hb-auth-subtitle">Manage your default shipping address for accelerated one-click checkout.</p>
+            <form class="hb-auth-form" id="hb-address-form">
+                <div class="hb-field-group">
+                    <label for="hb-addr-name">Full recipient name</label>
+                    <input type="text" id="hb-addr-name" placeholder="Full name" required>
+                </div>
+                <div class="hb-field-group">
+                    <label for="hb-addr-street">Street address</label>
+                    <input type="text" id="hb-addr-street" placeholder="Street and house number" required>
+                </div>
+                <div class="hb-field-row-2">
+                    <div class="hb-field-group">
+                        <label for="hb-addr-city">City</label>
+                        <input type="text" id="hb-addr-city" placeholder="City" required>
+                    </div>
+                    <div class="hb-field-group">
+                        <label for="hb-addr-zip">Postal code</label>
+                        <input type="text" id="hb-addr-zip" placeholder="Postal code" required>
+                    </div>
+                </div>
+                <div class="hb-field-group">
+                    <label for="hb-addr-country">Country</label>
+                    <select id="hb-addr-country" class="hb-select-input">
+                        <option value="Germany">Germany</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                        <option value="France">France</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                    </select>
+                </div>
+                <div class="hb-field-group">
+                    <label for="hb-addr-phone">Phone number</label>
+                    <input type="tel" id="hb-addr-phone" placeholder="+1 (555) 019-2834" required>
+                </div>
+                <button type="submit" class="hb-btn-login" id="hb-save-address-btn">SAVE ADDRESS</button>
+            </form>
+        </div>
+
+        <!-- VIEW 7: SAVED GEAR / WISHLIST (Fully Functional) -->
+        <div class="hb-auth-view" id="hb-view-wishlist" style="display: none;">
+            <p class="hb-auth-subtitle">Your curated lineup of saved lifting equipment and accessories.</p>
+            <div class="hb-wishlist-items-wrap" id="hb-wishlist-items-wrap"></div>
         </div>
     </div>
 </aside>
@@ -219,14 +382,6 @@ window.nesportsCatalog = <?php echo json_encode(array_map(function($p) {
             <span class="hb-cart-subtotal-val" id="hb-cart-subtotal-val">€0.00</span>
         </div>
         <p class="hb-cart-shipping-note">Taxes and shipping calculated at checkout</p>
-        <a href="<?php echo esc_url(home_url('/checkout/')); ?>" class="hb-cart-checkout-btn">CHECKOUT</a>
+        <button type="button" class="hb-cart-checkout-btn" id="hb-cart-checkout-btn">CHECKOUT</button>
     </div>
 </aside>
-
-<script>
-function handleLoginSubmit(e) {
-    e.preventDefault();
-    alert('Logged in successfully!');
-    document.getElementById('hb-drawer-close').click();
-}
-</script>

@@ -18,7 +18,7 @@ let settings = {
     support_email: 'support@nesports3.com'
 };
 
-const mime = { '.css': 'text/css', '.js': 'application/javascript', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
+const mime = { '.css': 'text/css', '.js': 'application/javascript', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ttf': 'font/ttf', '.woff': 'font/woff', '.woff2': 'font/woff2' };
 
 function renderFrontend(page = 'home', extraEnv = {}) {
     return execFileSync('php', [path.join(ROOT, 'preview', 'render.php')], {
@@ -127,7 +127,8 @@ http.createServer((req, res) => {
             }
             extraEnv.NES_CAT = cat;
         } else if (pathname.includes('sizing')) {
-            page = 'sizing';
+            res.writeHead(302, { 'Location': '/shop/' });
+            return res.end();
         }
 
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
