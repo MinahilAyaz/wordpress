@@ -42,12 +42,6 @@ if ($page === 'contact') {
     require NESPORTS_PLUGIN_DIR . 'templates/page-category.php';
 } elseif ($page === 'product') {
     require NESPORTS_PLUGIN_DIR . 'templates/page-product.php';
-} elseif ($page === 'sizing') {
-    if (file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-sizing.php')) {
-        require NESPORTS_PLUGIN_DIR . 'templates/page-sizing.php';
-    } else {
-        require NESPORTS_PLUGIN_DIR . 'templates/page-home.php';
-    }
 } else {
     require NESPORTS_PLUGIN_DIR . 'templates/page-home.php';
 }

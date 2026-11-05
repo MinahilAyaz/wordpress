@@ -8,6 +8,13 @@ class NESports_Frontend {
     public function init() {
         add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
         add_filter('template_include', array($this, 'route_custom_templates'));
+
+        // Elementor & WordPress Section Shortcodes
+        add_shortcode('nesports_hero', array($this, 'render_hero_shortcode'));
+        add_shortcode('nesports_products', array($this, 'render_products_shortcode'));
+        add_shortcode('nesports_banner', array($this, 'render_banner_shortcode'));
+        add_shortcode('nesports_categories', array($this, 'render_categories_shortcode'));
+        add_shortcode('nesports_bundles', array($this, 'render_bundles_shortcode'));
         add_shortcode('nesports_pro_home', array($this, 'render_home_shortcode'));
     }
 
@@ -87,9 +94,6 @@ class NESports_Frontend {
             if ($page_type === 'home' && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-home.php')) {
                 return NESPORTS_PLUGIN_DIR . 'templates/page-home.php';
             }
-            if ($page_type === 'sizing-guide' && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-sizing.php')) {
-                return NESPORTS_PLUGIN_DIR . 'templates/page-sizing.php';
-            }
             if ($page_type === 'our-story' && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-story.php')) {
                 return NESPORTS_PLUGIN_DIR . 'templates/page-story.php';
             }
@@ -113,6 +117,36 @@ class NESports_Frontend {
         }
 
         return $template;
+    }
+
+    public function render_hero_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-hero.php';
+        return ob_get_clean();
+    }
+
+    public function render_products_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-products.php';
+        return ob_get_clean();
+    }
+
+    public function render_banner_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-banner.php';
+        return ob_get_clean();
+    }
+
+    public function render_categories_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-categories.php';
+        return ob_get_clean();
+    }
+
+    public function render_bundles_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-bundles.php';
+        return ob_get_clean();
     }
 
     public function render_home_shortcode() {

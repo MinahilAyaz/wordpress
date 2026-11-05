@@ -60,13 +60,6 @@ class NESports_Activator {
                 'template'  => 'templates/page-home.php',
                 'set_front' => true,
             ),
-            'sizing-guide' => array(
-                'title'     => 'Sizing Guide & Belt Specifications',
-                'slug'      => 'sizing-guide',
-                'content'   => '<!-- NESPORTS_PRO_SIZING_PAGE -->',
-                'template'  => 'templates/page-sizing.php',
-                'set_front' => false,
-            ),
             'our-story' => array(
                 'title'     => 'The NE Sports Story & Mission',
                 'slug'      => 'our-story',
@@ -173,16 +166,6 @@ class NESports_Activator {
                     'menu-item-url'    => home_url('/product-category/gym-bag/'),
                     'menu-item-status' => 'publish',
                 ));
-
-                // Add Sizing Guide Page
-                if (isset($created_pages['sizing-guide'])) {
-                    wp_update_nav_menu_item($menu_id, 0, array(
-                        'menu-item-object-id' => $created_pages['sizing-guide'],
-                        'menu-item-object'    => 'page',
-                        'menu-item-type'      => 'post_type',
-                        'menu-item-status'    => 'publish',
-                    ));
-                }
 
                 // Add Story Page
                 if (isset($created_pages['our-story'])) {

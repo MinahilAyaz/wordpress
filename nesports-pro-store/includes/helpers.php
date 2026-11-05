@@ -29,6 +29,58 @@ function nesports_categories() {
 }
 
 /**
+ * Hero slides: 100% Authentic Gym Photoshoot Series
+ */
+function nesports_hero_slides() {
+    return array(
+        array(
+            'type'     => 'photo',
+            'badge'    => 'NEW DROP',
+            'img'      => 'DSC_2246-scaled.jpg',
+            'sub'      => 'MAXIMUM CORE STABILITY',
+            'title'    => 'Pro Lever Lifting Belts',
+            'desc'     => 'Competition-grade 10mm & 13mm leather belts with stainless steel lever buckle for heavy squats and pulls.',
+            'price'    => '€59.99',
+            'old'      => '€79.99',
+            'url'      => '/product-category/weightlifting-belts/'
+        ),
+        array(
+            'type'     => 'photo',
+            'badge'    => 'ATHLETE SERIES',
+            'img'      => 'WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg',
+            'sub'      => 'CARRY EVERYTHING',
+            'title'    => 'Water Proof Gym Bags',
+            'desc'     => 'Durable, waterproof multi-compartment gym backpacks and duffels built for serious athletes.',
+            'price'    => '€11.99',
+            'old'      => '€19.99',
+            'url'      => '/product-category/gym-bag/'
+        ),
+        array(
+            'type'     => 'photo',
+            'badge'    => 'BEST SELLER',
+            'img'      => 'DSC_0750-scaled.jpg',
+            'sub'      => 'BUILT FOR HEAVY PULLS',
+            'title'    => 'Padded Lifting Straps',
+            'desc'     => 'Engineered with high-density neoprene cushioning and heavy-duty industrial webbing for maximum deadlift grip.',
+            'price'    => '€9.99',
+            'old'      => '€14.99',
+            'url'      => '/product-category/lifting-straps/'
+        ),
+        array(
+            'type'     => 'photo',
+            'badge'    => 'POWER GEAR',
+            'img'      => 'DSC_0749-scaled.jpg',
+            'sub'      => 'SQUAT WITH CONFIDENCE',
+            'title'    => 'Competition Power Gear',
+            'desc'     => 'Heavy-duty competition pads, knee wraps and supportive accessories engineered for record-breaking lifts.',
+            'price'    => '€24.99',
+            'old'      => '€39.99',
+            'url'      => '/shop/'
+        ),
+    );
+}
+
+/**
  * Product catalog (names, prices and images from nesports3.com).
  * price = current price, old = regular price, main/hover = files in assets/images/.
  */

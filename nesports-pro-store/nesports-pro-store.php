@@ -2,7 +2,7 @@
 /**
  * Plugin Name: NE Sports Pro Store - Auto Page Generator
  * Plugin URI: https://www.nesports3.com/
- * Description: Transforms your store with high-impact, dark athletic brand pages inspired by premium fitness brands like Hardbody. Automatically generates and manages the Home page, Sizing Guide, Brand Story, and Contact pages with complete frontend and backend controls.
+ * Description: Transforms your store with high-impact, dark athletic brand pages inspired by premium fitness brands like Hardbody. Automatically generates and manages the Home page, Brand Story, and Contact pages with complete frontend and backend controls.
  * Version: 1.0.0
  * Author: NE Sports Development Team
  * Author URI: https://www.nesports3.com/

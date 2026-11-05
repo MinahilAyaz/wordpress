@@ -143,7 +143,7 @@ class NESports_Admin {
                 <div class="nesports-card">
                     <div class="nesports-card-header">
                         <h2><span class="dashicons dashicons-admin-page"></span> Deployed Pages Status</h2>
-                        <span class="nesports-pill-live">4 Pages Connected</span>
+                        <span class="nesports-pill-live">3 Pages Connected</span>
                     </div>
                     <div class="nesports-card-body">
                         <table class="nesports-table">
@@ -159,7 +159,6 @@ class NESports_Admin {
                                 <?php
                                 $page_list = array(
                                     'home' => array('name' => 'Flagship Home Page', 'slug' => 'home'),
-                                    'sizing-guide' => array('name' => 'Belt & Gear Sizing Guide', 'slug' => 'sizing-guide'),
                                     'our-story' => array('name' => 'The NE Sports Story', 'slug' => 'our-story'),
                                     'contact' => array('name' => 'Contact & Help Center', 'slug' => 'contact-us')
                                 );
