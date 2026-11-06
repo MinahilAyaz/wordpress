@@ -284,13 +284,7 @@ window.nesportsCatalog = <?php echo json_encode(array_map(function($p) {
                     </div>
                     <span class="hb-acc-count" id="hb-acc-address-status">Default Saved</span>
                 </button>
-                <button type="button" class="hb-acc-menu-item" id="hb-btn-open-wishlist">
-                    <div class="hb-acc-menu-left">
-                        <i class="fa-regular fa-heart"></i>
-                        <span>Saved Gear</span>
-                    </div>
-                    <span class="hb-acc-count" id="hb-acc-wishlist-count">2 Items</span>
-                </button>
+
             </div>
 
             <button type="button" class="hb-btn-logout" id="hb-logout-btn">
@@ -348,11 +342,7 @@ window.nesportsCatalog = <?php echo json_encode(array_map(function($p) {
             </form>
         </div>
 
-        <!-- VIEW 7: SAVED GEAR / WISHLIST (Fully Functional) -->
-        <div class="hb-auth-view" id="hb-view-wishlist" style="display: none;">
-            <p class="hb-auth-subtitle">Your curated lineup of saved lifting equipment and accessories.</p>
-            <div class="hb-wishlist-items-wrap" id="hb-wishlist-items-wrap"></div>
-        </div>
+
     </div>
 </aside>
 

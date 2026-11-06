@@ -154,8 +154,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var viewAccount  = document.getElementById('hb-view-account');
     var viewOrders   = document.getElementById('hb-view-orders');
     var viewAddress  = document.getElementById('hb-view-address');
-    var viewWishlist = document.getElementById('hb-view-wishlist');
-
     var currentView = 'login';
 
     // 1. Validation Rules
@@ -235,29 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (e) {}
     }
 
-    // 3. Wishlist Storage
-    function getWishlist() {
-        try {
-            var raw = localStorage.getItem('nesports_wishlist');
-            if (raw) return JSON.parse(raw);
-        } catch (e) {}
-
-        var defaultWish = [
-            { id: "pro-leather-weightlifting-lever-belt-10mm", name: "Classic Weightlifting Belt Leather", price: 59.99, img: "/nesports-pro-store/assets/images/DSC_0166-scaled-1.jpg" },
-            { id: "lifting-strap-padded-blue", name: "Lifting Strap Padded (Blue)", price: 9.99, img: "/nesports-pro-store/assets/images/A2.jpg" }
-        ];
-        try {
-            localStorage.setItem('nesports_wishlist', JSON.stringify(defaultWish));
-        } catch (e) {}
-        return defaultWish;
-    }
-
-    function saveWishlist(items) {
-        try {
-            localStorage.setItem('nesports_wishlist', JSON.stringify(items));
-        } catch (e) {}
-    }
-
+    // 3. Wishlist Storage — removed (Saved Gear feature removed)
     // 4. Alerts
     function showAuthAlert(msg, type) {
         if (!authAlert) return;
@@ -277,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
         hideAuthAlert();
         currentView = viewName;
 
-        var allViews = [viewLogin, viewRegister, viewForgot, viewAccount, viewOrders, viewAddress, viewWishlist];
+        var allViews = [viewLogin, viewRegister, viewForgot, viewAccount, viewOrders, viewAddress];
         allViews.forEach(function(v) { if (v) v.style.display = 'none'; });
 
         var user = getStoredUser();
@@ -309,11 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (drawerTitle) drawerTitle.textContent = 'Saved Address';
             if (backBtn) backBtn.style.display = 'flex';
             renderAddressForm();
-        } else if (viewName === 'wishlist') {
-            if (viewWishlist) viewWishlist.style.display = 'block';
-            if (drawerTitle) drawerTitle.textContent = 'Saved Gear';
-            if (backBtn) backBtn.style.display = 'flex';
-            renderWishlistList();
         } else {
             // Default: login
             if (viewLogin) viewLogin.style.display = 'block';
@@ -337,7 +308,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var avatarEl = document.getElementById('hb-acc-avatar-letter');
         var ordersCountEl = document.getElementById('hb-acc-orders-count');
         var addressStatusEl = document.getElementById('hb-acc-address-status');
-        var wishlistCountEl = document.getElementById('hb-acc-wishlist-count');
 
         if (nameEl) nameEl.textContent = user.name || 'Athlete Member';
         if (emailEl) emailEl.textContent = user.email || 'user@nesports3.com';
@@ -349,9 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (addressStatusEl) {
             addressStatusEl.textContent = (user.address && user.address.street) ? 'Default Saved' : 'Not Set';
         }
-
-        var wish = getWishlist();
-        if (wishlistCountEl) wishlistCountEl.textContent = wish.length + (wish.length === 1 ? ' Item' : ' Items');
     }
 
     function renderOrdersList() {
@@ -422,66 +389,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (phoneInput) phoneInput.value = addr.phone || user.phone || '';
     }
 
-    function renderWishlistList() {
-        var wrap = document.getElementById('hb-wishlist-items-wrap');
-        if (!wrap) return;
-
-        var wish = getWishlist();
-        if (wish.length === 0) {
-            wrap.innerHTML = ''
-                + '<div class="hb-empty-subview">'
-                + '  <i class="fa-regular fa-heart"></i>'
-                + '  <h4>Your saved list is empty</h4>'
-                + '  <p>Save items you want to keep an eye on by adding them to your athlete wishlist.</p>'
-                + '  <a href="/shop/" class="hb-empty-subview-btn">VIEW ALL GEAR</a>'
-                + '</div>';
-            return;
-        }
-
-        var html = '';
-        wish.forEach(function(item, idx) {
-            html += '<div class="hb-wishlist-card">';
-            html += '  <img src="' + item.img + '" alt="" class="hb-wishlist-thumb">';
-            html += '  <div class="hb-wishlist-info">';
-            html += '    <div class="hb-wishlist-title">' + item.name + '</div>';
-            html += '    <div class="hb-wishlist-price">€' + parseFloat(item.price).toFixed(2) + '</div>';
-            html += '  </div>';
-            html += '  <div class="hb-wishlist-actions">';
-            html += '    <button type="button" class="hb-wishlist-btn-add" data-id="' + item.id + '" data-name="' + item.name + '" data-price="' + item.price + '" data-img="' + item.img + '">ADD TO CART</button>';
-            html += '    <button type="button" class="hb-wishlist-btn-del" data-idx="' + idx + '" title="Remove item"><i class="fa-solid fa-trash-can"></i></button>';
-            html += '  </div>';
-            html += '</div>';
-        });
-
-        wrap.innerHTML = html;
-
-        // Wire Add to cart from wishlist
-        wrap.querySelectorAll('.hb-wishlist-btn-add').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var id = btn.dataset.id;
-                var name = btn.dataset.name;
-                var price = parseFloat(btn.dataset.price);
-                var img = btn.dataset.img;
-                if (typeof window.hbAddToCart === 'function') {
-                    window.hbAddToCart(id, name, price, img, 1);
-                    btn.textContent = 'ADDED!';
-                    setTimeout(function() { btn.textContent = 'ADD TO CART'; }, 1200);
-                }
-            });
-        });
-
-        // Wire delete from wishlist
-        wrap.querySelectorAll('.hb-wishlist-btn-del').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var idx = parseInt(btn.dataset.idx, 10);
-                var cur = getWishlist();
-                cur.splice(idx, 1);
-                saveWishlist(cur);
-                renderWishlistList();
-                renderAccountDashboard();
-            });
-        });
-    }
 
     // 7. Global Header Sync
     function syncAuthUI() {
@@ -526,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Back button routing
     if (backBtn) {
         backBtn.addEventListener('click', function() {
-            if (currentView === 'orders' || currentView === 'address' || currentView === 'wishlist') {
+            if (currentView === 'orders' || currentView === 'address') {
                 switchAuthView('account');
             } else {
                 switchAuthView('login');
@@ -540,9 +447,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var btnOpenAddress = document.getElementById('hb-btn-open-address');
     if (btnOpenAddress) btnOpenAddress.addEventListener('click', function() { switchAuthView('address'); });
-
-    var btnOpenWishlist = document.getElementById('hb-btn-open-wishlist');
-    if (btnOpenWishlist) btnOpenWishlist.addEventListener('click', function() { switchAuthView('wishlist'); });
 
     // Switch buttons
     var gotoRegister = document.getElementById('hb-goto-register');
