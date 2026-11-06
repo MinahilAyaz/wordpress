@@ -14,16 +14,13 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
     <!-- 1. HERO CAROUSEL -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-hero.php'; ?>
 
-    <!-- 2. PRODUCT SLIDER WITH FILTER PILLS -->
-    <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-products.php'; ?>
+    <!-- 2. POPULAR CATEGORIES (4 Cards Matched to Reference) -->
+    <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-categories.php'; ?>
 
     <!-- 3. MID-PAGE PARALLAX BANNER -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-banner.php'; ?>
 
-    <!-- 4. CURATED COLLECTIONS -->
-    <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-categories.php'; ?>
-
-    <!-- 5. POWER PACKS & BUNDLES -->
+    <!-- 4. POWER PACKS & BUNDLES -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-bundles.php'; ?>
 
 </main>

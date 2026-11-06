@@ -65,6 +65,8 @@ $is_home_page = getenv('NES_PAGE') !== false ? (getenv('NES_PAGE') === 'home') :
                         <a href="<?php echo esc_url(home_url('/product-category/wrist-straps/')); ?>">Wrist Straps</a>
                         <a href="<?php echo esc_url(home_url('/product-category/gym-bag/')); ?>">Gym Bags</a>
                         <a href="<?php echo esc_url(home_url('/product-category/speed-ball/')); ?>">Speed Ball Sets</a>
+                        <a href="<?php echo esc_url(home_url('/product-category/ankle-straps/')); ?>">Ankle Straps</a>
+                        <a href="<?php echo esc_url(home_url('/product-category/barbell-pads/')); ?>">Barbell Pads</a>
                     </div>
                 </li>
                 <li>

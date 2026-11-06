@@ -25,6 +25,8 @@ function nesports_categories() {
         'speed'  => 'SPEED BALL',
         'wrist'  => 'WRIST WRAPS',
         'bags'   => 'GYM BAGS',
+        'ankle'  => 'ANKLE STRAPS',
+        'pads'   => 'BARBELL PADS',
     );
 }
 
@@ -86,7 +88,7 @@ function nesports_hero_slides() {
  */
 function nesports_catalog() {
     return array(
-        array('name' => 'Classic Weightlifting Belt Leather',            'slug' => 'pro-leather-weightlifting-lever-belt-10mm',     'cat' => 'belts',  'price' => 59.99, 'old' => 79.99, 'reviews' => 128, 'main' => 'DSC_0166-scaled-1.jpg',                        'hover' => 'DSC_0167-scaled-1.jpg'),
+        array('name' => 'Classic Weightlifting Belt Leather',            'slug' => 'pro-leather-weightlifting-lever-belt-10mm',     'cat' => 'belts',  'price' => 59.99, 'old' => 79.99, 'reviews' => 128, 'main' => 'DSC_0167-scaled-1.jpg',                        'hover' => 'DSC_0166-scaled-1.jpg'),
         array('name' => 'Power Lifting Belt 13mm (Black)',              'slug' => 'competition-weightlifting-belt-13mm-black',   'cat' => 'belts',  'price' => 69.99, 'old' => 89.99, 'reviews' => 86,  'main' => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',        'hover' => 'WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg'),
         array('name' => 'Weightlifting Dip Belt with Steel Chain',       'slug' => 'quick-release-lever-power-belt',             'cat' => 'belts',  'price' => 64.99, 'old' => 84.99, 'reviews' => 54,  'main' => 'Dip-Belt-800x800.jpg',                       'hover' => 'Dip-Belt-1-800x800.jpg'),
         array('name' => 'Heavy Duty Neoprene Elbow Wraps (Pair)',        'slug' => 'heavy-duty-neoprene-elbow-wraps',             'cat' => 'elbow',  'price' => 24.99, 'old' => 34.99, 'reviews' => 39,  'main' => 'Knee-Wrap-800x800.jpg',                       'hover' => 'Knee-wrap-1-800x800.jpg'),
@@ -102,6 +104,21 @@ function nesports_catalog() {
         array('name' => 'Wrist Bandages 45 cm (Black)',                 'slug' => 'wrist-bandages-45-cm-wrist-black-2',         'cat' => 'wrist',  'price' => 9.99,  'old' => 19.99, 'reviews' => 91,  'main' => 'Wrist-Bandage-Black-800x800.jpg',             'hover' => 'Wrist-Bandage-1-800x800.jpg'),
         array('name' => 'Water Proof Gym Bag (Gray)',                   'slug' => 'water-proof-gym-bag-gray',                   'cat' => 'bags',   'price' => 11.99, 'old' => 19.99, 'reviews' => 42,  'main' => 'Gym-Bag-9-800x800.jpg',                       'hover' => 'Gym-Bag-1-2-800x800.jpg'),
         array('name' => 'Water Proof Gym Bag (Blue)',                   'slug' => 'water-proof-gym-bag-blue',                   'cat' => 'bags',   'price' => 11.99, 'old' => 19.99, 'reviews' => 38,  'main' => 'Gym-Bag-8-800x800.jpg',                       'hover' => 'Gym-Bag-1-800x800.jpg'),
+        array('name' => 'Elbow Wrap', 'slug' => 'elbow-wrap', 'cat' => 'elbow', 'price' => 24.99, 'old' => 34.99, 'reviews' => 84, 'main' => 'Elbow-Wrap-1-scaled.jpg', 'hover' => 'Elbow-Wrap-scaled.jpg'),
+        array('name' => 'Ankle Strap Cable Pull (Black)', 'slug' => 'ankle-strap-black', 'cat' => 'ankle', 'price' => 11.99, 'old' => 14.99, 'reviews' => 59, 'main' => 'Ankle-Strap-Cable-pull-scaled.jpg', 'hover' => 'Ankle-Strap-Cable-pull-1-scaled.jpg'),
+        array('name' => 'Barbell Pad (Black)', 'slug' => 'barbell-pad-black', 'cat' => 'pads', 'price' => 24.99, 'old' => 24.99, 'reviews' => 70, 'main' => 'Barbell-Pad-5-scaled.jpg', 'hover' => 'DSC_0179-Copy-scaled-1.jpg'),
+        array('name' => 'Water Proof gym Bag (Black)', 'slug' => 'water-proof-gym-bag-black', 'cat' => 'bags', 'price' => 11.99, 'old' => 14.99, 'reviews' => 61, 'main' => 'Gym-Bag-scaled.jpg', 'hover' => 'Gym-Bag-1-scaled.jpg'),
+        array('name' => 'Classic weightlifting belt Leather', 'slug' => 'classic-weightlifting-belt-leather', 'cat' => 'belts', 'price' => 19.99, 'old' => 29.99, 'reviews' => 71, 'main' => 'DSC_0166-scaled-1.jpg', 'hover' => 'DSC_0167-scaled-1.jpg'),
+        array('name' => 'Classic weightlifting belt', 'slug' => 'classic-weightlifting-belt', 'cat' => 'belts', 'price' => 14.99, 'old' => 19.99, 'reviews' => 62, 'main' => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg', 'hover' => 'WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg'),
+        array('name' => 'Barbell Pad (Camo Blue)', 'slug' => 'barbell-pad-camo-blue', 'cat' => 'pads', 'price' => 24.99, 'old' => 24.99, 'reviews' => 74, 'main' => 'DSC_0177-scaled-1.jpg', 'hover' => 'DSC_0179-Copy-scaled-1.jpg'),
+        array('name' => 'Barbell pad (Gray Camo)', 'slug' => 'barbell-pad-gray-camo', 'cat' => 'pads', 'price' => 24.99, 'old' => 24.99, 'reviews' => 67, 'main' => 'Baerbell-Pad-scaled.jpg', 'hover' => 'Barbell-Pad-1-scaled.jpg'),
+        array('name' => 'Ankle Strap Cable Pull (Camo Blue)', 'slug' => 'ankle-strap-camo-blue', 'cat' => 'ankle', 'price' => 11.99, 'old' => 14.99, 'reviews' => 81, 'main' => 'Ankle-Strap-Cable-pull-5-scaled.jpg', 'hover' => 'Ankle-Strap-Cable-pull-3-scaled.jpg'),
+        array('name' => 'Premium Ankle Straps', 'slug' => 'premium-ankle-straps-2', 'cat' => 'ankle', 'price' => 9.99, 'old' => 14.99, 'reviews' => 66, 'main' => 'DSC_0210-scaled-1.jpg', 'hover' => 'DSC_2459-scaled-1.jpg'),
+        array('name' => 'Lifting Straps (Padded) Black', 'slug' => 'lifting-straps-padded-black', 'cat' => 'straps', 'price' => 9.99, 'old' => 19.99, 'reviews' => 89, 'main' => 'WhatsApp-Image-2024-07-08-at-19.20.29_3dc5ad04.jpg', 'hover' => 'WhatsApp-Image-2024-07-08-at-19.20.29_13856fb5-Copy.jpg'),
+        array('name' => 'Foot Loops Cable Pull (Black)', 'slug' => 'foot-loops-cable-pull-black', 'cat' => 'ankle', 'price' => 9.99, 'old' => 24.99, 'reviews' => 45, 'main' => 'Foot-Strap-Cable-pull-padded.jpg', 'hover' => 'Foot-Strap-Cable-pull-padded-2.jpg'),
+        array('name' => 'Wrist Bandages  45 cm Wrist  (Black/Yellow)', 'slug' => 'wrist-bandages-45-cm-wrist-black', 'cat' => 'wrist', 'price' => 9.99, 'old' => 19.99, 'reviews' => 83, 'main' => 'Wrist-Bandage-3.jpg', 'hover' => 'Wrist-Bandage-1.jpg'),
+        array('name' => 'Lifting Straps with Extra Padded', 'slug' => 'lifting-straps-with-wrist-pad', 'cat' => 'straps', 'price' => 16.99, 'old' => 24.99, 'reviews' => 49, 'main' => '1-scaled.jpg', 'hover' => '0-1-min-scaled.jpg'),
+        array('name' => 'Weighlifting Dip Belt with Chain', 'slug' => 'weighlifting-dip-belt-with-chain', 'cat' => 'belts', 'price' => 24.99, 'old' => 29.99, 'reviews' => 48, 'main' => 'Dip-Belt.jpg', 'hover' => 'Dip-Belt-1.jpg'),
     );
 }
 
@@ -113,30 +130,22 @@ function nesports_collections() {
     return array(
         array(
             'title'    => 'Weightlifting Belts',
-            'sub'      => '10mm & 13mm Lever Power Belts',
-            'img'      => 'DSC_0166-scaled-1.jpg',
-            'action'   => 'Explore Belts',
+            'img'      => 'DSC_0167-scaled-1.jpg',
             'url'      => '/product-category/weightlifting-belts/'
         ),
         array(
-            'title'    => 'Straps & Joint Wraps',
-            'sub'      => 'Knee Wraps & Padded Deadlift Straps',
-            'img'      => 'Knee-Wrap-800x800.jpg',
-            'action'   => 'Explore Wraps',
+            'title'    => 'Lifting Straps',
+            'img'      => '1-800x800.jpg',
             'url'      => '/product-category/lifting-straps/'
         ),
         array(
-            'title'    => 'Boxing & Speed Balls',
-            'sub'      => 'Maya Hide Leather Reflex Gear',
-            'img'      => '1-1-2-800x800.jpg',
-            'action'   => 'Explore Speed Gear',
-            'url'      => '/product-category/speed-ball/'
+            'title'    => 'Elbow Wraps',
+            'img'      => 'Knee-Wrap-800x800.jpg',
+            'url'      => '/product-category/elbow-wrap/'
         ),
         array(
-            'title'    => 'Athlete Bags & Packs',
-            'sub'      => 'Waterproof Multi-Compartment Duffels',
+            'title'    => 'Gym Bags',
             'img'      => 'Gym-Bag-8-800x800.jpg',
-            'action'   => 'Explore Bags',
             'url'      => '/product-category/gym-bag/'
         ),
     );
@@ -220,15 +229,15 @@ function nesports_product_profile($product) {
         // 1. Classic Weightlifting Belt Leather
         'pro-leather-weightlifting-lever-belt-10mm' => array(
             'gallery' => array(
-                'DSC_0166-scaled-1.jpg',
                 'DSC_0167-scaled-1.jpg',
+                'DSC_0166-scaled-1.jpg',
                 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
                 'WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg'
             ),
             'colors' => array(
+                array('name' => 'Black / White Stitch', 'color' => 'linear-gradient(135deg, #18181b 50%, #e4e4e7 50%)', 'img' => 'DSC_0167-scaled-1.jpg'),
                 array('name' => 'Stealth Black',        'color' => '#18181b', 'img' => 'DSC_0166-scaled-1.jpg'),
-                array('name' => 'Black / Royal Blue',   'color' => 'linear-gradient(135deg, #18181b 50%, #2563eb 50%)', 'img' => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg'),
-                array('name' => 'Black / White Stitch', 'color' => 'linear-gradient(135deg, #18181b 50%, #e4e4e7 50%)', 'img' => 'DSC_0167-scaled-1.jpg')
+                array('name' => 'Black / Royal Blue',   'color' => 'linear-gradient(135deg, #18181b 50%, #2563eb 50%)', 'img' => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg')
             ),
             'has_thickness' => true,
             'thickness_options' => array('10mm (Standard)', '13mm (Competition)'),

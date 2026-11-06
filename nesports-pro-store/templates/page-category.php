@@ -25,6 +25,12 @@ $aliases = array(
     'gym-bags'            => 'bags',
     'speed-ball'          => 'speed',
     'decoration'          => 'speed',
+    'ankle-straps'        => 'ankle',
+    'ankle-strap'         => 'ankle',
+    'ankle'               => 'ankle',
+    'barbell-pads'        => 'pads',
+    'barbell-pad'         => 'pads',
+    'pads'                => 'pads',
 );
 if (isset($aliases[$cat_slug])) {
     $cat_slug = $aliases[$cat_slug];
@@ -40,6 +46,8 @@ $cat_meta = array(
     'speed'  => array('title' => 'Speed Ball Sets',       'desc' => 'Genuine Maya Hide leather speed balls designed for boxing, reflex speed, and conditioning.'),
     'wrist'  => array('title' => 'Wrist Straps & Wraps',  'desc' => 'Rigid wrist support bandages designed for bench press, overhead lifts, and joint protection.'),
     'bags'   => array('title' => 'Gym Bags',              'desc' => 'Durable waterproof gym backpacks and carryalls engineered for athletes.'),
+    'ankle'  => array('title' => 'Ankle Straps & Loops',   'desc' => 'Heavy-duty padded ankle straps and foot loops engineered for cable machine glute kickbacks and leg curls.'),
+    'pads'   => array('title' => 'Barbell Pads',          'desc' => 'High-density anti-slip neck and hip pads designed for comfortable, heavy squats and hip thrusts.'),
 );
 
 $current_meta = isset($cat_meta[$cat_slug]) ? $cat_meta[$cat_slug] : array(
@@ -78,7 +86,8 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
     <!-- Category Pills Filter Bar -->
     <div class="hb-cat-filter-bar">
         <div class="hb-cat-filter-inner">
-            <a href="<?php echo esc_url(home_url('/shop/')); ?>" class="hb-pill <?php echo ($cat_slug === 'all' || empty($cat_slug)) ? 'is-active' : ''; ?>">ALL PRODUCTS</a>
+            <a href="<?php echo esc_url(home_url('/shop/')); ?>" class="hb-pill hb-pill--master <?php echo ($cat_slug === 'all' || empty($cat_slug)) ? 'is-active' : ''; ?>"><i class="fa-solid fa-shapes"></i> ALL PRODUCTS</a>
+            <span class="hb-pill-divider" aria-hidden="true"></span>
             <a href="<?php echo esc_url(home_url('/product-category/weightlifting-belts/')); ?>" class="hb-pill <?php echo ($cat_slug === 'belts') ? 'is-active' : ''; ?>">BELTS</a>
             <a href="<?php echo esc_url(home_url('/product-category/lifting-straps/')); ?>" class="hb-pill <?php echo ($cat_slug === 'straps') ? 'is-active' : ''; ?>">LIFTING STRAPS</a>
             <a href="<?php echo esc_url(home_url('/product-category/knee-wrap/')); ?>" class="hb-pill <?php echo ($cat_slug === 'knee') ? 'is-active' : ''; ?>">KNEE WRAPS</a>
@@ -112,7 +121,7 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
                                 <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                             </a>
                             <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr($p['slug']); ?>" data-name="<?php echo esc_attr($p['name']); ?>" data-price="<?php echo esc_attr($p['price']); ?>" data-img="<?php echo esc_url(nesports_img($p['main'])); ?>" aria-label="Add <?php echo esc_attr($p['name']); ?> to cart">
-                                Add to cart
+                                <i class="fa-solid fa-plus"></i> Add to cart
                             </button>
                         </div>
                         <div class="hb-card-body">

@@ -12,7 +12,8 @@ $categories = nesports_categories();
 <section class="hb-collection" id="shop" data-slider>
     <div class="hb-collection-bar">
         <div class="hb-pills">
-            <button type="button" class="hb-pill is-active" data-filter="all">ALL PRODUCTS</button>
+            <button type="button" class="hb-pill hb-pill--master is-active" data-filter="all"><i class="fa-solid fa-shapes"></i> ALL PRODUCTS</button>
+            <span class="hb-pill-divider" aria-hidden="true"></span>
             <?php foreach ($categories as $key => $label): ?>
                 <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
             <?php endforeach; ?>
@@ -31,7 +32,7 @@ $categories = nesports_categories();
                     <img class="hb-img-hover" src="<?php echo esc_url(nesports_img($p['hover'])); ?>" alt="" loading="lazy">
                 </a>
                 <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr($p['slug']); ?>" data-name="<?php echo esc_attr($p['name']); ?>" data-price="<?php echo esc_attr($p['price']); ?>" data-img="<?php echo esc_url(nesports_img($p['main'])); ?>" aria-label="Add <?php echo esc_attr($p['name']); ?> to cart">
-                    Add to cart
+                    <i class="fa-solid fa-plus"></i> Add to cart
                 </button>
             </div>
             <div class="hb-card-body">
