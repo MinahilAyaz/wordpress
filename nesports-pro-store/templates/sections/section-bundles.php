@@ -11,9 +11,7 @@ $bundle_tabs = nesports_bundle_tabs();
 ?>
 <section class="hb-bundles-section" id="bundles" data-slider>
     <div class="hb-section-header">
-        <span class="hb-section-eyebrow">CURATED TRAINING KITS</span>
         <h2 class="hb-section-title">Power Packs &amp; Bundles</h2>
-        <p class="hb-section-sub">Essential gear combinations engineered to work together. Hand-picked and bundled with exclusive savings.</p>
     </div>
     <div class="hb-pills hb-pills--center">
         <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>

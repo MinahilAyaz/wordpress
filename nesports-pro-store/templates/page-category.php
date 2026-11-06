@@ -72,8 +72,6 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
             </nav>
 
             <h1 class="hb-cat-title"><?php echo esc_html($current_meta['title']); ?></h1>
-            <p class="hb-cat-desc"><?php echo esc_html($current_meta['desc']); ?></p>
-            <span class="hb-cat-count"><?php echo count($filtered_products); ?> products</span>
         </div>
     </section>
 

@@ -22,10 +22,10 @@ class NESports_Frontend {
      * Enqueue Google Fonts and Custom Dark Athletic Styles
      */
     public function enqueue_assets() {
-        // Enqueue Google Fonts
+        // Enqueue Google Fonts (Josefin Sans)
         wp_enqueue_style(
             'nesports-google-fonts',
-            'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap',
+            'https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap',
             array(),
             null
         );

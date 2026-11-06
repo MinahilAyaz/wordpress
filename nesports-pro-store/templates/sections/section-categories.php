@@ -10,9 +10,7 @@ $collections = nesports_collections();
 ?>
 <section class="hb-collections-section" id="collections">
     <div class="hb-section-header">
-        <span class="hb-section-eyebrow">SHOP BY CATEGORY</span>
         <h2 class="hb-section-title">Curated Collections</h2>
-        <p class="hb-section-sub">Explore our core product lines built for competitive lifting and high-intensity training.</p>
     </div>
     <div class="hb-category-grid">
         <?php foreach ($collections as $c): ?>

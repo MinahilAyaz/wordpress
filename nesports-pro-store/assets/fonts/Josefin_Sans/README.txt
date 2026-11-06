@@ -1,22 +1,32 @@
-Space Grotesk Variable Font
-===========================
+Josefin Sans Variable Font
+==========================
 
-This download contains Space Grotesk as both a variable font and static fonts.
+This download contains Josefin Sans as both variable fonts and static fonts.
 
-Space Grotesk is a variable font with this axis:
+Josefin Sans is a variable font with this axis:
   wght
 
-This means all the styles are contained in a single file:
-  SpaceGrotesk-VariableFont_wght.ttf
+This means all the styles are contained in these files:
+  JosefinSans-VariableFont_wght.ttf
+  JosefinSans-Italic-VariableFont_wght.ttf
 
 If your app fully supports variable fonts, you can now pick intermediate styles
 that aren’t available as static fonts. Not all apps support variable fonts, and
-in those cases you can use the static font files for Space Grotesk:
-  static/SpaceGrotesk-Light.ttf
-  static/SpaceGrotesk-Regular.ttf
-  static/SpaceGrotesk-Medium.ttf
-  static/SpaceGrotesk-SemiBold.ttf
-  static/SpaceGrotesk-Bold.ttf
+in those cases you can use the static font files for Josefin Sans:
+  static/JosefinSans-Thin.ttf
+  static/JosefinSans-ExtraLight.ttf
+  static/JosefinSans-Light.ttf
+  static/JosefinSans-Regular.ttf
+  static/JosefinSans-Medium.ttf
+  static/JosefinSans-SemiBold.ttf
+  static/JosefinSans-Bold.ttf
+  static/JosefinSans-ThinItalic.ttf
+  static/JosefinSans-ExtraLightItalic.ttf
+  static/JosefinSans-LightItalic.ttf
+  static/JosefinSans-Italic.ttf
+  static/JosefinSans-MediumItalic.ttf
+  static/JosefinSans-SemiBoldItalic.ttf
+  static/JosefinSans-BoldItalic.ttf
 
 Get started
 -----------
