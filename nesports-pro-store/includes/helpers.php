@@ -52,8 +52,9 @@ function nesports_categories() {
         'speed'  => 'SPEED BALL',
         'wrist'  => 'WRIST WRAPS',
         'bags'   => 'GYM BAGS',
-        'ankle'  => 'ANKLE STRAPS',
-        'pads'   => 'BARBELL PADS',
+        'ankle'    => 'ANKLE STRAPS',
+        'pads'     => 'BARBELL PADS',
+        'clothing' => 'CLOTHING',
     );
 }
 
@@ -206,6 +207,13 @@ function nesports_preset_catalog() {
         array('name' => 'Wrist Bandages  45 cm Wrist  (Black/Yellow)', 'slug' => 'wrist-bandages-45-cm-wrist-black', 'cat' => 'wrist', 'price' => 9.99, 'old' => 19.99, 'reviews' => 83, 'main' => 'Wrist-Bandage-3.jpg', 'hover' => 'Wrist-Bandage-1.jpg'),
         array('name' => 'Lifting Straps with Extra Padded', 'slug' => 'lifting-straps-with-wrist-pad', 'cat' => 'straps', 'price' => 16.99, 'old' => 24.99, 'reviews' => 49, 'main' => '1-scaled.jpg', 'hover' => '0-1-min-scaled.jpg'),
         array('name' => 'Weighlifting Dip Belt with Chain', 'slug' => 'weighlifting-dip-belt-with-chain', 'cat' => 'belts', 'price' => 24.99, 'old' => 29.99, 'reviews' => 48, 'main' => 'Dip-Belt.jpg', 'hover' => 'Dip-Belt-1.jpg'),
+        // Clothing & Apparel (Oversized Lifter T-Shirts)
+        array('name' => 'Strength Club Oversized T-Shirt (Black)', 'slug' => 'strength-club-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 94, 'main' => 'clothing/Black NE3Sports Strength Club T-Shirt.png', 'hover' => 'clothing/Black T-Shirt with Red Strength Club Design.png'),
+        array('name' => 'Lift The World Signature T-Shirt (Black)', 'slug' => 'lift-the-world-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 108, 'main' => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg', 'hover' => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg'),
+        array('name' => 'Anime Heavyweight Graphic T-Shirt', 'slug' => 'anime-oversized-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 120, 'main' => 'clothing/Anime-6.jpg', 'hover' => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg'),
+        array('name' => 'Son Of The West Statement T-Shirt', 'slug' => 'son-of-the-west-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 65, 'main' => 'clothing/Back-Son-Of-The-West.jpg', 'hover' => 'clothing/Anime-1.jpg'),
+        array('name' => 'Pro Coach Performance Oversized T-Shirt (Green)', 'slug' => 'pro-coach-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 58, 'main' => 'clothing/Procoach-T-Shirt-Green.jpg', 'hover' => 'clothing/Anime-2.jpg'),
+        array('name' => 'Lift The World Signature T-Shirt (Crimson Red)', 'slug' => 'lift-the-world-red-edition-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 76, 'main' => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg', 'hover' => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg'),
     );
 }
 
@@ -388,42 +396,42 @@ function nesports_clothing() {
             'title' => 'STRENGTH CLUB',
             'tag'   => 'HEAVYWEIGHT OVERSIZED',
             'img'   => 'clothing/Black NE3Sports Strength Club T-Shirt.png',
-            'url'   => '/product-category/clothing/'
+            'url'   => '/product/strength-club-oversized-t-shirt/'
         ),
         array(
             'id'    => 'lift-the-world',
             'title' => 'LIFT THE WORLD',
             'tag'   => 'SIGNATURE ATHLETE TEE',
             'img'   => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
-            'url'   => '/product-category/clothing/'
+            'url'   => '/product/lift-the-world-oversized-t-shirt/'
         ),
         array(
             'id'    => 'anime-drop',
             'title' => 'ANIME',
             'tag'   => 'LIMITED EDITION GRAPHIC',
             'img'   => 'clothing/Anime-6.jpg',
-            'url'   => '/product-category/clothing/'
+            'url'   => '/product/anime-oversized-t-shirt/'
         ),
         array(
             'id'    => 'son-of-the-west',
             'title' => 'SON OF THE WEST',
             'tag'   => 'ACID WASH STATEMENT',
             'img'   => 'clothing/Back-Son-Of-The-West.jpg',
-            'url'   => '/product-category/clothing/'
+            'url'   => '/product/son-of-the-west-oversized-t-shirt/'
         ),
         array(
             'id'    => 'pro-coach',
             'title' => 'PRO COACH',
             'tag'   => 'PERFORMANCE OVERSIZED',
             'img'   => 'clothing/Procoach-T-Shirt-Green.jpg',
-            'url'   => '/product-category/clothing/'
+            'url'   => '/product/pro-coach-oversized-t-shirt/'
         ),
         array(
-            'id'    => 'shop-the-look',
-            'title' => 'OVERSIZED TEES',
-            'tag'   => 'ESSENTIAL GYM FIT',
-            'img'   => 'clothing/Shop-The-Look-1.jpg',
-            'url'   => '/product-category/clothing/'
+            'id'    => 'red-edition',
+            'title' => 'RED EDITION',
+            'tag'   => 'LIMITED ATHLETE DROP',
+            'img'   => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+            'url'   => '/product/lift-the-world-red-edition-t-shirt/'
         )
     );
 }
@@ -944,6 +952,41 @@ function nesports_product_profile($product) {
     // Fallback safe profile
     $main = is_array($product) && !empty($product['main']) ? $product['main'] : 'DSC_0166-scaled-1.jpg';
     $hover = is_array($product) && !empty($product['hover']) ? $product['hover'] : $main;
+
+    $is_clothing = (is_array($product) && isset($product['cat']) && $product['cat'] === 'clothing');
+
+    if ($is_clothing) {
+        return array(
+            'gallery' => array($main, $hover),
+            'colors'  => array(
+                array('name' => 'Original', 'color' => '#18181b', 'img' => $main)
+            ),
+            'has_thickness' => false,
+            'has_size'      => true,
+            'size_label'    => 'Size:',
+            'sizes'         => array(
+                array('label' => 'S',   'val' => 'S (Chest 38" - 40")'),
+                array('label' => 'M',   'val' => 'M (Chest 40" - 42")'),
+                array('label' => 'L',   'val' => 'L (Chest 42" - 44")'),
+                array('label' => 'XL',  'val' => 'XL (Chest 44" - 46")'),
+                array('label' => 'XXL', 'val' => 'XXL (Chest 46" - 48")'),
+            ),
+            'has_size_guide'=> true,
+            'pack_includes' => array(
+                '1x NESPORTS3 ' . (is_array($product) ? $product['name'] : 'Oversized T-Shirt'),
+                'Authentic Heavyweight Lifter Boxy Fit',
+                'Official NESPORTS3 Quality Tag'
+            ),
+            'specs' => array(
+                'Material'   => '100% Heavyweight Combed Cotton (240 GSM)',
+                'Fit'        => 'Oversized Drop-Shoulder Boxy Fit',
+                'Print'      => 'High-Density Textured Screen Print',
+                'Pre-Shrunk' => 'Yes (Pre-washed for zero shrinkage)',
+                'Care'       => 'Machine wash cold inside out, hang dry'
+            )
+        );
+    }
+
     return array(
         'gallery' => array($main, $hover),
         'colors'  => array(
