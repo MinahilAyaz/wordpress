@@ -44,7 +44,7 @@ class NESports_Elementor_Categories_Widget extends Widget_Base {
             array(
                 'label'   => esc_html__('Section Title', 'nesports-pro-store'),
                 'type'    => Controls_Manager::TEXT,
-                'default' => 'Popular Categories',
+                'default' => 'Top Sellers',
             )
         );
 
@@ -178,7 +178,7 @@ class NESports_Elementor_Categories_Widget extends Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $title    = !empty($settings['section_title']) ? $settings['section_title'] : 'Popular Categories';
+        $title    = !empty($settings['section_title']) ? $settings['section_title'] : 'Top Sellers';
         $items    = !empty($settings['categories']) ? $settings['categories'] : array();
 
         if (empty($items)) {
@@ -193,35 +193,48 @@ class NESports_Elementor_Categories_Widget extends Widget_Base {
             }
         }
         ?>
-        <section class="hb-collections-section" id="categories">
+        <section class="hb-collections-section hb-top-sellers-section" id="top-sellers">
             <div class="hb-collections-container">
                 <div class="hb-collections-header">
                     <h2 class="hb-collections-title"><?php echo esc_html($title); ?></h2>
+                    <div class="hb-carousel-controls">
+                        <button type="button" class="hb-carousel-arrow hb-carousel-prev" aria-label="Previous">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="hb-carousel-arrow hb-carousel-next" aria-label="Next">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="hb-category-grid">
-                    <?php foreach ($items as $c):
-                        $img_src = '';
-                        if (!empty($c['image']['url'])) {
-                            $img_src = $c['image']['url'];
-                        } elseif (!empty($c['fallback_img'])) {
-                            $img_src = nesports_img($c['fallback_img']);
-                        }
+                <div class="hb-category-carousel-wrap">
+                    <div class="hb-category-track">
+                        <?php foreach ($items as $c):
+                            $img_src = '';
+                            if (!empty($c['image']['url'])) {
+                                $img_src = $c['image']['url'];
+                            } elseif (!empty($c['fallback_img'])) {
+                                $img_src = nesports_img($c['fallback_img']);
+                            }
 
-                        $url = !empty($c['url']['url']) ? $c['url']['url'] : '#';
-                        if (strpos($url, 'http') !== 0 && strpos($url, '#') !== 0) {
-                            $url = home_url($url);
-                        }
-                    ?>
-                    <a class="hb-category-card" href="<?php echo esc_url($url); ?>">
-                        <div class="hb-category-media">
-                            <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
-                        </div>
-                        <div class="hb-category-label">
-                            <h3 class="hb-category-title"><?php echo esc_html($c['title']); ?></h3>
-                            <span class="hb-category-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right-long"></i></span>
-                        </div>
-                    </a>
-                    <?php endforeach; ?>
+                            $url = !empty($c['url']['url']) ? $c['url']['url'] : '#';
+                            if (strpos($url, 'http') !== 0 && strpos($url, '#') !== 0) {
+                                $url = home_url($url);
+                            }
+                        ?>
+                        <a class="hb-category-card" href="<?php echo esc_url($url); ?>">
+                            <div class="hb-category-media">
+                                <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+                            </div>
+                            <div class="hb-category-label">
+                                <h3 class="hb-category-title"><?php echo esc_html($c['title']); ?></h3>
+                                <span class="hb-category-explore">
+                                    <span>Explore collection</span>
+                                    <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
         </section>

@@ -1179,6 +1179,37 @@ document.addEventListener('DOMContentLoaded', function () {
         handleScroll();
     }
 
+    /* ---------- Top Sellers Carousel Slider (Hardbody Scandinavian) ---------- */
+    function initTopSellersSliders(container) {
+        var root = container || document;
+        root.querySelectorAll('.hb-collections-section').forEach(function(sec) {
+            var track = sec.querySelector('.hb-category-track');
+            var prevBtn = sec.querySelector('.hb-carousel-prev');
+            var nextBtn = sec.querySelector('.hb-carousel-next');
+            if (!track || !prevBtn || !nextBtn) return;
+
+            function getScrollStep() {
+                var card = track.querySelector('.hb-category-card');
+                if (card) {
+                    var gap = 20;
+                    return (card.offsetWidth + gap) * 2;
+                }
+                return 320;
+            }
+
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                track.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                track.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+            });
+        });
+    }
+    initTopSellersSliders();
+
     // Initial render of cart
     renderCart();
 
@@ -1188,6 +1219,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (window.elementorFrontend && window.elementorFrontend.hooks) {
                 elementorFrontend.hooks.addAction('frontend/element_ready/nesports_hero_widget.default', function ($scope) {
                     if (window.initNESportsHero) window.initNESportsHero($scope[0]);
+                });
+                elementorFrontend.hooks.addAction('frontend/element_ready/nesports_categories_widget.default', function ($scope) {
+                    initTopSellersSliders($scope[0]);
                 });
                 elementorFrontend.hooks.addAction('frontend/element_ready/nesports_bundles_widget.default', function ($scope) {
                     if (window.initNESportsSliders) window.initNESportsSliders($scope[0]);

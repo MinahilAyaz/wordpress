@@ -223,8 +223,13 @@ function nesports_collections() {
             'url'      => '/product-category/lifting-straps/'
         ),
         array(
-            'title'    => 'Elbow Wraps',
+            'title'    => 'Knee Wraps',
             'img'      => 'Knee-Wrap-800x800.jpg',
+            'url'      => '/product-category/knee-wrap/'
+        ),
+        array(
+            'title'    => 'Elbow Wraps',
+            'img'      => 'Elbow-Wrap-scaled.jpg',
             'url'      => '/product-category/elbow-wrap/'
         ),
         array(
@@ -236,6 +241,21 @@ function nesports_collections() {
             'title'    => 'Gym Bags',
             'img'      => 'Gym-Bag-8-800x800.jpg',
             'url'      => '/product-category/gym-bag/'
+        ),
+        array(
+            'title'    => 'Speed Ball Sets',
+            'img'      => 'hero-speed-ball.png',
+            'url'      => '/product-category/speed-ball/'
+        ),
+        array(
+            'title'    => 'Ankle Straps',
+            'img'      => 'Ankle-Strap-Cable-pull-scaled.jpg',
+            'url'      => '/product-category/ankle-straps/'
+        ),
+        array(
+            'title'    => 'Barbell Pads',
+            'img'      => 'Baerbell-Pad-scaled.jpg',
+            'url'      => '/product-category/barbell-pads/'
         ),
     );
 }
