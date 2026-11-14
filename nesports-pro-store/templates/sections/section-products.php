@@ -20,7 +20,7 @@ $categories = nesports_categories();
         </div>
     </div>
 
-    <div class="hb-cards">
+    <div class="hb-cards hb-product-grid">
         <?php foreach ($products as $p):
             $url     = home_url('/product/' . $p['slug'] . '/');
             $on_sale = $p['old'] > $p['price'];

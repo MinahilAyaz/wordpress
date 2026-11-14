@@ -1,0 +1,164 @@
+{
+  "version": "0.4",
+  "title": "3. NESPORTS3 - About Us Page Template",
+  "type": "page",
+  "content": [
+    {
+      "id": "f7fd052",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "b87cee4",
+          "elType": "widget",
+          "widgetType": "html",
+          "settings": {
+            "html": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap\">\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css\">\n<link rel=\"stylesheet\" href=\"https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/css/nesports-frontend.css\">\n<style>\n:root { --hb-accent: #e11d48; --hb-font: \"Josefin Sans\", sans-serif; }\n.hb-hero.e-con { display: block !important; position: relative; overflow: hidden; background: #09090b; padding: 28px 0 64px !important; }\n.hb-hero-track.e-con { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 24px !important; transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; width: max-content !important; max-width: none !important; }\n.hb-hero-slide.e-con { width: min(1220px, 86vw) !important; min-width: min(1220px, 86vw) !important; height: 560px !important; position: relative !important; border-radius: 18px !important; overflow: hidden !important; display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; background: #121216 !important; padding: 48px 60px !important; opacity: 0.45; transform: scale(0.96); transition: opacity 0.5s ease, transform 0.5s ease; }\n.hb-hero-slide.e-con.is-active { opacity: 1; transform: scale(1); }\n.hb-hero-media-wrap.e-con { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; padding: 0 !important; }\n.hb-hero-media-wrap.e-con::after { content: \"\"; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,9,11,0.88) 0%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.25) 100%); z-index: 2; pointer-events: none; }\n.hb-hero-media-wrap .elementor-widget-image, .hb-hero-media-wrap .elementor-widget-container, .hb-hero-media-wrap img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }\n.hb-hero-caption-wrap.e-con { position: relative !important; z-index: 3 !important; max-width: 620px !important; display: flex !important; flex-direction: column !important; gap: 14px !important; align-items: flex-start !important; }\n.hb-cat-card-el.e-con { position: relative !important; border-radius: 12px !important; overflow: hidden !important; background: #111 !important; transition: transform 0.35s ease !important; }\n.hb-cat-card-el.e-con:hover { transform: translateY(-6px) !important; }\n.hb-cat-card-el .elementor-widget-image img { width: 100% !important; aspect-ratio: 4/5 !important; object-fit: cover !important; display: block !important; transition: transform 0.5s ease !important; }\n.hb-cat-card-el.e-con:hover .elementor-widget-image img { transform: scale(1.05) !important; }\n.hb-prod-card-el.e-con { transition: transform 0.28s ease, box-shadow 0.28s ease !important; }\n.hb-prod-card-el.e-con:hover { transform: translateY(-5px) !important; box-shadow: 0 14px 32px rgba(0,0,0,0.09) !important; }\n.hb-prod-card-el .elementor-widget-image img { width: 100% !important; aspect-ratio: 1/1 !important; object-fit: cover !important; }\n@media (max-width: 900px) {\n    .hb-hero-slide.e-con { height: 460px !important; padding: 28px 24px !important; }\n    .hb-cat-card-el.e-con, .hb-prod-card-el.e-con { width: 48% !important; }\n}\n</style>\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function() {\n    function initKitSlider() {\n        var hero = document.getElementById(\"hb-hero\");\n        var track = document.getElementById(\"hb-hero-track\");\n        var dots = document.querySelectorAll(\"#hb-hero-dots button\");\n        if (!hero || !track || !track.children.length) return;\n        var idx = 0, timer = null;\n        function goTo(i) {\n            var s = track.children;\n            if (!s.length) return;\n            idx = (i + s.length) % s.length;\n            var w = s[0].getBoundingClientRect().width;\n            var gap = 24;\n            track.style.transform = \"translateX(\" + ((hero.clientWidth - w) / 2 - idx * (w + gap)) + \"px)\";\n            Array.prototype.forEach.call(s, function(el, n) { el.classList.toggle(\"is-active\", n === idx); });\n            dots.forEach(function(d, n) { d.classList.toggle(\"is-active\", n === idx); });\n        }\n        function auto() { clearInterval(timer); timer = setInterval(function() { goTo(idx + 1); }, 6000); }\n        dots.forEach(function(d) {\n            d.addEventListener(\"click\", function() { goTo(parseInt(d.dataset.slide, 10)); auto(); });\n        });\n        window.addEventListener(\"resize\", function() { goTo(idx); });\n        setTimeout(function() { goTo(0); auto(); }, 150);\n    }\n    initKitSlider();\n    setTimeout(initKitSlider, 800);\n\n    document.querySelectorAll(\".hb-kit-pills button\").forEach(function(btn) {\n        btn.addEventListener(\"click\", function() {\n            var parent = btn.closest(\".hb-kit-pills\");\n            parent.querySelectorAll(\"button\").forEach(function(b) { b.classList.remove(\"is-active\"); });\n            btn.classList.add(\"is-active\");\n            var filter = btn.getAttribute(\"data-filter\");\n            var section = btn.closest(\".e-con\");\n            var cards = section ? section.querySelectorAll(\".hb-prod-card-el\") : document.querySelectorAll(\".hb-prod-card-el\");\n            cards.forEach(function(card) {\n                if (filter === \"all\" || card.classList.contains(\"cat-\" + filter)) {\n                    card.style.display = \"flex\";\n                } else {\n                    card.style.display = \"none\";\n                }\n            });\n        });\n    });\n});\n</script>"
+          },
+          "elements": []
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "8416986",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "background_background": "classic",
+        "background_color": "#000000",
+        "padding": {
+          "unit": "px",
+          "top": "56",
+          "right": "20",
+          "bottom": "56",
+          "left": "20",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "780fede",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "About Us",
+            "header_size": "h1",
+            "align": "center",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Josefin Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 44
+            }
+          },
+          "elements": []
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "9aaa922",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "flex_direction": "row",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "unit": "px",
+          "size": 50,
+          "column": "50",
+          "row": "50"
+        },
+        "padding": {
+          "unit": "px",
+          "top": "70",
+          "right": "24",
+          "bottom": "90",
+          "left": "24",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "d429bd8",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "width": {
+              "unit": "%",
+              "size": 48
+            }
+          },
+          "elements": [
+            {
+              "id": "2d18e92",
+              "elType": "widget",
+              "widgetType": "image",
+              "settings": {
+                "image": {
+                  "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg",
+                  "id": ""
+                },
+                "image_size": "full",
+                "image_border_radius": {
+                  "unit": "px",
+                  "top": "10",
+                  "right": "10",
+                  "bottom": "10",
+                  "left": "10",
+                  "isLinked": true
+                }
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "3ff30d5",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "width": {
+              "unit": "%",
+              "size": 52
+            },
+            "flex_direction": "column"
+          },
+          "elements": [
+            {
+              "id": "3449ee5",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>At NE Sports3, we believe sports and fitness are more than just activities \u2013 they are a lifestyle. Our mission is to empower athletes, fitness enthusiasts, and everyday champions with the highest-quality sports and gym products that inspire performance, strength, and confidence.</p><p>From durable gym equipment and training accessories to premium sports gear, we carefully select every product to ensure it meets the needs of both beginners and professionals. Whether you\u2019re building strength in the gym, training for competition, or simply staying active, NE Sports3 is here to support your journey.</p><p>We are passionate about helping our community stay fit, healthy, and motivated. That\u2019s why we combine top-notch products, affordable prices, and reliable service \u2013 because your goals matter to us.</p><p>At NE Sports3, it\u2019s not just about products, it\u2019s about progress. Let us be your trusted partner in achieving your fitness and sports ambitions.</p><p><strong>Train harder. Play stronger. Live better \u2013 with NE Sports3.</strong></p>",
+                "text_color": "#374151",
+                "typography_typography": "custom",
+                "typography_font_family": "Josefin Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16
+                }
+              },
+              "elements": []
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": false
+    }
+  ]
+}

@@ -3,87 +3,99 @@ document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     /* ---------- Hero carousel with peeking neighbours ---------- */
-    var track = document.getElementById('hb-hero-track');
-    var dots = document.querySelectorAll('#hb-hero-dots button');
-    var hero = document.getElementById('hb-hero');
-    var idx = 0, timer = null;
+    window.initNESportsHero = function(root) {
+        root = root || document;
+        var heroes = root.querySelectorAll ? root.querySelectorAll('.hb-hero') : [root];
+        heroes.forEach(function(hero) {
+            if (!hero) return;
+            var track = hero.querySelector('.hb-hero-track');
+            var dots = hero.querySelectorAll('.hb-hero-dots button');
+            var idx = 0, timer = null;
 
-    function goTo(i) {
-        var s = track.children;
-        if (!s.length) return;
-        idx = (i + s.length) % s.length;
-        var w = s[0].getBoundingClientRect().width;
-        var cs = getComputedStyle(track);
-        var gap = parseFloat(cs.gap) || parseFloat(cs.columnGap) || 0;
-        track.style.transform = 'translateX(' + ((hero.clientWidth - w) / 2 - idx * (w + gap)) + 'px)';
-        Array.prototype.forEach.call(s, function (el, n) { el.classList.toggle('is-active', n === idx); });
-        dots.forEach(function (d, n) { d.classList.toggle('is-active', n === idx); });
-    }
-    function auto() { clearInterval(timer); timer = setInterval(function () { goTo(idx + 1); }, 6000); }
+            function goTo(i) {
+                var s = track ? track.children : [];
+                if (!s.length) return;
+                idx = (i + s.length) % s.length;
+                var w = s[0].getBoundingClientRect().width;
+                var cs = getComputedStyle(track);
+                var gap = parseFloat(cs.gap) || parseFloat(cs.columnGap) || 0;
+                track.style.transform = 'translateX(' + ((hero.clientWidth - w) / 2 - idx * (w + gap)) + 'px)';
+                Array.prototype.forEach.call(s, function (el, n) { el.classList.toggle('is-active', n === idx); });
+                dots.forEach(function (d, n) { d.classList.toggle('is-active', n === idx); });
+            }
+            function auto() { clearInterval(timer); timer = setInterval(function () { goTo(idx + 1); }, 6000); }
 
-    if (track && hero) {
-        dots.forEach(function (d) {
-            d.addEventListener('click', function () { goTo(parseInt(d.dataset.slide, 10)); auto(); });
+            if (track && hero) {
+                dots.forEach(function (d) {
+                    d.addEventListener('click', function () { goTo(parseInt(d.dataset.slide, 10)); auto(); });
+                });
+                var startX = null;
+                hero.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+                hero.addEventListener('touchend', function (e) {
+                    if (startX === null) return;
+                    var dx = e.changedTouches[0].clientX - startX;
+                    if (Math.abs(dx) > 40) { goTo(idx + (dx < 0 ? 1 : -1)); auto(); }
+                    startX = null;
+                });
+                window.addEventListener('resize', function () { goTo(idx); });
+                goTo(0); auto();
+            }
         });
-        var startX = null;
-        hero.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
-        hero.addEventListener('touchend', function (e) {
-            if (startX === null) return;
-            var dx = e.changedTouches[0].clientX - startX;
-            if (Math.abs(dx) > 40) { goTo(idx + (dx < 0 ? 1 : -1)); auto(); }
-            startX = null;
-        });
-        window.addEventListener('resize', function () { goTo(idx); });
-        window.addEventListener('load', function () { goTo(idx); });
-        goTo(0); auto();
-    }
+    };
+    window.initNESportsHero();
 
     /* ---------- Sliders: every [data-slider] section works on its own ---------- */
-    document.querySelectorAll('[data-slider]').forEach(function (section) {
-        var wrap = section.querySelector('.hb-cards');
-        if (!wrap) return;
-        var items = wrap.children;
-        var pills = section.querySelectorAll('.hb-pill');
-        var prev = section.querySelector('.hb-prev');
-        var next = section.querySelector('.hb-next');
+    window.initNESportsSliders = function(root) {
+        root = root || document;
+        var sections = root.querySelectorAll ? root.querySelectorAll('[data-slider]') : [root];
+        sections.forEach(function (section) {
+            if (!section) return;
+            var wrap = section.querySelector('.hb-cards');
+            if (!wrap) return;
+            var items = wrap.children;
+            var pills = section.querySelectorAll('.hb-pill');
+            var prev = section.querySelector('.hb-prev');
+            var next = section.querySelector('.hb-next');
 
-        function step() {
-            var first = null;
-            for (var i = 0; i < items.length; i++) { if (!items[i].classList.contains('is-hidden')) { first = items[i]; break; } }
-            return first ? first.getBoundingClientRect().width + 16 : 240;
-        }
+            function step() {
+                var first = null;
+                for (var i = 0; i < items.length; i++) { if (!items[i].classList.contains('is-hidden')) { first = items[i]; break; } }
+                return first ? first.getBoundingClientRect().width + 16 : 240;
+            }
 
-        pills.forEach(function (pill) {
-            pill.addEventListener('click', function () {
-                if (pill.classList.contains('is-active')) return;
-                pills.forEach(function (p) { p.classList.remove('is-active'); });
-                pill.classList.add('is-active');
+            pills.forEach(function (pill) {
+                pill.addEventListener('click', function () {
+                    if (pill.classList.contains('is-active')) return;
+                    pills.forEach(function (p) { p.classList.remove('is-active'); });
+                    pill.classList.add('is-active');
 
-                // Smoothly bring the active pill into view if needed
-                if (typeof pill.scrollIntoView === 'function') {
-                    pill.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
-                }
-
-                var f = pill.dataset.filter;
-                var visibleCount = 0;
-                Array.prototype.forEach.call(items, function (c) {
-                    var match = (f === 'all' || c.dataset.cat === f);
-                    c.classList.toggle('is-hidden', !match);
-                    if (match) {
-                        c.style.animation = 'none';
-                        void c.offsetHeight; /* trigger reflow */
-                        c.style.animation = 'hbCardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both';
-                        c.style.animationDelay = (visibleCount * 0.045) + 's';
-                        visibleCount++;
+                    // Smoothly bring the active pill into view if needed
+                    if (typeof pill.scrollIntoView === 'function') {
+                        pill.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
                     }
-                });
-                wrap.scrollTo({ left: 0, behavior: 'smooth' });
-            });
-        });
 
-        if (prev) prev.addEventListener('click', function () { wrap.scrollBy({ left: -step() * 2 }); });
-        if (next) next.addEventListener('click', function () { wrap.scrollBy({ left: step() * 2 }); });
-    });
+                    var f = pill.dataset.filter;
+                    var visibleCount = 0;
+                    Array.prototype.forEach.call(items, function (c) {
+                        var match = (f === 'all' || c.dataset.cat === f);
+                        c.classList.toggle('is-hidden', !match);
+                        if (match) {
+                            c.style.animation = 'none';
+                            void c.offsetHeight; /* trigger reflow */
+                            c.style.animation = 'hbCardReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both';
+                            c.style.animationDelay = (visibleCount * 0.045) + 's';
+                            visibleCount++;
+                        }
+                    });
+                    wrap.scrollTo({ left: 0, behavior: 'smooth' });
+                });
+            });
+
+            if (prev) prev.addEventListener('click', function () { wrap.scrollBy({ left: -step() * 2 }); });
+            if (next) next.addEventListener('click', function () { wrap.scrollBy({ left: step() * 2 }); });
+        });
+    };
+    window.initNESportsSliders();
 
     /* ---------- Scroll Observer: Trigger Minimal Card Reveal on ALL Cards ---------- */
     if ('IntersectionObserver' in window) {
@@ -1169,4 +1181,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initial render of cart
     renderCart();
+
+    /* ---------- Elementor Frontend Live Preview Hooks ---------- */
+    if (typeof jQuery !== 'undefined') {
+        jQuery(window).on('elementor/frontend/init', function () {
+            if (window.elementorFrontend && window.elementorFrontend.hooks) {
+                elementorFrontend.hooks.addAction('frontend/element_ready/nesports_hero_widget.default', function ($scope) {
+                    if (window.initNESportsHero) window.initNESportsHero($scope[0]);
+                });
+                elementorFrontend.hooks.addAction('frontend/element_ready/nesports_bundles_widget.default', function ($scope) {
+                    if (window.initNESportsSliders) window.initNESportsSliders($scope[0]);
+                });
+                elementorFrontend.hooks.addAction('frontend/element_ready/nesports_products_widget.default', function ($scope) {
+                    if (window.initNESportsSliders) window.initNESportsSliders($scope[0]);
+                });
+            }
+        });
+    }
 });

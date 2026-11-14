@@ -65,6 +65,26 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
 }
 ?>
 
+<?php if (empty($_GET['cat']) && function_exists('the_content') && did_action('elementor/loaded') && is_page() && (isset($_GET['elementor-preview']) || get_post_meta(get_the_ID(), '_nesports_elementor_seeded', true))) : ?>
+<main class="hb-category-page">
+    <section class="hb-cat-hero">
+        <div class="hb-cat-hero-inner">
+            <nav class="hb-breadcrumbs" aria-label="Breadcrumb">
+                <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
+                <span class="hb-bc-sep">/</span>
+                <span class="hb-bc-current"><?php echo esc_html($current_meta['title']); ?></span>
+            </nav>
+            <h1 class="hb-cat-title"><?php echo esc_html($current_meta['title']); ?></h1>
+        </div>
+    </section>
+    <?php
+    while (have_posts()) :
+        the_post();
+        the_content();
+    endwhile;
+    ?>
+</main>
+<?php else : ?>
 <main class="hb-category-page">
     <!-- Category Hero Banner -->
     <section class="hb-cat-hero">
@@ -138,6 +158,7 @@ if ($cat_slug === 'all' || empty($cat_slug)) {
         </div>
     </section>
 </main>
+<?php endif; ?>
 
 <?php include NESPORTS_PLUGIN_DIR . 'templates/footer-nesports.php'; ?>
 

@@ -73,6 +73,13 @@ class NESports_Activator {
                 'content'   => '<!-- NESPORTS_PRO_CONTACT_PAGE -->',
                 'template'  => 'templates/page-contact.php',
                 'set_front' => false,
+            ),
+            'shop' => array(
+                'title'     => 'Shop All Products',
+                'slug'      => 'shop',
+                'content'   => '<!-- NESPORTS_PRO_SHOP_PAGE -->',
+                'template'  => 'templates/page-category.php',
+                'set_front' => false,
             )
         );
 

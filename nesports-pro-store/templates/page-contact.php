@@ -4,8 +4,18 @@
  * Matched 1:1 with nesports3.com/contact-us/
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
-?>
 
+if (function_exists('the_content') && did_action('elementor/loaded') && (isset($_GET['elementor-preview']) || get_post_meta(get_the_ID(), '_nesports_elementor_seeded', true))) :
+?>
+<main class="hb-main hb-page-contact">
+    <?php
+    while (have_posts()) :
+        the_post();
+        the_content();
+    endwhile;
+    ?>
+</main>
+<?php else : ?>
 <main class="hb-main hb-page-contact">
     <div class="hb-container">
         <div class="hb-contact-wrapper">
@@ -73,6 +83,6 @@ function handleContactSubmit(e) {
     }, 800);
 }
 </script>
+<?php endif; ?>
 
 <?php include NESPORTS_PLUGIN_DIR . 'templates/footer-nesports.php'; ?>
-

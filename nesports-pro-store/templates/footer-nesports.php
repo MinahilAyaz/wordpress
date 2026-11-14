@@ -32,7 +32,7 @@ $email = !empty($settings['support_email']) ? $settings['support_email'] : 'supp
     </div>
     <div class="hb-footer-bottom">
         <span>&copy; <?php echo date('Y'); ?> NESPORTS3. All rights reserved.</span>
-        <span class="hb-credit">Developed by Hazsols Solutions</span>
+        <span class="hb-credit">Developed by <a href="https://www.hazsols.com/" target="_blank" rel="noopener noreferrer" style="display:inline;margin:0;color:#ffffff;text-decoration:underline;text-underline-offset:3px;">Hazsols Solutions</a></span>
         <img src="<?php echo esc_url(nesports_img('payments.png')); ?>" alt="Visa, Mastercard, PayPal, American Express, Visa Electron, Maestro">
     </div>
 </footer>

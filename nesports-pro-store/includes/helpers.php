@@ -8,15 +8,39 @@ if (!defined('ABSPATH')) {
 }
 
 function nesports_img($file) {
+    if (empty($file)) return '';
+    if (strpos($file, 'http://') === 0 || strpos($file, 'https://') === 0 || strpos($file, '//') === 0) {
+        return $file;
+    }
     return NESPORTS_PLUGIN_URL . 'assets/images/' . rawurlencode($file);
 }
 
 function nesports_money($value) {
+    if (function_exists('wc_price')) {
+        return wp_strip_all_tags(wc_price((float) $value));
+    }
     return '€' . number_format((float) $value, 2);
 }
 
 /** Category key => pill label (order = pill order). */
 function nesports_categories() {
+    if (function_exists('get_terms')) {
+        $terms = get_terms(array(
+            'taxonomy'   => 'product_cat',
+            'hide_empty' => true,
+        ));
+        if (!empty($terms) && !is_wp_error($terms)) {
+            $cats = array();
+            foreach ($terms as $t) {
+                if (strtolower($t->slug) === 'uncategorized') continue;
+                $cats[$t->slug] = strtoupper($t->name);
+            }
+            if (!empty($cats)) {
+                return $cats;
+            }
+        }
+    }
+
     return array(
         'belts'  => 'WEIGHTLIFTING BELTS',
         'straps' => 'LIFTING STRAPS',
@@ -35,6 +59,17 @@ function nesports_categories() {
  */
 function nesports_hero_slides() {
     return array(
+        array(
+            'type'     => 'photo',
+            'badge'    => 'POWER GEAR',
+            'img'      => 'DSC_0749-scaled.jpg',
+            'sub'      => 'SQUAT WITH CONFIDENCE',
+            'title'    => 'Competition Power Gear',
+            'desc'     => 'Heavy-duty competition pads, knee wraps and supportive accessories engineered for record-breaking lifts.',
+            'price'    => '€24.99',
+            'old'      => '€39.99',
+            'url'      => '/shop/'
+        ),
         array(
             'type'     => 'photo',
             'badge'    => 'NEW DROP',
@@ -68,25 +103,74 @@ function nesports_hero_slides() {
             'old'      => '€14.99',
             'url'      => '/product-category/lifting-straps/'
         ),
-        array(
-            'type'     => 'photo',
-            'badge'    => 'POWER GEAR',
-            'img'      => 'DSC_0749-scaled.jpg',
-            'sub'      => 'SQUAT WITH CONFIDENCE',
-            'title'    => 'Competition Power Gear',
-            'desc'     => 'Heavy-duty competition pads, knee wraps and supportive accessories engineered for record-breaking lifts.',
-            'price'    => '€24.99',
-            'old'      => '€39.99',
-            'url'      => '/shop/'
-        ),
     );
 }
 
 /**
- * Product catalog (names, prices and images from nesports3.com).
- * price = current price, old = regular price, main/hover = files in assets/images/.
+ * Product catalog (names, prices and images from nesports3.com or live WooCommerce).
+ * price = current price, old = regular price, main/hover = files or URLs.
  */
 function nesports_catalog() {
+    static $cached_catalog = null;
+    if ($cached_catalog !== null) {
+        return $cached_catalog;
+    }
+
+    if (function_exists('wc_get_products')) {
+        $wc_products = wc_get_products(array(
+            'status'  => 'publish',
+            'limit'   => 50,
+            'orderby' => 'menu_order title',
+            'order'   => 'ASC',
+        ));
+
+        if (!empty($wc_products)) {
+            $catalog = array();
+            foreach ($wc_products as $p) {
+                $id = $p->get_id();
+                $terms = get_the_terms($id, 'product_cat');
+                $cat_slug = 'all';
+                if (!empty($terms) && !is_wp_error($terms)) {
+                    $cat_slug = $terms[0]->slug;
+                }
+
+                $image_id = $p->get_image_id();
+                $main_img = $image_id ? wp_get_attachment_image_url($image_id, 'woocommerce_thumbnail') : '';
+                if (!$main_img && function_exists('wc_placeholder_img_src')) {
+                    $main_img = wc_placeholder_img_src();
+                }
+
+                $gallery_ids = $p->get_gallery_image_ids();
+                $hover_img   = !empty($gallery_ids) ? wp_get_attachment_image_url($gallery_ids[0], 'woocommerce_thumbnail') : $main_img;
+
+                $reg_price  = (float) $p->get_regular_price();
+                $curr_price = (float) $p->get_price();
+                $old_price  = ($reg_price > $curr_price) ? $reg_price : $curr_price;
+
+                $catalog[] = array(
+                    'id'      => $id,
+                    'name'    => $p->get_name(),
+                    'slug'    => $p->get_slug(),
+                    'cat'     => $cat_slug,
+                    'price'   => $curr_price,
+                    'old'     => $old_price,
+                    'reviews' => (int) $p->get_rating_count(),
+                    'main'    => $main_img,
+                    'hover'   => $hover_img,
+                );
+            }
+            if (!empty($catalog)) {
+                $cached_catalog = $catalog;
+                return $catalog;
+            }
+        }
+    }
+
+    $cached_catalog = nesports_preset_catalog();
+    return $cached_catalog;
+}
+
+function nesports_preset_catalog() {
     return array(
         array('name' => 'Classic Weightlifting Belt Leather',            'slug' => 'pro-leather-weightlifting-lever-belt-10mm',     'cat' => 'belts',  'price' => 59.99, 'old' => 79.99, 'reviews' => 128, 'main' => 'DSC_0167-scaled-1.jpg',                        'hover' => 'DSC_0166-scaled-1.jpg'),
         array('name' => 'Power Lifting Belt 13mm (Black)',              'slug' => 'competition-weightlifting-belt-13mm-black',   'cat' => 'belts',  'price' => 69.99, 'old' => 89.99, 'reviews' => 86,  'main' => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',        'hover' => 'WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg'),
@@ -123,7 +207,7 @@ function nesports_catalog() {
 }
 
 /**
- * 4 Clean Aesthetic Curated Categories (Stockholm Scandinavian Style).
+ * 5 Clean Aesthetic Curated Categories (Stockholm Scandinavian Style).
  * Replaces repetitive single-product tiles with high-level category cards.
  */
 function nesports_collections() {
@@ -142,6 +226,11 @@ function nesports_collections() {
             'title'    => 'Elbow Wraps',
             'img'      => 'Knee-Wrap-800x800.jpg',
             'url'      => '/product-category/elbow-wrap/'
+        ),
+        array(
+            'title'    => 'Wrist Straps',
+            'img'      => 'Wrist-Bandage-Black-800x800.jpg',
+            'url'      => '/product-category/wrist-straps/'
         ),
         array(
             'title'    => 'Gym Bags',
@@ -168,23 +257,26 @@ function nesports_bundle_tabs() {
 function nesports_bundles() {
     $discount = 15;
     $defs = array(
-        // Lifting Packs (4 items)
+        // Lifting Packs (5 items)
         array('name' => 'Pull Day Pack (Blue)',         'cat' => 'lifting',  'items' => array('lifting-strap-padded-blue', 'wrist-bandages-45-cm-wrist-black-2')),
         array('name' => 'Heavy Lifter Pack (Black)',    'cat' => 'lifting',  'items' => array('lifting-straps-with-extra-padded-black', 'wrist-bandages-45-cm-wrist-black-2')),
         array('name' => 'Pro Powerlifting Pack',        'cat' => 'lifting',  'items' => array('pro-leather-weightlifting-lever-belt-10mm', 'lifting-straps-with-extra-padded-black')),
         array('name' => 'Grip & Wrist Armor Pack',      'cat' => 'lifting',  'items' => array('lifting-straps-padded-blue-2', 'wrist-bandages-45-cm-wrist-black-2')),
+        array('name' => 'Deadlift & Dip Belt Pack',     'cat' => 'lifting',  'items' => array('quick-release-lever-power-belt', 'lifting-strap-padded-red')),
 
-        // Leg & Knee Packs (4 items)
+        // Leg & Knee Packs (5 items)
         array('name' => 'Red Edition Squat Pack',       'cat' => 'legs',     'items' => array('lifting-strap-padded-red', 'knee-wrap')),
         array('name' => 'Leg Day Pack (Blue)',          'cat' => 'legs',     'items' => array('lifting-straps-padded-blue-2', 'knee-wrap-copy')),
         array('name' => 'Competition Knee & Belt Pack', 'cat' => 'legs',     'items' => array('competition-weightlifting-belt-13mm-black', 'knee-wrap')),
         array('name' => 'Heavy Duty Joint Support Pack', 'cat' => 'legs',    'items' => array('heavy-duty-neoprene-elbow-wraps', 'knee-wrap-copy')),
+        array('name' => 'Squat Pad & Knee Wrap Pack',   'cat' => 'legs',     'items' => array('barbell-pad-black', 'knee-wrap')),
 
-        // Training Packs (4 items)
+        // Training Packs (5 items)
         array('name' => 'Gym Carry Pack (Gray)',        'cat' => 'training', 'items' => array('water-proof-gym-bag-gray', 'wrist-bandages-45-cm-wrist-black-2')),
         array('name' => 'Speed & Strength Pack',        'cat' => 'training', 'items' => array('speed-ball-set-maya-hide-leather-red-black', 'water-proof-gym-bag-blue')),
         array('name' => 'Speed Reflex Pro Pack',        'cat' => 'training', 'items' => array('speed-ball-set-maya-hide-leather-2', 'water-proof-gym-bag-gray')),
         array('name' => 'Athlete Conditioning Pack',    'cat' => 'training', 'items' => array('speed-ball-set-maya-hide-leather', 'water-proof-gym-bag-blue')),
+        array('name' => 'Glute & Carry Essentials Pack','cat' => 'training', 'items' => array('ankle-strap-black', 'water-proof-gym-bag-black')),
     );
 
     $by_slug = array();

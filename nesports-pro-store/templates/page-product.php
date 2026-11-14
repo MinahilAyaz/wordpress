@@ -8,14 +8,58 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
 $all_products = nesports_catalog();
 
-// Lookup current product by slug
-$slug = isset($_GET['slug']) ? sanitize_text_field($_GET['slug']) : (getenv('NES_SLUG') ?: 'pro-leather-weightlifting-lever-belt-10mm');
+// Lookup current product by slug or current post in WordPress
+$slug = isset($_GET['slug']) ? sanitize_text_field($_GET['slug']) : (getenv('NES_SLUG') ?: '');
+if (!$slug && function_exists('is_singular') && is_singular('product')) {
+    global $post;
+    if ($post && !empty($post->post_name)) {
+        $slug = $post->post_name;
+    }
+}
+if (!$slug) {
+    $slug = 'pro-leather-weightlifting-lever-belt-10mm';
+}
 
 $product = null;
 foreach ($all_products as $p) {
     if ($p['slug'] === $slug) {
         $product = $p;
         break;
+    }
+}
+
+// Fallback to real WooCommerce product if not in array
+$custom_gallery = null;
+if (!$product && function_exists('wc_get_product')) {
+    $wc_id = function_exists('get_the_ID') ? get_the_ID() : 0;
+    $wc_p  = $wc_id ? wc_get_product($wc_id) : null;
+    if ($wc_p) {
+        $terms = get_the_terms($wc_id, 'product_cat');
+        $cat_slug = (!empty($terms) && !is_wp_error($terms)) ? $terms[0]->slug : 'all';
+        $image_id = $wc_p->get_image_id();
+        $main_img = $image_id ? wp_get_attachment_image_url($image_id, 'large') : '';
+        $reg_price  = (float) $wc_p->get_regular_price();
+        $curr_price = (float) $wc_p->get_price();
+        $old_price  = ($reg_price > $curr_price) ? $reg_price : $curr_price;
+
+        $g_ids = $wc_p->get_gallery_image_ids();
+        $custom_gallery = array();
+        if ($main_img) $custom_gallery[] = $main_img;
+        foreach ($g_ids as $gid) {
+            $custom_gallery[] = wp_get_attachment_image_url($gid, 'large');
+        }
+
+        $product = array(
+            'id'      => $wc_id,
+            'name'    => $wc_p->get_name(),
+            'slug'    => $wc_p->get_slug(),
+            'cat'     => $cat_slug,
+            'price'   => $curr_price,
+            'old'     => $old_price,
+            'reviews' => (int) $wc_p->get_rating_count(),
+            'main'    => $main_img,
+            'hover'   => !empty($custom_gallery[1]) ? $custom_gallery[1] : $main_img,
+        );
     }
 }
 
@@ -30,7 +74,7 @@ $pct        = $on_sale ? round((1 - $product['price'] / $product['old']) * 100) 
 
 // Curated profile strictly for THIS product (images, colors, selectors & specs)
 $profile        = nesports_product_profile($product);
-$gallery_images = !empty($profile['gallery']) ? $profile['gallery'] : array($product['main']);
+$gallery_images = !empty($custom_gallery) ? $custom_gallery : (!empty($profile['gallery']) ? $profile['gallery'] : array($product['main']));
 $color_options  = !empty($profile['colors']) ? $profile['colors'] : array();
 
 // Related gear

@@ -7,6 +7,9 @@ $announcement = !empty($settings['announcement_text']) ? $settings['announcement
 $current_page = basename($_SERVER['REQUEST_URI'] ?? '');
 $request_path = trim(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/');
 $is_home_page = getenv('NES_PAGE') !== false ? (getenv('NES_PAGE') === 'home') : (empty($request_path) || $request_path === 'home' || $request_path === 'wordpress' || (function_exists('is_front_page') && (is_front_page() || is_home())));
+if (function_exists('nocache_headers') && !headers_sent()) {
+    nocache_headers();
+}
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -15,6 +18,25 @@ $is_home_page = getenv('NES_PAGE') !== false ? (getenv('NES_PAGE') === 'home') :
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title('|', true, 'right'); ?></title>
     <?php wp_head(); ?>
+    <style id="nesports-mobile-nav-fix">
+    @media (max-width: 820px) {
+        .hb-nav .hb-menu > li > a,
+        .hb-header--overlay:not(.is-scrolled) .hb-nav .hb-menu > li > a,
+        body.hb-theme .hb-header .hb-nav .hb-menu > li > a {
+            color: #111111 !important;
+            font-weight: 500 !important;
+        }
+        .hb-nav .hb-menu > li > a.hb-nav-active,
+        .hb-header--overlay:not(.is-scrolled) .hb-nav .hb-menu > li > a.hb-nav-active,
+        body.hb-theme .hb-header .hb-nav .hb-menu > li > a.hb-nav-active {
+            color: var(--hb-accent, #e11d48) !important;
+        }
+        .hb-nav .hb-dropdown a,
+        .hb-header--overlay:not(.is-scrolled) .hb-nav .hb-dropdown a {
+            color: #334155 !important;
+        }
+    }
+    </style>
 </head>
 <body <?php body_class('hb-theme'); ?>>
 

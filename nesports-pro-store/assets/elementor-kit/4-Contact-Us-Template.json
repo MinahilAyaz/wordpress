@@ -1,0 +1,104 @@
+{
+  "version": "0.4",
+  "title": "4. NESPORTS3 - Contact Us Page Template",
+  "type": "page",
+  "content": [
+    {
+      "id": "b233f2e",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "9bf42a9",
+          "elType": "widget",
+          "widgetType": "html",
+          "settings": {
+            "html": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap\">\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css\">\n<link rel=\"stylesheet\" href=\"https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/css/nesports-frontend.css\">\n<style>\n:root { --hb-accent: #e11d48; --hb-font: \"Josefin Sans\", sans-serif; }\n.hb-hero.e-con { display: block !important; position: relative; overflow: hidden; background: #09090b; padding: 28px 0 64px !important; }\n.hb-hero-track.e-con { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 24px !important; transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; width: max-content !important; max-width: none !important; }\n.hb-hero-slide.e-con { width: min(1220px, 86vw) !important; min-width: min(1220px, 86vw) !important; height: 560px !important; position: relative !important; border-radius: 18px !important; overflow: hidden !important; display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; background: #121216 !important; padding: 48px 60px !important; opacity: 0.45; transform: scale(0.96); transition: opacity 0.5s ease, transform 0.5s ease; }\n.hb-hero-slide.e-con.is-active { opacity: 1; transform: scale(1); }\n.hb-hero-media-wrap.e-con { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; padding: 0 !important; }\n.hb-hero-media-wrap.e-con::after { content: \"\"; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,9,11,0.88) 0%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.25) 100%); z-index: 2; pointer-events: none; }\n.hb-hero-media-wrap .elementor-widget-image, .hb-hero-media-wrap .elementor-widget-container, .hb-hero-media-wrap img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }\n.hb-hero-caption-wrap.e-con { position: relative !important; z-index: 3 !important; max-width: 620px !important; display: flex !important; flex-direction: column !important; gap: 14px !important; align-items: flex-start !important; }\n.hb-cat-card-el.e-con { position: relative !important; border-radius: 12px !important; overflow: hidden !important; background: #111 !important; transition: transform 0.35s ease !important; }\n.hb-cat-card-el.e-con:hover { transform: translateY(-6px) !important; }\n.hb-cat-card-el .elementor-widget-image img { width: 100% !important; aspect-ratio: 4/5 !important; object-fit: cover !important; display: block !important; transition: transform 0.5s ease !important; }\n.hb-cat-card-el.e-con:hover .elementor-widget-image img { transform: scale(1.05) !important; }\n.hb-prod-card-el.e-con { transition: transform 0.28s ease, box-shadow 0.28s ease !important; }\n.hb-prod-card-el.e-con:hover { transform: translateY(-5px) !important; box-shadow: 0 14px 32px rgba(0,0,0,0.09) !important; }\n.hb-prod-card-el .elementor-widget-image img { width: 100% !important; aspect-ratio: 1/1 !important; object-fit: cover !important; }\n@media (max-width: 900px) {\n    .hb-hero-slide.e-con { height: 460px !important; padding: 28px 24px !important; }\n    .hb-cat-card-el.e-con, .hb-prod-card-el.e-con { width: 48% !important; }\n}\n</style>\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function() {\n    function initKitSlider() {\n        var hero = document.getElementById(\"hb-hero\");\n        var track = document.getElementById(\"hb-hero-track\");\n        var dots = document.querySelectorAll(\"#hb-hero-dots button\");\n        if (!hero || !track || !track.children.length) return;\n        var idx = 0, timer = null;\n        function goTo(i) {\n            var s = track.children;\n            if (!s.length) return;\n            idx = (i + s.length) % s.length;\n            var w = s[0].getBoundingClientRect().width;\n            var gap = 24;\n            track.style.transform = \"translateX(\" + ((hero.clientWidth - w) / 2 - idx * (w + gap)) + \"px)\";\n            Array.prototype.forEach.call(s, function(el, n) { el.classList.toggle(\"is-active\", n === idx); });\n            dots.forEach(function(d, n) { d.classList.toggle(\"is-active\", n === idx); });\n        }\n        function auto() { clearInterval(timer); timer = setInterval(function() { goTo(idx + 1); }, 6000); }\n        dots.forEach(function(d) {\n            d.addEventListener(\"click\", function() { goTo(parseInt(d.dataset.slide, 10)); auto(); });\n        });\n        window.addEventListener(\"resize\", function() { goTo(idx); });\n        setTimeout(function() { goTo(0); auto(); }, 150);\n    }\n    initKitSlider();\n    setTimeout(initKitSlider, 800);\n\n    document.querySelectorAll(\".hb-kit-pills button\").forEach(function(btn) {\n        btn.addEventListener(\"click\", function() {\n            var parent = btn.closest(\".hb-kit-pills\");\n            parent.querySelectorAll(\"button\").forEach(function(b) { b.classList.remove(\"is-active\"); });\n            btn.classList.add(\"is-active\");\n            var filter = btn.getAttribute(\"data-filter\");\n            var section = btn.closest(\".e-con\");\n            var cards = section ? section.querySelectorAll(\".hb-prod-card-el\") : document.querySelectorAll(\".hb-prod-card-el\");\n            cards.forEach(function(card) {\n                if (filter === \"all\" || card.classList.contains(\"cat-\" + filter)) {\n                    card.style.display = \"flex\";\n                } else {\n                    card.style.display = \"none\";\n                }\n            });\n        });\n    });\n});\n</script>"
+          },
+          "elements": []
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "5681b22",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "flex_direction": "column",
+        "flex_align_items": "center",
+        "padding": {
+          "unit": "px",
+          "top": "70",
+          "right": "24",
+          "bottom": "90",
+          "left": "24",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "cdd578f",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "INFORMATION ABOUT US",
+            "header_size": "span",
+            "align": "center",
+            "title_color": "#71717a",
+            "typography_typography": "custom",
+            "typography_font_family": "Josefin Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 13
+            },
+            "typography_letter_spacing": {
+              "unit": "px",
+              "size": 2
+            }
+          },
+          "elements": []
+        },
+        {
+          "id": "8374c7c",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "CONTACT US FOR ANY QUESTIONS",
+            "header_size": "h1",
+            "align": "center",
+            "title_color": "#09090b",
+            "typography_typography": "custom",
+            "typography_font_family": "Josefin Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 36
+            },
+            "typography_font_weight": "700"
+          },
+          "elements": []
+        },
+        {
+          "id": "fe4960c",
+          "elType": "widget",
+          "widgetType": "html",
+          "settings": {
+            "html": "<div class=\"hb-contact-wrapper\" style=\"max-width:760px;margin:20px auto 0;width:100%;\">\n<form class=\"hb-contact-form\" onsubmit=\"event.preventDefault(); this.querySelector('.hb-form-success').style.display='block'; this.reset();\">\n    <div class=\"hb-form-row\"><div class=\"hb-form-col\"><label>Your Name</label><input type=\"text\" required></div><div class=\"hb-form-col\"><label>Your Email</label><input type=\"email\" required></div></div>\n    <div class=\"hb-form-row\"><div class=\"hb-form-col\"><label>Phone Number</label><input type=\"tel\"></div><div class=\"hb-form-col\"><label>Company</label><input type=\"text\"></div></div>\n    <div class=\"hb-form-row hb-form-row-full\"><div class=\"hb-form-col\"><label>Your Message</label><textarea rows=\"6\" required></textarea></div></div>\n    <div class=\"hb-form-actions\"><button type=\"submit\" class=\"hb-btn-ask\">ASK A QUESTION</button></div>\n    <div class=\"hb-form-success\" style=\"display:none;\">Thank you! Your message has been sent successfully.</div>\n</form></div>"
+          },
+          "elements": []
+        }
+      ],
+      "isInner": false
+    }
+  ]
+}

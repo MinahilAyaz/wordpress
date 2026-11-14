@@ -1,34 +1,5 @@
 
-/* Josefin Sans Typography */
-@font-face {
-    font-family: 'Josefin Sans';
-    src: url('../fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf') format('truetype-variations'),
-         url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Josefin Sans';
-    src: url('../fonts/Josefin_Sans/static/JosefinSans-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Josefin Sans';
-    src: url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Josefin Sans';
-    src: url('../fonts/Josefin_Sans/static/JosefinSans-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
+/* Poppins Typography (weights & sizes preserved cleanly) */
 
 /* Global Typography: Strictly No Bold Anywhere */
 body.hb-theme,
@@ -42,7 +13,7 @@ body.hb-theme *:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab) {
     --hb-ink: #111111;
     --hb-topbar: #222222;
     --hb-card: #f5f5f6;
-    --hb-font: 'Josefin Sans', sans-serif;
+    --hb-font: 'Poppins', sans-serif;
 }
 body.hb-theme { 
     margin: 0; 
@@ -472,34 +443,33 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     background: #ffffff !important;
 }
 
-/* Hero - Luxury Card Slider with Fine Refined Borders */
+/* Hero - Full-Width Edge-to-Edge Slider */
 .hb-hero {
     position: relative;
     overflow: hidden;
     background: #08090c;
     margin: 0;
-    padding: 8px 0 20px;
+    padding: 0;
 }
 .hb-hero-track {
     display: flex;
-    gap: 14px;
+    gap: 0;
     transition: transform .6s cubic-bezier(.2,.8,.2,1);
     will-change: transform;
 }
 .hb-hero-slide {
     position: relative;
-    flex: 0 0 calc(100% - 32px);
-    width: calc(100% - 32px);
-    max-width: 1440px;
-    height: 550px;
-    max-height: 82vh;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: none;
+    height: clamp(500px, calc(100vh - 140px), 680px);
     min-height: 480px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    border: 0;
     overflow: hidden;
     display: flex;
     text-decoration: none;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    box-shadow: none;
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .hb-hero-slide:not(.is-active) {
@@ -567,15 +537,16 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 .hb-hero-slide--photo .hb-hero-caption {
     position: absolute;
-    left: clamp(36px, 5.5vw, 72px);
-    top: 110px;
-    transform: none;
+    left: clamp(44px, 6.5vw, 96px);
+    top: 50%;
+    transform: translateY(-44%);
     z-index: 3;
-    width: 50%;
-    max-width: 620px;
+    width: 48%;
+    max-width: 600px;
+    padding: 20px 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 .hb-hero-slide--photo .hb-hero-badge {
     background: rgba(225, 29, 72, 0.22);
@@ -832,6 +803,99 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 .hb-hero-dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,.35); cursor: pointer; transition: all .25s; }
 .hb-hero-dots button.is-active { width: 32px; border-radius: 6px; background: #e11d48; box-shadow: 0 0 12px rgba(225, 29, 72, 0.6); }
 
+/* Trust Bar Below Hero */
+.hb-trustbar {
+    background: #111115;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 32px;
+    color: #ffffff;
+}
+.hb-trustbar-inner {
+    max-width: 1380px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: center;
+}
+.hb-trustbar-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+.hb-trustbar-item:last-child {
+    border-right: 0;
+}
+.hb-trustbar-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+.hb-trustbar-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.hb-trustbar-title {
+    margin: 0 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.7px;
+    color: #ffffff !important;
+    line-height: 1.3 !important;
+    text-transform: uppercase;
+}
+.hb-trustbar-sub {
+    margin: 0 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: #a1a1aa !important;
+    line-height: 1.35 !important;
+}
+@media (max-width: 960px) {
+    .hb-trustbar { padding: 18px 20px; }
+    .hb-trustbar-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .hb-trustbar-item {
+        border-right: 0;
+        padding: 6px 4px;
+    }
+}
+@media (max-width: 520px) {
+    .hb-trustbar { padding: 16px 14px; }
+    .hb-trustbar-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 10px;
+    }
+    .hb-trustbar-item {
+        gap: 10px;
+        padding: 4px 2px;
+    }
+    .hb-trustbar-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+    .hb-trustbar-title { font-size: 11px !important; letter-spacing: 0.4px; }
+    .hb-trustbar-sub { font-size: 11px !important; line-height: 1.25 !important; }
+}
+
 /* Collection slider */
 .hb-collection { padding: 24px 32px 28px; }
 .hb-collection-bar { 
@@ -985,7 +1049,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 
 .hb-cards { 
     display: flex; 
-    gap: 32px; 
+    gap: 24px; 
     overflow-x: auto; 
     scroll-snap-type: x mandatory; 
     scrollbar-width: none; 
@@ -994,8 +1058,8 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 .hb-cards::-webkit-scrollbar { display: none; }
 .hb-card {
-    flex: 0 0 calc((100% - 96px) / 4);
-    min-width: 240px;
+    flex: 0 0 calc((100% - 96px) / 5);
+    min-width: 195px;
     background: transparent;
     border: none !important;
     border-radius: 0;
@@ -1239,15 +1303,23 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     text-decoration: line-through;
 }
 
-/* Grid layout matching Stockholm 36 (4 columns with breathing room) */
+/* Grid layout matching Stockholm 36 (5 columns with breathing room) */
 .hb-product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 36px 28px;
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 28px 18px !important;
+    overflow: visible !important;
 }
 .hb-product-grid--4 {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 36px 28px;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 28px 18px !important;
+}
+@media (max-width: 1100px) {
+    .hb-product-grid,
+    .hb-product-grid--4 {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 22px 16px !important;
+    }
 }
 .hb-product-grid .hb-card {
     flex: none;
@@ -1287,7 +1359,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 900px) {
-    .hb-hero-slide { height: 460px; flex: 0 0 calc(100% - 28px); width: calc(100% - 28px); border-radius: 12px; }
+    .hb-hero-slide { height: 460px; flex: 0 0 100%; width: 100%; border-radius: 0; }
     .hb-hero-desc { -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; font-size: 13.5px; }
     .hb-hero-features { gap: 6px 8px; }
     .hb-hero-feat { font-size: 11.5px; padding: 4px 10px; }
@@ -1305,7 +1377,10 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     .hb-nav.is-open { display: block; }
     .hb-menu { flex-direction: column; gap: 4px; }
     .hb-menu > li { width: 100%; position: static; }
-    .hb-menu > li > a { padding: 12px 0; font-size: 15px; font-weight: 400; border-bottom: 1px solid #f1f2f6; display: flex; justify-content: space-between; align-items: center; color: #111; }
+    .hb-menu > li > a,
+    .hb-header--overlay:not(.is-scrolled) .hb-menu > li > a { padding: 12px 0; font-size: 15px; font-weight: 500; border-bottom: 1px solid #f1f2f6; display: flex; justify-content: space-between; align-items: center; color: #111111 !important; }
+    .hb-menu > li > a.hb-nav-active,
+    .hb-header--overlay:not(.is-scrolled) .hb-menu > li > a.hb-nav-active { color: var(--hb-accent) !important; }
     
     /* Mobile Accordion Submenu for Categories */
     .hb-has-dropdown { width: 100%; position: static; }
@@ -1559,9 +1634,9 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 .hb-static-banner {
     position: relative;
     width: 100%;
-    min-height: 500px;
-    height: 58vh;
-    max-height: 640px;
+    min-height: 330px;
+    height: auto;
+    padding: 48px 24px;
     background-image: var(--static-bg);
     background-size: cover;
     background-position: center 35%;
@@ -1572,7 +1647,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    margin: 48px 0 32px;
+    margin: 32px 0 24px;
 }
 
 .hb-static-banner-overlay {
@@ -1587,11 +1662,11 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     position: relative;
     z-index: 2;
     max-width: 840px;
-    padding: 40px 24px;
+    padding: 12px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     color: #ffffff;
 }
 
@@ -1658,10 +1733,11 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 
 @media (max-width: 768px) {
     .hb-static-banner {
-        min-height: 380px;
-        height: 48vh;
+        min-height: 270px;
+        height: auto;
+        padding: 36px 16px;
         background-attachment: scroll; /* smooth scroll on mobile touch */
-        margin: 28px 0;
+        margin: 24px 0;
     }
     .hb-static-banner-btn {
         padding: 12px 28px;
@@ -1719,10 +1795,10 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 /* ==========================================================================
-   4 CLEAN AESTHETIC CATEGORY CARDS
+   5 CLEAN AESTHETIC CATEGORY CARDS
    ========================================================================== */
 .hb-collections-section {
-    padding: 48px 32px 42px;
+    padding: 40px 32px 36px;
     max-width: 1440px;
     margin: 0 auto;
 }
@@ -1732,13 +1808,13 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 .hb-collections-header {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
 .hb-collections-title {
     font-family: var(--hb-font) !important;
-    font-size: clamp(26px, 3.2vw, 36px);
+    font-size: clamp(24px, 2.8vw, 32px);
     font-weight: 400 !important;
     color: #111111;
     margin: 0;
@@ -1748,8 +1824,8 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 
 .hb-category-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
 }
 
 .hb-category-card {
@@ -1772,7 +1848,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     width: 100%;
     aspect-ratio: 1 / 1;
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -1790,9 +1866,9 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 
 .hb-category-media img {
     position: absolute;
-    inset: 14px;
-    width: calc(100% - 28px);
-    height: calc(100% - 28px);
+    inset: 12px;
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
     object-fit: contain;
     object-position: center;
     mix-blend-mode: multiply;
@@ -1807,13 +1883,13 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    margin-top: 14px;
+    gap: 6px;
+    margin-top: 12px;
 }
 
 .hb-category-title {
     font-family: var(--hb-font) !important;
-    font-size: 16px;
+    font-size: 14.5px;
     font-weight: 400 !important;
     color: #18181b;
     margin: 0;
@@ -1842,7 +1918,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 /* ==========================================================================
-   BUNDLES SECTION (Clean Scandinavian Presentation - Full Width 4-Col Grid)
+   BUNDLES SECTION (Clean Scandinavian Presentation - Full Width 5-Col Grid)
    ========================================================================== */
 .hb-bundles-section {
     padding: 32px 32px 40px;
@@ -1859,8 +1935,8 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 .hb-bundles-section .hb-cards,
 .hb-cards--center {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 24px !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 20px 18px !important;
     overflow: visible !important;
     padding: 8px 0 24px !important;
     justify-content: stretch !important;
@@ -1895,7 +1971,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     left: 14px;
     background: #111111;
     color: #ffffff;
-    font-family: 'Josefin Sans', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 10px;
     font-weight: 500 !important;
     letter-spacing: 1px;
@@ -1918,7 +1994,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     border-radius: 999px !important;
-    font-family: 'Josefin Sans', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 12px !important;
     font-weight: 500 !important;
     letter-spacing: 0.8px !important;
@@ -1953,7 +2029,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 .hb-bundles-section .hb-card-title {
-    font-family: 'Josefin Sans', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
     font-weight: 500 !important;
     color: #111111 !important;
@@ -1962,7 +2038,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 .hb-bundles-section .hb-card-price .now {
-    font-family: 'Josefin Sans', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 15px !important;
     font-weight: 600 !important;
     color: #111111 !important;
@@ -2960,7 +3036,7 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     color: #ffffff;
     border: 1px solid #111111;
     padding: 16px 46px;
-    font-family: 'Josefin Sans', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
     font-size: 12.5px;
     font-weight: 500 !important;
     letter-spacing: 1.6px;
@@ -3724,20 +3800,20 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 
 .hb-cat-grid-section {
-    padding: 60px 32px 100px;
-    max-width: 1360px;
+    padding: 48px 32px 90px;
+    max-width: 1440px;
     margin: 0 auto;
 }
 
 .hb-product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px 30px;
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 28px 18px !important;
 }
 
 .hb-product-grid--4 {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px 30px;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 28px 18px !important;
 }
 
 .hb-product-grid .hb-card {
@@ -4640,6 +4716,13 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 /* ==========================================================================
    RESPONSIVE BREAKPOINTS (PDP & CATEGORY)
    ========================================================================== */
+@media (max-width: 1100px) {
+    .hb-product-grid,
+    .hb-product-grid--4 {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 22px 16px !important;
+    }
+}
 @media (max-width: 1024px) {
     .hb-pdp-hero-grid {
         grid-template-columns: 1fr;

@@ -5,8 +5,18 @@
  */
 $current_page = 'about';
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
-?>
 
+if (function_exists('the_content') && did_action('elementor/loaded') && (isset($_GET['elementor-preview']) || get_post_meta(get_the_ID(), '_nesports_elementor_seeded', true))) :
+?>
+<main class="hb-about-page">
+    <?php
+    while (have_posts()) :
+        the_post();
+        the_content();
+    endwhile;
+    ?>
+</main>
+<?php else : ?>
 <main class="hb-about-page">
     <!-- Top Black Header Banner Matching Screenshot -->
     <section class="hb-about-hero-banner">
@@ -38,6 +48,7 @@ include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
         </div>
     </section>
 </main>
+<?php endif; ?>
 
 <style>
 .hb-about-page {

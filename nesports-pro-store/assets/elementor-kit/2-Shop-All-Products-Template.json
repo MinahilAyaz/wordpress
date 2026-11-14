@@ -1,0 +1,4445 @@
+{
+  "version": "0.4",
+  "title": "2. NESPORTS3 - Shop & All 31 Products Template",
+  "type": "page",
+  "content": [
+    {
+      "id": "cbd2549",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "713c8a3",
+          "elType": "widget",
+          "widgetType": "html",
+          "settings": {
+            "html": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap\">\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css\">\n<link rel=\"stylesheet\" href=\"https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/css/nesports-frontend.css\">\n<style>\n:root { --hb-accent: #e11d48; --hb-font: \"Josefin Sans\", sans-serif; }\n.hb-hero.e-con { display: block !important; position: relative; overflow: hidden; background: #09090b; padding: 28px 0 64px !important; }\n.hb-hero-track.e-con { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 24px !important; transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; width: max-content !important; max-width: none !important; }\n.hb-hero-slide.e-con { width: min(1220px, 86vw) !important; min-width: min(1220px, 86vw) !important; height: 560px !important; position: relative !important; border-radius: 18px !important; overflow: hidden !important; display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; background: #121216 !important; padding: 48px 60px !important; opacity: 0.45; transform: scale(0.96); transition: opacity 0.5s ease, transform 0.5s ease; }\n.hb-hero-slide.e-con.is-active { opacity: 1; transform: scale(1); }\n.hb-hero-media-wrap.e-con { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; padding: 0 !important; }\n.hb-hero-media-wrap.e-con::after { content: \"\"; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,9,11,0.88) 0%, rgba(9,9,11,0.55) 55%, rgba(9,9,11,0.25) 100%); z-index: 2; pointer-events: none; }\n.hb-hero-media-wrap .elementor-widget-image, .hb-hero-media-wrap .elementor-widget-container, .hb-hero-media-wrap img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }\n.hb-hero-caption-wrap.e-con { position: relative !important; z-index: 3 !important; max-width: 620px !important; display: flex !important; flex-direction: column !important; gap: 14px !important; align-items: flex-start !important; }\n.hb-cat-card-el.e-con { position: relative !important; border-radius: 12px !important; overflow: hidden !important; background: #111 !important; transition: transform 0.35s ease !important; }\n.hb-cat-card-el.e-con:hover { transform: translateY(-6px) !important; }\n.hb-cat-card-el .elementor-widget-image img { width: 100% !important; aspect-ratio: 4/5 !important; object-fit: cover !important; display: block !important; transition: transform 0.5s ease !important; }\n.hb-cat-card-el.e-con:hover .elementor-widget-image img { transform: scale(1.05) !important; }\n.hb-prod-card-el.e-con { transition: transform 0.28s ease, box-shadow 0.28s ease !important; }\n.hb-prod-card-el.e-con:hover { transform: translateY(-5px) !important; box-shadow: 0 14px 32px rgba(0,0,0,0.09) !important; }\n.hb-prod-card-el .elementor-widget-image img { width: 100% !important; aspect-ratio: 1/1 !important; object-fit: cover !important; }\n@media (max-width: 900px) {\n    .hb-hero-slide.e-con { height: 460px !important; padding: 28px 24px !important; }\n    .hb-cat-card-el.e-con, .hb-prod-card-el.e-con { width: 48% !important; }\n}\n</style>\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function() {\n    function initKitSlider() {\n        var hero = document.getElementById(\"hb-hero\");\n        var track = document.getElementById(\"hb-hero-track\");\n        var dots = document.querySelectorAll(\"#hb-hero-dots button\");\n        if (!hero || !track || !track.children.length) return;\n        var idx = 0, timer = null;\n        function goTo(i) {\n            var s = track.children;\n            if (!s.length) return;\n            idx = (i + s.length) % s.length;\n            var w = s[0].getBoundingClientRect().width;\n            var gap = 24;\n            track.style.transform = \"translateX(\" + ((hero.clientWidth - w) / 2 - idx * (w + gap)) + \"px)\";\n            Array.prototype.forEach.call(s, function(el, n) { el.classList.toggle(\"is-active\", n === idx); });\n            dots.forEach(function(d, n) { d.classList.toggle(\"is-active\", n === idx); });\n        }\n        function auto() { clearInterval(timer); timer = setInterval(function() { goTo(idx + 1); }, 6000); }\n        dots.forEach(function(d) {\n            d.addEventListener(\"click\", function() { goTo(parseInt(d.dataset.slide, 10)); auto(); });\n        });\n        window.addEventListener(\"resize\", function() { goTo(idx); });\n        setTimeout(function() { goTo(0); auto(); }, 150);\n    }\n    initKitSlider();\n    setTimeout(initKitSlider, 800);\n\n    document.querySelectorAll(\".hb-kit-pills button\").forEach(function(btn) {\n        btn.addEventListener(\"click\", function() {\n            var parent = btn.closest(\".hb-kit-pills\");\n            parent.querySelectorAll(\"button\").forEach(function(b) { b.classList.remove(\"is-active\"); });\n            btn.classList.add(\"is-active\");\n            var filter = btn.getAttribute(\"data-filter\");\n            var section = btn.closest(\".e-con\");\n            var cards = section ? section.querySelectorAll(\".hb-prod-card-el\") : document.querySelectorAll(\".hb-prod-card-el\");\n            cards.forEach(function(card) {\n                if (filter === \"all\" || card.classList.contains(\"cat-\" + filter)) {\n                    card.style.display = \"flex\";\n                } else {\n                    card.style.display = \"none\";\n                }\n            });\n        });\n    });\n});\n</script>"
+          },
+          "elements": []
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "74c1957",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "background_background": "classic",
+        "background_color": "#09090b",
+        "padding": {
+          "unit": "px",
+          "top": "54",
+          "right": "24",
+          "bottom": "54",
+          "left": "24",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "6f008f3",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "All Equipment & Lifting Gear",
+            "header_size": "h1",
+            "align": "center",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Josefin Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 42
+            },
+            "typography_font_weight": "700"
+          },
+          "elements": []
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "6296e40",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "flex_direction": "column",
+        "padding": {
+          "unit": "px",
+          "top": "40",
+          "right": "20",
+          "bottom": "80",
+          "left": "20",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "755af5e",
+          "elType": "widget",
+          "widgetType": "html",
+          "settings": {
+            "html": "<div class=\"hb-pills hb-pills--center hb-kit-pills\" style=\"margin: 0 0 28px; flex-wrap: wrap;\">\n                            <button type=\"button\" class=\"hb-pill is-active\" data-filter=\"all\">ALL PRODUCTS (31)</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"belts\">WEIGHTLIFTING BELTS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"straps\">LIFTING STRAPS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"knee\">KNEE WRAPS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"elbow\">ELBOW WRAPS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"speed\">SPEED BALL</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"wrist\">WRIST WRAPS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"bags\">GYM BAGS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"ankle\">ANKLE STRAPS</button>\n                            <button type=\"button\" class=\"hb-pill\" data-filter=\"pads\">BARBELL PADS</button>\n                        </div>"
+          },
+          "elements": []
+        },
+        {
+          "id": "f67d65f",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "flex_direction": "row",
+            "flex_wrap": "wrap",
+            "flex_justify_content": "flex-start",
+            "flex_gap": {
+              "unit": "px",
+              "size": 18,
+              "column": "18",
+              "row": "24"
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "elements": [
+            {
+              "id": "da172be",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-belts",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "c834370",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 25%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3d7d1ab",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/DSC_0167-scaled-1.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/pro-leather-weightlifting-lever-belt-10mm/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "002dc59",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Classic Weightlifting Belt Leather",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/pro-leather-weightlifting-lever-belt-10mm/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "a511fa9",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac59.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac79.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "626135a",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/pro-leather-weightlifting-lever-belt-10mm/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "55b69a4",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-belts",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "95d8144",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 22%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "81fe946",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/competition-weightlifting-belt-13mm-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "090a528",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Power Lifting Belt 13mm (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/competition-weightlifting-belt-13mm-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e1da773",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac69.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac89.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "8d21ea7",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/competition-weightlifting-belt-13mm-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "99e3832",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-belts",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "c4b532c",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 24%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "bd0d50b",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Dip-Belt-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/quick-release-lever-power-belt/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "a21f8b3",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Weightlifting Dip Belt with Steel Chain",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/quick-release-lever-power-belt/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "021356c",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac64.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac84.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "8485f6b",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/quick-release-lever-power-belt/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "75d41af",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-elbow",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "2c8a2b1",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 29%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3915bfa",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Knee-Wrap-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/heavy-duty-neoprene-elbow-wraps/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "a19c6df",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Heavy Duty Neoprene Elbow Wraps (Pair)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/heavy-duty-neoprene-elbow-wraps/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "f9d7ea3",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac34.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e9b9561",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/heavy-duty-neoprene-elbow-wraps/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "4a970cf",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-straps",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "6fcc57f",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 33%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "cf833d0",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/A2.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/lifting-strap-padded-blue/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "b417fba",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Lifting Strap Padded (Blue)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/lifting-strap-padded-blue/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3846fbe",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac14.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "d730e54",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/lifting-strap-padded-blue/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "a6f8ee7",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-straps",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "fb0785e",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 50%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "669cd8b",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/2-red-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/lifting-strap-padded-red/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "b08e269",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Lifting Strap Padded (Red)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/lifting-strap-padded-red/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c99fe23",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "7c92a3b",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/lifting-strap-padded-red/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "ce067a6",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-straps",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "b1753bf",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 50%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "de03fb6",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/1-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/lifting-straps-with-extra-padded-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3a2218b",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Lifting Straps with Extra Padded (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/lifting-straps-with-extra-padded-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "193439e",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "10b7067",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/lifting-straps-with-extra-padded-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "25e221b",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-straps",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "518b95b",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 50%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "71cadc8",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/lifting-straps-padded-blue-2/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "2bd8e00",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Lifting Straps (Padded) Blue",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/lifting-straps-padded-blue-2/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "1dafa11",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "5406282",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/lifting-straps-padded-blue-2/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "89ebb1d",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-knee",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "868f26f",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 25%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "a1f76c7",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Knee-Wrap-9-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/knee-wrap-copy/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "01169d1",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Knee Wrap (Blue)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/knee-wrap-copy/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "b51a502",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac29.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac39.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "30554b2",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/knee-wrap-copy/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "6fe25b0",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-knee",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "5ba4095",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 25%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3bcfd01",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Knee-Wrap-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/knee-wrap/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "92864d2",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Knee Wrap (Red)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/knee-wrap/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "8054d61",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac29.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac39.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "ec7e440",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/knee-wrap/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "e79bd25",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-speed",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "f129f88",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 38%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c092077",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/1-1-2-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather-red-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "789d7a7",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Speed Ball Set Maya Hide Leather Red Black",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather-red-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "89b455d",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac39.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "f451a40",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather-red-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "76fcffa",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-speed",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "e931472",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 38%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "1d02dd1",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/1-1-1-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather-2/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "f22c705",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Speed Ball Set Maya Hide Leather",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather-2/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "5b5e720",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac39.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "2ed582b",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather-2/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "a8815c4",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-speed",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "926c72a",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 38%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "2a7cada",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/1-1-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "86457ab",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Speed Ball Set Maya Hide Leather Black Gold",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "ef511db",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac39.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "300fea0",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/speed-ball-set-maya-hide-leather/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "9c0f0d8",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-wrist",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "d903ab6",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 50%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "5703af2",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Wrist-Bandage-Black-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/wrist-bandages-45-cm-wrist-black-2/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "0a6b315",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Wrist Bandages 45 cm (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/wrist-bandages-45-cm-wrist-black-2/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "45fc4be",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "7cb1148",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/wrist-bandages-45-cm-wrist-black-2/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "23812a3",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-bags",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "bd31863",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 40%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e422841",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Gym-Bag-9-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-gray/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "49f8dfc",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Water Proof Gym Bag (Gray)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-gray/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "d000205",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac11.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "54f034c",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-gray/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "fbf58bd",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-bags",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "4779976",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 40%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "910e151",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Gym-Bag-8-800x800.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-blue/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3ae58b4",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Water Proof Gym Bag (Blue)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-blue/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "4f1cf97",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac11.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "1621ad1",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-blue/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "7b7bcb1",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-elbow",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "220c9a3",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 29%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c289e32",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Elbow-Wrap-1-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/elbow-wrap/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "533ccce",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Elbow Wrap",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/elbow-wrap/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "d2c4c53",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac34.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "16f61cb",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/elbow-wrap/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "1a3b977",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-ankle",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "02c4d2b",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 20%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "a668414",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Ankle-Strap-Cable-pull-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/ankle-strap-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "7fbee27",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Ankle Strap Cable Pull (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/ankle-strap-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "71f6377",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac11.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac14.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "b2c432b",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/ankle-strap-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "e779442",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-pads",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "663b07a",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Barbell-Pad-5-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/barbell-pad-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "b833070",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Barbell Pad (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/barbell-pad-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "0b97bca",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "f4d5549",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/barbell-pad-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "82ffb63",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-bags",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "1d3b627",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 20%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "e9dff42",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Gym-Bag-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "bafb7f2",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Water Proof Gym Bag (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "d138c7e",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac11.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac14.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "8891344",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/water-proof-gym-bag-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "0433395",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-belts",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "e721718",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 33%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "88ff22e",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/DSC_0166-scaled-1.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/classic-weightlifting-belt-leather/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "6e7e799",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Classic Weightlifting Belt Leather (Stealth)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/classic-weightlifting-belt-leather/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "5a72dc1",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac19.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac29.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "253f993",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/classic-weightlifting-belt-leather/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "ebdd639",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-belts",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "3278be8",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 25%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "1b09004",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/classic-weightlifting-belt/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "9defdf4",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Classic Weightlifting Belt",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/classic-weightlifting-belt/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "fbe4246",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac14.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "16e6d13",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/classic-weightlifting-belt/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "9315647",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-pads",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "603482c",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/DSC_0177-scaled-1.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/barbell-pad-camo-blue/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c2e6033",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Barbell Pad (Camo Blue)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/barbell-pad-camo-blue/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "8f05364",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "cb2e3c1",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/barbell-pad-camo-blue/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "9859459",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-pads",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "8059d03",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Baerbell-Pad-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/barbell-pad-gray-camo/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "d454a6d",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Barbell Pad (Gray Camo)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/barbell-pad-gray-camo/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "642d84e",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "788e625",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/barbell-pad-gray-camo/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "521e0be",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-ankle",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "c022631",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 20%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "2dbc4cb",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Ankle-Strap-Cable-pull-5-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/ankle-strap-camo-blue/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "13a6aa4",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Ankle Strap Cable Pull (Camo Blue)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/ankle-strap-camo-blue/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "11a925f",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac11.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac14.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "084b706",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/ankle-strap-camo-blue/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "4dba84a",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-ankle",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "4f27cfa",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 33%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "2eb93aa",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/DSC_0210-scaled-1.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/premium-ankle-straps-2/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c08f5df",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Premium Ankle Straps",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/premium-ankle-straps-2/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "0243718",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac14.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "4e4fcf5",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/premium-ankle-straps-2/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "0bbeca8",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-straps",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "5ddf139",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 50%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "f30434b",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/WhatsApp-Image-2024-07-08-at-19.20.29_3dc5ad04.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/lifting-straps-padded-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c66863d",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Lifting Straps (Padded) Black",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/lifting-straps-padded-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3b2bd35",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "f8f9ff3",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/lifting-straps-padded-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "528c8ba",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-ankle",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "32742bb",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 60%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "28a8ef2",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Foot-Strap-Cable-pull-padded.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/foot-loops-cable-pull-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "c8df072",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Foot Loops Cable Pull (Black)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/foot-loops-cable-pull-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "d0f4af1",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac24.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "3d9b78f",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/foot-loops-cable-pull-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "fec9269",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-wrist",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "ba459c3",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 50%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "0f52956",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Wrist-Bandage-3.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/wrist-bandages-45-cm-wrist-black/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "223ab10",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Wrist Bandages 45 cm Wrist (Black/Yellow)",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/wrist-bandages-45-cm-wrist-black/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "2a31069",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac9.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac19.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "bf90b47",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/wrist-bandages-45-cm-wrist-black/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "efdd83f",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-straps",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "62d1c50",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 32%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "ede5c05",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/1-scaled.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/lifting-straps-with-wrist-pad/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "513106f",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Lifting Straps with Extra Padded",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/lifting-straps-with-wrist-pad/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "ba50cbf",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac16.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac24.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "75ab557",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/lifting-straps-with-wrist-pad/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "44919f7",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 23.5
+                },
+                "css_classes": "hb-prod-card-el cat-belts",
+                "flex_direction": "column",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#e4e4e7",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "16",
+                  "left": "12",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "1e66fff",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "SAVE 17%",
+                    "header_size": "span",
+                    "title_color": "#e11d48",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "69f402e",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://www.nesports3.com/wp-content/plugins/nesports-pro/assets/images/Dip-Belt.jpg",
+                      "id": ""
+                    },
+                    "image_size": "full",
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/product/weighlifting-dip-belt-with-chain/"
+                    },
+                    "image_border_radius": {
+                      "unit": "px",
+                      "top": "8",
+                      "right": "8",
+                      "bottom": "8",
+                      "left": "8",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "96c02c1",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Weightlifting Dip Belt with Chain",
+                    "header_size": "h4",
+                    "link": {
+                      "url": "/product/weighlifting-dip-belt-with-chain/"
+                    },
+                    "title_color": "#09090b",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16
+                    },
+                    "typography_font_weight": "600"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "aa3a01e",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p><strong style=\"color:#e11d48;font-size:18px;\">\u20ac24.99</strong> &nbsp;<del style=\"color:#71717a;font-size:14px;\">\u20ac29.99</del></p>",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans"
+                  },
+                  "elements": []
+                },
+                {
+                  "id": "b95a25f",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "+ Add to Cart",
+                    "link": {
+                      "url": "/product/weighlifting-dip-belt-with-chain/"
+                    },
+                    "align": "justify",
+                    "background_color": "#09090b",
+                    "button_text_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Josefin Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 13
+                    },
+                    "typography_font_weight": "700"
+                  },
+                  "elements": []
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": false
+    }
+  ]
+}
