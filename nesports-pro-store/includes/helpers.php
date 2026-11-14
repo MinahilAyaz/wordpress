@@ -12,7 +12,10 @@ function nesports_img($file) {
     if (strpos($file, 'http://') === 0 || strpos($file, 'https://') === 0 || strpos($file, '//') === 0) {
         return $file;
     }
-    return NESPORTS_PLUGIN_URL . 'assets/images/' . rawurlencode($file);
+    // Encode each path segment individually so subdirectories (e.g. clothing/image.jpg) are preserved
+    $parts = explode('/', str_replace('\\', '/', $file));
+    $encoded = array_map('rawurlencode', $parts);
+    return NESPORTS_PLUGIN_URL . 'assets/images/' . implode('/', $encoded);
 }
 
 function nesports_money($value) {
