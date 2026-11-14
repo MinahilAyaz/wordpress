@@ -27,11 +27,6 @@ $collections = nesports_collections();
         letter-spacing: -0.8px !important;
         line-height: 1.15 !important;
         text-align: left !important;
-        animation: l2rTitle 0.6s cubic-bezier(0.16, 1, 0.3, 1) both !important;
-    }
-    @keyframes l2rTitle {
-        from { opacity: 0; transform: translateX(-30px); }
-        to { opacity: 1; transform: translateX(0); }
     }
     .hb-top-sellers-bar {
         display: flex !important;
@@ -39,86 +34,81 @@ $collections = nesports_collections();
         justify-content: space-between !important;
         gap: 16px !important;
         margin-bottom: 26px !important;
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
     }
     .hb-filter-pills {
         display: flex !important;
         align-items: center !important;
-        gap: 10px !important;
+        gap: 8px !important;
         overflow-x: auto !important;
         scrollbar-width: none !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 4px 2px 8px !important;
+        padding: 4px 2px 6px !important;
+        flex: 1 !important;
+        min-width: 0 !important;
     }
     .hb-filter-pills::-webkit-scrollbar {
         display: none !important;
     }
 
-    /* Staggered Left-to-Right entrance animation for options */
-    @keyframes l2rPillIn {
-        0% {
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
+    /* Exact Screenshot 1 Pill Style with Left-to-Right Curtain Fill Animation */
     .hb-filter-pill {
-        border: none !important;
-        background: #f4f4f6 !important;
-        color: #18181b !important;
+        position: relative !important;
+        overflow: hidden !important;
+        isolation: isolate !important;
+        background: #f4f4f5 !important;
+        border: 1px solid rgba(0, 0, 0, 0.04) !important;
+        border-radius: 999px !important;
         padding: 10px 22px !important;
-        border-radius: 9999px !important;
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 12.5px !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.3px !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        letter-spacing: .4px !important;
         text-transform: uppercase !important;
         cursor: pointer !important;
         white-space: nowrap !important;
-        position: relative !important;
-        overflow: hidden !important;
-        animation: l2rPillIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both !important;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                    background-color 0.25s ease,
-                    color 0.25s ease,
-                    box-shadow 0.25s ease !important;
+        flex-shrink: 0 !important;
+        color: #52525b !important;
+        user-select: none !important;
+        z-index: 1 !important;
+        transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
-    .hb-filter-pill:nth-child(1) { animation-delay: 0.05s !important; }
-    .hb-filter-pill:nth-child(2) { animation-delay: 0.12s !important; }
-    .hb-filter-pill:nth-child(3) { animation-delay: 0.19s !important; }
-    .hb-filter-pill:nth-child(4) { animation-delay: 0.26s !important; }
-    .hb-filter-pill:nth-child(5) { animation-delay: 0.33s !important; }
-    .hb-filter-pill:nth-child(6) { animation-delay: 0.40s !important; }
 
-    /* Left-to-right sliding hover highlight */
+    /* Left-to-Right Curtain Animation - EXACTLY from Screenshot 1 (.hb-pill) */
     .hb-filter-pill::before {
         content: '' !important;
         position: absolute !important;
-        top: 0 !important;
-        left: -100% !important;
-        width: 100% !important;
-        height: 100% !important;
-        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%) !important;
-        transition: left 0.5s ease !important;
-        pointer-events: none !important;
+        inset: 0 !important;
+        background: #111111 !important;
+        border-radius: inherit !important;
+        transform: scaleX(0) !important;
+        transform-origin: left center !important;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        z-index: -1 !important;
     }
+
+    /* Hover: curtain fills smoothly from left to right, text turns white */
     .hb-filter-pill:hover::before {
-        left: 100% !important;
+        transform: scaleX(1) !important;
     }
     .hb-filter-pill:hover {
-        background: #e4e4e7 !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+        color: #ffffff !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    /* Active: stays filled */
+    .hb-filter-pill.is-active::before {
+        transform: scaleX(1) !important;
     }
     .hb-filter-pill.is-active {
-        background: #111111 !important;
         color: #ffffff !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
-        transform: translateY(-1px) scale(1.02) !important;
+        border-color: #111111 !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
     }
 
     /* Carousel navigation controls (< >) */
@@ -127,8 +117,7 @@ $collections = nesports_collections();
         align-items: center !important;
         gap: 10px !important;
         flex-shrink: 0 !important;
-        margin-left: auto !important;
-        animation: l2rPillIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both !important;
+        margin-left: 12px !important;
     }
     .hb-carousel-arrow {
         width: 44px !important;
@@ -202,7 +191,7 @@ $collections = nesports_collections();
         transform: translateY(-6px) !important;
     }
 
-    /* Left-to-right card entrance animation on filter click */
+    /* Left-to-right card transition */
     @keyframes cardSlideLeftToRight {
         0% {
             opacity: 0;
@@ -234,24 +223,6 @@ $collections = nesports_collections();
     .hb-category-card:hover .hb-category-media {
         background: #eeeeF1 !important;
         box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.1) !important;
-    }
-
-    /* Left to right light shimmer on card hover */
-    .hb-category-media::after {
-        content: '' !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: -130% !important;
-        width: 80% !important;
-        height: 100% !important;
-        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%) !important;
-        transform: skewX(-20deg) !important;
-        pointer-events: none !important;
-        transition: none !important;
-    }
-    .hb-category-card:hover .hb-category-media::after {
-        left: 140% !important;
-        transition: left 0.75s ease-in-out !important;
     }
 
     .hb-card-badge {
@@ -384,9 +355,13 @@ $collections = nesports_collections();
                 <button type="button" class="hb-filter-pill is-active" data-filter="all">ALL ITEMS</button>
                 <button type="button" class="hb-filter-pill" data-filter="belts">BELTS</button>
                 <button type="button" class="hb-filter-pill" data-filter="straps">LIFTING STRAPS</button>
-                <button type="button" class="hb-filter-pill" data-filter="wraps">KNEE &amp; WRAPS</button>
-                <button type="button" class="hb-filter-pill" data-filter="bags">GYM BAGS</button>
-                <button type="button" class="hb-filter-pill" data-filter="accessories">ACCESSORIES</button>
+                <button type="button" class="hb-filter-pill" data-filter="knee-wrap">KNEE WRAPS</button>
+                <button type="button" class="hb-filter-pill" data-filter="elbow-wrap">ELBOW WRAPS</button>
+                <button type="button" class="hb-filter-pill" data-filter="wrist-straps">WRIST STRAPS</button>
+                <button type="button" class="hb-filter-pill" data-filter="gym-bag">GYM BAGS</button>
+                <button type="button" class="hb-filter-pill" data-filter="speed-ball">SPEED BALL</button>
+                <button type="button" class="hb-filter-pill" data-filter="ankle-straps">ANKLE STRAPS</button>
+                <button type="button" class="hb-filter-pill" data-filter="barbell-pads">BARBELL PADS</button>
             </div>
 
             <div class="hb-carousel-controls">
@@ -476,8 +451,8 @@ $collections = nesports_collections();
                         card.classList.remove('anim-l2r');
                         if (cat === 'all' || cardCat === cat) {
                             card.style.display = 'flex';
-                            card.style.animationDelay = (delay * 0.07) + 's';
-                            void card.offsetWidth; // Trigger reflow for animation restart
+                            card.style.animationDelay = (delay * 0.06) + 's';
+                            void card.offsetWidth; // Reflow for restart
                             card.classList.add('anim-l2r');
                             delay++;
                         } else {

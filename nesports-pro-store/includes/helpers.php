@@ -238,7 +238,7 @@ function nesports_collections() {
             'price'    => '€16.99',
             'old_price'=> '€19.99',
             'badge'    => 'Save 15%',
-            'category' => 'wraps',
+            'category' => 'knee-wrap',
             'img'      => 'Knee-Wrap-800x800.jpg',
             'url'      => '/product-category/knee-wrap/'
         ),
@@ -248,7 +248,7 @@ function nesports_collections() {
             'price'    => '€14.99',
             'old_price'=> '€18.99',
             'badge'    => 'Save 15%',
-            'category' => 'wraps',
+            'category' => 'elbow-wrap',
             'img'      => 'Elbow-Wrap-1-scaled.jpg',
             'url'      => '/product-category/elbow-wrap/'
         ),
@@ -258,7 +258,7 @@ function nesports_collections() {
             'price'    => '€12.99',
             'old_price'=> '€15.99',
             'badge'    => 'Save 15%',
-            'category' => 'wraps',
+            'category' => 'wrist-straps',
             'img'      => 'Wrist-Bandage-Black-800x800.jpg',
             'url'      => '/product-category/wrist-straps/'
         ),
@@ -268,7 +268,7 @@ function nesports_collections() {
             'price'    => '€8.99',
             'old_price'=> '€11.99',
             'badge'    => 'Save 15%',
-            'category' => 'bags',
+            'category' => 'gym-bag',
             'img'      => 'Gym-Bag-8-800x800.jpg',
             'url'      => '/product-category/gym-bag/'
         ),
@@ -278,7 +278,7 @@ function nesports_collections() {
             'price'    => '€24.99',
             'old_price'=> '€29.99',
             'badge'    => 'Save 15%',
-            'category' => 'accessories',
+            'category' => 'speed-ball',
             'img'      => 'hero-speed-ball.png',
             'url'      => '/product-category/speed-ball/'
         ),
@@ -288,7 +288,7 @@ function nesports_collections() {
             'price'    => '€11.99',
             'old_price'=> '€14.99',
             'badge'    => 'Save 15%',
-            'category' => 'accessories',
+            'category' => 'ankle-straps',
             'img'      => 'Ankle-Strap-Cable-pull-scaled.jpg',
             'url'      => '/product-category/ankle-straps/'
         ),
@@ -298,7 +298,7 @@ function nesports_collections() {
             'price'    => '€14.99',
             'old_price'=> '€18.99',
             'badge'    => 'Save 15%',
-            'category' => 'accessories',
+            'category' => 'barbell-pads',
             'img'      => 'Baerbell-Pad-scaled.jpg',
             'url'      => '/product-category/barbell-pads/'
         ),
