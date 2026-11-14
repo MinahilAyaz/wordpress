@@ -30,8 +30,11 @@ else :
     <!-- 3. MID-PAGE PARALLAX BANNER -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-banner.php'; ?>
 
-    <!-- 4. POWER PACKS & BUNDLES -->
+    <!-- 4. BUNDLES -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-bundles.php'; ?>
+
+    <!-- 5. CLOTHING CAROUSEL -->
+    <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-clothing.php'; ?>
 <?php endif; ?>
 </main>
 

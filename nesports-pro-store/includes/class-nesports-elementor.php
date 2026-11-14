@@ -50,6 +50,7 @@ class NESports_Elementor {
             'NESports_Elementor_Categories_Widget',
             'NESports_Elementor_Banner_Widget',
             'NESports_Elementor_Bundles_Widget',
+            'NESports_Elementor_Clothing_Widget',
             'NESports_Elementor_Products_Widget',
             'NESports_Elementor_Story_Widget',
             'NESports_Elementor_Contact_Widget',
@@ -82,6 +83,7 @@ class NESports_Elementor {
             'NESports_Elementor_Categories_Widget',
             'NESports_Elementor_Banner_Widget',
             'NESports_Elementor_Bundles_Widget',
+            'NESports_Elementor_Clothing_Widget',
             'NESports_Elementor_Products_Widget',
             'NESports_Elementor_Story_Widget',
             'NESports_Elementor_Contact_Widget',
@@ -104,6 +106,7 @@ class NESports_Elementor {
         require_once $dir . 'widget-categories.php';
         require_once $dir . 'widget-banner.php';
         require_once $dir . 'widget-bundles.php';
+        require_once $dir . 'widget-clothing.php';
         require_once $dir . 'widget-products.php';
         require_once $dir . 'widget-story.php';
         require_once $dir . 'widget-contact.php';
@@ -114,7 +117,7 @@ class NESports_Elementor {
      * so opening "Edit with Elementor" immediately displays the new NESPORTS3 sections.
      */
     public function maybe_seed_elementor_pages() {
-        if (get_option('nesports_elementor_seeded_v9') === 'yes') {
+        if (get_option('nesports_elementor_seeded_v10') === 'yes') {
             return;
         }
 
@@ -212,6 +215,21 @@ class NESports_Elementor {
                             'id'         => 'nesbundw4',
                             'elType'     => 'widget',
                             'widgetType' => 'nesports_bundles_widget',
+                            'settings'   => array(),
+                            'elements'   => array(),
+                        ),
+                    ),
+                    'isInner'  => false,
+                ),
+                array(
+                    'id'       => 'nescloth05',
+                    'elType'   => 'container',
+                    'settings' => array('content_width' => 'full', 'padding' => $zero_pad, 'margin' => $zero_pad),
+                    'elements' => array(
+                        array(
+                            'id'         => 'nesclothw5',
+                            'elType'     => 'widget',
+                            'widgetType' => 'nesports_clothing_widget',
                             'settings'   => array(),
                             'elements'   => array(),
                         ),

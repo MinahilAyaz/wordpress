@@ -43,7 +43,7 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
             array(
                 'label'   => esc_html__('Section Title', 'nesports-pro-store'),
                 'type'    => Controls_Manager::TEXT,
-                'default' => 'Power Packs & Bundles',
+                'default' => 'Bundles',
             )
         );
 
@@ -97,19 +97,19 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
 
     protected function render() {
         $settings     = $this->get_settings_for_display();
-        $title        = !empty($settings['section_title']) ? $settings['section_title'] : 'Power Packs & Bundles';
+        $title        = !empty($settings['section_title']) ? $settings['section_title'] : 'Bundles';
         $show_filters = $settings['show_filters'] === 'yes';
 
         $bundles     = nesports_bundles();
         $bundle_tabs = nesports_bundle_tabs();
         ?>
         <section class="hb-bundles-section" id="bundles" data-slider>
-            <div class="hb-section-header">
-                <h2 class="hb-section-title"><?php echo esc_html($title); ?></h2>
+            <div class="hb-bundles-header">
+                <h2 class="hb-bundles-title"><?php echo esc_html($title); ?></h2>
             </div>
 
             <?php if ($show_filters): ?>
-            <div class="hb-pills hb-pills--center">
+            <div class="hb-pills hb-bundles-pills">
                 <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>
                 <?php foreach ($bundle_tabs as $key => $label): ?>
                     <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>

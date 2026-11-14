@@ -375,6 +375,57 @@ function nesports_bundles() {
 }
 
 /**
+ * Clothing Items for the Clothing Section Carousel
+ * Matched exactly to Hardbody Clothing carousel style (Portrait photo cards + label + arrow)
+ */
+function nesports_clothing() {
+    return array(
+        array(
+            'id'    => 'strength-club',
+            'title' => 'STRENGTH CLUB',
+            'tag'   => 'HEAVYWEIGHT OVERSIZED',
+            'img'   => 'clothing/Black NE3Sports Strength Club T-Shirt.png',
+            'url'   => '/product-category/clothing/'
+        ),
+        array(
+            'id'    => 'lift-the-world',
+            'title' => 'LIFT THE WORLD',
+            'tag'   => 'SIGNATURE ATHLETE TEE',
+            'img'   => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+            'url'   => '/product-category/clothing/'
+        ),
+        array(
+            'id'    => 'anime-drop',
+            'title' => 'ANIME',
+            'tag'   => 'LIMITED EDITION GRAPHIC',
+            'img'   => 'clothing/Anime-6.jpg',
+            'url'   => '/product-category/clothing/'
+        ),
+        array(
+            'id'    => 'son-of-the-west',
+            'title' => 'SON OF THE WEST',
+            'tag'   => 'ACID WASH STATEMENT',
+            'img'   => 'clothing/Back-Son-Of-The-West.jpg',
+            'url'   => '/product-category/clothing/'
+        ),
+        array(
+            'id'    => 'pro-coach',
+            'title' => 'PRO COACH',
+            'tag'   => 'PERFORMANCE OVERSIZED',
+            'img'   => 'clothing/Procoach-T-Shirt-Green.jpg',
+            'url'   => '/product-category/clothing/'
+        ),
+        array(
+            'id'    => 'shop-the-look',
+            'title' => 'OVERSIZED TEES',
+            'tag'   => 'ESSENTIAL GYM FIT',
+            'img'   => 'clothing/Shop-The-Look-1.jpg',
+            'url'   => '/product-category/clothing/'
+        )
+    );
+}
+
+/**
  * Detailed profile for each product:
  * Strictly product-specific gallery images, color swatches, selectors and specifications.
  * Ensures NO mixed images, foreign products, or irrelevant selectors appear on single product pages.
