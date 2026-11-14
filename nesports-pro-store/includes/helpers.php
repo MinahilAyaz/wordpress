@@ -219,7 +219,7 @@ function nesports_collections() {
             'old_price'=> '€69.99',
             'badge'    => 'Save 15%',
             'category' => 'belts',
-            'img'      => 'DSC_0167-scaled-1.jpg',
+            'img'      => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
             'url'      => '/product-category/weightlifting-belts/'
         ),
         array(
@@ -249,7 +249,7 @@ function nesports_collections() {
             'old_price'=> '€18.99',
             'badge'    => 'Save 15%',
             'category' => 'wraps',
-            'img'      => 'Elbow-Wrap-scaled.jpg',
+            'img'      => 'Elbow-Wrap-1-scaled.jpg',
             'url'      => '/product-category/elbow-wrap/'
         ),
         array(

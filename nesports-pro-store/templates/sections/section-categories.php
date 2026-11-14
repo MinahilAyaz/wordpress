@@ -16,23 +16,29 @@ $collections = nesports_collections();
         margin: 0 auto !important;
         box-sizing: border-box !important;
         width: 100% !important;
+        overflow: hidden !important;
     }
     .hb-top-sellers-title {
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
         font-size: clamp(28px, 3.2vw, 40px) !important;
         font-weight: 700 !important;
         color: #111111 !important;
-        margin: 0 0 16px 0 !important;
+        margin: 0 0 18px 0 !important;
         letter-spacing: -0.8px !important;
         line-height: 1.15 !important;
         text-align: left !important;
+        animation: l2rTitle 0.6s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+    @keyframes l2rTitle {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
     }
     .hb-top-sellers-bar {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
         gap: 16px !important;
-        margin-bottom: 24px !important;
+        margin-bottom: 26px !important;
         flex-wrap: wrap !important;
     }
     .hb-filter-pills {
@@ -42,16 +48,29 @@ $collections = nesports_collections();
         overflow-x: auto !important;
         scrollbar-width: none !important;
         -webkit-overflow-scrolling: touch !important;
-        padding-bottom: 4px !important;
+        padding: 4px 2px 8px !important;
     }
     .hb-filter-pills::-webkit-scrollbar {
         display: none !important;
     }
+
+    /* Staggered Left-to-Right entrance animation for options */
+    @keyframes l2rPillIn {
+        0% {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
     .hb-filter-pill {
         border: none !important;
         background: #f4f4f6 !important;
         color: #18181b !important;
-        padding: 9px 20px !important;
+        padding: 10px 22px !important;
         border-radius: 9999px !important;
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
         font-size: 12.5px !important;
@@ -60,21 +79,56 @@ $collections = nesports_collections();
         text-transform: uppercase !important;
         cursor: pointer !important;
         white-space: nowrap !important;
-        transition: all 0.2s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+        animation: l2rPillIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                    background-color 0.25s ease,
+                    color 0.25s ease,
+                    box-shadow 0.25s ease !important;
+    }
+    .hb-filter-pill:nth-child(1) { animation-delay: 0.05s !important; }
+    .hb-filter-pill:nth-child(2) { animation-delay: 0.12s !important; }
+    .hb-filter-pill:nth-child(3) { animation-delay: 0.19s !important; }
+    .hb-filter-pill:nth-child(4) { animation-delay: 0.26s !important; }
+    .hb-filter-pill:nth-child(5) { animation-delay: 0.33s !important; }
+    .hb-filter-pill:nth-child(6) { animation-delay: 0.40s !important; }
+
+    /* Left-to-right sliding hover highlight */
+    .hb-filter-pill::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%) !important;
+        transition: left 0.5s ease !important;
+        pointer-events: none !important;
+    }
+    .hb-filter-pill:hover::before {
+        left: 100% !important;
     }
     .hb-filter-pill:hover {
         background: #e4e4e7 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     }
     .hb-filter-pill.is-active {
         background: #111111 !important;
         color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+        transform: translateY(-1px) scale(1.02) !important;
     }
+
+    /* Carousel navigation controls (< >) */
     .hb-carousel-controls {
         display: inline-flex !important;
         align-items: center !important;
         gap: 10px !important;
         flex-shrink: 0 !important;
         margin-left: auto !important;
+        animation: l2rPillIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both !important;
     }
     .hb-carousel-arrow {
         width: 44px !important;
@@ -89,7 +143,7 @@ $collections = nesports_collections();
         cursor: pointer !important;
         font-size: 14px !important;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
         padding: 0 !important;
         outline: none !important;
     }
@@ -97,12 +151,14 @@ $collections = nesports_collections();
         border-color: #111111 !important;
         background: #111111 !important;
         color: #ffffff !important;
-        transform: scale(1.05) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+        transform: scale(1.08) !important;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
     }
     .hb-carousel-arrow:active {
-        transform: scale(0.95) !important;
+        transform: scale(0.92) !important;
     }
+
+    /* Carousel track */
     .hb-category-carousel-wrap {
         position: relative !important;
         width: 100% !important;
@@ -118,13 +174,15 @@ $collections = nesports_collections();
         scroll-snap-type: x mandatory !important;
         -webkit-overflow-scrolling: touch !important;
         scrollbar-width: none !important;
-        padding: 4px 2px 20px !important;
+        padding: 6px 2px 22px !important;
         margin: 0 !important;
         width: 100% !important;
     }
     .hb-category-track::-webkit-scrollbar {
         display: none !important;
     }
+
+    /* Card styling */
     .hb-category-card {
         flex: 0 0 calc((100% - 72px) / 5) !important;
         min-width: 220px !important;
@@ -141,8 +199,25 @@ $collections = nesports_collections();
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .hb-category-card:hover {
-        transform: translateY(-5px) !important;
+        transform: translateY(-6px) !important;
     }
+
+    /* Left-to-right card entrance animation on filter click */
+    @keyframes cardSlideLeftToRight {
+        0% {
+            opacity: 0;
+            transform: translateX(-40px) scale(0.96);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+    .hb-category-card.anim-l2r {
+        animation: cardSlideLeftToRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    /* Card Media container */
     .hb-category-media {
         position: relative !important;
         width: 100% !important;
@@ -158,8 +233,27 @@ $collections = nesports_collections();
     }
     .hb-category-card:hover .hb-category-media {
         background: #eeeeF1 !important;
-        box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.1) !important;
     }
+
+    /* Left to right light shimmer on card hover */
+    .hb-category-media::after {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -130% !important;
+        width: 80% !important;
+        height: 100% !important;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%) !important;
+        transform: skewX(-20deg) !important;
+        pointer-events: none !important;
+        transition: none !important;
+    }
+    .hb-category-card:hover .hb-category-media::after {
+        left: 140% !important;
+        transition: left 0.75s ease-in-out !important;
+    }
+
     .hb-card-badge {
         position: absolute !important;
         top: 12px !important;
@@ -187,7 +281,7 @@ $collections = nesports_collections();
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .hb-category-card:hover .hb-category-media img {
-        transform: scale(1.06) !important;
+        transform: scale(1.08) !important;
     }
     .hb-category-bottom {
         display: flex !important;
@@ -367,7 +461,7 @@ $collections = nesports_collections();
                 });
             }
 
-            // Filter Pills Handling
+            // Left-to-right animated filtering
             pills.forEach(function(pill) {
                 pill.addEventListener('click', function() {
                     pills.forEach(function(p) { p.classList.remove('is-active'); });
@@ -376,10 +470,16 @@ $collections = nesports_collections();
                     var cat = pill.getAttribute('data-filter');
                     var cards = track.querySelectorAll('.hb-category-card');
 
+                    var delay = 0;
                     cards.forEach(function(card) {
                         var cardCat = card.getAttribute('data-cat');
+                        card.classList.remove('anim-l2r');
                         if (cat === 'all' || cardCat === cat) {
                             card.style.display = 'flex';
+                            card.style.animationDelay = (delay * 0.07) + 's';
+                            void card.offsetWidth; // Trigger reflow for animation restart
+                            card.classList.add('anim-l2r');
+                            delay++;
                         } else {
                             card.style.display = 'none';
                         }
