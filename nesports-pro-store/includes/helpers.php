@@ -214,46 +214,91 @@ function nesports_collections() {
     return array(
         array(
             'title'    => 'Weightlifting Belts',
+            'subtitle' => 'Genuine Leather 10mm',
+            'price'    => '€59.99',
+            'old_price'=> '€69.99',
+            'badge'    => 'Save 15%',
+            'category' => 'belts',
             'img'      => 'DSC_0167-scaled-1.jpg',
             'url'      => '/product-category/weightlifting-belts/'
         ),
         array(
             'title'    => 'Lifting Straps',
+            'subtitle' => 'Padded Heavy Duty Grip',
+            'price'    => '€9.99',
+            'old_price'=> '€14.99',
+            'badge'    => 'Save 15%',
+            'category' => 'straps',
             'img'      => '1-800x800.jpg',
             'url'      => '/product-category/lifting-straps/'
         ),
         array(
             'title'    => 'Knee Wraps',
+            'subtitle' => 'Elastic Power Support',
+            'price'    => '€16.99',
+            'old_price'=> '€19.99',
+            'badge'    => 'Save 15%',
+            'category' => 'wraps',
             'img'      => 'Knee-Wrap-800x800.jpg',
             'url'      => '/product-category/knee-wrap/'
         ),
         array(
             'title'    => 'Elbow Wraps',
+            'subtitle' => 'Compression Stability',
+            'price'    => '€14.99',
+            'old_price'=> '€18.99',
+            'badge'    => 'Save 15%',
+            'category' => 'wraps',
             'img'      => 'Elbow-Wrap-scaled.jpg',
             'url'      => '/product-category/elbow-wrap/'
         ),
         array(
             'title'    => 'Wrist Straps',
+            'subtitle' => 'Thumb Loop Reinforcement',
+            'price'    => '€12.99',
+            'old_price'=> '€15.99',
+            'badge'    => 'Save 15%',
+            'category' => 'wraps',
             'img'      => 'Wrist-Bandage-Black-800x800.jpg',
             'url'      => '/product-category/wrist-straps/'
         ),
         array(
             'title'    => 'Gym Bags',
+            'subtitle' => 'Waterproof Athletic Pack',
+            'price'    => '€8.99',
+            'old_price'=> '€11.99',
+            'badge'    => 'Save 15%',
+            'category' => 'bags',
             'img'      => 'Gym-Bag-8-800x800.jpg',
             'url'      => '/product-category/gym-bag/'
         ),
         array(
             'title'    => 'Speed Ball Sets',
+            'subtitle' => 'Pro Reflex Swivel Set',
+            'price'    => '€24.99',
+            'old_price'=> '€29.99',
+            'badge'    => 'Save 15%',
+            'category' => 'accessories',
             'img'      => 'hero-speed-ball.png',
             'url'      => '/product-category/speed-ball/'
         ),
         array(
             'title'    => 'Ankle Straps',
+            'subtitle' => 'Cable Attachment D-Ring',
+            'price'    => '€11.99',
+            'old_price'=> '€14.99',
+            'badge'    => 'Save 15%',
+            'category' => 'accessories',
             'img'      => 'Ankle-Strap-Cable-pull-scaled.jpg',
             'url'      => '/product-category/ankle-straps/'
         ),
         array(
             'title'    => 'Barbell Pads',
+            'subtitle' => 'Ergonomic Neck Protection',
+            'price'    => '€14.99',
+            'old_price'=> '€18.99',
+            'badge'    => 'Save 15%',
+            'category' => 'accessories',
             'img'      => 'Baerbell-Pad-scaled.jpg',
             'url'      => '/product-category/barbell-pads/'
         ),

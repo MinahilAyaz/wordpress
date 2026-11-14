@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('NESPORTS_VERSION', '1.0.11');
+define('NESPORTS_VERSION', '1.0.12');
 define('NESPORTS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('NESPORTS_PLUGIN_URL', plugin_dir_url(__FILE__));
 

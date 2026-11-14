@@ -39,12 +39,13 @@ class NESports_Frontend {
             '6.5.1'
         );
 
-        // Enqueue Plugin Frontend CSS
+        // Enqueue Plugin Frontend CSS (auto-cache-busting via filemtime)
+        $css_ver = NESPORTS_VERSION . '.' . (file_exists(NESPORTS_PLUGIN_DIR . 'assets/css/nesports-frontend.css') ? filemtime(NESPORTS_PLUGIN_DIR . 'assets/css/nesports-frontend.css') : time());
         wp_enqueue_style(
             'nesports-frontend-css',
             NESPORTS_PLUGIN_URL . 'assets/css/nesports-frontend.css',
             array(),
-            NESPORTS_VERSION
+            $css_ver
         );
 
         // Inject Dynamic Custom Colors from settings
@@ -56,12 +57,13 @@ class NESports_Frontend {
         $custom_css = ":root { --hb-accent: {$accent_color}; }";
         wp_add_inline_style('nesports-frontend-css', $custom_css);
 
-        // Enqueue Plugin Frontend JS
+        // Enqueue Plugin Frontend JS (auto-cache-busting via filemtime)
+        $js_ver = NESPORTS_VERSION . '.' . (file_exists(NESPORTS_PLUGIN_DIR . 'assets/js/nesports-frontend.js') ? filemtime(NESPORTS_PLUGIN_DIR . 'assets/js/nesports-frontend.js') : time());
         wp_enqueue_script(
             'nesports-frontend-js',
             NESPORTS_PLUGIN_URL . 'assets/js/nesports-frontend.js',
             array('jquery'),
-            NESPORTS_VERSION,
+            $js_ver,
             true
         );
 
