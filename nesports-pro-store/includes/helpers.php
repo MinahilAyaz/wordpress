@@ -433,48 +433,6 @@ function nesports_clothing() {
             'img'   => 'clothing/Procoach-T-Shirt-Green.png',
             'url'   => '/product/pro-coach-oversized-t-shirt/'
         ),
-        array(
-            'id'    => 'lift-the-world-red',
-            'title' => 'LIFT THE WORLD RED',
-            'tag'   => 'LIMITED ATHLETE DROP',
-            'img'   => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-            'url'   => '/product/lift-the-world-red-edition-t-shirt/'
-        ),
-        array(
-            'id'    => 'anime-berserk',
-            'title' => 'ANIME BERSERK',
-            'tag'   => 'HEAVYWEIGHT GRAPHIC TEE',
-            'img'   => 'clothing/Anime-1.jpg',
-            'url'   => '/product/anime-berserk-oversized-t-shirt/'
-        ),
-        array(
-            'id'    => 'pro-coach-red',
-            'title' => 'PRO COACH RED IRON',
-            'tag'   => 'BORN IN IRON GRAPHIC',
-            'img'   => 'clothing/Red Pro Coach Iron Tee Back Print.png',
-            'url'   => '/product/pro-coach-red-iron-t-shirt/'
-        ),
-        array(
-            'id'    => 'anime-shadow',
-            'title' => 'ANIME SHADOW',
-            'tag'   => 'GRAPHIC VANGUARD TEE',
-            'img'   => 'clothing/Anime-2.jpg',
-            'url'   => '/product/anime-shadow-oversized-t-shirt/'
-        ),
-        array(
-            'id'    => 'pro-coach-navy',
-            'title' => 'PRO COACH NAVY',
-            'tag'   => 'VINTAGE GRAPHIC TEE',
-            'img'   => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
-            'url'   => '/product/pro-coach-vintage-navy-t-shirt/'
-        ),
-        array(
-            'id'    => 'anime-vanguard',
-            'title' => 'ANIME WARRIOR',
-            'tag'   => 'OVERSIZED STATEMENT',
-            'img'   => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
-            'url'   => '/product/anime-vanguard-graphic-t-shirt/'
-        ),
     );
 }
 
