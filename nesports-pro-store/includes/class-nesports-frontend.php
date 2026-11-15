@@ -17,6 +17,7 @@ class NESports_Frontend {
         add_shortcode('nesports_categories', array($this, 'render_categories_shortcode'));
         add_shortcode('nesports_bundles', array($this, 'render_bundles_shortcode'));
         add_shortcode('nesports_clothing', array($this, 'render_clothing_shortcode'));
+        add_shortcode('nesports_color', array($this, 'render_color_shortcode'));
         add_shortcode('nesports_pro_home', array($this, 'render_home_shortcode'));
     }
 
@@ -195,6 +196,12 @@ class NESports_Frontend {
     public function render_clothing_shortcode() {
         ob_start();
         include NESPORTS_PLUGIN_DIR . 'templates/sections/section-clothing.php';
+        return ob_get_clean();
+    }
+
+    public function render_color_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-color.php';
         return ob_get_clean();
     }
 

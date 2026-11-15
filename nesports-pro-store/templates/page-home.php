@@ -35,6 +35,9 @@ else :
 
     <!-- 5. CLOTHING CAROUSEL -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-clothing.php'; ?>
+
+    <!-- 6. SHOP BY COLOUR -->
+    <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-color.php'; ?>
 <?php endif; ?>
 </main>
 

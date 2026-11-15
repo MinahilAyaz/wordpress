@@ -437,6 +437,276 @@ function nesports_clothing() {
 }
 
 /**
+ * Shop by Color product collections.
+ * Filtered by authentic NESPORTS3 products in each color group.
+ */
+function nesports_color_items() {
+    return array(
+        'red' => array(
+            'label' => 'RED',
+            'hex'   => '#dc2626',
+            'items' => array(
+                array(
+                    'name'      => 'Lift The World T-Shirt (Crimson Red)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Save 22%',
+                    'img'       => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                    'url'       => '/product/lift-the-world-red-edition-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Competition Knee Wraps (Red Edition)',
+                    'price'     => 29.99,
+                    'old_price' => 39.99,
+                    'badge'     => 'Save 25%',
+                    'img'       => 'Knee-Wrap-800x800.jpg',
+                    'url'       => '/product/knee-wrap/',
+                    'cat'       => 'knee'
+                ),
+                array(
+                    'name'      => 'Padded Heavy Lifting Straps (Red)',
+                    'price'     => 9.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 50%',
+                    'img'       => '2-red-800x800.jpg',
+                    'url'       => '/product/lifting-strap-padded-red/',
+                    'cat'       => 'straps'
+                ),
+                array(
+                    'name'      => 'Speed Ball Set Leather (Red & Black)',
+                    'price'     => 24.99,
+                    'old_price' => 39.99,
+                    'badge'     => 'Save 38%',
+                    'img'       => '1-1-2-800x800.jpg',
+                    'url'       => '/product/speed-ball-set-maya-hide-leather-red-black/',
+                    'cat'       => 'speed'
+                ),
+                array(
+                    'name'      => 'Anime Statement T-Shirt (Red Graphic)',
+                    'price'     => 39.99,
+                    'old_price' => 49.99,
+                    'badge'     => 'Save 20%',
+                    'img'       => 'clothing/Anime-6.jpg',
+                    'url'       => '/product/anime-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+            )
+        ),
+        'black' => array(
+            'label' => 'BLACK',
+            'hex'   => '#18181b',
+            'items' => array(
+                array(
+                    'name'      => 'Strength Club Oversized T-Shirt (Black)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Best Seller',
+                    'img'       => 'clothing/Black NE3Sports Strength Club T-Shirt.png',
+                    'url'       => '/product/strength-club-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Pro Leather Lever Belt 10mm (Black)',
+                    'price'     => 59.99,
+                    'old_price' => 79.99,
+                    'badge'     => 'Save 25%',
+                    'img'       => 'DSC_0167-scaled-1.jpg',
+                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
+                    'cat'       => 'belts'
+                ),
+                array(
+                    'name'      => 'Power Lifting Belt 13mm (Black Edition)',
+                    'price'     => 69.99,
+                    'old_price' => 89.99,
+                    'badge'     => 'Pro Grade',
+                    'img'       => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
+                    'url'       => '/product/competition-weightlifting-belt-13mm-black/',
+                    'cat'       => 'belts'
+                ),
+                array(
+                    'name'      => 'Weightlifting Dip Belt with Steel Chain',
+                    'price'     => 64.99,
+                    'old_price' => 84.99,
+                    'badge'     => 'Save 24%',
+                    'img'       => 'Dip-Belt-800x800.jpg',
+                    'url'       => '/product/quick-release-lever-power-belt/',
+                    'cat'       => 'belts'
+                ),
+                array(
+                    'name'      => 'Lifting Straps Extra Padded (Stealth Black)',
+                    'price'     => 9.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 50%',
+                    'img'       => '1-800x800.jpg',
+                    'url'       => '/product/lifting-straps-with-extra-padded-black/',
+                    'cat'       => 'straps'
+                ),
+                array(
+                    'name'      => 'Wrist Bandages 45cm (Stealth Black)',
+                    'price'     => 9.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 50%',
+                    'img'       => 'Wrist-Bandage-Black-800x800.jpg',
+                    'url'       => '/product/wrist-bandages-45-cm-wrist-black-2/',
+                    'cat'       => 'wrist'
+                ),
+                array(
+                    'name'      => 'Water Proof Gym Bag (Black Edition)',
+                    'price'     => 11.99,
+                    'old_price' => 14.99,
+                    'badge'     => 'Save 20%',
+                    'img'       => 'Gym-Bag-scaled.jpg',
+                    'url'       => '/product/water-proof-gym-bag-black/',
+                    'cat'       => 'bags'
+                ),
+                array(
+                    'name'      => 'High Density Barbell Squat Pad (Black)',
+                    'price'     => 24.99,
+                    'old_price' => 24.99,
+                    'badge'     => 'Popular',
+                    'img'       => 'Barbell-Pad-5-scaled.jpg',
+                    'url'       => '/product/barbell-pad-black/',
+                    'cat'       => 'pads'
+                ),
+                array(
+                    'name'      => 'Ankle Strap Cable Pull (Black)',
+                    'price'     => 11.99,
+                    'old_price' => 14.99,
+                    'badge'     => 'Save 20%',
+                    'img'       => 'Ankle-Strap-Cable-pull-scaled.jpg',
+                    'url'       => '/product/ankle-strap-black/',
+                    'cat'       => 'ankle'
+                ),
+            )
+        ),
+        'blue' => array(
+            'label' => 'BLUE',
+            'hex'   => '#2563eb',
+            'items' => array(
+                array(
+                    'name'      => 'Competition Knee Wraps (Speed Blue)',
+                    'price'     => 29.99,
+                    'old_price' => 39.99,
+                    'badge'     => 'Save 25%',
+                    'img'       => 'Knee-Wrap-9-800x800.jpg',
+                    'url'       => '/product/knee-wrap-copy/',
+                    'cat'       => 'knee'
+                ),
+                array(
+                    'name'      => 'Padded Heavy Lifting Straps (Blue)',
+                    'price'     => 9.99,
+                    'old_price' => 14.99,
+                    'badge'     => 'Save 33%',
+                    'img'       => 'A2.jpg',
+                    'url'       => '/product/lifting-strap-padded-blue/',
+                    'cat'       => 'straps'
+                ),
+                array(
+                    'name'      => 'Water Proof Gym Bag (Speed Blue)',
+                    'price'     => 11.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 40%',
+                    'img'       => 'Gym-Bag-8-800x800.jpg',
+                    'url'       => '/product/water-proof-gym-bag-blue/',
+                    'cat'       => 'bags'
+                ),
+                array(
+                    'name'      => 'Barbell Squat Pad (Camo Blue)',
+                    'price'     => 24.99,
+                    'old_price' => 24.99,
+                    'badge'     => 'Limited',
+                    'img'       => 'DSC_0177-scaled-1.jpg',
+                    'url'       => '/product/barbell-pad-camo-blue/',
+                    'cat'       => 'pads'
+                ),
+                array(
+                    'name'      => 'Ankle Strap Cable Pull (Camo Blue)',
+                    'price'     => 11.99,
+                    'old_price' => 14.99,
+                    'badge'     => 'Save 20%',
+                    'img'       => 'Ankle-Strap-Cable-pull-5-scaled.jpg',
+                    'url'       => '/product/ankle-strap-camo-blue/',
+                    'cat'       => 'ankle'
+                ),
+                array(
+                    'name'      => 'Lifting Straps Padded (Royal Blue)',
+                    'price'     => 9.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 50%',
+                    'img'       => 'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
+                    'url'       => '/product/lifting-straps-padded-blue-2/',
+                    'cat'       => 'straps'
+                ),
+            )
+        ),
+        'grey' => array(
+            'label' => 'GREY',
+            'hex'   => '#71717a',
+            'items' => array(
+                array(
+                    'name'      => 'Water Proof Gym Bag (Steel Gray)',
+                    'price'     => 11.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 40%',
+                    'img'       => 'Gym-Bag-9-800x800.jpg',
+                    'url'       => '/product/water-proof-gym-bag-gray/',
+                    'cat'       => 'bags'
+                ),
+                array(
+                    'name'      => 'Barbell Squat Pad (Gray Camo)',
+                    'price'     => 24.99,
+                    'old_price' => 24.99,
+                    'badge'     => 'Limited',
+                    'img'       => 'Baerbell-Pad-scaled.jpg',
+                    'url'       => '/product/barbell-pad-gray-camo/',
+                    'cat'       => 'pads'
+                ),
+            )
+        ),
+        'green' => array(
+            'label' => 'GREEN',
+            'hex'   => '#15803d',
+            'items' => array(
+                array(
+                    'name'      => 'Pro Coach Performance T-Shirt (Forest Green)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Save 22%',
+                    'img'       => 'clothing/Procoach-T-Shirt-Green.jpg',
+                    'url'       => '/product/pro-coach-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+            )
+        ),
+        'gold' => array(
+            'label' => 'GOLD',
+            'hex'   => '#d97706',
+            'items' => array(
+                array(
+                    'name'      => 'Speed Ball Set Leather (Black & Gold)',
+                    'price'     => 24.99,
+                    'old_price' => 39.99,
+                    'badge'     => 'Save 38%',
+                    'img'       => '1-1-800x800.jpg',
+                    'url'       => '/product/speed-ball-set-maya-hide-leather/',
+                    'cat'       => 'speed'
+                ),
+                array(
+                    'name'      => 'Wrist Bandages 45cm (Black / Yellow)',
+                    'price'     => 9.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 50%',
+                    'img'       => 'Wrist-Bandage-3.jpg',
+                    'url'       => '/product/wrist-bandages-45-cm-wrist-black/',
+                    'cat'       => 'wrist'
+                ),
+            )
+        )
+    );
+}
+
+/**
  * Detailed profile for each product:
  * Strictly product-specific gallery images, color swatches, selectors and specifications.
  * Ensures NO mixed images, foreign products, or irrelevant selectors appear on single product pages.

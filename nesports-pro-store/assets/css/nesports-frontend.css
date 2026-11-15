@@ -5836,3 +5836,334 @@ body.hb-theme a { color: inherit; text-decoration: none; }
         max-height: 95px !important;
     }
 }
+
+/* ==========================================================================
+   SHOP BY COLOUR SECTION (Matched to Hardbody Store Reference)
+   ========================================================================== */
+.hb-color-section {
+    padding: 44px 32px 52px;
+    max-width: 1440px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hb-color-nav-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 14px 16px;
+    margin-bottom: 24px;
+    align-items: center;
+    width: 100%;
+}
+
+.hb-color-title-wrap {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hb-color-title {
+    font-family: var(--hb-font, 'Poppins', sans-serif);
+    font-size: clamp(28px, 3.2vw, 40px);
+    font-weight: 700;
+    color: #111111;
+    margin: 0;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    text-align: left;
+    display: inline-block;
+}
+
+.hb-color-title-underline {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: 8px;
+    margin-top: 4px;
+}
+
+.hb-color-pills-wrap {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hb-color-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 4px 6px;
+    width: 100%;
+    min-width: 0;
+    scroll-padding-right: 20px;
+}
+
+.hb-color-pills::-webkit-scrollbar {
+    display: none;
+}
+
+.hb-color-pill {
+    position: relative;
+    overflow: hidden;
+    background: #f4f4f5;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-family: var(--hb-font, 'Poppins', sans-serif);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: .35px;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    color: #52525b;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hb-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
+}
+
+.hb-color-pill:hover,
+.hb-color-pill.is-active {
+    background: #111111;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.hb-color-carousel-controls {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-left: 8px;
+    justify-self: end;
+}
+
+.hb-color-carousel-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hb-color-track {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 6px 2px 22px;
+    margin: 0;
+    width: 100%;
+}
+
+.hb-color-track::-webkit-scrollbar {
+    display: none;
+}
+
+.hb-color-card {
+    flex: 0 0 calc((100% - 72px) / 5);
+    min-width: 220px;
+    max-width: 280px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-decoration: none;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    scroll-snap-align: start;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hb-color-card:hover {
+    transform: translateY(-6px);
+}
+
+.hb-color-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f6f6f8;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: background 0.3s ease, box-shadow 0.35s ease;
+}
+
+.hb-color-card:hover .hb-color-media {
+    background: #eeeff2;
+    box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.1);
+}
+
+.hb-color-media img {
+    width: 80%;
+    height: 80%;
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    object-position: center;
+    mix-blend-mode: multiply;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hb-color-card:hover .hb-color-media img {
+    transform: scale(1.08);
+}
+
+.hb-color-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #e11d48;
+    color: #ffffff;
+    font-family: var(--hb-font, 'Poppins', sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    z-index: 2;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3);
+}
+
+.hb-color-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+    width: 100%;
+    padding: 0 2px;
+}
+
+.hb-color-meta-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+}
+
+.hb-color-card-title {
+    font-family: var(--hb-font, 'Poppins', sans-serif);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #111111;
+    margin: 0;
+    text-align: left;
+    letter-spacing: -0.2px;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    transition: color 0.2s ease;
+}
+
+.hb-color-card:hover .hb-color-card-title {
+    color: var(--hb-accent, #e11d48);
+}
+
+.hb-color-price-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.hb-color-price-now {
+    font-family: var(--hb-font, 'Poppins', sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.2;
+}
+
+.hb-color-price-old {
+    font-family: var(--hb-font, 'Poppins', sans-serif);
+    font-size: 11.5px;
+    color: #a1a1aa;
+    text-decoration: line-through;
+    line-height: 1.2;
+}
+
+@media (max-width: 1200px) {
+    .hb-color-card {
+        flex: 0 0 calc((100% - 54px) / 4);
+    }
+}
+
+@media (max-width: 992px) {
+    .hb-color-nav-grid {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 16px 12px;
+        margin-bottom: 20px;
+    }
+    .hb-color-title-wrap {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    .hb-color-carousel-controls {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        justify-self: end;
+        margin-left: 0;
+    }
+    .hb-color-pills-wrap {
+        grid-column: 1 / -1;
+        grid-row: 2 / 3;
+        width: 100%;
+    }
+    .hb-color-card {
+        flex: 0 0 calc((100% - 36px) / 3);
+    }
+}
+
+@media (max-width: 768px) {
+    .hb-color-section {
+        padding: 32px 16px 36px;
+    }
+    .hb-color-title {
+        font-size: 24px;
+    }
+    .hb-color-card {
+        flex: 0 0 68vw;
+        min-width: 200px;
+    }
+}
