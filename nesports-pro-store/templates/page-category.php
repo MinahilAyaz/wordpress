@@ -396,10 +396,10 @@ if ($collection_data && !empty($collection_data['products'])) {
     transform: scale(1.025);
 }
 
-/* 3-dot interactive indicator - reveals on hover matching Hardbody Screenshot 2 */
+/* 3-dot interactive indicator matching Screenshot 2 */
 .hb-card-dots-wrap {
     position: absolute !important;
-    bottom: 12px !important;
+    bottom: 8px !important;
     left: 0 !important;
     right: 0 !important;
     display: flex !important;
@@ -407,71 +407,33 @@ if ($collection_data && !empty($collection_data['products'])) {
     align-items: center !important;
     z-index: 6 !important;
     pointer-events: none !important;
-    opacity: 0 !important;
-    transform: translateY(6px) !important;
-    transition: opacity 0.25s ease, transform 0.25s ease !important;
-}
-.hb-card:hover .hb-card-dots-wrap,
-.hb-card:focus-within .hb-card-dots-wrap {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
 }
 .hb-card-dots {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 7px !important;
-    background: rgba(255, 255, 255, 0.94) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    padding: 6px 14px !important;
+    gap: 6px !important;
+    background: #ffffff !important;
+    padding: 5px 12px !important;
     border-radius: 9999px !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
     pointer-events: auto !important;
 }
 .hb-card-dot {
     width: 6px !important;
     height: 6px !important;
     border-radius: 50% !important;
-    background: #cfcfd4 !important;
+    background: #d4d4d8 !important;
     border: none !important;
     padding: 0 !important;
     cursor: pointer !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 .hb-card-dot:hover {
-    background: #71717a !important;
-    transform: scale(1.25) !important;
+    background: #52525b !important;
 }
 .hb-card-dot.is-active {
     background: #111111 !important;
-    transform: scale(1.4) !important;
-}
-
-/* Quick Add Button */
-.hb-card-quick-add {
-    position: absolute !important;
-    bottom: 12px !important;
-    right: 12px !important;
-    background: #111111 !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 7px 14px !important;
-    border-radius: 9999px !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    opacity: 0 !important;
-    transform: translateY(6px) !important;
-    transition: all 0.25s ease !important;
-    z-index: 7 !important;
-    font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-}
-.hb-card:hover .hb-card-quick-add {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-.hb-card-quick-add:hover {
-    background: #dc2626 !important;
+    transform: scale(1.35) !important;
 }
 
 /* Card Body inline layout matching Hardbody Screenshot 2 */
@@ -643,7 +605,7 @@ if ($collection_data && !empty($collection_data['products'])) {
                             </a>
 
                             <?php if ($has_sub): ?>
-                            <!-- 3 Sub-images Dots Indicator (Reveals on Hover matching Screenshot 2) -->
+                            <!-- 3 Sub-images Dots Indicator matching Screenshot 2 -->
                             <div class="hb-card-dots-wrap">
                                 <div class="hb-card-dots">
                                     <?php foreach ($p['images'] as $idx => $img_path): ?>
@@ -652,10 +614,6 @@ if ($collection_data && !empty($collection_data['products'])) {
                                 </div>
                             </div>
                             <?php endif; ?>
-
-                            <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr($p['slug']); ?>" data-name="<?php echo esc_attr($name); ?>" data-price="<?php echo esc_attr($price); ?>" data-img="<?php echo esc_url($main_src); ?>" aria-label="Add <?php echo esc_attr($name); ?> to cart">
-                                <i class="fa-solid fa-plus"></i> Add to cart
-                            </button>
                         </div>
                         <div class="hb-card-body">
                             <h3 class="hb-card-title"><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($name); ?></a></h3>

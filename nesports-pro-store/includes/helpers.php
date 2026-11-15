@@ -452,9 +452,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 34.99,
                     'old'    => 44.99,
                     'images' => array(
-                        'clothing/cat-strength-club.jpg',
                         'clothing/Black NE3Sports Strength Club T-Shirt.png',
-                        'clothing/Black T-Shirt with Red Strength Club Design.png'
+                        'clothing/Strength-Club-White-Detail.jpg',
+                        'clothing/cat-strength-club.jpg'
                     ),
                     'url'    => '/product/strength-club-oversized-t-shirt/'
                 ),
@@ -465,8 +465,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
-                        'clothing/cat-strength-club.jpg',
-                        'clothing/Black NE3Sports Strength Club T-Shirt.png'
+                        'clothing/Strength-Club-Blue-Detail.jpg',
+                        'clothing/Strength-Club-Blue-Lower.jpg'
                     ),
                     'url'    => '/product/strength-club-oversized-t-shirt/'
                 ),
@@ -477,20 +477,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Black T-Shirt with Red Strength Club Design.png',
-                        'clothing/cat-strength-club.jpg',
-                        'clothing/Black NE3Sports Strength Club T-Shirt (1).png'
-                    ),
-                    'url'    => '/product/strength-club-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Strength Club Heavyweight Lifter Tee',
-                    'slug'   => 'strength-club-heavyweight-lifter-tee',
-                    'price'  => 34.99,
-                    'old'    => 44.99,
-                    'images' => array(
-                        'clothing/Black NE3Sports Strength Club T-Shirt.png',
-                        'clothing/Black T-Shirt with Red Strength Club Design.png',
-                        'clothing/cat-strength-club.jpg'
+                        'clothing/Strength-Club-Red-Detail.jpg',
+                        'clothing/Strength-Club-Red-Lower.jpg'
                     ),
                     'url'    => '/product/strength-club-oversized-t-shirt/'
                 ),
@@ -507,9 +495,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 34.99,
                     'old'    => 44.99,
                     'images' => array(
-                        'clothing/cat-lift-the-world.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
                         'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg'
+                        'clothing/Lift-The-World-T-Shirt-Black-Lower.jpg'
                     ),
                     'url'    => '/product/lift-the-world-oversized-t-shirt/'
                 ),
@@ -521,31 +509,7 @@ function nesports_clothing_collections($collection_slug = '') {
                     'images' => array(
                         'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
                         'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg',
-                        'clothing/cat-lift-the-world.jpg'
-                    ),
-                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Lift The World Signature Athlete Tee',
-                    'slug'   => 'lift-the-world-signature-athlete-tee',
-                    'price'  => 34.99,
-                    'old'    => 44.99,
-                    'images' => array(
-                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg'
-                    ),
-                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Lift The World Heavyweight Drop',
-                    'slug'   => 'lift-the-world-heavyweight-drop',
-                    'price'  => 34.99,
-                    'old'    => 44.99,
-                    'images' => array(
-                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg'
+                        'clothing/Lift-The-World-T-Shirt-Red-Lower.jpg'
                     ),
                     'url'    => '/product/lift-the-world-oversized-t-shirt/'
                 ),
@@ -562,9 +526,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 39.99,
                     'old'    => 49.99,
                     'images' => array(
-                        'clothing/cat-anime.jpg',
                         'clothing/Anime-6.jpg',
-                        'clothing/Anime-1.jpg'
+                        'clothing/cat-anime.jpg',
+                        'clothing/Anime-6 copy.jpg'
                     ),
                     'url'    => '/product/anime-oversized-t-shirt/'
                 ),
@@ -575,8 +539,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 49.99,
                     'images' => array(
                         'clothing/Anime-2.jpg',
-                        'clothing/cat-anime.jpg',
-                        'clothing/Anime-6.jpg'
+                        'clothing/Anime-2-Detail.jpg',
+                        'clothing/Anime-2.jpg'
                     ),
                     'url'    => '/product/anime-oversized-t-shirt/'
                 ),
@@ -586,21 +550,21 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 39.99,
                     'old'    => 49.99,
                     'images' => array(
-                        'clothing/cat-son-of-the-west.jpg',
                         'clothing/Back-Son-Of-The-West.jpg',
-                        'clothing/Anime-1.jpg'
+                        'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
+                        'clothing/cat-son-of-the-west.jpg'
                     ),
                     'url'    => '/product/son-of-the-west-oversized-t-shirt/'
                 ),
                 array(
-                    'name'   => 'Berserk Anime Statement T-Shirt',
+                    'name'   => 'Black Clover Anime T-Shirt',
                     'slug'   => 'berserk-anime-statement-t-shirt',
                     'price'  => 39.99,
                     'old'    => 49.99,
                     'images' => array(
-                        'clothing/Anime-6.jpg',
-                        'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
-                        'clothing/Anime-2.jpg'
+                        'clothing/Anime-1.jpg',
+                        'clothing/Anime-1-Detail.jpg',
+                        'clothing/Anime-1.jpg'
                     ),
                     'url'    => '/product/anime-oversized-t-shirt/'
                 ),
@@ -617,44 +581,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 39.99,
                     'old'    => 49.99,
                     'images' => array(
-                        'clothing/cat-son-of-the-west.jpg',
                         'clothing/Back-Son-Of-The-West.jpg',
-                        'clothing/Anime-1.jpg'
-                    ),
-                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Son Of The West Vintage Acid Wash',
-                    'slug'   => 'son-of-the-west-vintage-acid-wash',
-                    'price'  => 39.99,
-                    'old'    => 49.99,
-                    'images' => array(
-                        'clothing/Back-Son-Of-The-West.jpg',
-                        'clothing/cat-son-of-the-west.jpg',
-                        'clothing/Anime-2.jpg'
-                    ),
-                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Son Of The West Dragon Graphic Tee',
-                    'slug'   => 'son-of-the-west-dragon-graphic-tee',
-                    'price'  => 39.99,
-                    'old'    => 49.99,
-                    'images' => array(
-                        'clothing/cat-son-of-the-west.jpg',
-                        'clothing/Anime-6.jpg',
-                        'clothing/Back-Son-Of-The-West.jpg'
-                    ),
-                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Son Of The West Heavyweight Lifter Tee',
-                    'slug'   => 'son-of-the-west-heavyweight-lifter-tee',
-                    'price'  => 39.99,
-                    'old'    => 49.99,
-                    'images' => array(
-                        'clothing/Back-Son-Of-The-West.jpg',
-                        'clothing/Anime-1.jpg',
+                        'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
                         'clothing/cat-son-of-the-west.jpg'
                     ),
                     'url'    => '/product/son-of-the-west-oversized-t-shirt/'
@@ -672,9 +600,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 34.99,
                     'old'    => 44.99,
                     'images' => array(
-                        'clothing/cat-pro-coach.jpg',
                         'clothing/Procoach-T-Shirt-Green.jpg',
-                        'clothing/Red Pro Coach Iron Tee Back Print.png'
+                        'clothing/Procoach-Green-Detail.jpg',
+                        'clothing/cat-pro-coach.jpg'
                     ),
                     'url'    => '/product/pro-coach-oversized-t-shirt/'
                 ),
@@ -685,8 +613,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Red Pro Coach Iron Tee Back Print.png',
-                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
-                        'clothing/cat-pro-coach.jpg'
+                        'clothing/Procoach-Red-Detail.jpg',
+                        'clothing/Procoach-Red-Lower.jpg'
                     ),
                     'url'    => '/product/pro-coach-oversized-t-shirt/'
                 ),
@@ -697,20 +625,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
-                        'clothing/cat-pro-coach.jpg',
-                        'clothing/Procoach-T-Shirt-Green.jpg'
-                    ),
-                    'url'    => '/product/pro-coach-oversized-t-shirt/'
-                ),
-                array(
-                    'name'   => 'Pro Coach Born In Iron Heavyweight Tee',
-                    'slug'   => 'pro-coach-born-in-iron-heavyweight-tee',
-                    'price'  => 34.99,
-                    'old'    => 44.99,
-                    'images' => array(
-                        'clothing/cat-pro-coach.jpg',
-                        'clothing/Red Pro Coach Iron Tee Back Print.png',
-                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png'
+                        'clothing/Procoach-Navy-Detail.jpg',
+                        'clothing/Procoach-Navy-Lower.jpg'
                     ),
                     'url'    => '/product/pro-coach-oversized-t-shirt/'
                 ),
