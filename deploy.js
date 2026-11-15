@@ -1,6 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { Agent, setGlobalDispatcher } = require('undici');
+
+// Configure global dispatcher with 30-minute timeout for large zip uploads
+setGlobalDispatcher(new Agent({
+    headersTimeout: 30 * 60 * 1000,
+    bodyTimeout: 30 * 60 * 1000,
+    connectTimeout: 60 * 1000
+}));
 
 const SITE = "https://www.nesports3.com";
 const USER = "NESports";

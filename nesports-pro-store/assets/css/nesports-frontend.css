@@ -1517,6 +1517,10 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 .hb-footer a, .hb-footer span { display: block; margin-bottom: 9px; }
 .hb-footer a:hover { color: #fff; }
 .hb-footer p { line-height: 1.6; max-width: 320px; margin: 0; }
+.hb-footer-social { display: flex !important; align-items: center !important; gap: 10px !important; margin-top: 18px !important; }
+.hb-footer-social a { display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #1e1e24 !important; color: #ffffff !important; text-decoration: none !important; margin: 0 !important; transition: background 0.25s ease, transform 0.2s ease, color 0.25s ease !important; }
+.hb-footer-social a svg { display: block !important; }
+.hb-footer-social a:hover { background: #e11d48 !important; color: #ffffff !important; transform: translateY(-2px) !important; }
 .hb-footer-bottom { border-top: 1px solid #25252a; padding-top: 20px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .hb-footer-bottom span { display: inline; margin: 0; }
 .hb-footer .hb-credit { color: #fff; font-weight: 400; letter-spacing: .2px; }
