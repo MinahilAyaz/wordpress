@@ -19,11 +19,12 @@ const footerPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'tem
 const footerSvg = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'images', 'footer-logo.svg'), 'utf8');
 const frontendCss = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'css', 'nesports-frontend.css'), 'utf8');
 const mainPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'nesports-pro-store.php'), 'utf8');
+const helpersPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'includes', 'helpers.php'), 'utf8');
 
 const patchPhpContent = `<?php
 /**
  * Plugin Name: NESports Hotfix Patch
- * Description: Updates footer logo and social links
+ * Description: Updates clothing categories and footer logo
  * Version: 1.0.0
  * Author: NESports
  */
@@ -38,7 +39,8 @@ function run_nesports_hotfix() {
         'templates/footer-nesports.php' => base64_decode('${Buffer.from(footerPhp).toString('base64')}'),
         'assets/images/footer-logo.svg' => base64_decode('${Buffer.from(footerSvg).toString('base64')}'),
         'assets/css/nesports-frontend.css' => base64_decode('${Buffer.from(frontendCss).toString('base64')}'),
-        'nesports-pro-store.php' => base64_decode('${Buffer.from(mainPhp).toString('base64')}')
+        'nesports-pro-store.php' => base64_decode('${Buffer.from(mainPhp).toString('base64')}'),
+        'includes/helpers.php' => base64_decode('${Buffer.from(helpersPhp).toString('base64')}')
     );
     
     $results = array();
@@ -208,32 +210,32 @@ async function request(url, options = {}) {
         console.log("Deactivated patch plugin successfully!");
     }
 
-    console.log("Verifying live site footer...");
+    console.log("Verifying live site homepage...");
     const homeRes = await request(`${SITE}/?nocache=${Date.now()}`);
     const homeHtml = await homeRes.text();
     const hasSvg = homeHtml.includes('footer-logo.svg');
     const hasHeight64 = homeHtml.includes('height: 64px') || homeHtml.includes('height:64px');
     const hasTransparent = homeHtml.includes('background: transparent');
-    const hasTikTok = homeHtml.includes('tiktok.com/@ne_sports3');
-    const hasFb = homeHtml.includes('61570206840697');
-    const hasIg = homeHtml.includes('nesports39');
-    const hasAmazon = homeHtml.includes('amazon.de/s?k=NES3');
-    const hasEbay = homeHtml.includes('ebay.de/str/nesports3');
+    const hasStrengthClub = homeHtml.includes('STRENGTH CLUB');
+    const hasLiftTheWorld = homeHtml.includes('LIFT THE WORLD');
+    const hasAnime = homeHtml.includes('ANIME');
+    const hasSonOfTheWest = homeHtml.includes('SON OF THE WEST');
+    const hasProCoach = homeHtml.includes('PRO COACH');
 
     console.log("Verification results:", {
         hasSvg,
         hasHeight64,
         hasTransparent,
-        hasTikTok,
-        hasFb,
-        hasIg,
-        hasAmazon,
-        hasEbay
+        hasStrengthClub,
+        hasLiftTheWorld,
+        hasAnime,
+        hasSonOfTheWest,
+        hasProCoach
     });
 
-    if (hasSvg && hasHeight64 && hasTransparent && hasTikTok && hasFb && hasIg && hasAmazon && hasEbay) {
+    if (hasSvg && hasHeight64 && hasTransparent && hasStrengthClub && hasLiftTheWorld && hasAnime && hasSonOfTheWest && hasProCoach) {
         console.log("\n========================================================");
-        console.log("SUCCESS! Footer logo and social accounts are LIVE!");
+        console.log("SUCCESS! Clothing distinct categories & Footer logo are LIVE!");
         console.log("========================================================\n");
     } else {
         console.warn("WARNING: Some elements not found in homeHtml.");

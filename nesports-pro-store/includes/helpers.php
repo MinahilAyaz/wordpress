@@ -406,20 +406,6 @@ function nesports_clothing() {
             'url'   => '/product/strength-club-oversized-t-shirt/'
         ),
         array(
-            'id'    => 'strength-club-athletic',
-            'title' => 'STRENGTH CLUB PRO',
-            'tag'   => 'ATHLETIC FIT OVERSIZED',
-            'img'   => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
-            'url'   => '/product/strength-club-athletic-fit-t-shirt/'
-        ),
-        array(
-            'id'    => 'strength-club-red',
-            'title' => 'STRENGTH CLUB RED',
-            'tag'   => 'RUBY LOGO EDITION',
-            'img'   => 'clothing/Black T-Shirt with Red Strength Club Design.png',
-            'url'   => '/product/strength-club-red-edition-t-shirt/'
-        ),
-        array(
             'id'    => 'lift-the-world',
             'title' => 'LIFT THE WORLD',
             'tag'   => 'SIGNATURE ATHLETE TEE',
@@ -427,39 +413,11 @@ function nesports_clothing() {
             'url'   => '/product/lift-the-world-oversized-t-shirt/'
         ),
         array(
-            'id'    => 'red-edition',
-            'title' => 'RED EDITION',
-            'tag'   => 'LIMITED ATHLETE DROP',
-            'img'   => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-            'url'   => '/product/lift-the-world-red-edition-t-shirt/'
-        ),
-        array(
             'id'    => 'anime-drop',
-            'title' => 'ANIME DARK DROP',
+            'title' => 'ANIME',
             'tag'   => 'LIMITED EDITION GRAPHIC',
             'img'   => 'clothing/Anime-6.jpg',
             'url'   => '/product/anime-oversized-t-shirt/'
-        ),
-        array(
-            'id'    => 'anime-berserk',
-            'title' => 'ANIME BERSERK',
-            'tag'   => 'HEAVYWEIGHT GRAPHIC TEE',
-            'img'   => 'clothing/Anime-1.jpg',
-            'url'   => '/product/anime-berserk-oversized-t-shirt/'
-        ),
-        array(
-            'id'    => 'anime-shadow',
-            'title' => 'ANIME SHADOW',
-            'tag'   => 'GRAPHIC VANGUARD TEE',
-            'img'   => 'clothing/Anime-2.jpg',
-            'url'   => '/product/anime-shadow-oversized-t-shirt/'
-        ),
-        array(
-            'id'    => 'anime-vanguard',
-            'title' => 'ANIME WARRIOR',
-            'tag'   => 'OVERSIZED STATEMENT',
-            'img'   => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
-            'url'   => '/product/anime-vanguard-graphic-t-shirt/'
         ),
         array(
             'id'    => 'son-of-the-west',
@@ -470,10 +428,24 @@ function nesports_clothing() {
         ),
         array(
             'id'    => 'pro-coach',
-            'title' => 'PRO COACH GREEN',
+            'title' => 'PRO COACH',
             'tag'   => 'PERFORMANCE OVERSIZED',
-            'img'   => 'clothing/Procoach-T-Shirt-Green.jpg',
+            'img'   => 'clothing/Procoach-T-Shirt-Green.png',
             'url'   => '/product/pro-coach-oversized-t-shirt/'
+        ),
+        array(
+            'id'    => 'lift-the-world-red',
+            'title' => 'LIFT THE WORLD RED',
+            'tag'   => 'LIMITED ATHLETE DROP',
+            'img'   => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+            'url'   => '/product/lift-the-world-red-edition-t-shirt/'
+        ),
+        array(
+            'id'    => 'anime-berserk',
+            'title' => 'ANIME BERSERK',
+            'tag'   => 'HEAVYWEIGHT GRAPHIC TEE',
+            'img'   => 'clothing/Anime-1.jpg',
+            'url'   => '/product/anime-berserk-oversized-t-shirt/'
         ),
         array(
             'id'    => 'pro-coach-red',
@@ -483,12 +455,26 @@ function nesports_clothing() {
             'url'   => '/product/pro-coach-red-iron-t-shirt/'
         ),
         array(
+            'id'    => 'anime-shadow',
+            'title' => 'ANIME SHADOW',
+            'tag'   => 'GRAPHIC VANGUARD TEE',
+            'img'   => 'clothing/Anime-2.jpg',
+            'url'   => '/product/anime-shadow-oversized-t-shirt/'
+        ),
+        array(
             'id'    => 'pro-coach-navy',
             'title' => 'PRO COACH NAVY',
             'tag'   => 'VINTAGE GRAPHIC TEE',
             'img'   => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
             'url'   => '/product/pro-coach-vintage-navy-t-shirt/'
-        )
+        ),
+        array(
+            'id'    => 'anime-vanguard',
+            'title' => 'ANIME WARRIOR',
+            'tag'   => 'OVERSIZED STATEMENT',
+            'img'   => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
+            'url'   => '/product/anime-vanguard-graphic-t-shirt/'
+        ),
     );
 }
 
