@@ -22,10 +22,10 @@ if (empty($cat_slug) && function_exists('get_queried_object')) {
 $is_collection = false;
 $req_uri = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 
-if (preg_match('#/(?:collections|collection)/([^/?#]+)#i', $req_uri, $m)) {
+if (preg_match('~/(?:collections|collection)/([^/?#]+)~i', $req_uri, $m)) {
     $cat_slug = $m[1];
     $is_collection = true;
-} elseif (preg_match('#/(?:product-category|category)/([^/?#]+)#i', $req_uri, $m)) {
+} elseif (preg_match('~/(?:product-category|category)/([^/?#]+)~i', $req_uri, $m)) {
     if (empty($cat_slug)) {
         $cat_slug = $m[1];
     }
@@ -131,12 +131,22 @@ if ($collection_data && !empty($collection_data['products'])) {
 }
 
 /* Hero Header matching Hardbody reference */
+.hb-collection-page .hb-cat-hero,
+.hb-category-page .hb-cat-hero,
 .hb-cat-hero {
+    background: #ffffff !important;
+    color: #111111 !important;
     padding: 32px 32px 16px !important;
     max-width: 1440px !important;
     margin: 0 auto !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    text-align: left !important;
+}
+.hb-cat-hero-inner {
+    max-width: 100% !important;
+    margin: 0 !important;
+    text-align: left !important;
 }
 .hb-breadcrumbs {
     font-size: 13.5px !important;
@@ -172,17 +182,8 @@ if ($collection_data && !empty($collection_data['products'])) {
     line-height: 1.2 !important;
 }
 
-/* Toolbar matching Screenshot 2: [Show filters] & Sort by: [Featured •] */
 .hb-collection-toolbar {
-    max-width: 1440px !important;
-    margin: 16px auto 24px !important;
-    padding: 0 32px !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 16px !important;
-    flex-wrap: wrap !important;
+    display: none !important;
 }
 .hb-toolbar-left {
     display: inline-flex !important;
@@ -516,29 +517,7 @@ if ($collection_data && !empty($collection_data['products'])) {
         </div>
     </section>
 
-    <!-- Toolbar matching Screenshot 2: [Show filters] & Sort by: [Featured •] -->
-    <div class="hb-collection-toolbar">
-        <div class="hb-toolbar-left">
-            <button type="button" class="hb-btn-filters" id="hb-btn-filters" aria-label="Toggle Filters">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-                Show filters
-            </button>
-            <div class="hb-sort-wrap">
-                <span class="hb-sort-label">Sort by:</span>
-                <div class="hb-sort-select-pill">
-                    <select class="hb-sort-select" id="hb-sort-select" aria-label="Sort products">
-                        <option value="featured">Featured</option>
-                        <option value="best-selling">Best selling</option>
-                        <option value="title-asc">Alphabetically, A-Z</option>
-                        <option value="title-desc">Alphabetically, Z-A</option>
-                        <option value="price-asc">Price, low to high</option>
-                        <option value="price-desc">Price, high to low</option>
-                    </select>
-                    <span class="hb-sort-dot">&bull;</span>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Category / Collection Pills -->
     <div class="hb-cat-filter-bar">

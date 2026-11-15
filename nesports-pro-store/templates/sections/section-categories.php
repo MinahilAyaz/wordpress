@@ -246,18 +246,19 @@ $collections = nesports_collections();
         position: relative !important;
         width: 100% !important;
         aspect-ratio: 1 / 1 !important;
-        background: #f6f6f8 !important;
+        background: #ffffff !important;
         border-radius: 16px !important;
         overflow: hidden !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        border: 1px solid rgba(0, 0, 0, 0.03) !important;
-        transition: background 0.3s ease, box-shadow 0.35s ease !important;
+        border: 1px solid #eaeaec !important;
+        transition: border-color 0.3s ease, box-shadow 0.35s ease !important;
     }
     .hb-category-card:hover .hb-category-media {
-        background: #eeeeF1 !important;
-        box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.1) !important;
+        background: #ffffff !important;
+        border-color: #d4d4d8 !important;
+        box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.08) !important;
     }
 
     .hb-card-badge {
@@ -276,18 +277,85 @@ $collections = nesports_collections();
         text-transform: uppercase !important;
         box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3) !important;
     }
+    /* Multi-angle slide track matching Screenshot 1 */
+    .hb-category-media .hb-card-slider-track {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        height: 100% !important;
+        transform: translateX(0%);
+        transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        will-change: transform !important;
+    }
+    .hb-category-media .hb-card-slide {
+        flex: 0 0 100% !important;
+        min-width: 100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #ffffff !important;
+    }
+    .hb-category-media .hb-card-slide-img,
     .hb-category-media img {
-        width: 78% !important;
-        height: 78% !important;
-        max-width: 78% !important;
-        max-height: 78% !important;
+        width: 86% !important;
+        height: 86% !important;
+        max-width: 86% !important;
+        max-height: 86% !important;
         object-fit: contain !important;
         object-position: center !important;
-        mix-blend-mode: multiply !important;
+        display: block !important;
+        pointer-events: none !important;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
+    .hb-category-card:hover .hb-category-media .hb-card-slide-img,
     .hb-category-card:hover .hb-category-media img {
-        transform: scale(1.08) !important;
+        transform: scale(1.04) !important;
+    }
+
+    /* 3-dot indicator matching Hardbody Store Screenshot 1 */
+    .hb-top-sellers-section .hb-card-dots-wrap {
+        position: absolute !important;
+        bottom: 10px !important;
+        left: 0 !important;
+        right: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 6 !important;
+        pointer-events: none !important;
+    }
+    .hb-top-sellers-section .hb-card-dots {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        background: #f4f4f5 !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        padding: 4px 10px !important;
+        border-radius: 9999px !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+        pointer-events: auto !important;
+    }
+    .hb-top-sellers-section .hb-card-dot {
+        width: 6px !important;
+        height: 6px !important;
+        border-radius: 50% !important;
+        background: #d4d4d8 !important;
+        border: none !important;
+        display: inline-block !important;
+        cursor: pointer !important;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .hb-top-sellers-section .hb-card-dot:hover {
+        background: #52525b !important;
+    }
+    .hb-top-sellers-section .hb-card-dot.is-active {
+        background: #111111 !important;
+        transform: scale(1.35) !important;
     }
     .hb-category-bottom {
         display: flex !important;
@@ -435,13 +503,34 @@ $collections = nesports_collections();
 
         <div class="hb-category-carousel-wrap">
             <div class="hb-category-track" id="hb-top-seller-track">
-                <?php foreach ($collections as $c): ?>
+                <?php foreach ($collections as $c): 
+                    $card_imgs = !empty($c['images']) && is_array($c['images']) ? $c['images'] : array($c['img']);
+                    $has_sub   = count($card_imgs) > 1;
+                ?>
                 <a class="hb-category-card" data-cat="<?php echo esc_attr($c['category']); ?>" href="<?php echo esc_url(home_url($c['url'])); ?>">
-                    <div class="hb-category-media">
+                    <div class="hb-category-media hb-card-media">
                         <?php if (!empty($c['badge'])): ?>
                             <span class="hb-card-badge"><?php echo esc_html($c['badge']); ?></span>
                         <?php endif; ?>
-                        <img src="<?php echo esc_url(nesports_img($c['img'])); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+
+                        <?php if ($has_sub): ?>
+                            <div class="hb-card-slider-track">
+                                <?php foreach ($card_imgs as $idx => $img_path): ?>
+                                <div class="hb-card-slide" data-idx="<?php echo $idx; ?>">
+                                    <img class="hb-card-slide-img" src="<?php echo esc_url(nesports_img($img_path)); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="hb-card-dots-wrap">
+                                <div class="hb-card-dots">
+                                    <?php foreach ($card_imgs as $idx => $img_path): ?>
+                                    <span class="hb-card-dot<?php echo $idx === 0 ? ' is-active' : ''; ?>" data-idx="<?php echo $idx; ?>"></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(nesports_img($c['img'])); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+                        <?php endif; ?>
                     </div>
                     <div class="hb-category-bottom">
                         <div class="hb-category-meta-left">
@@ -557,6 +646,80 @@ $collections = nesports_collections();
                     track.scrollTo({ left: 0, behavior: 'smooth' });
                     setTimeout(updateArrowState, 100);
                     setTimeout(updateArrowState, 300);
+                });
+            });
+
+            // Left-to-right multi-angle hover scrubber for each category card (Screenshot 1 Hardbody reference)
+            var categoryCards = track.querySelectorAll('.hb-category-card');
+            categoryCards.forEach(function(card) {
+                var sliderTrack = card.querySelector('.hb-card-slider-track');
+                if (!sliderTrack) return;
+                var slides = card.querySelectorAll('.hb-card-slide');
+                var dots = card.querySelectorAll('.hb-card-dot');
+                var count = slides.length;
+                if (count <= 1) return;
+
+                var currentIdx = 0;
+
+                function goTo(index) {
+                    if (index < 0) index = 0;
+                    if (index >= count) index = count - 1;
+                    if (currentIdx === index && sliderTrack.style.transform === 'translateX(-' + (index * 100) + '%)') {
+                        return;
+                    }
+                    currentIdx = index;
+                    sliderTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
+                    dots.forEach(function(d, i) {
+                        if (i === index) {
+                            d.classList.add('is-active');
+                        } else {
+                            d.classList.remove('is-active');
+                        }
+                    });
+                }
+
+                // Left-to-right cursor movement across the card smoothly scrubs through images
+                card.addEventListener('mousemove', function(e) {
+                    var rect = card.getBoundingClientRect();
+                    var mouseX = e.clientX - rect.left;
+                    var width = rect.width;
+                    if (width <= 0) return;
+
+                    var targetIndex = 0;
+                    if (count === 2) {
+                        targetIndex = (mouseX < width * 0.5) ? 0 : 1;
+                    } else if (count === 3) {
+                        if (mouseX < width * 0.333) {
+                            targetIndex = 0;
+                        } else if (mouseX < width * 0.666) {
+                            targetIndex = 1;
+                        } else {
+                            targetIndex = 2;
+                        }
+                    } else {
+                        targetIndex = Math.min(count - 1, Math.floor((mouseX / width) * count));
+                    }
+
+                    goTo(targetIndex);
+                });
+
+                // Mouse leaves the card: smoothly returns to the 1st view
+                card.addEventListener('mouseleave', function() {
+                    goTo(0);
+                });
+
+                // Dot hover & click
+                dots.forEach(function(dot) {
+                    function activate(e) {
+                        if (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                        var idx = parseInt(dot.getAttribute('data-idx') || '0', 10);
+                        goTo(idx);
+                    }
+                    dot.addEventListener('mouseenter', activate);
+                    dot.addEventListener('click', activate);
                 });
             });
 

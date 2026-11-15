@@ -215,29 +215,118 @@ $active_color = 'red'; // Default active color
         position: relative !important;
         width: 100% !important;
         aspect-ratio: 1 / 1 !important;
-        background: #f6f6f8 !important;
+        background: #ffffff !important;
         border-radius: 16px !important;
         overflow: hidden !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        border: 1px solid rgba(0, 0, 0, 0.03) !important;
-        transition: background 0.3s ease, box-shadow 0.35s ease !important;
+        border: 1px solid #eaeaec !important;
+        transition: border-color 0.3s ease, box-shadow 0.35s ease !important;
     }
     .hb-color-card:hover .hb-color-media {
-        background: #eeeff2 !important;
-        box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.1) !important;
+        background: #ffffff !important;
+        border-color: #d4d4d8 !important;
+        box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.08) !important;
     }
+
+    /* Red discount badge matching Hardbody 2nd SS */
+    .hb-color-badge {
+        position: absolute !important;
+        top: 12px !important;
+        left: 12px !important;
+        background: #e11d48 !important;
+        color: #ffffff !important;
+        font-family: var(--hb-font, 'Poppins', sans-serif) !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.3px !important;
+        padding: 4px 10px !important;
+        border-radius: 9999px !important;
+        z-index: 5 !important;
+        text-transform: uppercase !important;
+        box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3) !important;
+    }
+
+    /* Multi-angle slide track matching Hardbody Screenshot 2 */
+    .hb-color-media .hb-card-slider-track {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        height: 100% !important;
+        transform: translateX(0%);
+        transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        will-change: transform !important;
+    }
+    .hb-color-media .hb-card-slide {
+        flex: 0 0 100% !important;
+        min-width: 100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #ffffff !important;
+    }
+    .hb-color-media .hb-card-slide-img,
     .hb-color-media img {
-        width: 82% !important;
-        height: 82% !important;
+        width: 86% !important;
+        height: 86% !important;
+        max-width: 86% !important;
+        max-height: 86% !important;
         object-fit: contain !important;
+        object-position: center !important;
         display: block !important;
-        mix-blend-mode: multiply !important;
+        pointer-events: none !important;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
+    .hb-color-card:hover .hb-color-media .hb-card-slide-img,
     .hb-color-card:hover .hb-color-media img {
-        transform: scale(1.08) !important;
+        transform: scale(1.04) !important;
+    }
+
+    /* 3-dot indicator matching Hardbody Store Screenshot 2 */
+    .hb-color-section .hb-card-dots-wrap {
+        position: absolute !important;
+        bottom: 10px !important;
+        left: 0 !important;
+        right: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 6 !important;
+        pointer-events: none !important;
+    }
+    .hb-color-section .hb-card-dots {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        background: #f4f4f5 !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        padding: 4px 10px !important;
+        border-radius: 9999px !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+        pointer-events: auto !important;
+    }
+    .hb-color-section .hb-card-dot {
+        width: 6px !important;
+        height: 6px !important;
+        border-radius: 50% !important;
+        background: #d4d4d8 !important;
+        border: none !important;
+        display: inline-block !important;
+        cursor: pointer !important;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .hb-color-section .hb-card-dot:hover {
+        background: #52525b !important;
+    }
+    .hb-color-section .hb-card-dot.is-active {
+        background: #111111 !important;
+        transform: scale(1.35) !important;
     }
 
     .hb-color-bottom {
@@ -357,10 +446,33 @@ $active_color = 'red'; // Default active color
                 <?php foreach ($color_groups as $c_key => $c_group):
                     foreach ($c_group['items'] as $item):
                         $is_shown = ($c_key === $active_color);
+                        $card_imgs = !empty($item['images']) && is_array($item['images']) ? $item['images'] : array($item['img']);
+                        $has_sub   = count($card_imgs) > 1;
                 ?>
                 <a class="hb-color-card <?php echo $is_shown ? '' : 'is-hidden'; ?>" data-color="<?php echo esc_attr($c_key); ?>" href="<?php echo esc_url(home_url($item['url'])); ?>" style="<?php echo $is_shown ? 'display:flex !important;' : 'display:none !important;'; ?>">
-                    <div class="hb-color-media">
-                        <img src="<?php echo esc_url(nesports_img($item['img'])); ?>" alt="<?php echo esc_attr($item['name']); ?>" loading="lazy">
+                    <div class="hb-color-media hb-card-media">
+                        <?php if (!empty($item['badge'])): ?>
+                            <span class="hb-color-badge"><?php echo esc_html($item['badge']); ?></span>
+                        <?php endif; ?>
+
+                        <?php if ($has_sub): ?>
+                            <div class="hb-card-slider-track">
+                                <?php foreach ($card_imgs as $idx => $img_path): ?>
+                                <div class="hb-card-slide" data-idx="<?php echo $idx; ?>">
+                                    <img class="hb-card-slide-img" src="<?php echo esc_url(nesports_img($img_path)); ?>" alt="<?php echo esc_attr($item['name']); ?>" loading="lazy">
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="hb-card-dots-wrap">
+                                <div class="hb-card-dots">
+                                    <?php foreach ($card_imgs as $idx => $img_path): ?>
+                                    <span class="hb-card-dot<?php echo $idx === 0 ? ' is-active' : ''; ?>" data-idx="<?php echo $idx; ?>"></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(nesports_img($item['img'])); ?>" alt="<?php echo esc_attr($item['name']); ?>" loading="lazy">
+                        <?php endif; ?>
                     </div>
                     <div class="hb-color-bottom">
                         <div class="hb-color-meta-left">
@@ -479,6 +591,77 @@ $active_color = 'red'; // Default active color
                     track.scrollTo({ left: 0, behavior: 'auto' });
                     setTimeout(updateArrowState, 60);
                     setTimeout(updateArrowState, 250);
+                });
+            });
+
+            // Multi-angle hover scrubber for each color card (Screenshot 2 Hardbody reference)
+            var colorCards = track.querySelectorAll('.hb-color-card');
+            colorCards.forEach(function(card) {
+                var sliderTrack = card.querySelector('.hb-card-slider-track');
+                if (!sliderTrack) return;
+                var slides = card.querySelectorAll('.hb-card-slide');
+                var dots = card.querySelectorAll('.hb-card-dot');
+                var count = slides.length;
+                if (count <= 1) return;
+
+                var currentIdx = 0;
+
+                function goTo(index) {
+                    if (index < 0) index = 0;
+                    if (index >= count) index = count - 1;
+                    if (currentIdx === index && sliderTrack.style.transform === 'translateX(-' + (index * 100) + '%)') {
+                        return;
+                    }
+                    currentIdx = index;
+                    sliderTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
+                    dots.forEach(function(d, i) {
+                        if (i === index) {
+                            d.classList.add('is-active');
+                        } else {
+                            d.classList.remove('is-active');
+                        }
+                    });
+                }
+
+                card.addEventListener('mousemove', function(e) {
+                    var rect = card.getBoundingClientRect();
+                    var mouseX = e.clientX - rect.left;
+                    var width = rect.width;
+                    if (width <= 0) return;
+
+                    var targetIndex = 0;
+                    if (count === 2) {
+                        targetIndex = (mouseX < width * 0.5) ? 0 : 1;
+                    } else if (count === 3) {
+                        if (mouseX < width * 0.333) {
+                            targetIndex = 0;
+                        } else if (mouseX < width * 0.666) {
+                            targetIndex = 1;
+                        } else {
+                            targetIndex = 2;
+                        }
+                    } else {
+                        targetIndex = Math.min(count - 1, Math.floor((mouseX / width) * count));
+                    }
+
+                    goTo(targetIndex);
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    goTo(0);
+                });
+
+                dots.forEach(function(dot) {
+                    function activate(e) {
+                        if (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                        var idx = parseInt(dot.getAttribute('data-idx') || '0', 10);
+                        goTo(idx);
+                    }
+                    dot.addEventListener('mouseenter', activate);
+                    dot.addEventListener('click', activate);
                 });
             });
 

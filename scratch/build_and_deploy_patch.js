@@ -15,18 +15,47 @@ if (!fs.existsSync(PATCH_DIR)) {
 }
 
 // Read target files to patch
-const footerPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'templates', 'footer-nesports.php'), 'utf8');
-const footerSvg = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'images', 'footer-logo.svg'), 'utf8');
-const frontendCss = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'css', 'nesports-frontend.css'), 'utf8');
-const mainPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'nesports-pro-store.php'), 'utf8');
 const helpersPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'includes', 'helpers.php'), 'utf8');
-const procoachJpg = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'images', 'clothing', 'Procoach-T-Shirt-Green.jpg'));
+const pageCategoryPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'templates', 'page-category.php'), 'utf8');
+
+const imgDir = path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'images', 'clothing');
+const imgFiles = [
+    'Lift-The-World-T-Shirt-Black-Detail.jpg',
+    'Lift-The-World-T-Shirt-Black-Lower.jpg',
+    'Lift-The-World-T-Shirt-Red-Detail.jpg',
+    'Lift-The-World-T-Shirt-Red-Lower.jpg',
+    'Strength-Club-White-Detail.jpg',
+    'Strength-Club-Blue-Detail.jpg',
+    'Strength-Club-Blue-Lower.jpg',
+    'Strength-Club-Red-Detail.jpg',
+    'Strength-Club-Red-Lower.jpg',
+    'Procoach-Green-Detail.jpg',
+    'Procoach-Red-Detail.jpg',
+    'Procoach-Red-Lower.jpg',
+    'Procoach-Navy-Detail.jpg',
+    'Procoach-Navy-Lower.jpg',
+    'Anime-1-Detail.jpg',
+    'Anime-2-Detail.jpg'
+];
+
+let payloadsPhp = `
+        'includes/helpers.php' => base64_decode('${Buffer.from(helpersPhp).toString('base64')}'),
+        'templates/page-category.php' => base64_decode('${Buffer.from(pageCategoryPhp).toString('base64')}'),
+`;
+
+for (const f of imgFiles) {
+    const fullPath = path.join(imgDir, f);
+    if (fs.existsSync(fullPath)) {
+        const b64 = fs.readFileSync(fullPath).toString('base64');
+        payloadsPhp += `        'assets/images/clothing/${f}' => base64_decode('${b64}'),\n`;
+    }
+}
 
 const patchPhpContent = `<?php
 /**
  * Plugin Name: NESports Hotfix Patch
- * Description: Updates clothing categories and footer logo
- * Version: 1.0.0
+ * Description: Remove Add-to-cart, perfect dots slider & color purity
+ * Version: 1.0.3
  * Author: NESports
  */
 
@@ -37,12 +66,7 @@ function run_nesports_hotfix() {
     );
     
     $payloads = array(
-        'templates/footer-nesports.php' => base64_decode('${Buffer.from(footerPhp).toString('base64')}'),
-        'assets/images/footer-logo.svg' => base64_decode('${Buffer.from(footerSvg).toString('base64')}'),
-        'assets/css/nesports-frontend.css' => base64_decode('${Buffer.from(frontendCss).toString('base64')}'),
-        'nesports-pro-store.php' => base64_decode('${Buffer.from(mainPhp).toString('base64')}'),
-        'includes/helpers.php' => base64_decode('${Buffer.from(helpersPhp).toString('base64')}'),
-        'assets/images/clothing/Procoach-T-Shirt-Green.jpg' => base64_decode('${procoachJpg.toString('base64')}')
+${payloadsPhp}
     );
     
     $results = array();
@@ -79,12 +103,15 @@ register_activation_hook(__FILE__, function() {
 fs.writeFileSync(path.join(PATCH_DIR, 'nesports-patch.php'), patchPhpContent, 'utf8');
 console.log("Created nesports-patch.php successfully!");
 
+// Brief delay to release file locks on Windows
+execSync('powershell -Command "Start-Sleep -Milliseconds 800"');
+
 // Zip using PowerShell
 if (fs.existsSync(PATCH_ZIP)) fs.unlinkSync(PATCH_ZIP);
 execSync(`powershell -Command "Compress-Archive -Path '${PATCH_DIR}/*' -DestinationPath '${PATCH_ZIP}' -Force"`, { cwd: BASE_DIR });
 console.log(`Created ${PATCH_ZIP} (${(fs.statSync(PATCH_ZIP).size / 1024).toFixed(2)} KB)`);
 
-// Deploy using deploy logic
+// Deploy logic
 const cookieJar = {};
 function updateCookies(res) {
     const headers = res.headers.getSetCookie ? res.headers.getSetCookie() : [];
@@ -101,51 +128,57 @@ function updateCookies(res) {
         }
     }
 }
+
 function getCookieHeader() {
     return Object.entries(cookieJar).map(([k, v]) => `${k}=${v}`).join('; ');
 }
+
 async function request(url, options = {}) {
     options.headers = options.headers || {};
     const cookie = getCookieHeader();
     if (cookie) options.headers['Cookie'] = cookie;
-    options.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0.0.0 Safari/537.36';
     options.redirect = 'manual';
 
     let res = await fetch(url, options);
     updateCookies(res);
-    if (res.status >= 300 && res.status < 400) {
-        const loc = res.headers.get('location');
-        if (loc) {
-            const nextUrl = loc.startsWith('http') ? loc : new URL(loc, url).toString();
-            return request(nextUrl, { method: 'GET' });
+
+    if (res.status >= 300 && res.status < 400 && res.headers.get('location')) {
+        let loc = res.headers.get('location');
+        if (!loc.startsWith('http')) {
+            loc = new URL(loc, url).href;
         }
+        return request(loc, { method: 'GET' });
     }
     return res;
 }
 
 (async () => {
-    console.log(`Logging in to WordPress at ${SITE}...`);
-    await request(`${SITE}/wp-login.php`);
-    await request(`${SITE}/wp-login.php`, {
+    console.log("Logging into WordPress admin...");
+    const loginPageRes = await request(`${SITE}/wp-login.php`);
+    const loginHtml = await loginPageRes.text();
+
+    const formParams = new URLSearchParams();
+    formParams.append('log', USER);
+    formParams.append('pwd', PASS);
+    formParams.append('wp-submit', 'Log In');
+    formParams.append('redirect_to', `${SITE}/wp-admin/`);
+    formParams.append('testcookie', '1');
+
+    const loginRes = await request(`${SITE}/wp-login.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-            log: USER,
-            pwd: PASS,
-            'wp-submit': 'Log In',
-            redirect_to: `${SITE}/wp-admin/`,
-            testcookie: '1'
-        }).toString()
+        body: formParams.toString()
     });
 
-    const isAuthed = Object.keys(cookieJar).some(k => k.includes('wordpress_logged_in_'));
-    if (!isAuthed) {
-        console.error("Login failed!");
+    console.log("Checking admin access...");
+    const adminRes = await request(`${SITE}/wp-admin/plugin-install.php?tab=upload`);
+    const adminHtml = await adminRes.text();
+    if (!adminHtml.includes('upload-plugin')) {
+        console.error("Login failed or no upload plugin permission!");
         process.exit(1);
     }
-    console.log("Logged in successfully!");
+    console.log("Admin login verified!");
 
-    console.log("Fetching upload nonce...");
     const uploadPageRes = await request(`${SITE}/wp-admin/plugin-install.php?tab=upload`);
     const uploadHtml = await uploadPageRes.text();
     const mNonce = uploadHtml.match(/name="_wpnonce"\s+value="([^"]+)"/);
@@ -199,7 +232,7 @@ async function request(url, options = {}) {
     console.log("Triggering hotfix execution endpoint...");
     const triggerRes = await request(`${SITE}/wp-admin/?run_nesports_patch=1`);
     const triggerText = await triggerRes.text();
-    console.log("Hotfix response:", triggerText.substring(0, 300));
+    console.log("Hotfix response:", triggerText.substring(0, 400));
 
     console.log("Deactivating and removing patch plugin...");
     const pluginsRes = await request(`${SITE}/wp-admin/plugins.php`);
@@ -212,36 +245,27 @@ async function request(url, options = {}) {
         console.log("Deactivated patch plugin successfully!");
     }
 
-    console.log("Verifying live site homepage...");
-    const homeRes = await request(`${SITE}/?nocache=${Date.now()}`);
-    const homeHtml = await homeRes.text();
-    const hasSvg = homeHtml.includes('footer-logo.svg');
-    const hasHeight64 = homeHtml.includes('height: 64px') || homeHtml.includes('height:64px');
-    const hasTransparent = homeHtml.includes('background: transparent');
-    const hasStrengthClub = homeHtml.includes('STRENGTH CLUB');
-    const hasLiftTheWorld = homeHtml.includes('LIFT THE WORLD');
-    const hasAnime = homeHtml.includes('ANIME');
-    const hasSonOfTheWest = homeHtml.includes('SON OF THE WEST');
-    const hasProCoach = homeHtml.includes('PRO COACH');
-    const hasProcoachJpg = homeHtml.includes('Procoach-T-Shirt-Green.jpg');
+    console.log("\nVerifying live collection page (/collections/lift-the-world/)...");
+    const liftRes = await request(`${SITE}/collections/lift-the-world/?nocache=${Date.now()}`);
+    const liftHtml = await liftRes.text();
+    const hasNoAddToCart = !liftHtml.includes('hb-card-quick-add') && !liftHtml.includes('Add to cart');
+    const hasBlackLower = liftHtml.includes('Lift-The-World-T-Shirt-Black-Lower.jpg');
+    const hasRedLower = liftHtml.includes('Lift-The-World-T-Shirt-Red-Lower.jpg');
+    const hasDots = liftHtml.includes('hb-card-dots');
 
     console.log("Verification results:", {
-        hasSvg,
-        hasHeight64,
-        hasTransparent,
-        hasStrengthClub,
-        hasLiftTheWorld,
-        hasAnime,
-        hasSonOfTheWest,
-        hasProCoach,
-        hasProcoachJpg
+        status: liftRes.status,
+        hasNoAddToCart,
+        hasBlackLower,
+        hasRedLower,
+        hasDots
     });
 
-    if (hasSvg && hasHeight64 && hasTransparent && hasStrengthClub && hasLiftTheWorld && hasAnime && hasSonOfTheWest && hasProCoach && hasProcoachJpg) {
-        console.log("\n========================================================");
-        console.log("SUCCESS! Clothing distinct categories & Footer logo are LIVE!");
-        console.log("========================================================\n");
+    if (liftRes.status === 200 && hasNoAddToCart && hasBlackLower && hasRedLower && hasDots) {
+        console.log("\n==========================================================================");
+        console.log("SUCCESS! Add to cart REMOVED, dots perfected, & color purity 100% LIVE!");
+        console.log("==========================================================================\n");
     } else {
-        console.warn("WARNING: Some elements not found in homeHtml.");
+        console.warn("WARNING: Review verification output above.");
     }
 })();

@@ -50,7 +50,7 @@ $clothing = nesports_clothing();
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        gap: 18px !important;
+        gap: 16px !important;
         overflow-x: auto !important;
         scroll-behavior: smooth !important;
         scroll-snap-type: x mandatory !important;
@@ -64,20 +64,20 @@ $clothing = nesports_clothing();
         display: none !important;
     }
 
-    /* 4-Card Desktop Layout matching Reference Screenshot 2 */
+    /* 5-Card Desktop Layout - All 5 categories shown simultaneously */
     .hb-clothing-card {
-        flex: 0 0 calc((100% - 54px) / 4) !important;
-        min-width: 240px !important;
-        height: 420px !important;
+        flex: 0 0 calc((100% - 64px) / 5) !important;
+        min-width: 0 !important;
+        height: 330px !important;
         position: relative !important;
-        border-radius: 18px !important;
+        border-radius: 16px !important;
         overflow: hidden !important;
         text-decoration: none !important;
         color: #ffffff !important;
         background: #18181b !important;
         scroll-snap-align: start !important;
         display: block !important;
-        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .hb-clothing-card:hover {
@@ -107,9 +107,9 @@ $clothing = nesports_clothing();
     }
     .hb-clothing-card-content {
         position: absolute !important;
-        bottom: 22px !important;
-        left: 22px !important;
-        right: 22px !important;
+        bottom: 16px !important;
+        left: 14px !important;
+        right: 14px !important;
         z-index: 2 !important;
         display: flex !important;
         align-items: center !important;
@@ -117,19 +117,19 @@ $clothing = nesports_clothing();
     }
     .hb-clothing-card-label {
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 16.5px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
         color: #ffffff !important;
-        letter-spacing: 0.5px !important;
+        letter-spacing: 0.4px !important;
         text-transform: uppercase !important;
         line-height: 1.2 !important;
         display: inline-flex !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 6px !important;
     }
     .hb-clothing-card-arrow {
         display: inline-block !important;
-        font-size: 18px !important;
+        font-size: 15px !important;
         line-height: 1 !important;
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
@@ -137,19 +137,25 @@ $clothing = nesports_clothing();
         transform: translateX(5px) !important;
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
         .hb-clothing-card {
-            flex: 0 0 calc((100% - 36px) / 3) !important;
-            height: 380px !important;
+            flex: 0 0 calc((100% - 48px) / 4) !important;
+            height: 320px !important;
         }
     }
-    @media (max-width: 820px) {
+    @media (max-width: 900px) {
         .hb-clothing-card {
-            flex: 0 0 calc((100% - 18px) / 2) !important;
-            height: 350px !important;
+            flex: 0 0 calc((100% - 32px) / 3) !important;
+            height: 300px !important;
         }
     }
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
+        .hb-clothing-card {
+            flex: 0 0 calc((100% - 16px) / 2) !important;
+            height: 270px !important;
+        }
+    }
+    @media (max-width: 480px) {
         .hb-clothing-section {
             padding: 32px 16px 40px !important;
         }
@@ -157,9 +163,8 @@ $clothing = nesports_clothing();
             font-size: 24px !important;
         }
         .hb-clothing-card {
-            flex: 0 0 74vw !important;
-            min-width: 220px !important;
-            height: 330px !important;
+            flex: 0 0 76vw !important;
+            height: 270px !important;
         }
     }
     </style>
@@ -230,9 +235,9 @@ $clothing = nesports_clothing();
             function getStep() {
                 var card = track.querySelector('.hb-clothing-card');
                 if (card) {
-                    return card.offsetWidth + 18;
+                    return card.offsetWidth + 16;
                 }
-                return 320;
+                return 280;
             }
 
             if (prev) {

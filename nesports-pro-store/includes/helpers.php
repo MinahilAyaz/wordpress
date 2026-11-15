@@ -208,9 +208,9 @@ function nesports_preset_catalog() {
         array('name' => 'Lifting Straps with Extra Padded', 'slug' => 'lifting-straps-with-wrist-pad', 'cat' => 'straps', 'price' => 16.99, 'old' => 24.99, 'reviews' => 49, 'main' => '1-scaled.jpg', 'hover' => '0-1-min-scaled.jpg'),
         array('name' => 'Weighlifting Dip Belt with Chain', 'slug' => 'weighlifting-dip-belt-with-chain', 'cat' => 'belts', 'price' => 24.99, 'old' => 29.99, 'reviews' => 48, 'main' => 'Dip-Belt.jpg', 'hover' => 'Dip-Belt-1.jpg'),
         // Clothing & Apparel (All 13 Authentic Lifter T-Shirts)
-        array('name' => 'Strength Club Oversized T-Shirt (Black)', 'slug' => 'strength-club-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 94, 'main' => 'clothing/Black NE3Sports Strength Club T-Shirt.png', 'hover' => 'clothing/Black T-Shirt with Red Strength Club Design.png'),
-        array('name' => 'Strength Club Athletic Fit T-Shirt', 'slug' => 'strength-club-athletic-fit-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 88, 'main' => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png', 'hover' => 'clothing/Black NE3Sports Strength Club T-Shirt.png'),
-        array('name' => 'Strength Club Red Edition T-Shirt', 'slug' => 'strength-club-red-edition-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 91, 'main' => 'clothing/Black T-Shirt with Red Strength Club Design.png', 'hover' => 'clothing/Black NE3Sports Strength Club T-Shirt.png'),
+        array('name' => 'Strength Club Oversized T-Shirt (Black)', 'slug' => 'strength-club-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 94, 'main' => 'clothing/Strength-Club-White-Flat.jpg', 'hover' => 'clothing/Strength-Club-White-Model.jpg'),
+        array('name' => 'Strength Club Athletic Fit T-Shirt', 'slug' => 'strength-club-athletic-fit-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 88, 'main' => 'clothing/Strength-Club-Blue-Flat.jpg', 'hover' => 'clothing/Strength-Club-Blue-Model.jpg'),
+        array('name' => 'Strength Club Red Edition T-Shirt', 'slug' => 'strength-club-red-edition-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 91, 'main' => 'clothing/Strength-Club-Red-Flat.jpg', 'hover' => 'clothing/Strength-Club-Red-Model.jpg'),
         array('name' => 'Lift The World Signature T-Shirt (Black)', 'slug' => 'lift-the-world-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 108, 'main' => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg', 'hover' => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg'),
         array('name' => 'Lift The World Signature T-Shirt (Crimson Red)', 'slug' => 'lift-the-world-red-edition-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 76, 'main' => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg', 'hover' => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg'),
         array('name' => 'Anime Dark Edition Graphic T-Shirt', 'slug' => 'anime-oversized-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 120, 'main' => 'clothing/Anime-6.jpg', 'hover' => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg'),
@@ -237,7 +237,12 @@ function nesports_collections() {
             'old_price'=> '€69.99',
             'badge'    => 'Save 15%',
             'category' => 'belts',
-            'img'      => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
+            'img'      => 'DSC_0167-scaled-1.jpg',
+            'images'   => array(
+                'DSC_0167-scaled-1.jpg',
+                'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
+                'Dip-Belt-800x800.jpg',
+            ),
             'url'      => '/product-category/weightlifting-belts/'
         ),
         array(
@@ -248,6 +253,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'straps',
             'img'      => '1-800x800.jpg',
+            'images'   => array(
+                '1-800x800.jpg',
+                'A2.jpg',
+                '2-red-800x800.jpg',
+            ),
             'url'      => '/product-category/lifting-straps/'
         ),
         array(
@@ -258,6 +268,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'knee-wrap',
             'img'      => 'Knee-Wrap-800x800.jpg',
+            'images'   => array(
+                'Knee-Wrap-800x800.jpg',
+                'Knee-Wrap-9-800x800.jpg',
+                'Knee-wrap-1-800x800.jpg',
+            ),
             'url'      => '/product-category/knee-wrap/'
         ),
         array(
@@ -268,6 +283,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'elbow-wrap',
             'img'      => 'Elbow-Wrap-1-scaled.jpg',
+            'images'   => array(
+                'Elbow-Wrap-1-scaled.jpg',
+                'Elbow-Wrap-2-scaled.jpg',
+                'Elbow-Wrap-3-scaled.jpg',
+            ),
             'url'      => '/product-category/elbow-wrap/'
         ),
         array(
@@ -278,6 +298,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'wrist-straps',
             'img'      => 'Wrist-Bandage-Black-800x800.jpg',
+            'images'   => array(
+                'Wrist-Bandage-Black-800x800.jpg',
+                'Wrist-Bandage-1-800x800.jpg',
+                'Wrist-Bandage-2.jpg',
+            ),
             'url'      => '/product-category/wrist-straps/'
         ),
         array(
@@ -288,6 +313,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'gym-bag',
             'img'      => 'Gym-Bag-8-800x800.jpg',
+            'images'   => array(
+                'Gym-Bag-8-800x800.jpg',
+                'Gym-Bag-9-800x800.jpg',
+                'Gym-Bag-1-800x800.jpg',
+            ),
             'url'      => '/product-category/gym-bag/'
         ),
         array(
@@ -298,6 +328,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'speed-ball',
             'img'      => 'hero-speed-ball.png',
+            'images'   => array(
+                'hero-speed-ball.png',
+                '1-1-800x800.jpg',
+                '1-1-2-800x800.jpg',
+            ),
             'url'      => '/product-category/speed-ball/'
         ),
         array(
@@ -308,6 +343,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'ankle-straps',
             'img'      => 'Ankle-Strap-Cable-pull-scaled.jpg',
+            'images'   => array(
+                'Ankle-Strap-Cable-pull-scaled.jpg',
+                'Ankle-Strap-Cable-pull-1-scaled.jpg',
+                'Ankle-Strap-Cable-pull-2-scaled.jpg',
+            ),
             'url'      => '/product-category/ankle-straps/'
         ),
         array(
@@ -318,6 +358,11 @@ function nesports_collections() {
             'badge'    => 'Save 15%',
             'category' => 'barbell-pads',
             'img'      => 'Baerbell-Pad-scaled.jpg',
+            'images'   => array(
+                'Baerbell-Pad-scaled.jpg',
+                'Barbell-Pad-1-scaled.jpg',
+                'Barbell-Pad-2-scaled.jpg',
+            ),
             'url'      => '/product-category/barbell-pads/'
         ),
     );
@@ -452,9 +497,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 34.99,
                     'old'    => 44.99,
                     'images' => array(
-                        'clothing/Black NE3Sports Strength Club T-Shirt.png',
-                        'clothing/Strength-Club-White-Detail.jpg',
-                        'clothing/cat-strength-club.jpg'
+                        'clothing/Strength-Club-White-Flat.jpg',
+                        'clothing/Strength-Club-White-Front.jpg',
+                        'clothing/Strength-Club-White-Model.jpg'
                     ),
                     'url'    => '/product/strength-club-oversized-t-shirt/'
                 ),
@@ -464,9 +509,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 34.99,
                     'old'    => 44.99,
                     'images' => array(
-                        'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
-                        'clothing/Strength-Club-Blue-Detail.jpg',
-                        'clothing/Strength-Club-Blue-Lower.jpg'
+                        'clothing/Strength-Club-Blue-Flat.jpg',
+                        'clothing/Strength-Club-Blue-Front.jpg',
+                        'clothing/Strength-Club-Blue-Model.jpg'
                     ),
                     'url'    => '/product/strength-club-oversized-t-shirt/'
                 ),
@@ -476,9 +521,9 @@ function nesports_clothing_collections($collection_slug = '') {
                     'price'  => 34.99,
                     'old'    => 44.99,
                     'images' => array(
-                        'clothing/Black T-Shirt with Red Strength Club Design.png',
-                        'clothing/Strength-Club-Red-Detail.jpg',
-                        'clothing/Strength-Club-Red-Lower.jpg'
+                        'clothing/Strength-Club-Red-Flat.jpg',
+                        'clothing/Strength-Club-Red-Front.jpg',
+                        'clothing/Strength-Club-Red-Model.jpg'
                     ),
                     'url'    => '/product/strength-club-oversized-t-shirt/'
                 ),
@@ -660,6 +705,11 @@ function nesports_color_items() {
                     'old_price' => 44.99,
                     'badge'     => 'Save 22%',
                     'img'       => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                    'images'    => array(
+                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Red-Lower.jpg',
+                    ),
                     'url'       => '/product/lift-the-world-red-edition-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -669,6 +719,11 @@ function nesports_color_items() {
                     'old_price' => 44.99,
                     'badge'     => 'New Arrival',
                     'img'       => 'clothing/Red Pro Coach Iron Tee Back Print.png',
+                    'images'    => array(
+                        'clothing/Red Pro Coach Iron Tee Back Print.png',
+                        'clothing/Procoach-Red-Detail.jpg',
+                        'clothing/Procoach-Red-Lower.jpg',
+                    ),
                     'url'       => '/product/pro-coach-red-iron-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -676,8 +731,13 @@ function nesports_color_items() {
                     'name'      => 'Strength Club T-Shirt (Red Design)',
                     'price'     => 34.99,
                     'old_price' => 44.99,
-                    'badge'     => 'Limited',
-                    'img'       => 'clothing/Black T-Shirt with Red Strength Club Design.png',
+                    'badge'     => 'Save 22%',
+                    'img'       => 'clothing/Strength-Club-Red-Flat.jpg',
+                    'images'    => array(
+                        'clothing/Strength-Club-Red-Flat.jpg',
+                        'clothing/Strength-Club-Red-Front.jpg',
+                        'clothing/Strength-Club-Red-Model.jpg',
+                    ),
                     'url'       => '/product/strength-club-red-edition-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -687,6 +747,11 @@ function nesports_color_items() {
                     'old_price' => 39.99,
                     'badge'     => 'Save 25%',
                     'img'       => 'Knee-Wrap-800x800.jpg',
+                    'images'    => array(
+                        'Knee-Wrap-800x800.jpg',
+                        'Knee-Wrap-9-800x800.jpg',
+                        'Knee-wrap-1-800x800.jpg',
+                    ),
                     'url'       => '/product/knee-wrap/',
                     'cat'       => 'knee'
                 ),
@@ -696,6 +761,11 @@ function nesports_color_items() {
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
                     'img'       => '2-red-800x800.jpg',
+                    'images'    => array(
+                        '2-red-800x800.jpg',
+                        '1-800x800.jpg',
+                        'A2.jpg',
+                    ),
                     'url'       => '/product/lifting-strap-padded-red/',
                     'cat'       => 'straps'
                 ),
@@ -705,6 +775,11 @@ function nesports_color_items() {
                     'old_price' => 39.99,
                     'badge'     => 'Save 38%',
                     'img'       => '1-1-2-800x800.jpg',
+                    'images'    => array(
+                        '1-1-2-800x800.jpg',
+                        'hero-speed-ball.png',
+                        '1-1-800x800.jpg',
+                    ),
                     'url'       => '/product/speed-ball-set-maya-hide-leather-red-black/',
                     'cat'       => 'speed'
                 ),
@@ -718,8 +793,13 @@ function nesports_color_items() {
                     'name'      => 'Strength Club Oversized T-Shirt (Black)',
                     'price'     => 34.99,
                     'old_price' => 44.99,
-                    'badge'     => 'Best Seller',
-                    'img'       => 'clothing/Black NE3Sports Strength Club T-Shirt.png',
+                    'badge'     => 'Save 22%',
+                    'img'       => 'clothing/Strength-Club-White-Flat.jpg',
+                    'images'    => array(
+                        'clothing/Strength-Club-White-Flat.jpg',
+                        'clothing/Strength-Club-White-Front.jpg',
+                        'clothing/Strength-Club-White-Model.jpg',
+                    ),
                     'url'       => '/product/strength-club-oversized-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -729,6 +809,11 @@ function nesports_color_items() {
                     'old_price' => 44.99,
                     'badge'     => 'Athlete Series',
                     'img'       => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                    'images'    => array(
+                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-Lower.jpg',
+                    ),
                     'url'       => '/product/lift-the-world-oversized-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -738,6 +823,11 @@ function nesports_color_items() {
                     'old_price' => 79.99,
                     'badge'     => 'Save 25%',
                     'img'       => 'DSC_0167-scaled-1.jpg',
+                    'images'    => array(
+                        'DSC_0167-scaled-1.jpg',
+                        'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
+                        'Dip-Belt-800x800.jpg',
+                    ),
                     'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
                     'cat'       => 'belts'
                 ),
@@ -747,6 +837,11 @@ function nesports_color_items() {
                     'old_price' => 89.99,
                     'badge'     => 'Pro Grade',
                     'img'       => 'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
+                    'images'    => array(
+                        'WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg',
+                        'DSC_0167-scaled-1.jpg',
+                        'Dip-Belt-800x800.jpg',
+                    ),
                     'url'       => '/product/competition-weightlifting-belt-13mm-black/',
                     'cat'       => 'belts'
                 ),
@@ -756,6 +851,11 @@ function nesports_color_items() {
                     'old_price' => 84.99,
                     'badge'     => 'Save 24%',
                     'img'       => 'Dip-Belt-800x800.jpg',
+                    'images'    => array(
+                        'Dip-Belt-800x800.jpg',
+                        'Dip-Belt-1-800x800.jpg',
+                        'DSC_0167-scaled-1.jpg',
+                    ),
                     'url'       => '/product/quick-release-lever-power-belt/',
                     'cat'       => 'belts'
                 ),
@@ -765,6 +865,11 @@ function nesports_color_items() {
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
                     'img'       => '1-800x800.jpg',
+                    'images'    => array(
+                        '1-800x800.jpg',
+                        'A2.jpg',
+                        '2-red-800x800.jpg',
+                    ),
                     'url'       => '/product/lifting-straps-with-extra-padded-black/',
                     'cat'       => 'straps'
                 ),
@@ -774,6 +879,11 @@ function nesports_color_items() {
                     'old_price' => 14.99,
                     'badge'     => 'Save 20%',
                     'img'       => 'Gym-Bag-scaled.jpg',
+                    'images'    => array(
+                        'Gym-Bag-scaled.jpg',
+                        'Gym-Bag-8-800x800.jpg',
+                        'Gym-Bag-9-800x800.jpg',
+                    ),
                     'url'       => '/product/water-proof-gym-bag-black/',
                     'cat'       => 'bags'
                 ),
@@ -783,6 +893,11 @@ function nesports_color_items() {
                     'old_price' => 14.99,
                     'badge'     => 'Save 20%',
                     'img'       => 'Ankle-Strap-Cable-pull-scaled.jpg',
+                    'images'    => array(
+                        'Ankle-Strap-Cable-pull-scaled.jpg',
+                        'Ankle-Strap-Cable-pull-1-scaled.jpg',
+                        'Ankle-Strap-Cable-pull-2-scaled.jpg',
+                    ),
                     'url'       => '/product/ankle-strap-black/',
                     'cat'       => 'ankle'
                 ),
@@ -796,8 +911,13 @@ function nesports_color_items() {
                     'name'      => 'Strength Club T-Shirt (Blue Logo)',
                     'price'     => 34.99,
                     'old_price' => 44.99,
-                    'badge'     => 'Athletic Fit',
-                    'img'       => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
+                    'badge'     => 'Save 22%',
+                    'img'       => 'clothing/Strength-Club-Blue-Flat.jpg',
+                    'images'    => array(
+                        'clothing/Strength-Club-Blue-Flat.jpg',
+                        'clothing/Strength-Club-Blue-Front.jpg',
+                        'clothing/Strength-Club-Blue-Model.jpg',
+                    ),
                     'url'       => '/product/strength-club-athletic-fit-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -807,6 +927,11 @@ function nesports_color_items() {
                     'old_price' => 44.99,
                     'badge'     => 'New Arrival',
                     'img'       => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                    'images'    => array(
+                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                        'clothing/Procoach-Navy-Detail.jpg',
+                        'clothing/Procoach-Navy-Lower.jpg',
+                    ),
                     'url'       => '/product/pro-coach-vintage-navy-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -816,6 +941,11 @@ function nesports_color_items() {
                     'old_price' => 39.99,
                     'badge'     => 'Save 25%',
                     'img'       => 'Knee-Wrap-9-800x800.jpg',
+                    'images'    => array(
+                        'Knee-Wrap-9-800x800.jpg',
+                        'Knee-Wrap-800x800.jpg',
+                        'Knee-wrap-1-800x800.jpg',
+                    ),
                     'url'       => '/product/knee-wrap-copy/',
                     'cat'       => 'knee'
                 ),
@@ -825,6 +955,11 @@ function nesports_color_items() {
                     'old_price' => 14.99,
                     'badge'     => 'Save 33%',
                     'img'       => 'A2.jpg',
+                    'images'    => array(
+                        'A2.jpg',
+                        '1-800x800.jpg',
+                        '2-red-800x800.jpg',
+                    ),
                     'url'       => '/product/lifting-strap-padded-blue/',
                     'cat'       => 'straps'
                 ),
@@ -834,6 +969,11 @@ function nesports_color_items() {
                     'old_price' => 19.99,
                     'badge'     => 'Save 40%',
                     'img'       => 'Gym-Bag-8-800x800.jpg',
+                    'images'    => array(
+                        'Gym-Bag-8-800x800.jpg',
+                        'Gym-Bag-9-800x800.jpg',
+                        'Gym-Bag-scaled.jpg',
+                    ),
                     'url'       => '/product/water-proof-gym-bag-blue/',
                     'cat'       => 'bags'
                 ),
@@ -843,6 +983,11 @@ function nesports_color_items() {
                     'old_price' => 24.99,
                     'badge'     => 'Limited',
                     'img'       => 'DSC_0177-scaled-1.jpg',
+                    'images'    => array(
+                        'DSC_0177-scaled-1.jpg',
+                        'Baerbell-Pad-scaled.jpg',
+                        'Barbell-Pad-1-scaled.jpg',
+                    ),
                     'url'       => '/product/barbell-pad-camo-blue/',
                     'cat'       => 'pads'
                 ),
@@ -852,6 +997,11 @@ function nesports_color_items() {
                     'old_price' => 14.99,
                     'badge'     => 'Save 20%',
                     'img'       => 'Ankle-Strap-Cable-pull-5-scaled.jpg',
+                    'images'    => array(
+                        'Ankle-Strap-Cable-pull-5-scaled.jpg',
+                        'Ankle-Strap-Cable-pull-scaled.jpg',
+                        'Ankle-Strap-Cable-pull-1-scaled.jpg',
+                    ),
                     'url'       => '/product/ankle-strap-camo-blue/',
                     'cat'       => 'ankle'
                 ),
@@ -861,6 +1011,11 @@ function nesports_color_items() {
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
                     'img'       => 'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
+                    'images'    => array(
+                        'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
+                        'A2.jpg',
+                        '1-800x800.jpg',
+                    ),
                     'url'       => '/product/lifting-straps-padded-blue-2/',
                     'cat'       => 'straps'
                 ),
@@ -876,6 +1031,11 @@ function nesports_color_items() {
                     'old_price' => 44.99,
                     'badge'     => 'Save 22%',
                     'img'       => 'clothing/Procoach-T-Shirt-Green.png',
+                    'images'    => array(
+                        'clothing/Procoach-T-Shirt-Green.png',
+                        'clothing/Procoach-Green-Detail.jpg',
+                        'clothing/cat-pro-coach.jpg',
+                    ),
                     'url'       => '/product/pro-coach-oversized-t-shirt/',
                     'cat'       => 'clothing'
                 ),
@@ -891,6 +1051,11 @@ function nesports_color_items() {
                     'old_price' => 19.99,
                     'badge'     => 'Save 40%',
                     'img'       => 'Gym-Bag-9-800x800.jpg',
+                    'images'    => array(
+                        'Gym-Bag-9-800x800.jpg',
+                        'Gym-Bag-8-800x800.jpg',
+                        'Gym-Bag-scaled.jpg',
+                    ),
                     'url'       => '/product/water-proof-gym-bag-gray/',
                     'cat'       => 'bags'
                 ),
@@ -900,6 +1065,11 @@ function nesports_color_items() {
                     'old_price' => 24.99,
                     'badge'     => 'Limited',
                     'img'       => 'Baerbell-Pad-scaled.jpg',
+                    'images'    => array(
+                        'Baerbell-Pad-scaled.jpg',
+                        'Barbell-Pad-1-scaled.jpg',
+                        'Barbell-Pad-2-scaled.jpg',
+                    ),
                     'url'       => '/product/barbell-pad-gray-camo/',
                     'cat'       => 'pads'
                 ),
@@ -915,6 +1085,11 @@ function nesports_color_items() {
                     'old_price' => 39.99,
                     'badge'     => 'Save 38%',
                     'img'       => '1-1-800x800.jpg',
+                    'images'    => array(
+                        '1-1-800x800.jpg',
+                        'hero-speed-ball.png',
+                        '1-1-2-800x800.jpg',
+                    ),
                     'url'       => '/product/speed-ball-set-maya-hide-leather/',
                     'cat'       => 'speed'
                 ),
@@ -924,6 +1099,11 @@ function nesports_color_items() {
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
                     'img'       => 'Wrist-Bandage-3.jpg',
+                    'images'    => array(
+                        'Wrist-Bandage-3.jpg',
+                        'Wrist-Bandage-1-800x800.jpg',
+                        'Wrist-Bandage-Black-800x800.jpg',
+                    ),
                     'url'       => '/product/wrist-bandages-45-cm-wrist-black/',
                     'cat'       => 'wrist'
                 ),

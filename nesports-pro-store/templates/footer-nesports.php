@@ -17,7 +17,7 @@ $email = !empty($settings['support_email']) ? $settings['support_email'] : 'supp
         margin-bottom: 16px !important;
     }
     .hb-footer-logo img {
-        height: 64px !important;
+        height: 76px !important;
         width: auto !important;
         display: block !important;
     }
