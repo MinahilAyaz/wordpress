@@ -556,15 +556,6 @@ function nesports_color_items() {
                     'url'       => '/product/speed-ball-set-maya-hide-leather-red-black/',
                     'cat'       => 'speed'
                 ),
-                array(
-                    'name'      => 'Competition Lever Belt 10mm (Crimson Red)',
-                    'price'     => 59.99,
-                    'old_price' => 79.99,
-                    'badge'     => 'Save 25%',
-                    'img'       => 'belt-crimson-red-800x800.jpg',
-                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
-                    'cat'       => 'belts'
-                ),
             )
         ),
         'black' => array(
@@ -581,15 +572,6 @@ function nesports_color_items() {
                     'cat'       => 'clothing'
                 ),
                 array(
-                    'name'      => 'Strength Club Athletic Fit T-Shirt (Black)',
-                    'price'     => 34.99,
-                    'old_price' => 44.99,
-                    'badge'     => 'Athletic Fit',
-                    'img'       => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
-                    'url'       => '/product/strength-club-athletic-fit-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
                     'name'      => 'Lift The World Signature Black Tee',
                     'price'     => 34.99,
                     'old_price' => 44.99,
@@ -599,56 +581,11 @@ function nesports_color_items() {
                     'cat'       => 'clothing'
                 ),
                 array(
-                    'name'      => 'Anime Dark Edition Graphic T-Shirt',
-                    'price'     => 39.99,
-                    'old_price' => 49.99,
-                    'badge'     => 'Limited Drop',
-                    'img'       => 'clothing/Anime-6.jpg',
-                    'url'       => '/product/anime-oversized-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
-                    'name'      => 'Anime Berserk Statement T-Shirt',
-                    'price'     => 39.99,
-                    'old_price' => 49.99,
-                    'badge'     => 'Heavyweight',
-                    'img'       => 'clothing/Anime-1.jpg',
-                    'url'       => '/product/anime-berserk-oversized-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
-                    'name'      => 'Anime Shadow Graphic T-Shirt',
-                    'price'     => 39.99,
-                    'old_price' => 49.99,
-                    'badge'     => 'Streetwear',
-                    'img'       => 'clothing/Anime-2.jpg',
-                    'url'       => '/product/anime-shadow-oversized-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
-                    'name'      => 'Anime Warrior Statement T-Shirt',
-                    'price'     => 39.99,
-                    'old_price' => 49.99,
-                    'badge'     => 'Exclusive',
-                    'img'       => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
-                    'url'       => '/product/anime-vanguard-graphic-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
-                    'name'      => 'Son of the West Acid Wash T-Shirt',
-                    'price'     => 34.99,
-                    'old_price' => 44.99,
-                    'badge'     => 'Acid Wash',
-                    'img'       => 'clothing/Back-Son-Of-The-West.jpg',
-                    'url'       => '/product/son-of-the-west-oversized-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
                     'name'      => 'Pro Leather Lever Belt 10mm (Stealth Black)',
                     'price'     => 59.99,
                     'old_price' => 79.99,
                     'badge'     => 'Save 25%',
-                    'img'       => 'belt-stealth-black-800x800.jpg',
+                    'img'       => 'DSC_0167-scaled-1.jpg',
                     'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
                     'cat'       => 'belts'
                 ),
@@ -722,6 +659,15 @@ function nesports_color_items() {
             'hex'   => '#2563eb',
             'items' => array(
                 array(
+                    'name'      => 'Strength Club T-Shirt (Blue Logo)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Athletic Fit',
+                    'img'       => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
+                    'url'       => '/product/strength-club-athletic-fit-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
                     'name'      => 'Pro Coach Vintage Graphic T-Shirt (Navy Blue)',
                     'price'     => 34.99,
                     'old_price' => 44.99,
@@ -783,48 +729,6 @@ function nesports_color_items() {
                     'img'       => 'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
                     'url'       => '/product/lifting-straps-padded-blue-2/',
                     'cat'       => 'straps'
-                ),
-                array(
-                    'name'      => 'Pro Leather Lever Belt 10mm (Royal Blue)',
-                    'price'     => 59.99,
-                    'old_price' => 79.99,
-                    'badge'     => 'Save 25%',
-                    'img'       => 'belt-royal-blue-800x800.jpg',
-                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
-                    'cat'       => 'belts'
-                ),
-            )
-        ),
-        'navy' => array(
-            'label' => 'NAVY',
-            'hex'   => '#1e3a8a',
-            'items' => array(
-                array(
-                    'name'      => 'Pro Coach Vintage Navy Graphic T-Shirt',
-                    'price'     => 34.99,
-                    'old_price' => 44.99,
-                    'badge'     => 'Exclusive',
-                    'img'       => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
-                    'url'       => '/product/pro-coach-vintage-navy-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
-                    'name'      => 'Water Proof Gym Bag (Deep Navy Blue)',
-                    'price'     => 11.99,
-                    'old_price' => 19.99,
-                    'badge'     => 'Save 40%',
-                    'img'       => 'Gym-Bag-8-800x800.jpg',
-                    'url'       => '/product/water-proof-gym-bag-blue/',
-                    'cat'       => 'bags'
-                ),
-                array(
-                    'name'      => 'Ankle Strap Cable Pull (Navy Camo)',
-                    'price'     => 11.99,
-                    'old_price' => 14.99,
-                    'badge'     => 'Save 20%',
-                    'img'       => 'Ankle-Strap-Cable-pull-5-scaled.jpg',
-                    'url'       => '/product/ankle-strap-camo-blue/',
-                    'cat'       => 'ankle'
                 ),
             )
         ),
@@ -888,15 +792,6 @@ function nesports_color_items() {
                     'img'       => 'Wrist-Bandage-3.jpg',
                     'url'       => '/product/wrist-bandages-45-cm-wrist-black/',
                     'cat'       => 'wrist'
-                ),
-                array(
-                    'name'      => 'Pro Leather Lever Belt 10mm (Gold Series)',
-                    'price'     => 59.99,
-                    'old_price' => 79.99,
-                    'badge'     => 'Special Edition',
-                    'img'       => 'belt-gold-800x800.jpg',
-                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
-                    'cat'       => 'belts'
                 ),
             )
         )
