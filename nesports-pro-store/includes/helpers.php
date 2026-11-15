@@ -207,13 +207,20 @@ function nesports_preset_catalog() {
         array('name' => 'Wrist Bandages  45 cm Wrist  (Black/Yellow)', 'slug' => 'wrist-bandages-45-cm-wrist-black', 'cat' => 'wrist', 'price' => 9.99, 'old' => 19.99, 'reviews' => 83, 'main' => 'Wrist-Bandage-3.jpg', 'hover' => 'Wrist-Bandage-1.jpg'),
         array('name' => 'Lifting Straps with Extra Padded', 'slug' => 'lifting-straps-with-wrist-pad', 'cat' => 'straps', 'price' => 16.99, 'old' => 24.99, 'reviews' => 49, 'main' => '1-scaled.jpg', 'hover' => '0-1-min-scaled.jpg'),
         array('name' => 'Weighlifting Dip Belt with Chain', 'slug' => 'weighlifting-dip-belt-with-chain', 'cat' => 'belts', 'price' => 24.99, 'old' => 29.99, 'reviews' => 48, 'main' => 'Dip-Belt.jpg', 'hover' => 'Dip-Belt-1.jpg'),
-        // Clothing & Apparel (Oversized Lifter T-Shirts)
+        // Clothing & Apparel (All 13 Authentic Lifter T-Shirts)
         array('name' => 'Strength Club Oversized T-Shirt (Black)', 'slug' => 'strength-club-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 94, 'main' => 'clothing/Black NE3Sports Strength Club T-Shirt.png', 'hover' => 'clothing/Black T-Shirt with Red Strength Club Design.png'),
+        array('name' => 'Strength Club Athletic Fit T-Shirt', 'slug' => 'strength-club-athletic-fit-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 88, 'main' => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png', 'hover' => 'clothing/Black NE3Sports Strength Club T-Shirt.png'),
+        array('name' => 'Strength Club Red Edition T-Shirt', 'slug' => 'strength-club-red-edition-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 91, 'main' => 'clothing/Black T-Shirt with Red Strength Club Design.png', 'hover' => 'clothing/Black NE3Sports Strength Club T-Shirt.png'),
         array('name' => 'Lift The World Signature T-Shirt (Black)', 'slug' => 'lift-the-world-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 108, 'main' => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg', 'hover' => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg'),
-        array('name' => 'Anime Heavyweight Graphic T-Shirt', 'slug' => 'anime-oversized-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 120, 'main' => 'clothing/Anime-6.jpg', 'hover' => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg'),
-        array('name' => 'Son Of The West Statement T-Shirt', 'slug' => 'son-of-the-west-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 65, 'main' => 'clothing/Back-Son-Of-The-West.jpg', 'hover' => 'clothing/Anime-1.jpg'),
-        array('name' => 'Pro Coach Performance Oversized T-Shirt (Green)', 'slug' => 'pro-coach-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 58, 'main' => 'clothing/Procoach-T-Shirt-Green.jpg', 'hover' => 'clothing/Anime-2.jpg'),
         array('name' => 'Lift The World Signature T-Shirt (Crimson Red)', 'slug' => 'lift-the-world-red-edition-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 76, 'main' => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg', 'hover' => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg'),
+        array('name' => 'Anime Dark Edition Graphic T-Shirt', 'slug' => 'anime-oversized-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 120, 'main' => 'clothing/Anime-6.jpg', 'hover' => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg'),
+        array('name' => 'Anime Berserk Statement T-Shirt', 'slug' => 'anime-berserk-oversized-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 114, 'main' => 'clothing/Anime-1.jpg', 'hover' => 'clothing/Anime-6.jpg'),
+        array('name' => 'Anime Shadow Graphic T-Shirt', 'slug' => 'anime-shadow-oversized-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 98, 'main' => 'clothing/Anime-2.jpg', 'hover' => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg'),
+        array('name' => 'Anime Vanguard Graphic T-Shirt', 'slug' => 'anime-vanguard-graphic-t-shirt', 'cat' => 'clothing', 'price' => 39.99, 'old' => 49.99, 'reviews' => 84, 'main' => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg', 'hover' => 'clothing/Anime-1.jpg'),
+        array('name' => 'Son Of The West Statement T-Shirt', 'slug' => 'son-of-the-west-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 65, 'main' => 'clothing/Back-Son-Of-The-West.jpg', 'hover' => 'clothing/Anime-1.jpg'),
+        array('name' => 'Pro Coach Performance Oversized T-Shirt (Green)', 'slug' => 'pro-coach-oversized-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 58, 'main' => 'clothing/Procoach-T-Shirt-Green.jpg', 'hover' => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png'),
+        array('name' => 'Pro Coach Iron Tee (Red Back Print)', 'slug' => 'pro-coach-red-iron-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 72, 'main' => 'clothing/Red Pro Coach Iron Tee Back Print.png', 'hover' => 'clothing/Procoach-T-Shirt-Green.jpg'),
+        array('name' => 'Pro Coach Vintage Navy Graphic T-Shirt', 'slug' => 'pro-coach-vintage-navy-t-shirt', 'cat' => 'clothing', 'price' => 34.99, 'old' => 44.99, 'reviews' => 69, 'main' => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png', 'hover' => 'clothing/Red Pro Coach Iron Tee Back Print.png'),
     );
 }
 
@@ -386,7 +393,7 @@ function nesports_bundles() {
 }
 
 /**
- * Clothing Items for the Clothing Section Carousel
+ * Clothing Items for the Clothing Section Carousel (All 13 Authentic Lifter T-Shirts)
  * Matched exactly to Hardbody Clothing carousel style (Portrait photo cards + label + arrow)
  */
 function nesports_clothing() {
@@ -399,6 +406,20 @@ function nesports_clothing() {
             'url'   => '/product/strength-club-oversized-t-shirt/'
         ),
         array(
+            'id'    => 'strength-club-athletic',
+            'title' => 'STRENGTH CLUB PRO',
+            'tag'   => 'ATHLETIC FIT OVERSIZED',
+            'img'   => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
+            'url'   => '/product/strength-club-athletic-fit-t-shirt/'
+        ),
+        array(
+            'id'    => 'strength-club-red',
+            'title' => 'STRENGTH CLUB RED',
+            'tag'   => 'RUBY LOGO EDITION',
+            'img'   => 'clothing/Black T-Shirt with Red Strength Club Design.png',
+            'url'   => '/product/strength-club-red-edition-t-shirt/'
+        ),
+        array(
             'id'    => 'lift-the-world',
             'title' => 'LIFT THE WORLD',
             'tag'   => 'SIGNATURE ATHLETE TEE',
@@ -406,11 +427,39 @@ function nesports_clothing() {
             'url'   => '/product/lift-the-world-oversized-t-shirt/'
         ),
         array(
+            'id'    => 'red-edition',
+            'title' => 'RED EDITION',
+            'tag'   => 'LIMITED ATHLETE DROP',
+            'img'   => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+            'url'   => '/product/lift-the-world-red-edition-t-shirt/'
+        ),
+        array(
             'id'    => 'anime-drop',
-            'title' => 'ANIME',
+            'title' => 'ANIME DARK DROP',
             'tag'   => 'LIMITED EDITION GRAPHIC',
             'img'   => 'clothing/Anime-6.jpg',
             'url'   => '/product/anime-oversized-t-shirt/'
+        ),
+        array(
+            'id'    => 'anime-berserk',
+            'title' => 'ANIME BERSERK',
+            'tag'   => 'HEAVYWEIGHT GRAPHIC TEE',
+            'img'   => 'clothing/Anime-1.jpg',
+            'url'   => '/product/anime-berserk-oversized-t-shirt/'
+        ),
+        array(
+            'id'    => 'anime-shadow',
+            'title' => 'ANIME SHADOW',
+            'tag'   => 'GRAPHIC VANGUARD TEE',
+            'img'   => 'clothing/Anime-2.jpg',
+            'url'   => '/product/anime-shadow-oversized-t-shirt/'
+        ),
+        array(
+            'id'    => 'anime-vanguard',
+            'title' => 'ANIME WARRIOR',
+            'tag'   => 'OVERSIZED STATEMENT',
+            'img'   => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
+            'url'   => '/product/anime-vanguard-graphic-t-shirt/'
         ),
         array(
             'id'    => 'son-of-the-west',
@@ -421,17 +470,24 @@ function nesports_clothing() {
         ),
         array(
             'id'    => 'pro-coach',
-            'title' => 'PRO COACH',
+            'title' => 'PRO COACH GREEN',
             'tag'   => 'PERFORMANCE OVERSIZED',
             'img'   => 'clothing/Procoach-T-Shirt-Green.jpg',
             'url'   => '/product/pro-coach-oversized-t-shirt/'
         ),
         array(
-            'id'    => 'red-edition',
-            'title' => 'RED EDITION',
-            'tag'   => 'LIMITED ATHLETE DROP',
-            'img'   => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-            'url'   => '/product/lift-the-world-red-edition-t-shirt/'
+            'id'    => 'pro-coach-red',
+            'title' => 'PRO COACH RED IRON',
+            'tag'   => 'BORN IN IRON GRAPHIC',
+            'img'   => 'clothing/Red Pro Coach Iron Tee Back Print.png',
+            'url'   => '/product/pro-coach-red-iron-t-shirt/'
+        ),
+        array(
+            'id'    => 'pro-coach-navy',
+            'title' => 'PRO COACH NAVY',
+            'tag'   => 'VINTAGE GRAPHIC TEE',
+            'img'   => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+            'url'   => '/product/pro-coach-vintage-navy-t-shirt/'
         )
     );
 }
@@ -453,6 +509,24 @@ function nesports_color_items() {
                     'badge'     => 'Save 22%',
                     'img'       => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
                     'url'       => '/product/lift-the-world-red-edition-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Pro Coach Iron Tee (Red Back Print)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'New Arrival',
+                    'img'       => 'clothing/Red Pro Coach Iron Tee Back Print.png',
+                    'url'       => '/product/pro-coach-red-iron-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Strength Club T-Shirt (Red Design)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Limited',
+                    'img'       => 'clothing/Black T-Shirt with Red Strength Club Design.png',
+                    'url'       => '/product/strength-club-red-edition-t-shirt/',
                     'cat'       => 'clothing'
                 ),
                 array(
@@ -483,13 +557,13 @@ function nesports_color_items() {
                     'cat'       => 'speed'
                 ),
                 array(
-                    'name'      => 'Anime Statement T-Shirt (Red Graphic)',
-                    'price'     => 39.99,
-                    'old_price' => 49.99,
-                    'badge'     => 'Save 20%',
-                    'img'       => 'clothing/Anime-6.jpg',
-                    'url'       => '/product/anime-oversized-t-shirt/',
-                    'cat'       => 'clothing'
+                    'name'      => 'Competition Lever Belt 10mm (Crimson Red)',
+                    'price'     => 59.99,
+                    'old_price' => 79.99,
+                    'badge'     => 'Save 25%',
+                    'img'       => 'belt-crimson-red-800x800.jpg',
+                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
+                    'cat'       => 'belts'
                 ),
             )
         ),
@@ -507,11 +581,74 @@ function nesports_color_items() {
                     'cat'       => 'clothing'
                 ),
                 array(
-                    'name'      => 'Pro Leather Lever Belt 10mm (Black)',
+                    'name'      => 'Strength Club Athletic Fit T-Shirt (Black)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Athletic Fit',
+                    'img'       => 'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
+                    'url'       => '/product/strength-club-athletic-fit-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Lift The World Signature Black Tee',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Athlete Series',
+                    'img'       => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                    'url'       => '/product/lift-the-world-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Anime Dark Edition Graphic T-Shirt',
+                    'price'     => 39.99,
+                    'old_price' => 49.99,
+                    'badge'     => 'Limited Drop',
+                    'img'       => 'clothing/Anime-6.jpg',
+                    'url'       => '/product/anime-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Anime Berserk Statement T-Shirt',
+                    'price'     => 39.99,
+                    'old_price' => 49.99,
+                    'badge'     => 'Heavyweight',
+                    'img'       => 'clothing/Anime-1.jpg',
+                    'url'       => '/product/anime-berserk-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Anime Shadow Graphic T-Shirt',
+                    'price'     => 39.99,
+                    'old_price' => 49.99,
+                    'badge'     => 'Streetwear',
+                    'img'       => 'clothing/Anime-2.jpg',
+                    'url'       => '/product/anime-shadow-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Anime Warrior Statement T-Shirt',
+                    'price'     => 39.99,
+                    'old_price' => 49.99,
+                    'badge'     => 'Exclusive',
+                    'img'       => 'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
+                    'url'       => '/product/anime-vanguard-graphic-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Son of the West Acid Wash T-Shirt',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Acid Wash',
+                    'img'       => 'clothing/Back-Son-Of-The-West.jpg',
+                    'url'       => '/product/son-of-the-west-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Pro Leather Lever Belt 10mm (Stealth Black)',
                     'price'     => 59.99,
                     'old_price' => 79.99,
                     'badge'     => 'Save 25%',
-                    'img'       => 'DSC_0167-scaled-1.jpg',
+                    'img'       => 'belt-stealth-black-800x800.jpg',
                     'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
                     'cat'       => 'belts'
                 ),
@@ -585,6 +722,15 @@ function nesports_color_items() {
             'hex'   => '#2563eb',
             'items' => array(
                 array(
+                    'name'      => 'Pro Coach Vintage Graphic T-Shirt (Navy Blue)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'New Arrival',
+                    'img'       => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                    'url'       => '/product/pro-coach-vintage-navy-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
                     'name'      => 'Competition Knee Wraps (Speed Blue)',
                     'price'     => 29.99,
                     'old_price' => 39.99,
@@ -638,6 +784,63 @@ function nesports_color_items() {
                     'url'       => '/product/lifting-straps-padded-blue-2/',
                     'cat'       => 'straps'
                 ),
+                array(
+                    'name'      => 'Pro Leather Lever Belt 10mm (Royal Blue)',
+                    'price'     => 59.99,
+                    'old_price' => 79.99,
+                    'badge'     => 'Save 25%',
+                    'img'       => 'belt-royal-blue-800x800.jpg',
+                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
+                    'cat'       => 'belts'
+                ),
+            )
+        ),
+        'navy' => array(
+            'label' => 'NAVY',
+            'hex'   => '#1e3a8a',
+            'items' => array(
+                array(
+                    'name'      => 'Pro Coach Vintage Navy Graphic T-Shirt',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Exclusive',
+                    'img'       => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                    'url'       => '/product/pro-coach-vintage-navy-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
+                array(
+                    'name'      => 'Water Proof Gym Bag (Deep Navy Blue)',
+                    'price'     => 11.99,
+                    'old_price' => 19.99,
+                    'badge'     => 'Save 40%',
+                    'img'       => 'Gym-Bag-8-800x800.jpg',
+                    'url'       => '/product/water-proof-gym-bag-blue/',
+                    'cat'       => 'bags'
+                ),
+                array(
+                    'name'      => 'Ankle Strap Cable Pull (Navy Camo)',
+                    'price'     => 11.99,
+                    'old_price' => 14.99,
+                    'badge'     => 'Save 20%',
+                    'img'       => 'Ankle-Strap-Cable-pull-5-scaled.jpg',
+                    'url'       => '/product/ankle-strap-camo-blue/',
+                    'cat'       => 'ankle'
+                ),
+            )
+        ),
+        'green' => array(
+            'label' => 'GREEN',
+            'hex'   => '#15803d',
+            'items' => array(
+                array(
+                    'name'      => 'Pro Coach Performance T-Shirt (Forest Green)',
+                    'price'     => 34.99,
+                    'old_price' => 44.99,
+                    'badge'     => 'Save 22%',
+                    'img'       => 'clothing/Procoach-T-Shirt-Green.jpg',
+                    'url'       => '/product/pro-coach-oversized-t-shirt/',
+                    'cat'       => 'clothing'
+                ),
             )
         ),
         'grey' => array(
@@ -664,21 +867,6 @@ function nesports_color_items() {
                 ),
             )
         ),
-        'green' => array(
-            'label' => 'GREEN',
-            'hex'   => '#15803d',
-            'items' => array(
-                array(
-                    'name'      => 'Pro Coach Performance T-Shirt (Forest Green)',
-                    'price'     => 34.99,
-                    'old_price' => 44.99,
-                    'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Procoach-T-Shirt-Green.jpg',
-                    'url'       => '/product/pro-coach-oversized-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-            )
-        ),
         'gold' => array(
             'label' => 'GOLD',
             'hex'   => '#d97706',
@@ -700,6 +888,15 @@ function nesports_color_items() {
                     'img'       => 'Wrist-Bandage-3.jpg',
                     'url'       => '/product/wrist-bandages-45-cm-wrist-black/',
                     'cat'       => 'wrist'
+                ),
+                array(
+                    'name'      => 'Pro Leather Lever Belt 10mm (Gold Series)',
+                    'price'     => 59.99,
+                    'old_price' => 79.99,
+                    'badge'     => 'Special Edition',
+                    'img'       => 'belt-gold-800x800.jpg',
+                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
+                    'cat'       => 'belts'
                 ),
             )
         )

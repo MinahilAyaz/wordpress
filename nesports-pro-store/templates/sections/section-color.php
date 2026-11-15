@@ -1,13 +1,13 @@
 <?php
 /**
- * NESPORTS3 - Section: Shop by Colour (Matched to Hardbody Store Reference)
+ * NESPORTS3 - Section: Shop by Color (Matched to Hardbody Store Reference)
  * Usable standalone or via shortcode [nesports_color]
  */
 if (!defined('ABSPATH')) {
     exit;
 }
 $color_groups = nesports_color_items();
-$active_color = 'red'; // Default active color matching Reference Screenshot 1
+$active_color = 'red'; // Default active color
 ?>
 <section class="hb-color-section" id="shop-by-color">
     <style id="hb-color-critical-css">
@@ -25,7 +25,7 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         display: grid !important;
         grid-template-columns: 1fr auto !important;
         grid-template-rows: auto auto !important;
-        gap: 14px 16px !important;
+        gap: 16px 16px !important;
         margin-bottom: 24px !important;
         align-items: center !important;
         width: 100% !important;
@@ -49,13 +49,6 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         position: relative !important;
         display: inline-block !important;
     }
-    .hb-color-title-underline {
-        display: block !important;
-        width: 100% !important;
-        max-width: 260px !important;
-        height: 8px !important;
-        margin-top: 4px !important;
-    }
 
     .hb-color-pills-wrap {
         grid-column: 1 / 2 !important;
@@ -67,7 +60,7 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
     .hb-color-pills {
         display: flex !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 10px !important;
         overflow-x: auto !important;
         scrollbar-width: none !important;
         -webkit-overflow-scrolling: touch !important;
@@ -87,41 +80,33 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         height: 1px !important;
     }
 
-    /* Filter Pill with Left-to-Right Curtain Fill Animation */
+    /* Filter Pill - Text Only (No Color Dots) with Left-to-Right Curtain Animation */
     .hb-color-pill {
         position: relative !important;
         overflow: hidden !important;
         isolation: isolate !important;
         background: #f4f4f5 !important;
-        border: 1px solid rgba(0, 0, 0, 0.04) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
         border-radius: 999px !important;
-        padding: 8px 18px !important;
+        padding: 9px 24px !important;
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 11.5px !important;
-        font-weight: 500 !important;
-        letter-spacing: .35px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: .5px !important;
         text-transform: uppercase !important;
         cursor: pointer !important;
         white-space: nowrap !important;
         flex-shrink: 0 !important;
-        color: #52525b !important;
+        color: #18181b !important;
         user-select: none !important;
         z-index: 1 !important;
         display: inline-flex !important;
         align-items: center !important;
-        gap: 7px !important;
+        justify-content: center !important;
         transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                     border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                     box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                     transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-    .hb-color-dot {
-        width: 8px !important;
-        height: 8px !important;
-        border-radius: 50% !important;
-        display: inline-block !important;
-        flex-shrink: 0 !important;
-        box-shadow: 0 0 0 1px rgba(0,0,0,0.12) !important;
     }
     .hb-color-pill::before {
         content: '' !important;
@@ -147,6 +132,7 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
     }
     .hb-color-pill.is-active {
         color: #ffffff !important;
+        background: #111111 !important;
         border-color: #111111 !important;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
     }
@@ -193,7 +179,7 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         min-width: 220px !important;
         max-width: 280px !important;
         box-sizing: border-box !important;
-        display: flex !important;
+        display: flex;
         flex-direction: column !important;
         align-items: stretch !important;
         text-decoration: none !important;
@@ -202,6 +188,9 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         cursor: pointer !important;
         scroll-snap-align: start !important;
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .hb-color-card.is-hidden {
+        display: none !important;
     }
     .hb-color-card:hover {
         transform: translateY(-6px) !important;
@@ -240,13 +229,10 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.1) !important;
     }
     .hb-color-media img {
-        width: 80% !important;
-        height: 80% !important;
-        max-width: 80% !important;
-        max-height: 80% !important;
+        width: 82% !important;
+        height: 82% !important;
         object-fit: contain !important;
-        object-position: center !important;
-        mix-blend-mode: multiply !important;
+        display: block !important;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .hb-color-card:hover .hb-color-media img {
@@ -260,71 +246,70 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
         background: #e11d48 !important;
         color: #ffffff !important;
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 11px !important;
+        font-size: 10.5px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.3px !important;
+        letter-spacing: .4px !important;
         padding: 4px 10px !important;
-        border-radius: 9999px !important;
-        z-index: 2 !important;
+        border-radius: 999px !important;
         text-transform: uppercase !important;
-        box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3) !important;
+        z-index: 2 !important;
+        box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
     }
 
     .hb-color-bottom {
+        padding: 14px 4px 4px !important;
         display: flex !important;
-        justify-content: space-between !important;
+        flex-direction: row !important;
         align-items: flex-start !important;
-        gap: 8px !important;
-        margin-top: 12px !important;
-        width: 100% !important;
-        padding: 0 2px !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
     }
     .hb-color-meta-left {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        flex: 1 !important;
+        flex: 1 1 auto !important;
         min-width: 0 !important;
     }
     .hb-color-card-title {
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 14.5px !important;
+        font-size: 13.5px !important;
         font-weight: 600 !important;
-        color: #111111 !important;
+        color: #18181b !important;
         margin: 0 !important;
-        text-align: left !important;
-        letter-spacing: -0.2px !important;
         line-height: 1.35 !important;
-        white-space: nowrap !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
         overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        width: 100% !important;
-        transition: color 0.2s ease !important;
+        text-align: left !important;
     }
     .hb-color-card:hover .hb-color-card-title {
-        color: var(--hb-accent, #e11d48) !important;
+        color: #e11d48 !important;
     }
+
     .hb-color-price-box {
+        flex: 0 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: flex-end !important;
-        flex-shrink: 0 !important;
+        text-align: right !important;
     }
     .hb-color-price-now {
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 14px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
-        color: #111111 !important;
+        color: #18181b !important;
         line-height: 1.2 !important;
     }
     .hb-color-price-old {
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
         font-size: 11.5px !important;
+        font-weight: 500 !important;
         color: #a1a1aa !important;
         text-decoration: line-through !important;
         line-height: 1.2 !important;
+        margin-top: 2px !important;
     }
 
+    /* Responsive Breakdown */
     @media (max-width: 1200px) {
         .hb-color-card {
             flex: 0 0 calc((100% - 54px) / 4) !important;
@@ -333,19 +318,6 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
     @media (max-width: 992px) {
         .hb-color-nav-grid {
             grid-template-columns: 1fr auto !important;
-            grid-template-rows: auto auto !important;
-            gap: 16px 12px !important;
-            margin-bottom: 20px !important;
-        }
-        .hb-color-title-wrap {
-            grid-column: 1 / 2 !important;
-            grid-row: 1 / 2 !important;
-        }
-        .hb-color-carousel-controls {
-            grid-column: 2 / 3 !important;
-            grid-row: 1 / 2 !important;
-            justify-self: end !important;
-            margin-left: 0 !important;
         }
         .hb-color-pills-wrap {
             grid-column: 1 / -1 !important;
@@ -373,17 +345,13 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
     <div class="hb-color-container">
         <div class="hb-color-nav-grid">
             <div class="hb-color-title-wrap">
-                <h2 class="hb-color-title">Shop by Colour</h2>
-                <svg class="hb-color-title-underline" viewBox="0 0 250 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 6.5C45 2 155 1.5 248 5" stroke="#e11d48" stroke-width="3" stroke-linecap="round"/>
-                </svg>
+                <h2 class="hb-color-title">Shop by Color</h2>
             </div>
 
             <div class="hb-color-pills-wrap">
                 <div class="hb-color-pills" id="hb-color-filter-pills">
                     <?php foreach ($color_groups as $c_key => $c_group): ?>
                     <button type="button" class="hb-color-pill <?php echo ($c_key === $active_color) ? 'is-active' : ''; ?>" data-color="<?php echo esc_attr($c_key); ?>">
-                        <span class="hb-color-dot" style="background: <?php echo esc_attr($c_group['hex']); ?>;"></span>
                         <?php echo esc_html($c_group['label']); ?>
                     </button>
                     <?php endforeach; ?>
@@ -406,7 +374,7 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
                     foreach ($c_group['items'] as $item):
                         $is_shown = ($c_key === $active_color);
                 ?>
-                <a class="hb-color-card" data-color="<?php echo esc_attr($c_key); ?>" href="<?php echo esc_url(home_url($item['url'])); ?>" style="<?php echo $is_shown ? 'display:flex;' : 'display:none;'; ?>">
+                <a class="hb-color-card <?php echo $is_shown ? '' : 'is-hidden'; ?>" data-color="<?php echo esc_attr($c_key); ?>" href="<?php echo esc_url(home_url($item['url'])); ?>" style="<?php echo $is_shown ? 'display:flex !important;' : 'display:none !important;'; ?>">
                     <div class="hb-color-media">
                         <?php if (!empty($item['badge'])): ?>
                             <span class="hb-color-badge"><?php echo esc_html($item['badge']); ?></span>
@@ -468,7 +436,7 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
             }
 
             function getStep() {
-                var card = track.querySelector('.hb-color-card:not([style*="display: none"])');
+                var card = track.querySelector('.hb-color-card:not(.is-hidden)');
                 if (card) {
                     return (card.offsetWidth + 18) * 2;
                 }
@@ -500,7 +468,10 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
 
             // Filter pills logic
             pills.forEach(function(pill) {
-                pill.addEventListener('click', function() {
+                pill.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (pill.classList.contains('is-active')) return;
+
                     pills.forEach(function(p) { p.classList.remove('is-active'); });
                     pill.classList.add('is-active');
 
@@ -512,19 +483,21 @@ $active_color = 'red'; // Default active color matching Reference Screenshot 1
                         var cardColor = card.getAttribute('data-color');
                         card.classList.remove('anim-l2r');
                         if (cardColor === color) {
-                            card.style.display = 'flex';
-                            card.style.animationDelay = (delay * 0.06) + 's';
+                            card.classList.remove('is-hidden');
+                            card.style.setProperty('display', 'flex', 'important');
+                            card.style.animationDelay = (delay * 0.05) + 's';
                             void card.offsetWidth; // Reflow for animation restart
                             card.classList.add('anim-l2r');
                             delay++;
                         } else {
-                            card.style.display = 'none';
+                            card.classList.add('is-hidden');
+                            card.style.setProperty('display', 'none', 'important');
                         }
                     });
 
-                    track.scrollTo({ left: 0, behavior: 'smooth' });
-                    setTimeout(updateArrowState, 100);
-                    setTimeout(updateArrowState, 300);
+                    track.scrollTo({ left: 0, behavior: 'auto' });
+                    setTimeout(updateArrowState, 60);
+                    setTimeout(updateArrowState, 250);
                 });
             });
 
