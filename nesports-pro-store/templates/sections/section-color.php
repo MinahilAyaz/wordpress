@@ -233,27 +233,11 @@ $active_color = 'red'; // Default active color
         height: 82% !important;
         object-fit: contain !important;
         display: block !important;
+        mix-blend-mode: multiply !important;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .hb-color-card:hover .hb-color-media img {
         transform: scale(1.08) !important;
-    }
-
-    .hb-color-badge {
-        position: absolute !important;
-        top: 12px !important;
-        left: 12px !important;
-        background: #e11d48 !important;
-        color: #ffffff !important;
-        font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 10.5px !important;
-        font-weight: 700 !important;
-        letter-spacing: .4px !important;
-        padding: 4px 10px !important;
-        border-radius: 999px !important;
-        text-transform: uppercase !important;
-        z-index: 2 !important;
-        box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3) !important;
     }
 
     .hb-color-bottom {
@@ -376,9 +360,6 @@ $active_color = 'red'; // Default active color
                 ?>
                 <a class="hb-color-card <?php echo $is_shown ? '' : 'is-hidden'; ?>" data-color="<?php echo esc_attr($c_key); ?>" href="<?php echo esc_url(home_url($item['url'])); ?>" style="<?php echo $is_shown ? 'display:flex !important;' : 'display:none !important;'; ?>">
                     <div class="hb-color-media">
-                        <?php if (!empty($item['badge'])): ?>
-                            <span class="hb-color-badge"><?php echo esc_html($item['badge']); ?></span>
-                        <?php endif; ?>
                         <img src="<?php echo esc_url(nesports_img($item['img'])); ?>" alt="<?php echo esc_attr($item['name']); ?>" loading="lazy">
                     </div>
                     <div class="hb-color-bottom">

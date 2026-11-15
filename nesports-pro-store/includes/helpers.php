@@ -617,15 +617,6 @@ function nesports_color_items() {
                     'cat'       => 'straps'
                 ),
                 array(
-                    'name'      => 'Wrist Bandages 45cm (Stealth Black)',
-                    'price'     => 9.99,
-                    'old_price' => 19.99,
-                    'badge'     => 'Save 50%',
-                    'img'       => 'Wrist-Bandage-Black-800x800.jpg',
-                    'url'       => '/product/wrist-bandages-45-cm-wrist-black-2/',
-                    'cat'       => 'wrist'
-                ),
-                array(
                     'name'      => 'Water Proof Gym Bag (Black Edition)',
                     'price'     => 11.99,
                     'old_price' => 14.99,
@@ -633,15 +624,6 @@ function nesports_color_items() {
                     'img'       => 'Gym-Bag-scaled.jpg',
                     'url'       => '/product/water-proof-gym-bag-black/',
                     'cat'       => 'bags'
-                ),
-                array(
-                    'name'      => 'High Density Barbell Squat Pad (Black)',
-                    'price'     => 24.99,
-                    'old_price' => 24.99,
-                    'badge'     => 'Popular',
-                    'img'       => 'Barbell-Pad-5-scaled.jpg',
-                    'url'       => '/product/barbell-pad-black/',
-                    'cat'       => 'pads'
                 ),
                 array(
                     'name'      => 'Ankle Strap Cable Pull (Black)',
@@ -741,7 +723,7 @@ function nesports_color_items() {
                     'price'     => 34.99,
                     'old_price' => 44.99,
                     'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Procoach-T-Shirt-Green.jpg',
+                    'img'       => 'clothing/Procoach-T-Shirt-Green.png',
                     'url'       => '/product/pro-coach-oversized-t-shirt/',
                     'cat'       => 'clothing'
                 ),
