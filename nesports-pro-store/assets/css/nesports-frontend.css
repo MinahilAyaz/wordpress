@@ -1511,8 +1511,8 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 /* Footer */
 .hb-footer { background: #111; color: #a8a8ae; padding: 64px 32px 24px; font-size: 14px; }
 .hb-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 36px; }
-.hb-footer-logo { display: inline-block; background: #fff; border-radius: 12px; padding: 6px 14px; margin-bottom: 14px; }
-.hb-footer-logo img { height: 40px; width: auto; display: block; }
+.hb-footer-logo { display: inline-block; background: transparent !important; border-radius: 0; padding: 0 !important; margin-bottom: 16px; }
+.hb-footer-logo img { height: 64px !important; width: auto; display: block; }
 .hb-footer h4 { color: #fff; font-size: 12px; letter-spacing: 1.5px; margin: 0 0 14px; }
 .hb-footer a, .hb-footer span { display: block; margin-bottom: 9px; }
 .hb-footer a:hover { color: #fff; }

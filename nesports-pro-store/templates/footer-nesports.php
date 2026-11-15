@@ -9,16 +9,15 @@ $email = !empty($settings['support_email']) ? $settings['support_email'] : 'supp
 <footer class="hb-footer">
     <style id="hb-footer-custom-style">
     .hb-footer-logo {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #ffffff !important;
-        border-radius: 12px !important;
-        padding: 6px 12px !important;
-        margin-bottom: 14px !important;
+        display: inline-block !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin-bottom: 16px !important;
     }
     .hb-footer-logo img {
-        height: 44px !important;
+        height: 64px !important;
         width: auto !important;
         display: block !important;
     }
