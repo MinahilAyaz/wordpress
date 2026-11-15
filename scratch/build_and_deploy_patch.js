@@ -20,6 +20,7 @@ const footerSvg = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'ass
 const frontendCss = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'css', 'nesports-frontend.css'), 'utf8');
 const mainPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'nesports-pro-store.php'), 'utf8');
 const helpersPhp = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'includes', 'helpers.php'), 'utf8');
+const procoachJpg = fs.readFileSync(path.join(BASE_DIR, 'nesports-pro-store', 'assets', 'images', 'clothing', 'Procoach-T-Shirt-Green.jpg'));
 
 const patchPhpContent = `<?php
 /**
@@ -40,7 +41,8 @@ function run_nesports_hotfix() {
         'assets/images/footer-logo.svg' => base64_decode('${Buffer.from(footerSvg).toString('base64')}'),
         'assets/css/nesports-frontend.css' => base64_decode('${Buffer.from(frontendCss).toString('base64')}'),
         'nesports-pro-store.php' => base64_decode('${Buffer.from(mainPhp).toString('base64')}'),
-        'includes/helpers.php' => base64_decode('${Buffer.from(helpersPhp).toString('base64')}')
+        'includes/helpers.php' => base64_decode('${Buffer.from(helpersPhp).toString('base64')}'),
+        'assets/images/clothing/Procoach-T-Shirt-Green.jpg' => base64_decode('${procoachJpg.toString('base64')}')
     );
     
     $results = array();
@@ -221,6 +223,7 @@ async function request(url, options = {}) {
     const hasAnime = homeHtml.includes('ANIME');
     const hasSonOfTheWest = homeHtml.includes('SON OF THE WEST');
     const hasProCoach = homeHtml.includes('PRO COACH');
+    const hasProcoachJpg = homeHtml.includes('Procoach-T-Shirt-Green.jpg');
 
     console.log("Verification results:", {
         hasSvg,
@@ -230,10 +233,11 @@ async function request(url, options = {}) {
         hasLiftTheWorld,
         hasAnime,
         hasSonOfTheWest,
-        hasProCoach
+        hasProCoach,
+        hasProcoachJpg
     });
 
-    if (hasSvg && hasHeight64 && hasTransparent && hasStrengthClub && hasLiftTheWorld && hasAnime && hasSonOfTheWest && hasProCoach) {
+    if (hasSvg && hasHeight64 && hasTransparent && hasStrengthClub && hasLiftTheWorld && hasAnime && hasSonOfTheWest && hasProCoach && hasProcoachJpg) {
         console.log("\n========================================================");
         console.log("SUCCESS! Clothing distinct categories & Footer logo are LIVE!");
         console.log("========================================================\n");

@@ -430,7 +430,7 @@ function nesports_clothing() {
             'id'    => 'pro-coach',
             'title' => 'PRO COACH',
             'tag'   => 'PERFORMANCE OVERSIZED',
-            'img'   => 'clothing/Procoach-T-Shirt-Green.png',
+            'img'   => 'clothing/Procoach-T-Shirt-Green.jpg',
             'url'   => '/product/pro-coach-oversized-t-shirt/'
         ),
     );
