@@ -402,38 +402,330 @@ function nesports_clothing() {
             'id'    => 'strength-club',
             'title' => 'STRENGTH CLUB',
             'tag'   => 'HEAVYWEIGHT OVERSIZED',
-            'img'   => 'clothing/Black NE3Sports Strength Club T-Shirt.png',
-            'url'   => '/product/strength-club-oversized-t-shirt/'
+            'img'   => 'clothing/cat-strength-club.jpg',
+            'url'   => '/collections/strength-club/'
         ),
         array(
             'id'    => 'lift-the-world',
             'title' => 'LIFT THE WORLD',
             'tag'   => 'SIGNATURE ATHLETE TEE',
-            'img'   => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
-            'url'   => '/product/lift-the-world-oversized-t-shirt/'
+            'img'   => 'clothing/cat-lift-the-world.jpg',
+            'url'   => '/collections/lift-the-world/'
         ),
         array(
             'id'    => 'anime-drop',
             'title' => 'ANIME',
             'tag'   => 'LIMITED EDITION GRAPHIC',
-            'img'   => 'clothing/Anime-6.jpg',
-            'url'   => '/product/anime-oversized-t-shirt/'
+            'img'   => 'clothing/cat-anime.jpg',
+            'url'   => '/collections/anime/'
         ),
         array(
             'id'    => 'son-of-the-west',
             'title' => 'SON OF THE WEST',
             'tag'   => 'ACID WASH STATEMENT',
-            'img'   => 'clothing/Back-Son-Of-The-West.jpg',
-            'url'   => '/product/son-of-the-west-oversized-t-shirt/'
+            'img'   => 'clothing/cat-son-of-the-west.jpg',
+            'url'   => '/collections/son-of-the-west/'
         ),
         array(
             'id'    => 'pro-coach',
             'title' => 'PRO COACH',
             'tag'   => 'PERFORMANCE OVERSIZED',
-            'img'   => 'clothing/Procoach-T-Shirt-Green.jpg',
-            'url'   => '/product/pro-coach-oversized-t-shirt/'
+            'img'   => 'clothing/cat-pro-coach.jpg',
+            'url'   => '/collections/pro-coach/'
         ),
     );
+}
+
+/**
+ * Clothing Collections with 3 sub-images per product (matching Hardbody collection reference).
+ */
+function nesports_clothing_collections($collection_slug = '') {
+    $collections = array(
+        'strength-club' => array(
+            'title' => 'Strength Club Collection',
+            'slug'  => 'strength-club',
+            'desc'  => 'Heavyweight oversized lifter t-shirts featuring authentic NE3Sports Strength Club graphics.',
+            'products' => array(
+                array(
+                    'name'   => 'Strength Club Classic T-Shirt (White)',
+                    'slug'   => 'strength-club-oversized-t-shirt',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/cat-strength-club.jpg',
+                        'clothing/Black NE3Sports Strength Club T-Shirt.png',
+                        'clothing/Black T-Shirt with Red Strength Club Design.png'
+                    ),
+                    'url'    => '/product/strength-club-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Strength Club Pro T-Shirt (Blue)',
+                    'slug'   => 'strength-club-pro-t-shirt-blue',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Black NE3Sports Strength Club T-Shirt (1).png',
+                        'clothing/cat-strength-club.jpg',
+                        'clothing/Black NE3Sports Strength Club T-Shirt.png'
+                    ),
+                    'url'    => '/product/strength-club-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Strength Club Red Edition T-Shirt',
+                    'slug'   => 'strength-club-red-edition-t-shirt',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Black T-Shirt with Red Strength Club Design.png',
+                        'clothing/cat-strength-club.jpg',
+                        'clothing/Black NE3Sports Strength Club T-Shirt (1).png'
+                    ),
+                    'url'    => '/product/strength-club-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Strength Club Heavyweight Lifter Tee',
+                    'slug'   => 'strength-club-heavyweight-lifter-tee',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Black NE3Sports Strength Club T-Shirt.png',
+                        'clothing/Black T-Shirt with Red Strength Club Design.png',
+                        'clothing/cat-strength-club.jpg'
+                    ),
+                    'url'    => '/product/strength-club-oversized-t-shirt/'
+                ),
+            ),
+        ),
+        'lift-the-world' => array(
+            'title' => 'Lift The World Collection',
+            'slug'  => 'lift-the-world',
+            'desc'  => 'Signature athlete oversized tees built for heavyweight powerlifters and gym warriors.',
+            'products' => array(
+                array(
+                    'name'   => 'Lift The World T-Shirt (Stealth Black)',
+                    'slug'   => 'lift-the-world-oversized-t-shirt',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/cat-lift-the-world.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg'
+                    ),
+                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Lift The World T-Shirt (Crimson Red)',
+                    'slug'   => 'lift-the-world-t-shirt-crimson-red',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/cat-lift-the-world.jpg'
+                    ),
+                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Lift The World Signature Athlete Tee',
+                    'slug'   => 'lift-the-world-signature-athlete-tee',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                        'clothing/cat-lift-the-world.jpg'
+                    ),
+                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Lift The World Heavyweight Drop',
+                    'slug'   => 'lift-the-world-heavyweight-drop',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                        'clothing/cat-lift-the-world.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg'
+                    ),
+                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
+                ),
+            ),
+        ),
+        'anime' => array(
+            'title' => 'Anime Collection',
+            'slug'  => 'anime',
+            'desc'  => 'Limited edition oversized anime lifter graphics inspired by legendary battles.',
+            'products' => array(
+                array(
+                    'name'   => 'Arise Anime T-Shirt',
+                    'slug'   => 'arise-anime-t-shirt',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/cat-anime.jpg',
+                        'clothing/Anime-6.jpg',
+                        'clothing/Anime-1.jpg'
+                    ),
+                    'url'    => '/product/anime-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Born of Darkness Anime T-Shirt',
+                    'slug'   => 'born-of-darkness-anime-t-shirt',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/Anime-2.jpg',
+                        'clothing/cat-anime.jpg',
+                        'clothing/Anime-6.jpg'
+                    ),
+                    'url'    => '/product/anime-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Son Of The West Anime T-Shirt',
+                    'slug'   => 'son-of-the-west-anime-t-shirt',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/cat-son-of-the-west.jpg',
+                        'clothing/Back-Son-Of-The-West.jpg',
+                        'clothing/Anime-1.jpg'
+                    ),
+                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Berserk Anime Statement T-Shirt',
+                    'slug'   => 'berserk-anime-statement-t-shirt',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/Anime-6.jpg',
+                        'clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg',
+                        'clothing/Anime-2.jpg'
+                    ),
+                    'url'    => '/product/anime-oversized-t-shirt/'
+                ),
+            ),
+        ),
+        'son-of-the-west' => array(
+            'title' => 'Son Of The West Collection',
+            'slug'  => 'son-of-the-west',
+            'desc'  => 'Acid wash statement t-shirts engineered with distressed anime lifter artwork.',
+            'products' => array(
+                array(
+                    'name'   => 'Son Of The West Statement T-Shirt',
+                    'slug'   => 'son-of-the-west-oversized-t-shirt',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/cat-son-of-the-west.jpg',
+                        'clothing/Back-Son-Of-The-West.jpg',
+                        'clothing/Anime-1.jpg'
+                    ),
+                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Son Of The West Vintage Acid Wash',
+                    'slug'   => 'son-of-the-west-vintage-acid-wash',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/Back-Son-Of-The-West.jpg',
+                        'clothing/cat-son-of-the-west.jpg',
+                        'clothing/Anime-2.jpg'
+                    ),
+                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Son Of The West Dragon Graphic Tee',
+                    'slug'   => 'son-of-the-west-dragon-graphic-tee',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/cat-son-of-the-west.jpg',
+                        'clothing/Anime-6.jpg',
+                        'clothing/Back-Son-Of-The-West.jpg'
+                    ),
+                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Son Of The West Heavyweight Lifter Tee',
+                    'slug'   => 'son-of-the-west-heavyweight-lifter-tee',
+                    'price'  => 39.99,
+                    'old'    => 49.99,
+                    'images' => array(
+                        'clothing/Back-Son-Of-The-West.jpg',
+                        'clothing/Anime-1.jpg',
+                        'clothing/cat-son-of-the-west.jpg'
+                    ),
+                    'url'    => '/product/son-of-the-west-oversized-t-shirt/'
+                ),
+            ),
+        ),
+        'pro-coach' => array(
+            'title' => 'Pro Coach Collection',
+            'slug'  => 'pro-coach',
+            'desc'  => 'Performance oversized tees with Born in Iron graphics for dedicated coaches and lifters.',
+            'products' => array(
+                array(
+                    'name'   => 'Pro Coach Performance T-Shirt (Forest Green)',
+                    'slug'   => 'pro-coach-oversized-t-shirt',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/cat-pro-coach.jpg',
+                        'clothing/Procoach-T-Shirt-Green.jpg',
+                        'clothing/Red Pro Coach Iron Tee Back Print.png'
+                    ),
+                    'url'    => '/product/pro-coach-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Pro Coach Iron Tee (Red Print)',
+                    'slug'   => 'pro-coach-iron-tee-red-print',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Red Pro Coach Iron Tee Back Print.png',
+                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                        'clothing/cat-pro-coach.jpg'
+                    ),
+                    'url'    => '/product/pro-coach-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Pro Coach Graphic Tee (Vintage Navy)',
+                    'slug'   => 'pro-coach-graphic-tee-vintage-navy',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                        'clothing/cat-pro-coach.jpg',
+                        'clothing/Procoach-T-Shirt-Green.jpg'
+                    ),
+                    'url'    => '/product/pro-coach-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Pro Coach Born In Iron Heavyweight Tee',
+                    'slug'   => 'pro-coach-born-in-iron-heavyweight-tee',
+                    'price'  => 34.99,
+                    'old'    => 44.99,
+                    'images' => array(
+                        'clothing/cat-pro-coach.jpg',
+                        'clothing/Red Pro Coach Iron Tee Back Print.png',
+                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png'
+                    ),
+                    'url'    => '/product/pro-coach-oversized-t-shirt/'
+                ),
+            ),
+        ),
+    );
+
+    // Aliases
+    $collections['anime-drop']       = $collections['anime'];
+    $collections['anime_collection'] = $collections['anime'];
+
+    if (!empty($collection_slug)) {
+        return isset($collections[$collection_slug]) ? $collections[$collection_slug] : null;
+    }
+    return $collections;
 }
 
 /**

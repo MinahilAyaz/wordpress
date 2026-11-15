@@ -96,8 +96,8 @@ class NESports_Frontend {
             }
         }
 
-        // Virtual Product Category Route (/product-category/<slug>/ or /category/<slug>/)
-        if (preg_match('#/(?:product-category|category)/([^/]+)$#i', $req_path, $m)) {
+        // Virtual Product Category / Collection Route (/product-category/<slug>/, /category/<slug>/, /collections/<slug>/, /collection/<slug>/)
+        if (preg_match('#/(?:product-category|category|collections|collection)/([^/]+)$#i', $req_path, $m)) {
             $_GET['cat'] = sanitize_title($m[1]);
             global $wp_query;
             if ($wp_query) {
