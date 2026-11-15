@@ -172,7 +172,7 @@ if ($collection_data && !empty($collection_data['products'])) {
     line-height: 1.2 !important;
 }
 
-/* Toolbar matching Screenshot 2: [Show filters] and Sort by: [Featured •] */
+/* Toolbar matching Screenshot 2: [Show filters] & Sort by: [Featured •] */
 .hb-collection-toolbar {
     max-width: 1440px !important;
     margin: 16px auto 24px !important;
@@ -339,6 +339,7 @@ if ($collection_data && !empty($collection_data['products'])) {
     box-shadow: 0 2px 12px rgba(0,0,0,0.04) !important;
     border: 1px solid #f0f0f2 !important;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative !important;
 }
 .hb-card:hover {
     transform: translateY(-4px) !important;
@@ -356,21 +357,46 @@ if ($collection_data && !empty($collection_data['products'])) {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
     text-decoration: none !important;
 }
+
+/* Horizontal slide track with smooth left-to-right cubic-bezier transition */
+.hb-card-slider-track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: translateX(0%);
+    transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: transform !important;
+}
+.hb-card-slide {
+    flex: 0 0 100% !important;
+    min-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.hb-card-slide-img,
 .hb-img-main {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     object-position: center !important;
     display: block !important;
-    transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    pointer-events: none !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
+.hb-card:hover .hb-card-slide-img,
 .hb-card:hover .hb-img-main {
-    transform: scale(1.03) !important;
+    transform: scale(1.025);
 }
 
-/* 3-dot interactive sub-images indicator matching Screenshot 2 */
+/* 3-dot interactive indicator - reveals on hover matching Hardbody Screenshot 2 */
 .hb-card-dots-wrap {
     position: absolute !important;
     bottom: 12px !important;
@@ -381,6 +407,14 @@ if ($collection_data && !empty($collection_data['products'])) {
     align-items: center !important;
     z-index: 6 !important;
     pointer-events: none !important;
+    opacity: 0 !important;
+    transform: translateY(6px) !important;
+    transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+.hb-card:hover .hb-card-dots-wrap,
+.hb-card:focus-within .hb-card-dots-wrap {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 .hb-card-dots {
     display: inline-flex !important;
@@ -586,7 +620,7 @@ if ($collection_data && !empty($collection_data['products'])) {
                 <div class="hb-product-grid" id="hb-product-grid">
                     <?php foreach ($filtered_products as $p):
                         $url      = !empty($p['url']) ? home_url($p['url']) : home_url('/product/' . $p['slug'] . '/');
-                        $has_sub  = !empty($p['images']) && is_array($p['images']);
+                        $has_sub  = !empty($p['images']) && is_array($p['images']) && count($p['images']) > 1;
                         $main_src = $has_sub ? nesports_img($p['images'][0]) : nesports_img(isset($p['main']) ? $p['main'] : '');
                         $on_sale  = isset($p['old']) && $p['old'] > $p['price'];
                         $price    = (float) $p['price'];
@@ -595,15 +629,25 @@ if ($collection_data && !empty($collection_data['products'])) {
                     <article class="hb-card" data-slug="<?php echo esc_attr($p['slug']); ?>" data-name="<?php echo esc_attr($name); ?>" data-price="<?php echo esc_attr($price); ?>">
                         <div class="hb-card-top-wrap">
                             <a class="hb-card-media" href="<?php echo esc_url($url); ?>">
-                                <img class="hb-img-main hb-subimg-target" src="<?php echo esc_url($main_src); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
+                                <?php if ($has_sub): ?>
+                                    <div class="hb-card-slider-track">
+                                        <?php foreach ($p['images'] as $idx => $img_path): ?>
+                                        <div class="hb-card-slide" data-idx="<?php echo $idx; ?>">
+                                            <img class="hb-card-slide-img" src="<?php echo esc_url(nesports_img($img_path)); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
+                                        </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <img class="hb-img-main" src="<?php echo esc_url($main_src); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
+                                <?php endif; ?>
                             </a>
 
-                            <?php if ($has_sub && count($p['images']) > 1): ?>
-                            <!-- 3 Sub-images Dots Indicator -->
+                            <?php if ($has_sub): ?>
+                            <!-- 3 Sub-images Dots Indicator (Reveals on Hover matching Screenshot 2) -->
                             <div class="hb-card-dots-wrap">
                                 <div class="hb-card-dots">
                                     <?php foreach ($p['images'] as $idx => $img_path): ?>
-                                    <button type="button" class="hb-card-dot<?php echo $idx === 0 ? ' is-active' : ''; ?>" data-src="<?php echo esc_url(nesports_img($img_path)); ?>" data-idx="<?php echo $idx; ?>" aria-label="Photo <?php echo $idx + 1; ?>"></button>
+                                    <button type="button" class="hb-card-dot<?php echo $idx === 0 ? ' is-active' : ''; ?>" data-idx="<?php echo $idx; ?>" aria-label="Photo <?php echo $idx + 1; ?>"></button>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -630,31 +674,99 @@ if ($collection_data && !empty($collection_data['products'])) {
 
 <script id="hb-collection-page-js">
 (function() {
-    function initCardDots() {
-        var dots = document.querySelectorAll('.hb-card-dot');
-        dots.forEach(function(dot) {
-            function activate() {
-                var card = dot.closest('.hb-card');
-                if (!card) return;
-                var img = card.querySelector('.hb-subimg-target');
-                var src = dot.getAttribute('data-src');
-                if (img && src && img.getAttribute('src') !== src) {
-                    img.style.opacity = '0.7';
-                    img.setAttribute('src', src);
-                    img.onload = function() { img.style.opacity = '1'; };
-                    setTimeout(function() { img.style.opacity = '1'; }, 150);
+    function initCardSliders() {
+        var cards = document.querySelectorAll('.hb-card');
+        cards.forEach(function(card) {
+            var track = card.querySelector('.hb-card-slider-track');
+            if (!track) return;
+            var slides = card.querySelectorAll('.hb-card-slide');
+            var dots = card.querySelectorAll('.hb-card-dot');
+            var count = slides.length;
+            if (count <= 1) return;
+
+            var currentIdx = 0;
+
+            function goTo(index) {
+                if (index < 0) index = 0;
+                if (index >= count) index = count - 1;
+                if (currentIdx === index && track.style.transform === 'translateX(-' + (index * 100) + '%)') {
+                    return;
                 }
-                card.querySelectorAll('.hb-card-dot').forEach(function(d) {
-                    d.classList.remove('is-active');
+                currentIdx = index;
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                dots.forEach(function(d, i) {
+                    if (i === index) {
+                        d.classList.add('is-active');
+                    } else {
+                        d.classList.remove('is-active');
+                    }
                 });
-                dot.classList.add('is-active');
             }
-            dot.addEventListener('mouseenter', activate);
-            dot.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                activate();
+
+            // Left-to-right cursor movement scrubs through slides (Hardbody SecondaryMedia logic)
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var mouseX = e.clientX - rect.left;
+                var width = rect.width;
+                if (width <= 0) return;
+
+                var targetIndex = 0;
+                if (count === 2) {
+                    targetIndex = (mouseX < width * 0.5) ? 0 : 1;
+                } else if (count === 3) {
+                    if (mouseX < width * 0.33) {
+                        targetIndex = 0;
+                    } else if (mouseX < width * 0.67) {
+                        targetIndex = 1;
+                    } else {
+                        targetIndex = 2;
+                    }
+                } else {
+                    targetIndex = Math.min(count - 1, Math.floor((mouseX / width) * count));
+                }
+
+                goTo(targetIndex);
             });
+
+            // Mouse leaves the shirt card: smoothly slides back to the first image
+            card.addEventListener('mouseleave', function() {
+                goTo(0);
+            });
+
+            // Dot hover & click
+            dots.forEach(function(dot) {
+                function activate(e) {
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    var idx = parseInt(dot.getAttribute('data-idx') || '0', 10);
+                    goTo(idx);
+                }
+                dot.addEventListener('mouseenter', activate);
+                dot.addEventListener('click', activate);
+            });
+
+            // Touch swipe support for mobile
+            var touchStartX = 0;
+            card.addEventListener('touchstart', function(e) {
+                if (e.touches && e.touches[0]) {
+                    touchStartX = e.touches[0].clientX;
+                }
+            }, { passive: true });
+
+            card.addEventListener('touchend', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    var diffX = e.changedTouches[0].clientX - touchStartX;
+                    if (Math.abs(diffX) > 35) {
+                        if (diffX < 0) {
+                            goTo(currentIdx + 1);
+                        } else {
+                            goTo(currentIdx - 1);
+                        }
+                    }
+                }
+            }, { passive: true });
         });
 
         // Filter button toggle
@@ -698,9 +810,9 @@ if ($collection_data && !empty($collection_data['products'])) {
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCardDots);
+        document.addEventListener('DOMContentLoaded', initCardSliders);
     } else {
-        initCardDots();
+        initCardSliders();
     }
 })();
 </script>

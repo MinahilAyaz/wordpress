@@ -508,7 +508,7 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/cat-lift-the-world.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg',
                         'clothing/Lift-The-World-T-Shirt-Red-1.jpg'
                     ),
                     'url'    => '/product/lift-the-world-oversized-t-shirt/'
@@ -520,7 +520,7 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg',
                         'clothing/cat-lift-the-world.jpg'
                     ),
                     'url'    => '/product/lift-the-world-oversized-t-shirt/'
@@ -532,8 +532,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-                        'clothing/cat-lift-the-world.jpg'
+                        'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg'
                     ),
                     'url'    => '/product/lift-the-world-oversized-t-shirt/'
                 ),
@@ -544,8 +544,8 @@ function nesports_clothing_collections($collection_slug = '') {
                     'old'    => 44.99,
                     'images' => array(
                         'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-                        'clothing/cat-lift-the-world.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg'
+                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg',
+                        'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg'
                     ),
                     'url'    => '/product/lift-the-world-oversized-t-shirt/'
                 ),
