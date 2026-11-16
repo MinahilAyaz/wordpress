@@ -441,53 +441,60 @@ function nesports_bundles() {
 function nesports_clothing() {
     return array(
         array(
-            'id'    => 'strength-club',
-            'title' => 'STRENGTH CLUB',
-            'tag'   => 'HEAVYWEIGHT OVERSIZED',
-            'img'   => 'clothing/model-strength-club-back.jpg',
-            'url'   => '/collections/strength-club/'
+            'id'        => 'strength-club',
+            'title'     => 'STRENGTH CLUB',
+            'tag'       => 'HEAVYWEIGHT OVERSIZED',
+            'img'       => 'clothing/model-strength-club-back.jpg',
+            'hover_img' => 'clothing/model-strength-club-hover.jpg',
+            'url'       => '/collections/strength-club/'
         ),
         array(
-            'id'    => 'lift-the-world',
-            'title' => 'LIFT THE WORLD',
-            'tag'   => 'SIGNATURE ATHLETE TEE',
-            'img'   => 'clothing/model-lift-the-world-back.jpg',
-            'url'   => '/collections/lift-the-world/'
+            'id'        => 'lift-the-world',
+            'title'     => 'LIFT THE WORLD',
+            'tag'       => 'SIGNATURE ATHLETE TEE',
+            'img'       => 'clothing/model-lift-the-world-back.jpg',
+            'hover_img' => 'clothing/model-lift-the-world-hover.jpg',
+            'url'       => '/collections/lift-the-world/'
         ),
         array(
-            'id'    => 'anime-drop',
-            'title' => 'ANIME',
-            'tag'   => 'LIMITED EDITION GRAPHIC',
-            'img'   => 'clothing/model-anime-back.jpg',
-            'url'   => '/collections/anime/'
+            'id'        => 'anime-drop',
+            'title'     => 'ANIME',
+            'tag'       => 'LIMITED EDITION GRAPHIC',
+            'img'       => 'clothing/model-anime-back.jpg',
+            'hover_img' => 'clothing/model-anime-hover.jpg',
+            'url'       => '/collections/anime/'
         ),
         array(
-            'id'    => 'son-of-the-west',
-            'title' => 'SON OF THE WEST',
-            'tag'   => 'ACID WASH STATEMENT',
-            'img'   => 'clothing/model-son-of-the-west-back.jpg',
-            'url'   => '/collections/son-of-the-west/'
+            'id'        => 'son-of-the-west',
+            'title'     => 'SON OF THE WEST',
+            'tag'       => 'ACID WASH STATEMENT',
+            'img'       => 'clothing/model-son-of-the-west-back.jpg',
+            'hover_img' => 'clothing/model-son-of-the-west-hover.jpg',
+            'url'       => '/collections/son-of-the-west/'
         ),
         array(
-            'id'    => 'pro-coach',
-            'title' => 'PRO COACH',
-            'tag'   => 'PERFORMANCE OVERSIZED',
-            'img'   => 'clothing/model-pro-coach-back.jpg',
-            'url'   => '/collections/pro-coach/'
+            'id'        => 'pro-coach',
+            'title'     => 'PRO COACH',
+            'tag'       => 'PERFORMANCE OVERSIZED',
+            'img'       => 'clothing/model-pro-coach-back.jpg',
+            'hover_img' => 'clothing/model-pro-coach-hover.jpg',
+            'url'       => '/collections/pro-coach/'
         ),
         array(
-            'id'    => 'hoodies',
-            'title' => 'HOODIES',
-            'tag'   => 'BOX CUT FLEECE',
-            'img'   => 'clothing/hoodie-pro-coach-back.jpg',
-            'url'   => '/collections/pro-coach/'
+            'id'        => 'hoodies',
+            'title'     => 'HOODIES',
+            'tag'       => 'BOX CUT FLEECE',
+            'img'       => 'clothing/hoodie-pro-coach-back.jpg',
+            'hover_img' => 'clothing/model-hoodie-hover.jpg',
+            'url'       => '/collections/pro-coach/'
         ),
         array(
-            'id'    => 'trousers',
-            'title' => 'TROUSERS',
-            'tag'   => 'HEAVYWEIGHT SWEATPANTS',
-            'img'   => 'clothing/trousers-lifter-sweatpants.jpg',
-            'url'   => '/collections/strength-club/'
+            'id'        => 'trousers',
+            'title'     => 'TROUSERS',
+            'tag'       => 'HEAVYWEIGHT SWEATPANTS',
+            'img'       => 'clothing/trousers-lifter-sweatpants.jpg',
+            'hover_img' => 'clothing/model-trousers-hover.jpg',
+            'url'       => '/collections/strength-club/'
         ),
     );
 }
@@ -862,11 +869,11 @@ function nesports_color_items() {
                     'name'      => 'Speed Ball Set Leather (Red & Black)',
                     'price'     => 24.99,
                     'old_price' => 39.99,
-                    'img'       => '1-1-2-800x800.jpg',
+                    'img'       => 'speed-ball-red-1.jpg',
                     'images'    => array(
-                        '1-1-2-800x800.jpg',
-                        '1-1-800x800.jpg',
-                        'hero-speed-ball.png',
+                        'speed-ball-red-1.jpg',
+                        'speed-ball-red-2.jpg',
+                        'speed-ball-red-3.jpg',
                     ),
                     'url'       => '/product/speed-ball-set-maya-hide-leather-red-black/',
                     'cat'       => 'speed'
@@ -952,11 +959,11 @@ function nesports_color_items() {
                     'price'     => 9.99,
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
-                    'img'       => '1-800x800.jpg',
+                    'img'       => 'straps-black-1.jpg',
                     'images'    => array(
-                        '1-800x800.jpg',
-                        'A2.jpg',
-                        'hero-lifting-straps.png',
+                        'straps-black-1.jpg',
+                        'straps-black-2.jpg',
+                        'straps-black-3.jpg',
                     ),
                     'url'       => '/product/lifting-straps-with-extra-padded-black/',
                     'cat'       => 'straps'
@@ -966,11 +973,11 @@ function nesports_color_items() {
                     'price'     => 11.99,
                     'old_price' => 14.99,
                     'badge'     => 'Save 20%',
-                    'img'       => 'Gym-Bag-scaled.jpg',
+                    'img'       => 'gym-bag-black-1.jpg',
                     'images'    => array(
-                        'Gym-Bag-scaled.jpg',
-                        'Gym-Bag-8-800x800.jpg',
-                        'Gym-Bag-9-800x800.jpg',
+                        'gym-bag-black-1.jpg',
+                        'gym-bag-black-2.jpg',
+                        'gym-bag-black-3.jpg',
                     ),
                     'url'       => '/product/water-proof-gym-bag-black/',
                     'cat'       => 'bags'
@@ -1028,11 +1035,11 @@ function nesports_color_items() {
                     'price'     => 29.99,
                     'old_price' => 39.99,
                     'badge'     => 'Save 25%',
-                    'img'       => 'Knee-Wrap-9-800x800.jpg',
+                    'img'       => 'knee-wrap-blue-1.jpg',
                     'images'    => array(
-                        'Knee-Wrap-9-800x800.jpg',
-                        'Knee-Wrap-800x800.jpg',
-                        'hero-knee-wrap.png',
+                        'knee-wrap-blue-1.jpg',
+                        'knee-wrap-blue-2.jpg',
+                        'knee-wrap-blue-3.jpg',
                     ),
                     'url'       => '/product/knee-wrap-copy/',
                     'cat'       => 'knee'
@@ -1042,11 +1049,11 @@ function nesports_color_items() {
                     'price'     => 9.99,
                     'old_price' => 14.99,
                     'badge'     => 'Save 33%',
-                    'img'       => 'A2.jpg',
+                    'img'       => 'straps-blue-1.jpg',
                     'images'    => array(
-                        'A2.jpg',
-                        '1-800x800.jpg',
-                        'hero-lifting-straps.png',
+                        'straps-blue-1.jpg',
+                        'straps-blue-2.jpg',
+                        'straps-blue-3.jpg',
                     ),
                     'url'       => '/product/lifting-strap-padded-blue/',
                     'cat'       => 'straps'
@@ -1056,11 +1063,11 @@ function nesports_color_items() {
                     'price'     => 11.99,
                     'old_price' => 19.99,
                     'badge'     => 'Save 40%',
-                    'img'       => 'Gym-Bag-8-800x800.jpg',
+                    'img'       => 'gym-bag-blue-1.jpg',
                     'images'    => array(
-                        'Gym-Bag-8-800x800.jpg',
-                        'Gym-Bag-1-800x800.jpg',
-                        'Gym-Bag-8-800x800.jpg',
+                        'gym-bag-blue-1.jpg',
+                        'gym-bag-blue-2.jpg',
+                        'gym-bag-blue-3.jpg',
                     ),
                     'url'       => '/product/water-proof-gym-bag-blue/',
                     'cat'       => 'bags'
@@ -1070,11 +1077,11 @@ function nesports_color_items() {
                     'price'     => 24.99,
                     'old_price' => 24.99,
                     'badge'     => 'Limited',
-                    'img'       => 'DSC_0177-scaled-1.jpg',
+                    'img'       => 'barbell-pad-blue-1.jpg',
                     'images'    => array(
-                        'DSC_0177-scaled-1.jpg',
-                        'Baerbell-Pad-scaled.jpg',
-                        'Barbell-Pad-1-scaled.jpg',
+                        'barbell-pad-blue-1.jpg',
+                        'barbell-pad-blue-2.jpg',
+                        'barbell-pad-blue-3.jpg',
                     ),
                     'url'       => '/product/barbell-pad-camo-blue/',
                     'cat'       => 'pads'
@@ -1087,8 +1094,8 @@ function nesports_color_items() {
                     'img'       => 'Ankle-Strap-Cable-pull-5-scaled.jpg',
                     'images'    => array(
                         'Ankle-Strap-Cable-pull-5-scaled.jpg',
-                        'Ankle-Strap-Cable-pull-scaled.jpg',
-                        'Ankle-Strap-Cable-pull-1-scaled.jpg',
+                        'Ankle-Strap-Cable-pull-3-scaled.jpg',
+                        'Ankle-Strap-Cable-pull-5-scaled.jpg',
                     ),
                     'url'       => '/product/ankle-strap-camo-blue/',
                     'cat'       => 'ankle'
@@ -1098,11 +1105,11 @@ function nesports_color_items() {
                     'price'     => 9.99,
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
-                    'img'       => 'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
+                    'img'       => 'straps-blue-2.jpg',
                     'images'    => array(
-                        'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
-                        'A2.jpg',
-                        'hero-lifting-straps.png',
+                        'straps-blue-2.jpg',
+                        'straps-blue-1.jpg',
+                        'straps-blue-3.jpg',
                     ),
                     'url'       => '/product/lifting-straps-padded-blue-2/',
                     'cat'       => 'straps'
@@ -1172,11 +1179,11 @@ function nesports_color_items() {
                     'price'     => 24.99,
                     'old_price' => 39.99,
                     'badge'     => 'Save 38%',
-                    'img'       => '1-1-800x800.jpg',
+                    'img'       => 'speed-ball-gold-1.jpg',
                     'images'    => array(
-                        '1-1-800x800.jpg',
-                        'hero-speed-ball.png',
-                        '1-1-2-800x800.jpg',
+                        'speed-ball-gold-1.jpg',
+                        'speed-ball-gold-2.jpg',
+                        'speed-ball-gold-3.jpg',
                     ),
                     'url'       => '/product/speed-ball-set-maya-hide-leather/',
                     'cat'       => 'speed'
@@ -1186,11 +1193,11 @@ function nesports_color_items() {
                     'price'     => 9.99,
                     'old_price' => 19.99,
                     'badge'     => 'Save 50%',
-                    'img'       => 'Wrist-Bandage-3.jpg',
+                    'img'       => 'wrist-bandage-gold-1.jpg',
                     'images'    => array(
-                        'Wrist-Bandage-3.jpg',
-                        'Wrist-Bandage-1-800x800.jpg',
-                        'Wrist-Bandage-Black-800x800.jpg',
+                        'wrist-bandage-gold-1.jpg',
+                        'wrist-bandage-gold-2.jpg',
+                        'wrist-bandage-gold-3.jpg',
                     ),
                     'url'       => '/product/wrist-bandages-45-cm-wrist-black/',
                     'cat'       => 'wrist'

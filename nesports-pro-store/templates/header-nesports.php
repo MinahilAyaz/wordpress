@@ -69,7 +69,7 @@ if (function_exists('nocache_headers') && !headers_sent()) {
 <header class="hb-header<?php echo $is_home_page ? ' hb-header--overlay' : ''; ?>" id="hb-main-header">
     <div class="hb-header-inner">
         <a class="hb-logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="NESPORTS3">
-            <img src="<?php echo esc_url(nesports_img('logo-1.png')); ?>" alt="NESPORTS3">
+            <img src="<?php echo esc_url(nesports_img('logo-1.svg')); ?>" alt="NESPORTS3" width="180" height="64">
         </a>
 
         <nav class="hb-nav" id="hb-primary-nav" aria-label="Primary">

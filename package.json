@@ -2,6 +2,7 @@
   "name": "nesports-workspace",
   "version": "1.0.0",
   "dependencies": {
+    "potrace": "^2.1.8",
     "sharp": "^0.35.5",
     "undici": "^8.12.4"
   }

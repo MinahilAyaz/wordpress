@@ -111,20 +111,46 @@ $clothing = nesports_clothing();
         transform: translateY(-4px) !important;
         box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16) !important;
     }
+    .hb-clothing-card-media {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+    }
     .hb-clothing-card-img {
+        position: absolute !important;
+        inset: 0 !important;
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
         object-position: center !important;
         display: block !important;
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transition: opacity 0.45s ease-in-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        will-change: opacity, transform !important;
     }
-    .hb-clothing-card:hover .hb-clothing-card-img {
+    .hb-clothing-card-img.hb-img-primary {
+        opacity: 1 !important;
+        z-index: 1 !important;
+        transform: scale(1) !important;
+    }
+    .hb-clothing-card-img.hb-img-hover {
+        opacity: 0 !important;
+        z-index: 2 !important;
+        transform: scale(1.02) !important;
+    }
+    .hb-clothing-card:hover .hb-clothing-card-img.hb-img-primary {
+        opacity: 0 !important;
+        transform: scale(1.06) !important;
+    }
+    .hb-clothing-card:hover .hb-clothing-card-img.hb-img-hover {
+        opacity: 1 !important;
         transform: scale(1.06) !important;
     }
     .hb-clothing-card-overlay {
         position: absolute !important;
         inset: 0 !important;
+        z-index: 3 !important;
         background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.65) 80%, rgba(0,0,0,0.92) 100%) !important;
         pointer-events: none !important;
         transition: opacity 0.3s ease !important;
@@ -137,7 +163,7 @@ $clothing = nesports_clothing();
         bottom: 16px !important;
         left: 14px !important;
         right: 14px !important;
-        z-index: 2 !important;
+        z-index: 4 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: flex-start !important;
@@ -210,9 +236,14 @@ $clothing = nesports_clothing();
 
     <div class="hb-clothing-carousel-wrap">
         <div class="hb-clothing-track" id="hb-clothing-track">
-            <?php foreach ($clothing as $c): ?>
+            <?php foreach ($clothing as $c): 
+                $hover_img = !empty($c['hover_img']) ? $c['hover_img'] : $c['img'];
+            ?>
             <a class="hb-clothing-card" href="<?php echo esc_url(home_url($c['url'])); ?>">
-                <img class="hb-clothing-card-img" src="<?php echo esc_url(nesports_img($c['img'])); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+                <div class="hb-clothing-card-media">
+                    <img class="hb-clothing-card-img hb-img-primary" src="<?php echo esc_url(nesports_img($c['img'])); ?>" alt="<?php echo esc_attr($c['title']); ?>" loading="lazy">
+                    <img class="hb-clothing-card-img hb-img-hover" src="<?php echo esc_url(nesports_img($hover_img)); ?>" alt="<?php echo esc_attr($c['title']); ?> Front" loading="lazy">
+                </div>
                 <div class="hb-clothing-card-overlay"></div>
                 <div class="hb-clothing-card-content">
                     <span class="hb-clothing-card-label">
