@@ -41,6 +41,33 @@ $clothing = nesports_clothing();
         gap: 10px !important;
         flex-shrink: 0 !important;
     }
+    .hb-clothing-arrow {
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+        border: 1px solid #e5e7eb !important;
+        background: #ffffff !important;
+        color: #111111 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        padding: 0 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    .hb-clothing-arrow:hover:not(:disabled) {
+        border-color: #111111 !important;
+        background: #111111 !important;
+        color: #ffffff !important;
+        transform: scale(1.05) !important;
+    }
+    .hb-clothing-arrow:disabled {
+        opacity: 0.3 !important;
+        cursor: not-allowed !important;
+        border-color: #e5e7eb !important;
+        color: #a1a1aa !important;
+    }
     .hb-clothing-carousel-wrap {
         position: relative !important;
         width: 100% !important;
@@ -172,11 +199,11 @@ $clothing = nesports_clothing();
     <div class="hb-clothing-header">
         <h2 class="hb-clothing-title">Clothing</h2>
         <div class="hb-clothing-carousel-controls">
-            <button type="button" class="hb-carousel-arrow hb-clothing-prev" id="hb-clothing-prev" aria-label="Previous" disabled>
-                <i class="fa-solid fa-chevron-left"></i>
+            <button type="button" class="hb-clothing-arrow hb-clothing-arrow-prev" id="hb-clothing-prev" aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
-            <button type="button" class="hb-carousel-arrow hb-clothing-next" id="hb-clothing-next" aria-label="Next">
-                <i class="fa-solid fa-chevron-right"></i>
+            <button type="button" class="hb-clothing-arrow hb-clothing-arrow-next" id="hb-clothing-next" aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
         </div>
     </div>

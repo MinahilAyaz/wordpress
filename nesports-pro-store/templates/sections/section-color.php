@@ -173,7 +173,7 @@ $active_color = 'red'; // Default active color
         display: none !important;
     }
 
-    /* NESPORTS3 Card Style (5-card desktop layout) */
+    /* NESPORTS3 Card Style (5-card desktop layout) - Single clean surface, no card inside card */
     .hb-color-card {
         flex: 0 0 calc((100% - 72px) / 5) !important;
         min-width: 220px !important;
@@ -185,6 +185,10 @@ $active_color = 'red'; // Default active color
         text-decoration: none !important;
         color: inherit !important;
         background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
         cursor: pointer !important;
         scroll-snap-align: start !important;
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -222,6 +226,9 @@ $active_color = 'red'; // Default active color
         align-items: center !important;
         justify-content: center !important;
         border: 1px solid #eaeaec !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
         transition: border-color 0.3s ease, box-shadow 0.35s ease !important;
     }
     .hb-color-card:hover .hb-color-media {
@@ -230,22 +237,9 @@ $active_color = 'red'; // Default active color
         box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.08) !important;
     }
 
-    /* Red discount badge matching Hardbody 2nd SS */
+    /* Banners completely removed */
     .hb-color-badge {
-        position: absolute !important;
-        top: 12px !important;
-        left: 12px !important;
-        background: #e11d48 !important;
-        color: #ffffff !important;
-        font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 11px !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.3px !important;
-        padding: 4px 10px !important;
-        border-radius: 9999px !important;
-        z-index: 5 !important;
-        text-transform: uppercase !important;
-        box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3) !important;
+        display: none !important;
     }
 
     /* Multi-angle slide track matching Hardbody Screenshot 2 */
@@ -273,15 +267,21 @@ $active_color = 'red'; // Default active color
     }
     .hb-color-media .hb-card-slide-img,
     .hb-color-media img {
-        width: 86% !important;
-        height: 86% !important;
-        max-width: 86% !important;
-        max-height: 86% !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
         object-fit: contain !important;
         object-position: center !important;
         display: block !important;
         pointer-events: none !important;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .hb-color-media .hb-card-slide-img[src*="model"],
+    .hb-color-media .hb-card-slide-img[src*="hero"],
+    .hb-color-media img[src*="model"],
+    .hb-color-media img[src*="hero"] {
+        object-fit: cover !important;
     }
     .hb-color-card:hover .hb-color-media .hb-card-slide-img,
     .hb-color-card:hover .hb-color-media img {
@@ -451,10 +451,6 @@ $active_color = 'red'; // Default active color
                 ?>
                 <a class="hb-color-card <?php echo $is_shown ? '' : 'is-hidden'; ?>" data-color="<?php echo esc_attr($c_key); ?>" href="<?php echo esc_url(home_url($item['url'])); ?>" style="<?php echo $is_shown ? 'display:flex !important;' : 'display:none !important;'; ?>">
                     <div class="hb-color-media hb-card-media">
-                        <?php if (!empty($item['badge'])): ?>
-                            <span class="hb-color-badge"><?php echo esc_html($item['badge']); ?></span>
-                        <?php endif; ?>
-
                         <?php if ($has_sub): ?>
                             <div class="hb-card-slider-track">
                                 <?php foreach ($card_imgs as $idx => $img_path): ?>

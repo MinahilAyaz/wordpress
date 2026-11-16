@@ -1,6 +1,6 @@
 param(
-    [string]$sourceDir = "C:\Users\abdul\Desktop\wordpress\scratch\nesports-updater-v8",
-    [string]$zipPath = "C:\Users\abdul\Desktop\wordpress\scratch\nesports-updater-v8.zip"
+    [string]$sourceDir = "C:\Users\abdul\Desktop\wordpress\scratch\nesports-updater-v14",
+    [string]$zipPath = "C:\Users\abdul\Desktop\wordpress\scratch\nesports-updater-v14.zip"
 )
 
 Add-Type -AssemblyName System.IO.Compression

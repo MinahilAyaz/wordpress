@@ -235,7 +235,6 @@ function nesports_collections() {
             'subtitle' => 'Genuine Leather 10mm',
             'price'    => '€59.99',
             'old_price'=> '€69.99',
-            'badge'    => 'Save 15%',
             'category' => 'belts',
             'img'      => 'DSC_0167-scaled-1.jpg',
             'images'   => array(
@@ -250,7 +249,6 @@ function nesports_collections() {
             'subtitle' => 'Padded Heavy Duty Grip',
             'price'    => '€9.99',
             'old_price'=> '€14.99',
-            'badge'    => 'Save 15%',
             'category' => 'straps',
             'img'      => '1-800x800.jpg',
             'images'   => array(
@@ -265,7 +263,6 @@ function nesports_collections() {
             'subtitle' => 'Elastic Power Support',
             'price'    => '€16.99',
             'old_price'=> '€19.99',
-            'badge'    => 'Save 15%',
             'category' => 'knee-wrap',
             'img'      => 'Knee-Wrap-800x800.jpg',
             'images'   => array(
@@ -280,7 +277,6 @@ function nesports_collections() {
             'subtitle' => 'Compression Stability',
             'price'    => '€14.99',
             'old_price'=> '€18.99',
-            'badge'    => 'Save 15%',
             'category' => 'elbow-wrap',
             'img'      => 'Elbow-Wrap-1-scaled.jpg',
             'images'   => array(
@@ -295,7 +291,6 @@ function nesports_collections() {
             'subtitle' => 'Thumb Loop Reinforcement',
             'price'    => '€12.99',
             'old_price'=> '€15.99',
-            'badge'    => 'Save 15%',
             'category' => 'wrist-straps',
             'img'      => 'Wrist-Bandage-Black-800x800.jpg',
             'images'   => array(
@@ -310,7 +305,6 @@ function nesports_collections() {
             'subtitle' => 'Waterproof Athletic Pack',
             'price'    => '€8.99',
             'old_price'=> '€11.99',
-            'badge'    => 'Save 15%',
             'category' => 'gym-bag',
             'img'      => 'Gym-Bag-8-800x800.jpg',
             'images'   => array(
@@ -325,7 +319,6 @@ function nesports_collections() {
             'subtitle' => 'Pro Reflex Swivel Set',
             'price'    => '€24.99',
             'old_price'=> '€29.99',
-            'badge'    => 'Save 15%',
             'category' => 'speed-ball',
             'img'      => 'hero-speed-ball.png',
             'images'   => array(
@@ -340,7 +333,6 @@ function nesports_collections() {
             'subtitle' => 'Cable Attachment D-Ring',
             'price'    => '€11.99',
             'old_price'=> '€14.99',
-            'badge'    => 'Save 15%',
             'category' => 'ankle-straps',
             'img'      => 'Ankle-Strap-Cable-pull-scaled.jpg',
             'images'   => array(
@@ -355,7 +347,6 @@ function nesports_collections() {
             'subtitle' => 'Ergonomic Neck Protection',
             'price'    => '€14.99',
             'old_price'=> '€18.99',
-            'badge'    => 'Save 15%',
             'category' => 'barbell-pads',
             'img'      => 'Baerbell-Pad-scaled.jpg',
             'images'   => array(
@@ -425,13 +416,19 @@ function nesports_bundles() {
         if (count($items) < 2) {
             continue;
         }
+        $b_idx = count($bundles) + 1;
         $bundles[] = array(
-            'name'  => $d['name'],
-            'cat'   => $d['cat'],
-            'imgs'  => array($items[0]['main'], $items[1]['main']),
-            'old'   => round($sum, 2),
-            'price' => round($sum * (100 - $discount) / 100, 2),
-            'url'   => '/shop/',
+            'name'   => $d['name'],
+            'cat'    => $d['cat'],
+            'imgs'   => array($items[0]['main'], $items[1]['main']),
+            'images' => array(
+                'bundles/bundle-' . $b_idx . '-1.jpg',
+                'bundles/bundle-' . $b_idx . '-2.jpg',
+                'bundles/bundle-' . $b_idx . '-3.jpg'
+            ),
+            'old'    => round($sum, 2),
+            'price'  => round($sum * (100 - $discount) / 100, 2),
+            'url'    => '/shop/',
         );
     }
     return $bundles;
@@ -447,36 +444,50 @@ function nesports_clothing() {
             'id'    => 'strength-club',
             'title' => 'STRENGTH CLUB',
             'tag'   => 'HEAVYWEIGHT OVERSIZED',
-            'img'   => 'clothing/cat-strength-club.jpg',
+            'img'   => 'clothing/model-strength-club-back.jpg',
             'url'   => '/collections/strength-club/'
         ),
         array(
             'id'    => 'lift-the-world',
             'title' => 'LIFT THE WORLD',
             'tag'   => 'SIGNATURE ATHLETE TEE',
-            'img'   => 'clothing/cat-lift-the-world.jpg',
+            'img'   => 'clothing/model-lift-the-world-back.jpg',
             'url'   => '/collections/lift-the-world/'
         ),
         array(
             'id'    => 'anime-drop',
             'title' => 'ANIME',
             'tag'   => 'LIMITED EDITION GRAPHIC',
-            'img'   => 'clothing/cat-anime.jpg',
+            'img'   => 'clothing/model-anime-back.jpg',
             'url'   => '/collections/anime/'
         ),
         array(
             'id'    => 'son-of-the-west',
             'title' => 'SON OF THE WEST',
             'tag'   => 'ACID WASH STATEMENT',
-            'img'   => 'clothing/cat-son-of-the-west.jpg',
+            'img'   => 'clothing/model-son-of-the-west-back.jpg',
             'url'   => '/collections/son-of-the-west/'
         ),
         array(
             'id'    => 'pro-coach',
             'title' => 'PRO COACH',
             'tag'   => 'PERFORMANCE OVERSIZED',
-            'img'   => 'clothing/cat-pro-coach.jpg',
+            'img'   => 'clothing/model-pro-coach-back.jpg',
             'url'   => '/collections/pro-coach/'
+        ),
+        array(
+            'id'    => 'hoodies',
+            'title' => 'HOODIES',
+            'tag'   => 'BOX CUT FLEECE',
+            'img'   => 'clothing/hoodie-pro-coach-back.jpg',
+            'url'   => '/collections/pro-coach/'
+        ),
+        array(
+            'id'    => 'trousers',
+            'title' => 'TROUSERS',
+            'tag'   => 'HEAVYWEIGHT SWEATPANTS',
+            'img'   => 'clothing/trousers-lifter-sweatpants.jpg',
+            'url'   => '/collections/strength-club/'
         ),
     );
 }
@@ -489,8 +500,32 @@ function nesports_clothing_collections($collection_slug = '') {
         'strength-club' => array(
             'title' => 'Strength Club Collection',
             'slug'  => 'strength-club',
-            'desc'  => 'Heavyweight oversized lifter t-shirts featuring authentic NE3Sports Strength Club graphics.',
+            'desc'  => 'Heavyweight oversized lifter t-shirts, hoodies, and sweatpants featuring authentic NE3Sports Strength Club graphics.',
             'products' => array(
+                array(
+                    'name'   => 'Strength Club Heavyweight Boxy Hoodie',
+                    'slug'   => 'strength-club-heavyweight-hoodie',
+                    'price'  => 54.99,
+                    'old'    => 69.99,
+                    'images' => array(
+                        'clothing/hoodie-pro-coach-back.jpg',
+                        'clothing/hoodie-pro-coach-front.jpg',
+                        'clothing/model-strength-club-back.jpg'
+                    ),
+                    'url'    => '/product/strength-club-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Strength Club Heavyweight Lifter Trousers',
+                    'slug'   => 'strength-club-lifter-trousers',
+                    'price'  => 44.99,
+                    'old'    => 54.99,
+                    'images' => array(
+                        'clothing/trousers-lifter-sweatpants.jpg',
+                        'clothing/model-strength-club-back.jpg',
+                        'clothing/trousers-lifter-sweatpants.jpg'
+                    ),
+                    'url'    => '/product/strength-club-oversized-t-shirt/'
+                ),
                 array(
                     'name'   => 'Strength Club Classic T-Shirt (White)',
                     'slug'   => 'strength-club-oversized-t-shirt',
@@ -532,8 +567,32 @@ function nesports_clothing_collections($collection_slug = '') {
         'lift-the-world' => array(
             'title' => 'Lift The World Collection',
             'slug'  => 'lift-the-world',
-            'desc'  => 'Signature athlete oversized tees built for heavyweight powerlifters and gym warriors.',
+            'desc'  => 'Signature athlete oversized tees, heavyweight hoodies, and joggers built for heavyweight powerlifters.',
             'products' => array(
+                array(
+                    'name'   => 'Lift The World Heavyweight Hoodie',
+                    'slug'   => 'lift-the-world-heavyweight-hoodie',
+                    'price'  => 54.99,
+                    'old'    => 69.99,
+                    'images' => array(
+                        'clothing/hoodie-pro-coach-back.jpg',
+                        'clothing/hoodie-pro-coach-front.jpg',
+                        'clothing/model-lift-the-world-back.jpg'
+                    ),
+                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Lift The World Heavyweight Lifter Trousers',
+                    'slug'   => 'lift-the-world-lifter-trousers',
+                    'price'  => 44.99,
+                    'old'    => 54.99,
+                    'images' => array(
+                        'clothing/trousers-lifter-sweatpants.jpg',
+                        'clothing/model-lift-the-world-back.jpg',
+                        'clothing/trousers-lifter-sweatpants.jpg'
+                    ),
+                    'url'    => '/product/lift-the-world-oversized-t-shirt/'
+                ),
                 array(
                     'name'   => 'Lift The World T-Shirt (Stealth Black)',
                     'slug'   => 'lift-the-world-oversized-t-shirt',
@@ -563,8 +622,32 @@ function nesports_clothing_collections($collection_slug = '') {
         'anime' => array(
             'title' => 'Anime Collection',
             'slug'  => 'anime',
-            'desc'  => 'Limited edition oversized anime lifter graphics inspired by legendary battles.',
+            'desc'  => 'Limited edition oversized anime lifter graphics, hoodies, and joggers inspired by legendary battles.',
             'products' => array(
+                array(
+                    'name'   => 'Kaizen Anime Heavyweight Hoodie',
+                    'slug'   => 'kaizen-anime-oversized-hoodie',
+                    'price'  => 54.99,
+                    'old'    => 69.99,
+                    'images' => array(
+                        'clothing/hoodie-kaizen-anime-back.jpg',
+                        'clothing/hoodie-kaizen-anime-front.jpg',
+                        'clothing/model-anime-back.jpg'
+                    ),
+                    'url'    => '/product/anime-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Anime Lifter Relaxed Sweatpants',
+                    'slug'   => 'anime-lifter-sweatpants',
+                    'price'  => 44.99,
+                    'old'    => 54.99,
+                    'images' => array(
+                        'clothing/trousers-lifter-sweatpants.jpg',
+                        'clothing/model-anime-back.jpg',
+                        'clothing/trousers-lifter-sweatpants.jpg'
+                    ),
+                    'url'    => '/product/anime-oversized-t-shirt/'
+                ),
                 array(
                     'name'   => 'Arise Anime T-Shirt',
                     'slug'   => 'arise-anime-t-shirt',
@@ -637,8 +720,32 @@ function nesports_clothing_collections($collection_slug = '') {
         'pro-coach' => array(
             'title' => 'Pro Coach Collection',
             'slug'  => 'pro-coach',
-            'desc'  => 'Performance oversized tees with Born in Iron graphics for dedicated coaches and lifters.',
+            'desc'  => 'Performance oversized tees, Born in Iron hoodies, and heavyweight joggers for dedicated lifters.',
             'products' => array(
+                array(
+                    'name'   => 'Pro Coach Born In Iron Hoodie (Black)',
+                    'slug'   => 'pro-coach-born-in-iron-hoodie',
+                    'price'  => 54.99,
+                    'old'    => 69.99,
+                    'images' => array(
+                        'clothing/hoodie-pro-coach-back.jpg',
+                        'clothing/hoodie-pro-coach-front.jpg',
+                        'clothing/model-pro-coach-back.jpg'
+                    ),
+                    'url'    => '/product/pro-coach-oversized-t-shirt/'
+                ),
+                array(
+                    'name'   => 'Pro Coach Heavyweight Lifter Joggers',
+                    'slug'   => 'pro-coach-lifter-joggers',
+                    'price'  => 44.99,
+                    'old'    => 54.99,
+                    'images' => array(
+                        'clothing/trousers-lifter-sweatpants.jpg',
+                        'clothing/model-pro-coach-back.jpg',
+                        'clothing/trousers-lifter-sweatpants.jpg'
+                    ),
+                    'url'    => '/product/pro-coach-oversized-t-shirt/'
+                ),
                 array(
                     'name'   => 'Pro Coach Performance T-Shirt (Forest Green)',
                     'slug'   => 'pro-coach-oversized-t-shirt',
@@ -703,68 +810,50 @@ function nesports_color_items() {
                     'name'      => 'Lift The World T-Shirt (Crimson Red)',
                     'price'     => 34.99,
                     'old_price' => 44.99,
-                    'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
+                    'img'       => 'clothing/norm-lift-the-world-red.jpg',
                     'images'    => array(
-                        'clothing/Lift-The-World-T-Shirt-Red-1.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Red-Detail.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Red-Lower.jpg',
+                        'clothing/norm-lift-the-world-red.jpg',
+                        'clothing/norm-lift-the-world-red-front.jpg',
+                        'clothing/model-lift-the-world-red-sq.jpg',
                     ),
                     'url'       => '/product/lift-the-world-red-edition-t-shirt/',
                     'cat'       => 'clothing'
                 ),
                 array(
-                    'name'      => 'Pro Coach Iron Tee (Red Back Print)',
-                    'price'     => 34.99,
-                    'old_price' => 44.99,
-                    'badge'     => 'New Arrival',
-                    'img'       => 'clothing/Red Pro Coach Iron Tee Back Print.png',
+                    'name'      => 'Pro Powerlifting Lever Belt 10mm (Crimson Red)',
+                    'price'     => 59.99,
+                    'old_price' => 69.99,
+                    'img'       => 'belt-crimson-red-800x800.jpg',
                     'images'    => array(
-                        'clothing/Red Pro Coach Iron Tee Back Print.png',
-                        'clothing/Procoach-Red-Detail.jpg',
-                        'clothing/Procoach-Red-Lower.jpg',
+                        'belt-crimson-red-800x800.jpg',
+                        'belt-crimson-red-flat-800x800.jpg',
+                        'belt-crimson-red-model-800x800.jpg',
                     ),
-                    'url'       => '/product/pro-coach-red-iron-t-shirt/',
-                    'cat'       => 'clothing'
-                ),
-                array(
-                    'name'      => 'Strength Club T-Shirt (Red Design)',
-                    'price'     => 34.99,
-                    'old_price' => 44.99,
-                    'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Strength-Club-Red-Flat.jpg',
-                    'images'    => array(
-                        'clothing/Strength-Club-Red-Flat.jpg',
-                        'clothing/Strength-Club-Red-Front.jpg',
-                        'clothing/Strength-Club-Red-Model.jpg',
-                    ),
-                    'url'       => '/product/strength-club-red-edition-t-shirt/',
-                    'cat'       => 'clothing'
+                    'url'       => '/product/pro-leather-weightlifting-lever-belt-10mm/',
+                    'cat'       => 'belts'
                 ),
                 array(
                     'name'      => 'Competition Knee Wraps (Red Edition)',
                     'price'     => 29.99,
                     'old_price' => 39.99,
-                    'badge'     => 'Save 25%',
                     'img'       => 'Knee-Wrap-800x800.jpg',
                     'images'    => array(
                         'Knee-Wrap-800x800.jpg',
-                        'Knee-Wrap-9-800x800.jpg',
                         'Knee-wrap-1-800x800.jpg',
+                        'hero-knee-wrap.png',
                     ),
                     'url'       => '/product/knee-wrap/',
                     'cat'       => 'knee'
                 ),
                 array(
-                    'name'      => 'Padded Heavy Lifting Straps (Red)',
+                    'name'      => 'Padded Heavy Lifting Straps (Red Edition)',
                     'price'     => 9.99,
                     'old_price' => 19.99,
-                    'badge'     => 'Save 50%',
                     'img'       => '2-red-800x800.jpg',
                     'images'    => array(
                         '2-red-800x800.jpg',
-                        '1-800x800.jpg',
-                        'A2.jpg',
+                        'straps-red-angle-800x800.jpg',
+                        'model-lifting-straps-red.jpg',
                     ),
                     'url'       => '/product/lifting-strap-padded-red/',
                     'cat'       => 'straps'
@@ -773,12 +862,11 @@ function nesports_color_items() {
                     'name'      => 'Speed Ball Set Leather (Red & Black)',
                     'price'     => 24.99,
                     'old_price' => 39.99,
-                    'badge'     => 'Save 38%',
                     'img'       => '1-1-2-800x800.jpg',
                     'images'    => array(
                         '1-1-2-800x800.jpg',
-                        'hero-speed-ball.png',
                         '1-1-800x800.jpg',
+                        'hero-speed-ball.png',
                     ),
                     'url'       => '/product/speed-ball-set-maya-hide-leather-red-black/',
                     'cat'       => 'speed'
@@ -794,11 +882,11 @@ function nesports_color_items() {
                     'price'     => 34.99,
                     'old_price' => 44.99,
                     'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Strength-Club-White-Flat.jpg',
+                    'img'       => 'clothing/norm-strength-club-black.jpg',
                     'images'    => array(
-                        'clothing/Strength-Club-White-Flat.jpg',
-                        'clothing/Strength-Club-White-Front.jpg',
-                        'clothing/Strength-Club-White-Model.jpg',
+                        'clothing/norm-strength-club-black.jpg',
+                        'clothing/norm-strength-club-black-front.jpg',
+                        'clothing/model-strength-club-back.jpg',
                     ),
                     'url'       => '/product/strength-club-oversized-t-shirt/',
                     'cat'       => 'clothing'
@@ -808,11 +896,11 @@ function nesports_color_items() {
                     'price'     => 34.99,
                     'old_price' => 44.99,
                     'badge'     => 'Athlete Series',
-                    'img'       => 'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                    'img'       => 'clothing/norm-lift-the-world-black.jpg',
                     'images'    => array(
-                        'clothing/Lift-The-World-T-Shirt-Black-1.jpg',
+                        'clothing/norm-lift-the-world-black.jpg',
                         'clothing/Lift-The-World-T-Shirt-Black-Detail.jpg',
-                        'clothing/Lift-The-World-T-Shirt-Black-Lower.jpg',
+                        'clothing/model-lift-the-world-back.jpg',
                     ),
                     'url'       => '/product/lift-the-world-oversized-t-shirt/',
                     'cat'       => 'clothing'
@@ -868,7 +956,7 @@ function nesports_color_items() {
                     'images'    => array(
                         '1-800x800.jpg',
                         'A2.jpg',
-                        '2-red-800x800.jpg',
+                        'hero-lifting-straps.png',
                     ),
                     'url'       => '/product/lifting-straps-with-extra-padded-black/',
                     'cat'       => 'straps'
@@ -912,10 +1000,10 @@ function nesports_color_items() {
                     'price'     => 34.99,
                     'old_price' => 44.99,
                     'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Strength-Club-Blue-Flat.jpg',
+                    'img'       => 'clothing/norm-strength-club-blue.jpg',
                     'images'    => array(
-                        'clothing/Strength-Club-Blue-Flat.jpg',
-                        'clothing/Strength-Club-Blue-Front.jpg',
+                        'clothing/norm-strength-club-blue.jpg',
+                        'clothing/norm-strength-club-blue-front.jpg',
                         'clothing/Strength-Club-Blue-Model.jpg',
                     ),
                     'url'       => '/product/strength-club-athletic-fit-t-shirt/',
@@ -926,11 +1014,11 @@ function nesports_color_items() {
                     'price'     => 34.99,
                     'old_price' => 44.99,
                     'badge'     => 'New Arrival',
-                    'img'       => 'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                    'img'       => 'clothing/norm-pro-coach-navy.jpg',
                     'images'    => array(
-                        'clothing/Vintage Navy Pro Coach T-Shirt Graphic.png',
+                        'clothing/norm-pro-coach-navy.jpg',
                         'clothing/Procoach-Navy-Detail.jpg',
-                        'clothing/Procoach-Navy-Lower.jpg',
+                        'clothing/Strength-Club-Blue-Model-Front.jpg',
                     ),
                     'url'       => '/product/pro-coach-vintage-navy-t-shirt/',
                     'cat'       => 'clothing'
@@ -944,7 +1032,7 @@ function nesports_color_items() {
                     'images'    => array(
                         'Knee-Wrap-9-800x800.jpg',
                         'Knee-Wrap-800x800.jpg',
-                        'Knee-wrap-1-800x800.jpg',
+                        'hero-knee-wrap.png',
                     ),
                     'url'       => '/product/knee-wrap-copy/',
                     'cat'       => 'knee'
@@ -958,7 +1046,7 @@ function nesports_color_items() {
                     'images'    => array(
                         'A2.jpg',
                         '1-800x800.jpg',
-                        '2-red-800x800.jpg',
+                        'hero-lifting-straps.png',
                     ),
                     'url'       => '/product/lifting-strap-padded-blue/',
                     'cat'       => 'straps'
@@ -971,8 +1059,8 @@ function nesports_color_items() {
                     'img'       => 'Gym-Bag-8-800x800.jpg',
                     'images'    => array(
                         'Gym-Bag-8-800x800.jpg',
-                        'Gym-Bag-9-800x800.jpg',
-                        'Gym-Bag-scaled.jpg',
+                        'Gym-Bag-1-800x800.jpg',
+                        'Gym-Bag-8-800x800.jpg',
                     ),
                     'url'       => '/product/water-proof-gym-bag-blue/',
                     'cat'       => 'bags'
@@ -1014,7 +1102,7 @@ function nesports_color_items() {
                     'images'    => array(
                         'WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg',
                         'A2.jpg',
-                        '1-800x800.jpg',
+                        'hero-lifting-straps.png',
                     ),
                     'url'       => '/product/lifting-straps-padded-blue-2/',
                     'cat'       => 'straps'
@@ -1030,11 +1118,11 @@ function nesports_color_items() {
                     'price'     => 34.99,
                     'old_price' => 44.99,
                     'badge'     => 'Save 22%',
-                    'img'       => 'clothing/Procoach-T-Shirt-Green.png',
+                    'img'       => 'clothing/norm-pro-coach-green.jpg',
                     'images'    => array(
-                        'clothing/Procoach-T-Shirt-Green.png',
-                        'clothing/Procoach-Green-Detail.jpg',
-                        'clothing/cat-pro-coach.jpg',
+                        'clothing/norm-pro-coach-green.jpg',
+                        'clothing/norm-pro-coach-green-front.jpg',
+                        'clothing/model-pro-coach-green-sq.jpg',
                     ),
                     'url'       => '/product/pro-coach-oversized-t-shirt/',
                     'cat'       => 'clothing'
@@ -1053,8 +1141,8 @@ function nesports_color_items() {
                     'img'       => 'Gym-Bag-9-800x800.jpg',
                     'images'    => array(
                         'Gym-Bag-9-800x800.jpg',
-                        'Gym-Bag-8-800x800.jpg',
-                        'Gym-Bag-scaled.jpg',
+                        'Gym-Bag-1-2-800x800.jpg',
+                        'Gym-Bag-3-scaled.jpg',
                     ),
                     'url'       => '/product/water-proof-gym-bag-gray/',
                     'cat'       => 'bags'

@@ -96,55 +96,7 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
     }
 
     protected function render() {
-        $settings     = $this->get_settings_for_display();
-        $title        = !empty($settings['section_title']) ? $settings['section_title'] : 'Bundles';
-        $show_filters = $settings['show_filters'] === 'yes';
-
-        $bundles     = nesports_bundles();
-        $bundle_tabs = nesports_bundle_tabs();
-        ?>
-        <section class="hb-bundles-section" id="bundles" data-slider>
-            <div class="hb-bundles-header">
-                <h2 class="hb-bundles-title"><?php echo esc_html($title); ?></h2>
-            </div>
-
-            <?php if ($show_filters): ?>
-            <div class="hb-pills hb-bundles-pills">
-                <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>
-                <?php foreach ($bundle_tabs as $key => $label): ?>
-                    <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
-                <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
-
-            <div class="hb-cards hb-cards--center">
-                <?php foreach ($bundles as $b):
-                    $pct = round((1 - $b['price'] / $b['old']) * 100);
-                    $url = home_url($b['url']);
-                ?>
-                <article class="hb-card" data-cat="<?php echo esc_attr($b['cat']); ?>">
-                    <div class="hb-card-top-wrap">
-                        <span class="hb-bundle-badge">SAVE <?php echo esc_html($pct); ?>%</span>
-                        <a class="hb-card-media hb-card-media--pair" href="<?php echo esc_url($url); ?>">
-                            <img class="hb-pair-a" src="<?php echo esc_url(nesports_img($b['imgs'][0])); ?>" alt="" loading="lazy">
-                            <img class="hb-pair-b" src="<?php echo esc_url(nesports_img($b['imgs'][1])); ?>" alt="" loading="lazy">
-                        </a>
-                        <button type="button" class="hb-card-quick-add" data-id="<?php echo esc_attr('bundle-' . $b['cat']); ?>" data-name="<?php echo esc_attr($b['name']); ?>" data-price="<?php echo esc_attr($b['price']); ?>" data-img="<?php echo esc_url(nesports_img($b['imgs'][0])); ?>" aria-label="Add <?php echo esc_attr($b['name']); ?> to cart">
-                            <i class="fa-solid fa-plus"></i> Add to cart
-                        </button>
-                    </div>
-                    <div class="hb-card-body">
-                        <h3 class="hb-card-title"><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($b['name']); ?></a></h3>
-                        <div class="hb-card-price is-sale">
-                            <span class="now"><?php echo esc_html(nesports_money($b['price'])); ?></span>
-                            <s><?php echo esc_html(nesports_money($b['old'])); ?></s>
-                        </div>
-                    </div>
-                </article>
-                <?php endforeach; ?>
-            </div>
-        </section>
-        <?php
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-bundles.php';
     }
 }
 

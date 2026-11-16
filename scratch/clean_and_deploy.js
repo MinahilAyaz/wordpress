@@ -28,19 +28,27 @@ function updateCookies(res) {
 function getCookieHeader() {
     return Object.entries(cookieJar).map(([k, v]) => k + '=' + v).join('; ');
 }
-async function request(url, options = {}) {
+async function request(url, options = {}, retries = 3) {
     options.headers = options.headers || {};
     const cookie = getCookieHeader();
     if (cookie) options.headers['Cookie'] = cookie;
     options.redirect = 'manual';
-    let res = await fetch(url, options);
-    updateCookies(res);
-    if (res.status >= 300 && res.status < 400 && res.headers.get('location')) {
-        let loc = res.headers.get('location');
-        if (!loc.startsWith('http')) loc = new URL(loc, url).href;
-        return request(loc, { method: 'GET' });
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            let res = await fetch(url, options);
+            updateCookies(res);
+            if (res.status >= 300 && res.status < 400 && res.headers.get('location')) {
+                let loc = res.headers.get('location');
+                if (!loc.startsWith('http')) loc = new URL(loc, url).href;
+                return request(loc, { method: 'GET' });
+            }
+            return res;
+        } catch (err) {
+            console.log(`Fetch attempt ${attempt} failed: ${err.message}. Retrying in 2s...`);
+            if (attempt === retries) throw err;
+            await new Promise(r => setTimeout(r, 2000));
+        }
     }
-    return res;
 }
 
 (async () => {
@@ -77,28 +85,48 @@ async function request(url, options = {}) {
         }
     }
 
-    // 3. Prepare brand new plugin: nesports-updater-v8
-    const PLUGIN_NAME = 'nesports-updater-v8';
+    // 3. Prepare brand new plugin: nesports-updater-v16
+    const PLUGIN_NAME = 'nesports-updater-v16';
     console.log(`Building ${PLUGIN_NAME}...`);
+
     const filesToDeploy = {
         'includes/helpers.php': fs.readFileSync(path.join(STORE_DIR, 'includes', 'helpers.php'), 'utf8'),
         'templates/sections/section-categories.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'sections', 'section-categories.php'), 'utf8'),
-        'templates/page-category.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'page-category.php'), 'utf8'),
-        'templates/footer-nesports.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'footer-nesports.php'), 'utf8'),
-        'templates/sections/section-color.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'sections', 'section-color.php'), 'utf8'),
+        'templates/sections/section-bundles.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'sections', 'section-bundles.php'), 'utf8'),
         'templates/sections/section-clothing.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'sections', 'section-clothing.php'), 'utf8'),
+        'templates/sections/section-color.php': fs.readFileSync(path.join(STORE_DIR, 'templates', 'sections', 'section-color.php'), 'utf8'),
         'assets/css/nesports-frontend.css': fs.readFileSync(path.join(STORE_DIR, 'assets', 'css', 'nesports-frontend.css'), 'utf8'),
-        'assets/images/footer-logo.svg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'footer-logo.svg'), 'utf8'),
-        'assets/images/clothing/Strength-Club-White-Flat.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-White-Flat.jpg')),
-        'assets/images/clothing/Strength-Club-White-Front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-White-Front.jpg')),
-        'assets/images/clothing/Strength-Club-White-Model.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-White-Model.jpg')),
-        'assets/images/clothing/Strength-Club-Blue-Flat.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-Blue-Flat.jpg')),
-        'assets/images/clothing/Strength-Club-Blue-Front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-Blue-Front.jpg')),
-        'assets/images/clothing/Strength-Club-Blue-Model.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-Blue-Model.jpg')),
-        'assets/images/clothing/Strength-Club-Red-Flat.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-Red-Flat.jpg')),
-        'assets/images/clothing/Strength-Club-Red-Front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-Red-Front.jpg')),
-        'assets/images/clothing/Strength-Club-Red-Model.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'Strength-Club-Red-Model.jpg')),
-        'assets/images/clothing/cat-strength-club.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'cat-strength-club.jpg'))
+
+        // Red category gear assets - 100% Genuine Crimson Red
+        'assets/images/model-lifting-straps-red.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'model-lifting-straps-red.jpg')),
+        'assets/images/straps-red-angle-800x800.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'straps-red-angle-800x800.jpg')),
+        'assets/images/belt-crimson-red-800x800.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'belt-crimson-red-800x800.jpg')),
+        'assets/images/belt-crimson-red-flat-800x800.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'belt-crimson-red-flat-800x800.jpg')),
+        'assets/images/belt-crimson-red-model-800x800.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'belt-crimson-red-model-800x800.jpg')),
+        'assets/images/clothing/norm-lift-the-world-red.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-lift-the-world-red.jpg')),
+        'assets/images/clothing/norm-lift-the-world-red-front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-lift-the-world-red-front.jpg')),
+        'assets/images/clothing/model-lift-the-world-red-sq.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-lift-the-world-red-sq.jpg')),
+
+        // Clothing carousel model shots (from behind, authentic gym setting)
+        'assets/images/clothing/model-strength-club-back.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-strength-club-back.jpg')),
+        'assets/images/clothing/model-lift-the-world-back.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-lift-the-world-back.jpg')),
+        'assets/images/clothing/model-anime-back.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-anime-back.jpg')),
+        'assets/images/clothing/model-son-of-the-west-back.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-son-of-the-west-back.jpg')),
+        'assets/images/clothing/model-pro-coach-back.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-pro-coach-back.jpg')),
+        'assets/images/clothing/hoodie-pro-coach-back.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'hoodie-pro-coach-back.jpg')),
+        'assets/images/clothing/hoodie-pro-coach-front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'hoodie-pro-coach-front.jpg')),
+        'assets/images/clothing/trousers-lifter-sweatpants.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'trousers-lifter-sweatpants.jpg')),
+
+        // Normalized flat lays & other models
+        'assets/images/clothing/norm-pro-coach-green.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-pro-coach-green.jpg')),
+        'assets/images/clothing/norm-pro-coach-green-front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-pro-coach-green-front.jpg')),
+        'assets/images/clothing/model-pro-coach-green-sq.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'model-pro-coach-green-sq.jpg')),
+        'assets/images/clothing/norm-lift-the-world-black.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-lift-the-world-black.jpg')),
+        'assets/images/clothing/norm-strength-club-black.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-strength-club-black.jpg')),
+        'assets/images/clothing/norm-strength-club-black-front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-strength-club-black-front.jpg')),
+        'assets/images/clothing/norm-strength-club-blue.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-strength-club-blue.jpg')),
+        'assets/images/clothing/norm-strength-club-blue-front.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-strength-club-blue-front.jpg')),
+        'assets/images/clothing/norm-pro-coach-navy.jpg': fs.readFileSync(path.join(STORE_DIR, 'assets', 'images', 'clothing', 'norm-pro-coach-navy.jpg')),
     };
 
     let payloadsPhp = '';
@@ -110,9 +138,9 @@ async function request(url, options = {}) {
 
     const updaterPhp = `<?php
 /**
- * Plugin Name: NESports Auto Updater V6
- * Description: Fully applies Top Sellers 3-image hover slider with dots, removes filter options, and fixes category hero.
- * Version: 6.0.0
+ * Plugin Name: NESports Auto Updater V16
+ * Description: Eliminates card inside card, sets 100% genuine crimson red belt and gear, updates authentic model shots.
+ * Version: 16.0.0
  * Author: NESports
  */
 
@@ -166,7 +194,7 @@ register_activation_hook(__FILE__, function() {
     fs.writeSync(fd, updaterPhp, 0, 'utf8');
     fs.closeSync(fd);
 
-    execSync('powershell -ExecutionPolicy Bypass -File scratch\\make_zip.ps1', { cwd: BASE_DIR });
+    execSync(`powershell -ExecutionPolicy Bypass -File scratch\\make_zip.ps1 -sourceDir "${UPDATER_DIR}" -zipPath "${UPDATER_ZIP}"`, { cwd: BASE_DIR });
     console.log("Created " + UPDATER_ZIP + " (" + (fs.statSync(UPDATER_ZIP).size / 1024).toFixed(2) + " KB)");
 
     // 4. Upload zip
@@ -231,20 +259,25 @@ register_activation_hook(__FILE__, function() {
     console.log("\nVerifying live pages...");
     const homeCheck = await request(SITE + '/');
     const homeHtml = await homeCheck.text();
-    console.log("\nHomepage Top Sellers Check:");
-    console.log("- Status:", homeCheck.status);
-    console.log("- Has hb-card-slider-track:", homeHtml.includes('hb-card-slider-track'));
-    console.log("- Has hb-card-dots-wrap:", homeHtml.includes('hb-card-dots-wrap'));
-    console.log("- Has multi-angle Belts image:", homeHtml.includes('DSC_0167-scaled-1.jpg'));
-    console.log("- Has multi-angle Knee Wraps image:", homeHtml.includes('Knee-Wrap-9-800x800.jpg'));
-    console.log("- Has multi-angle Gym Bags image:", homeHtml.includes('Gym-Bag-9-800x800.jpg'));
-    console.log("- Has multi-angle Speed Ball image:", homeHtml.includes('1-1-800x800.jpg'));
-    console.log("- Has multi-angle Wrist Straps image:", homeHtml.includes('Wrist-Bandage-1-800x800.jpg'));
-    console.log("- Has multi-angle Lifting Straps image:", homeHtml.includes('2-red-800x800.jpg'));
 
-    console.log("\nHomepage Shop by Color Check:");
-    console.log("- Has Shop by Color section:", homeHtml.includes('id="shop-by-color"'));
-    console.log("- Has color sub-images (Lift-The-World-T-Shirt-Red-Detail.jpg):", homeHtml.includes('Lift-The-World-T-Shirt-Red-Detail.jpg'));
-    console.log("- Has color sub-images (Procoach-Red-Detail.jpg):", homeHtml.includes('Procoach-Red-Detail.jpg'));
-    console.log("- Has color sub-images (Strength-Club-Red-Front.jpg):", homeHtml.includes('Strength-Club-Red-Front.jpg'));
+    console.log("\nShop by Color & Live Verification:");
+    console.log("- Status:", homeCheck.status);
+    console.log("- Has norm-lift-the-world-red.jpg:", homeHtml.includes('norm-lift-the-world-red.jpg'));
+    console.log("- Has norm-lift-the-world-red-front.jpg:", homeHtml.includes('norm-lift-the-world-red-front.jpg'));
+    console.log("- Has model-lift-the-world-red-sq.jpg:", homeHtml.includes('model-lift-the-world-red-sq.jpg'));
+    console.log("- Has belt-crimson-red-800x800.jpg:", homeHtml.includes('belt-crimson-red-800x800.jpg'));
+    console.log("- Has model-lifting-straps-red.jpg:", homeHtml.includes('model-lifting-straps-red.jpg'));
+    console.log("- Has straps-red-angle-800x800.jpg:", homeHtml.includes('straps-red-angle-800x800.jpg'));
+    console.log("- Has hero-knee-wrap.png:", homeHtml.includes('hero-knee-wrap.png'));
+    console.log("- Has hero-speed-ball.png:", homeHtml.includes('hero-speed-ball.png'));
+    console.log("- Has NO awkward collar crop in Red (Lift-The-World-T-Shirt-Red-Detail.jpg):", !homeHtml.includes('Lift-The-World-T-Shirt-Red-Detail.jpg'));
+    console.log("- Has model-strength-club-back.jpg:", homeHtml.includes('model-strength-club-back.jpg'));
+    console.log("- Has model-lift-the-world-back.jpg:", homeHtml.includes('model-lift-the-world-back.jpg'));
+    console.log("- Has model-anime-back.jpg:", homeHtml.includes('model-anime-back.jpg'));
+    console.log("- Has model-son-of-the-west-back.jpg:", homeHtml.includes('model-son-of-the-west-back.jpg'));
+    console.log("- Has model-pro-coach-back.jpg:", homeHtml.includes('model-pro-coach-back.jpg'));
+    console.log("- Has hoodie-pro-coach-back.jpg:", homeHtml.includes('hoodie-pro-coach-back.jpg'));
+    console.log("- Has trousers-lifter-sweatpants.jpg:", homeHtml.includes('trousers-lifter-sweatpants.jpg'));
+    console.log("- Has NO SAVE 15% or Save 15% in Top Sellers:", !homeHtml.includes('Save 15%'));
+    console.log("- Has NO blue bag in Grey tab:", !homeHtml.match(/data-color="grey"[\s\S]*?Gym-Bag-8-800x800\.jpg/));
 })();

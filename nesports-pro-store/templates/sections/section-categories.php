@@ -206,7 +206,7 @@ $collections = nesports_collections();
         display: none !important;
     }
 
-    /* Card styling */
+    /* Card styling - Clean single surface with NO card-in-card nested borders */
     .hb-category-card {
         flex: 0 0 calc((100% - 72px) / 5) !important;
         min-width: 220px !important;
@@ -218,6 +218,9 @@ $collections = nesports_collections();
         text-decoration: none !important;
         color: inherit !important;
         background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
         cursor: pointer !important;
         scroll-snap-align: start !important;
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -241,7 +244,7 @@ $collections = nesports_collections();
         animation: cardSlideLeftToRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
     }
 
-    /* Card Media container */
+    /* Card Media container - Single crisp border, no inner borders or nested boxes */
     .hb-category-media {
         position: relative !important;
         width: 100% !important;
@@ -253,6 +256,9 @@ $collections = nesports_collections();
         align-items: center !important;
         justify-content: center !important;
         border: 1px solid #eaeaec !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
         transition: border-color 0.3s ease, box-shadow 0.35s ease !important;
     }
     .hb-category-card:hover .hb-category-media {
@@ -262,20 +268,7 @@ $collections = nesports_collections();
     }
 
     .hb-card-badge {
-        position: absolute !important;
-        top: 12px !important;
-        left: 12px !important;
-        background: #e11d48 !important;
-        color: #ffffff !important;
-        font-family: var(--hb-font, 'Poppins', sans-serif) !important;
-        font-size: 11px !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.3px !important;
-        padding: 4px 10px !important;
-        border-radius: 9999px !important;
-        z-index: 2 !important;
-        text-transform: uppercase !important;
-        box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3) !important;
+        display: none !important;
     }
     /* Multi-angle slide track matching Screenshot 1 */
     .hb-category-media .hb-card-slider-track {
@@ -284,6 +277,8 @@ $collections = nesports_collections();
         flex-wrap: nowrap !important;
         width: 100% !important;
         height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         transform: translateX(0%);
         transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1) !important;
         will-change: transform !important;
@@ -299,6 +294,11 @@ $collections = nesports_collections();
         align-items: center !important;
         justify-content: center !important;
         background: #ffffff !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     .hb-category-media .hb-card-slide-img,
     .hb-category-media img {
@@ -310,6 +310,9 @@ $collections = nesports_collections();
         object-position: center !important;
         display: block !important;
         pointer-events: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .hb-category-card:hover .hb-category-media .hb-card-slide-img,
@@ -509,10 +512,6 @@ $collections = nesports_collections();
                 ?>
                 <a class="hb-category-card" data-cat="<?php echo esc_attr($c['category']); ?>" href="<?php echo esc_url(home_url($c['url'])); ?>">
                     <div class="hb-category-media hb-card-media">
-                        <?php if (!empty($c['badge'])): ?>
-                            <span class="hb-card-badge"><?php echo esc_html($c['badge']); ?></span>
-                        <?php endif; ?>
-
                         <?php if ($has_sub): ?>
                             <div class="hb-card-slider-track">
                                 <?php foreach ($card_imgs as $idx => $img_path): ?>
