@@ -83,6 +83,18 @@ class NESports_Frontend {
         $req_path = parse_url($req_uri, PHP_URL_PATH);
         $req_path = $req_path ? rtrim($req_path, '/') : '';
 
+        // Virtual Checkout Route (/checkout/ or /payment/)
+        if (preg_match('#/(?:checkout|payment)$#i', $req_path) || is_page(array('checkout', 'payment'))) {
+            global $wp_query;
+            if ($wp_query) {
+                $wp_query->is_404 = false;
+            }
+            status_header(200);
+            if (file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-checkout.php')) {
+                return NESPORTS_PLUGIN_DIR . 'templates/page-checkout.php';
+            }
+        }
+
         // Virtual Single Product Route (/product/<slug>/)
         if (preg_match('#/product/([^/]+)$#i', $req_path, $m)) {
             $_GET['slug'] = sanitize_title($m[1]);

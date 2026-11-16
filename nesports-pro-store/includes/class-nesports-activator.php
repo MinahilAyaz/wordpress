@@ -27,7 +27,7 @@ class NESports_Activator {
      */
     public static function set_default_options() {
         $default_settings = array(
-            'announcement_text' => 'Free shipping on all orders',
+            'announcement_text' => 'Free shipping on All DE orders over 150€',
             'announcement_active' => 'yes',
             'hero_badge'        => 'ENGINEERED FOR THE RELENTLESS',
             'hero_title'        => 'BUILT TO OUTLAST YOUR HARDEST SETS',

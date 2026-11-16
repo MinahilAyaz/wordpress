@@ -497,8 +497,8 @@ $related = array_slice($related, 0, 4);
                 window.nesportsAddToCart({ id: id, name: name, price: price, img: img, qty: qty });
             }
 
-            mainAddBtn.innerHTML = '<i class="fa-solid fa-check"></i> ADDED TO CART!';
-            setTimeout(function() { mainAddBtn.textContent = 'ADD TO CART'; }, 1400);
+            mainAddBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PROCEEDING TO PAYMENT...';
+            window.location.href = '<?php echo esc_url(home_url("/checkout/")); ?>';
         });
     }
 

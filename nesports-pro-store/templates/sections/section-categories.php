@@ -473,6 +473,19 @@ $collections = nesports_collections();
             font-size: 13px !important;
         }
     }
+    
+    @media (max-width: 991px) {
+        .hb-top-sellers-title {
+            text-align: center !important;
+            width: 100% !important;
+            grid-column: 1 / -1 !important;
+            margin: 0 auto 12px auto !important;
+        }
+        .hb-top-sellers-header {
+            justify-content: center !important;
+            text-align: center !important;
+        }
+    }
     </style>
 
     <div class="hb-collections-container">

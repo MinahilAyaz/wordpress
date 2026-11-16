@@ -170,6 +170,11 @@ class NESports_Elementor_TrustBar_Widget extends Widget_Base {
         }
         ?>
         <section class="hb-trustbar" aria-label="Store Guarantees">
+        <style>
+        .hb-trustbar-sub { display: none !important; }
+        .hb-trustbar-item { justify-content: center !important; }
+        .hb-trustbar { padding: 16px 32px !important; }
+        </style>
             <div class="hb-trustbar-inner">
                 <?php foreach ($items as $item) :
                     $icon = !empty($item['icon_class']) ? $item['icon_class'] : 'fa-solid fa-check';
@@ -180,9 +185,7 @@ class NESports_Elementor_TrustBar_Widget extends Widget_Base {
                     </div>
                     <div class="hb-trustbar-text">
                         <h3 class="hb-trustbar-title"><?php echo esc_html($item['title']); ?></h3>
-                        <?php if (!empty($item['subtitle'])) : ?>
-                            <p class="hb-trustbar-sub"><?php echo esc_html($item['subtitle']); ?></p>
-                        <?php endif; ?>
+                        
                     </div>
                 </div>
                 <?php endforeach; ?>

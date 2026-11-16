@@ -52,7 +52,7 @@ $email = !empty($settings['support_email']) ? $settings['support_email'] : 'supp
 
     <div class="hb-footer-grid">
         <div>
-            <div class="hb-footer-logo"><img src="<?php echo esc_url(nesports_img('footer-logo.svg')); ?>" alt="NESPORTS3"></div>
+            <div class="hb-footer-logo"><img src="<?php echo esc_url(nesports_img('footer-logo.svg')); ?>" srcset="<?php echo esc_url(nesports_img('footer-logo.png')); ?> 2x" alt="NESPORTS3" loading="lazy" decoding="async"></div>
             <p>Lifting belts, straps, wraps and gym essentials built for serious lifters.</p>
             <div class="hb-footer-social">
                 <a href="https://www.tiktok.com/@ne_sports3?_r=1&amp;_t=ZG-9BPPEAisLrd" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok">

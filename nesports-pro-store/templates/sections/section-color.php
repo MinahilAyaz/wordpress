@@ -413,6 +413,22 @@ $active_color = 'red'; // Default active color
             min-width: 200px !important;
         }
     }
+    
+    @media (max-width: 991px) {
+        .hb-color-title-wrap {
+            align-items: center !important;
+            text-align: center !important;
+            width: 100% !important;
+        }
+        .hb-color-title {
+            text-align: center !important;
+            width: 100% !important;
+            margin: 0 auto 16px auto !important;
+        }
+        .hb-color-nav {
+            justify-content: center !important;
+        }
+    }
     </style>
 
     <div class="hb-color-container">

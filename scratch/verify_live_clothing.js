@@ -1,16 +1,14 @@
-const https = require('https');
+const SITE = 'https://www.nesports3.com';
 
-https.get('https://www.nesports3.com/', (res) => {
-  let data = '';
-  res.on('data', chunk => data += chunk);
-  res.on('end', () => {
-    const clothingIdx = data.indexOf('hb-clothing-track');
-    if (clothingIdx !== -1) {
-      const chunk = data.substring(clothingIdx, clothingIdx + 3000);
-      console.log('--- Clothing track HTML snippet ---');
-      console.log(chunk);
-    } else {
-      console.log('hb-clothing-track not found');
-    }
-  });
-}).on('error', err => console.error(err));
+fetch(SITE).then(r => r.text()).then(html => {
+  const cards = html.match(/<a class="hb-clothing-card"[\s\S]*?<\/a>/g);
+  console.log('Total clothing cards on live:', cards ? cards.length : 0);
+  if (cards) {
+    cards.forEach((c, i) => {
+      const primary = c.match(/hb-img-primary"[^>]*src="([^"]+)"/);
+      const hover = c.match(/hb-img-hover"[^>]*src="([^"]+)"/);
+      const label = c.match(/hb-clothing-card-label">\s*([^<&]+)/);
+      console.log(`Card ${i+1} [${label ? label[1].trim() : ''}]: Primary=${primary ? primary[1].split('/').pop() : ''} | Hover=${hover ? hover[1].split('/').pop() : ''}`);
+    });
+  }
+});

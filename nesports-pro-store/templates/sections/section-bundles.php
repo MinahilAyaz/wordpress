@@ -18,20 +18,57 @@ $bundle_tabs = nesports_bundle_tabs();
         margin: 0 auto !important;
         box-sizing: border-box !important;
         width: 100% !important;
+        overflow: hidden !important;
     }
     .hb-bundles-header {
-        text-align: left !important;
-        margin-bottom: 4px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 8px !important;
+        width: 100% !important;
     }
     .hb-bundles-title {
         font-family: var(--hb-font, 'Poppins', sans-serif) !important;
         font-size: clamp(28px, 3.2vw, 40px) !important;
         font-weight: 700 !important;
         color: #111111 !important;
-        margin: 0 0 16px 0 !important;
+        margin: 0 !important;
         letter-spacing: -0.8px !important;
         line-height: 1.15 !important;
         text-align: left !important;
+    }
+    .hb-bundles-carousel-controls {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        flex-shrink: 0 !important;
+    }
+    .hb-bundles-arrow {
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+        border: 1px solid #e5e7eb !important;
+        background: #ffffff !important;
+        color: #111111 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        padding: 0 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    .hb-bundles-arrow:hover:not(:disabled) {
+        border-color: #111111 !important;
+        background: #111111 !important;
+        color: #ffffff !important;
+        transform: scale(1.05) !important;
+    }
+    .hb-bundles-arrow:disabled {
+        opacity: 0.3 !important;
+        cursor: not-allowed !important;
+        border-color: #e5e7eb !important;
+        color: #a1a1aa !important;
     }
     .hb-bundles-pills {
         display: flex !important;
@@ -100,19 +137,40 @@ $bundle_tabs = nesports_bundle_tabs();
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
     }
 
-    /* Cards Grid matching Hardbody 5-column layout */
-    .hb-bundles-section .hb-cards {
-        display: grid !important;
-        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-        gap: 20px !important;
+    /* 1-ROW CAROUSEL TRACK (Strictly 1 Row, Never 3 Rows) */
+    .hb-bundles-carousel-wrap {
+        position: relative !important;
         width: 100% !important;
+        overflow: hidden !important;
+    }
+    .hb-bundles-section .hb-bundles-track,
+    .hb-bundles-section .hb-cards {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 20px !important;
+        overflow-x: auto !important;
+        scroll-behavior: smooth !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 4px 2px 18px !important;
         margin: 0 !important;
-        padding: 0 !important;
+        width: 100% !important;
+    }
+    .hb-bundles-section .hb-bundles-track::-webkit-scrollbar,
+    .hb-bundles-section .hb-cards::-webkit-scrollbar {
+        display: none !important;
     }
 
-    .hb-bundles-section .hb-card {
-        width: 100% !important;
-        min-width: 0 !important;
+    .hb-bundles-section .hb-bundles-track .hb-card,
+    .hb-bundles-section .hb-cards .hb-card {
+        flex: 0 0 calc((100% - 80px) / 5) !important;
+        min-width: 220px !important;
+        max-width: 280px !important;
+        width: auto !important;
+        scroll-snap-align: start !important;
+        box-sizing: border-box !important;
         position: relative !important;
         background: transparent !important;
         border: none !important;
@@ -121,7 +179,7 @@ $bundle_tabs = nesports_bundle_tabs();
         margin: 0 !important;
     }
 
-    /* 3-Image Slider Track & Slides matching Top Sellers and Hardbody reference - Single clean box, no card inside card */
+    /* 3-Image Slider Track & Slides */
     .hb-bundles-section .hb-bundle-media {
         position: relative !important;
         width: 100% !important;
@@ -274,18 +332,22 @@ $bundle_tabs = nesports_bundle_tabs();
     }
 
     @media (max-width: 1200px) {
-        .hb-bundles-section .hb-cards {
-            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        .hb-bundles-section .hb-bundles-track .hb-card,
+        .hb-bundles-section .hb-cards .hb-card {
+            flex: 0 0 calc((100% - 60px) / 4) !important;
         }
     }
     @media (max-width: 900px) {
-        .hb-bundles-section .hb-cards {
-            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        .hb-bundles-section .hb-bundles-track .hb-card,
+        .hb-bundles-section .hb-cards .hb-card {
+            flex: 0 0 calc((100% - 40px) / 3) !important;
         }
     }
     @media (max-width: 650px) {
-        .hb-bundles-section .hb-cards {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        .hb-bundles-section .hb-bundles-track .hb-card,
+        .hb-bundles-section .hb-cards .hb-card {
+            flex: 0 0 calc((100% - 20px) / 2) !important;
+            min-width: 160px !important;
         }
     }
     @media (max-width: 480px) {
@@ -296,10 +358,18 @@ $bundle_tabs = nesports_bundle_tabs();
             font-size: 24px !important;
         }
     }
-    </style>
+</style>
 
     <div class="hb-bundles-header">
         <h2 class="hb-bundles-title">Bundles</h2>
+        <div class="hb-bundles-carousel-controls">
+            <button type="button" class="hb-bundles-arrow hb-bundles-prev" id="hb-bundles-prev" aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="hb-bundles-arrow hb-bundles-next" id="hb-bundles-next" aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
     </div>
     <div class="hb-pills hb-bundles-pills">
         <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>
@@ -307,7 +377,8 @@ $bundle_tabs = nesports_bundle_tabs();
             <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
         <?php endforeach; ?>
     </div>
-    <div class="hb-cards">
+    <div class="hb-bundles-carousel-wrap">
+        <div class="hb-cards hb-bundles-track" id="hb-bundles-track">
         <?php foreach ($bundles as $b):
             $url = home_url($b['url']);
             $card_imgs = !empty($b['images']) ? $b['images'] : $b['imgs'];
@@ -344,7 +415,7 @@ $bundle_tabs = nesports_bundle_tabs();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Left-to-right multi-angle hover scrubber for each bundle card
+    // 1. Left-to-right multi-angle hover scrubber for each bundle card
     var bundleCards = document.querySelectorAll('.hb-bundles-section .hb-card');
     bundleCards.forEach(function(card) {
         var sliderTrack = card.querySelector('.hb-card-slider-track');
@@ -373,7 +444,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Scrub images as cursor moves across card left-to-right
         card.addEventListener('mousemove', function(e) {
             var rect = card.getBoundingClientRect();
             var mouseX = e.clientX - rect.left;
@@ -405,7 +475,74 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Bundles pill category filter
+    // 2. Bundles 1-Row Carousel Arrow Navigation
+    var bundlesTrack = document.getElementById('hb-bundles-track');
+    var bundlesPrev = document.getElementById('hb-bundles-prev');
+    var bundlesNext = document.getElementById('hb-bundles-next');
+
+    function updateBundlesArrowState() {
+        if (!bundlesTrack) return;
+        var maxScroll = Math.max(0, bundlesTrack.scrollWidth - bundlesTrack.clientWidth);
+        var currentScroll = bundlesTrack.scrollLeft;
+
+        if (bundlesPrev) {
+            var atStart = currentScroll <= 4;
+            bundlesPrev.disabled = atStart;
+            if (atStart) {
+                bundlesPrev.setAttribute('disabled', 'disabled');
+            } else {
+                bundlesPrev.removeAttribute('disabled');
+            }
+        }
+
+        if (bundlesNext) {
+            var atEnd = currentScroll >= (maxScroll - 6) || maxScroll <= 2;
+            bundlesNext.disabled = atEnd;
+            if (atEnd) {
+                bundlesNext.setAttribute('disabled', 'disabled');
+            } else {
+                bundlesNext.removeAttribute('disabled');
+            }
+        }
+    }
+
+    function getBundlesScrollStep() {
+        var visibleCard = bundlesTrack ? bundlesTrack.querySelector('.hb-card:not([style*="display: none"])') : null;
+        if (visibleCard) {
+            return (visibleCard.offsetWidth + 20) * 2;
+        }
+        return 260;
+    }
+
+    if (bundlesPrev) {
+        bundlesPrev.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (bundlesPrev.disabled) return;
+            bundlesTrack.scrollBy({ left: -getBundlesScrollStep(), behavior: 'smooth' });
+            setTimeout(updateBundlesArrowState, 150);
+            setTimeout(updateBundlesArrowState, 350);
+        });
+    }
+
+    if (bundlesNext) {
+        bundlesNext.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (bundlesNext.disabled) return;
+            bundlesTrack.scrollBy({ left: getBundlesScrollStep(), behavior: 'smooth' });
+            setTimeout(updateBundlesArrowState, 150);
+            setTimeout(updateBundlesArrowState, 350);
+        });
+    }
+
+    if (bundlesTrack) {
+        bundlesTrack.addEventListener('scroll', updateBundlesArrowState, { passive: true });
+        window.addEventListener('resize', updateBundlesArrowState);
+        updateBundlesArrowState();
+        setTimeout(updateBundlesArrowState, 200);
+        setTimeout(updateBundlesArrowState, 600);
+    }
+
+    // 3. Bundles pill category filter
     var pills = document.querySelectorAll('.hb-bundles-pills .hb-pill');
     var cards = document.querySelectorAll('.hb-bundles-section .hb-card');
     pills.forEach(function(pill) {
@@ -421,6 +558,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     card.style.display = 'none';
                 }
             });
+            if (bundlesTrack) {
+                bundlesTrack.scrollLeft = 0;
+                setTimeout(updateBundlesArrowState, 60);
+                setTimeout(updateBundlesArrowState, 250);
+            }
         });
     });
 });

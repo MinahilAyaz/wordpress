@@ -1034,7 +1034,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         saveCart();
         renderCart();
-        openCart();
     };
 
     window.hbAddToCart = function(id, name, price, img, qty) {
@@ -1052,95 +1051,22 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Checkout Button Action with Login Restriction & Order Creation
+    // Checkout Button Action - Direct Payment Method (No Login)
     var cartCheckoutBtn = document.getElementById('hb-cart-checkout-btn');
     if (cartCheckoutBtn) {
         cartCheckoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            var user = getStoredUser();
-            if (!user) {
-                // If not logged in, prevent checkout and open Sign In drawer
-                closeCart();
-                openDrawer();
-                switchAuthView('login');
-                showAuthAlert('Please sign in or create an account to proceed to checkout.', 'error');
-                return;
-            }
-
-            if (cart.length === 0) return;
-
-            cartCheckoutBtn.disabled = true;
-            cartCheckoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PLACING ORDER...';
-
-            setTimeout(function() {
-                var orderId = 'NES-' + Math.floor(1000 + Math.random() * 9000);
-                var subtotal = 0;
-                var orderItems = [];
-                cart.forEach(function(ci) {
-                    subtotal += ci.price * ci.qty;
-                    orderItems.push({
-                        name: ci.name,
-                        price: ci.price,
-                        qty: ci.qty,
-                        img: ci.img
-                    });
-                });
-
-                var now = new Date();
-                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                var dateStr = months[now.getMonth()] + ' ' + String(now.getDate()).padStart(2, '0') + ', ' + now.getFullYear();
-
-                var newOrder = {
-                    id: orderId,
-                    date: dateStr,
-                    status: 'Dispatched',
-                    tracking: 'DHL Express #' + Math.floor(10000000 + Math.random() * 90000000),
-                    items: orderItems,
-                    total: subtotal
-                };
-
-                user.orders = user.orders || [];
-                user.orders.unshift(newOrder);
-                setStoredUser(user);
-
-                // Update users database
-                var users = getRegisteredUsers();
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].email.toLowerCase() === user.email.toLowerCase()) {
-                        users[i].orders = user.orders;
-                        break;
-                    }
-                }
-                saveRegisteredUsers(users);
-
-                // Clear Cart
-                cart = [];
-                saveCart();
-                renderCart();
-
-                cartCheckoutBtn.disabled = false;
-                cartCheckoutBtn.textContent = 'CHECKOUT';
-
-                // Close cart and open Account Order History with Success banner
-                closeCart();
-                openDrawer();
-                switchAuthView('orders');
-                showAuthAlert('Order #' + orderId + ' placed successfully! Your tracking details are active below.', 'success');
-            }, 600);
+            window.location.href = '/checkout/';
         });
     }
 
-    // Bind quick add buttons on cards with instant interactive feedback
-    document.querySelectorAll('.hb-card-quick-add').forEach(function(btn) {
+    // document.querySelectorAll('.hb-card-quick-add').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
 
             var self = this;
-            var originalHTML = self.innerHTML;
-
-            // Visual feedback
-            self.classList.add('is-added');
-            self.innerHTML = '<i class="fa-solid fa-check"></i> ADDED';
+            self.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PROCEEDING...';
 
             window.nesportsAddToCart({
                 id: self.dataset.id,
@@ -1150,10 +1076,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 qty: 1
             });
 
-            setTimeout(function() {
-                self.classList.remove('is-added');
-                self.innerHTML = originalHTML;
-            }, 1200);
+            window.location.href = '/checkout/';
         });
     });
 
@@ -1233,3 +1156,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+    // Transparent Fixed Header on Scroll (V32)
+    var header = document.getElementById('hb-main-header');
+    if (header) {
+        var handleScroll = function () {
+            var scrollY = window.scrollY || window.pageYOffset || 0;
+            if (scrollY > 36) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+    }

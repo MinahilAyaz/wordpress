@@ -220,6 +220,19 @@ $clothing = nesports_clothing();
             height: 270px !important;
         }
     }
+    
+    @media (max-width: 991px) {
+        .hb-clothing-header {
+            justify-content: center !important;
+            text-align: center !important;
+            width: 100% !important;
+        }
+        .hb-clothing-title {
+            text-align: center !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+        }
+    }
     </style>
 
     <div class="hb-clothing-header">

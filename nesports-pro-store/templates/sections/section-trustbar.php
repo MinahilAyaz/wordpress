@@ -9,28 +9,35 @@ if (!defined('ABSPATH')) {
 
 $trust_items = array(
     array(
-        'icon'     => 'fa-solid fa-truck-fast',
-        'title'    => 'FREE & FAST SHIPPING',
-        'subtitle' => 'Quick dispatch across Germany & Europe',
+        'icon'  => 'fa-solid fa-truck-fast',
+        'title' => 'FREE & FAST SHIPPING',
     ),
     array(
-        'icon'     => 'fa-solid fa-shield-halved',
-        'title'    => 'COMPETITION-GRADE GEAR',
-        'subtitle' => 'Heavy-duty leather & reinforced stitching',
+        'icon'  => 'fa-solid fa-shield-halved',
+        'title' => 'COMPETITION-GRADE GEAR',
     ),
     array(
-        'icon'     => 'fa-solid fa-rotate-left',
-        'title'    => '30-DAY EASY RETURNS',
-        'subtitle' => 'Hassle-free exchanges & size guarantee',
+        'icon'  => 'fa-solid fa-rotate-left',
+        'title' => '30-DAY EASY RETURNS',
     ),
     array(
-        'icon'     => 'fa-solid fa-award',
-        'title'    => 'ENGINEERED IN GERMANY',
-        'subtitle' => 'Gym-tested quality from Remscheid',
+        'icon'  => 'fa-solid fa-award',
+        'title' => 'ENGINEERED IN GERMANY',
     ),
 );
 ?>
 <section class="hb-trustbar" aria-label="Store Guarantees">
+    <style id="hb-trustbar-clean-css">
+    .hb-trustbar {
+        padding: 16px 32px !important;
+    }
+    .hb-trustbar-sub {
+        display: none !important;
+    }
+    .hb-trustbar-item {
+        justify-content: center !important;
+    }
+    </style>
     <div class="hb-trustbar-inner">
         <?php foreach ($trust_items as $item) : ?>
         <div class="hb-trustbar-item">
@@ -39,10 +46,8 @@ $trust_items = array(
             </div>
             <div class="hb-trustbar-text">
                 <h3 class="hb-trustbar-title"><?php echo esc_html($item['title']); ?></h3>
-                <p class="hb-trustbar-sub"><?php echo esc_html($item['subtitle']); ?></p>
             </div>
         </div>
         <?php endforeach; ?>
     </div>
 </section>
-
