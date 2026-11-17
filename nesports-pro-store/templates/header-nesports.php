@@ -19,7 +19,32 @@ if (function_exists('nocache_headers') && !headers_sent()) {
     <title><?php wp_title('|', true, 'right'); ?></title>
     <?php wp_head(); ?>
     <style id="nesports-mobile-nav-fix">
-    /* Global Transparent Fixed Header Architecture */
+    /* 1. Permanent Fixed Top Announcement Bar across overall page */
+    .hb-topbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 36px !important;
+        min-height: 36px !important;
+        max-height: 36px !important;
+        z-index: 1002 !important;
+        background: #141518 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+    body.admin-bar .hb-topbar {
+        top: 32px !important;
+    }
+    @media screen and (max-width: 782px) {
+        body.admin-bar .hb-topbar {
+            top: 46px !important;
+        }
+    }
+
+    /* 2. Permanent Fixed Main Header directly below Top Bar */
     .hb-header,
     .hb-header--static,
     .hb-header.hb-header--static,
@@ -37,8 +62,19 @@ if (function_exists('nocache_headers') && !headers_sent()) {
         border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
         box-shadow: none !important;
         z-index: 1000 !important;
-        /* No top transition to guarantee 100% rock-solid static tracking */
         transition: background 0.2s ease, border-color 0.2s ease !important;
+    }
+    body.admin-bar .hb-header,
+    body.admin-bar .hb-header--static,
+    body.admin-bar .hb-header--fixed {
+        top: calc(36px + 32px) !important;
+    }
+    @media screen and (max-width: 782px) {
+        body.admin-bar .hb-header,
+        body.admin-bar .hb-header--static,
+        body.admin-bar .hb-header--fixed {
+            top: calc(36px + 46px) !important;
+        }
     }
 
     .hb-header.is-on-light {
@@ -60,8 +96,7 @@ if (function_exists('nocache_headers') && !headers_sent()) {
     }
 
     /* ========================================================
-       1. ON DARK BACKGROUND (Hero, Dark Banners)
-       Text & Icons WHITE, Logo Letters WHITE, Red stays Red
+       DARK BACKGROUND: Text & Icons WHITE, Logo Letters WHITE
        ======================================================== */
     .hb-header.is-on-dark .hb-nav .hb-menu > li > a {
         color: #ffffff !important;
@@ -89,8 +124,6 @@ if (function_exists('nocache_headers') && !headers_sent()) {
     .hb-header.is-on-dark .hb-mobile-btn span {
         background-color: #ffffff !important;
     }
-
-    /* Logo on Dark Background: Letters "N" and "S3" are White */
     .hb-header.is-on-dark .hb-logo .hb-logo-letters,
     .hb-header.is-on-dark .hb-logo g[fill="#080808"],
     .hb-header.is-on-dark .hb-logo g.hb-logo-letters {
@@ -98,8 +131,7 @@ if (function_exists('nocache_headers') && !headers_sent()) {
     }
 
     /* ========================================================
-       2. ON LIGHT BACKGROUND (Top Sellers, Bundles, Clothing, etc.)
-       Text & Icons DARK BLACK, Logo Letters BLACK, Red stays Red
+       LIGHT BACKGROUND: Text & Icons DARK BLACK, Logo Letters BLACK
        ======================================================== */
     .hb-header.is-on-light .hb-nav .hb-menu > li > a {
         color: #111111 !important;
@@ -127,15 +159,13 @@ if (function_exists('nocache_headers') && !headers_sent()) {
     .hb-header.is-on-light .hb-mobile-btn span {
         background-color: #111111 !important;
     }
-
-    /* Logo on Light Background: Letters "N" and "S3" are Deep Black */
     .hb-header.is-on-light .hb-logo .hb-logo-letters,
     .hb-header.is-on-light .hb-logo g[fill="#080808"],
     .hb-header.is-on-light .hb-logo g.hb-logo-letters {
         fill: #080808 !important;
     }
 
-    /* Shared Red Logo Accents & Cart Badge */
+    /* Red accents */
     .hb-logo .hb-logo-red,
     .hb-logo g[fill="#F00012"],
     .hb-logo g.hb-logo-red {
@@ -187,8 +217,6 @@ if (function_exists('nocache_headers') && !headers_sent()) {
             align-items: center !important;
             justify-content: center !important;
             overflow: hidden !important;
-            position: relative !important;
-            z-index: 1002 !important;
             box-sizing: border-box !important;
         }
         .hb-topbar-inner { 
@@ -410,46 +438,20 @@ if (function_exists('nocache_headers') && !headers_sent()) {
 
 <script id="hb-header-adaptive-script">
 (function() {
-    function updateHeaderOnScroll() {
+    function updateAdaptiveHeader() {
         var header = document.getElementById('hb-main-header');
         if (!header) return;
 
-        var scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-        
-        // 1. Rock-solid static & fixed position tracking
-        var topbar = document.querySelector('.hb-topbar');
-        var topbarHeight = topbar ? topbar.offsetHeight : 36;
-        var adminBar = document.getElementById('wpadminbar');
-        var adminBarHeight = adminBar ? adminBar.offsetHeight : (document.body.classList.contains('admin-bar') ? (window.innerWidth <= 782 ? 46 : 32) : 0);
-        
-        var offsetTop = Math.max(0, topbarHeight - scrollY) + adminBarHeight;
-        header.style.top = offsetTop + 'px';
-        
-        if (scrollY > topbarHeight) {
-            header.classList.add('is-scrolled');
-        } else {
-            header.classList.remove('is-scrolled');
-        }
-
-        // 2. High-precision Dark vs Light Background detection
-        var hero = document.getElementById('hb-hero') || document.querySelector('.hb-hero');
-        var heroBottom = hero ? (hero.offsetTop + hero.offsetHeight) : 0;
-        
-        var banner = document.querySelector('.hb-static-banner');
-        var bannerTop = banner ? banner.offsetTop : 999999;
-        var bannerBottom = banner ? (banner.offsetTop + banner.offsetHeight) : 999999;
-
-        var headerHeight = header.offsetHeight || 60;
-        var probePoint = scrollY + offsetTop + (headerHeight / 2);
+        var probeY = 36 + ((header.offsetHeight || 60) / 2);
 
         var isDark = false;
-        // Check if header is over Hero
-        if (hero && probePoint <= heroBottom) {
-            isDark = true;
-        }
-        // Check if header is over mid-page Dark Banner
-        else if (banner && probePoint >= bannerTop && probePoint <= bannerBottom) {
-            isDark = true;
+        var darkElements = document.querySelectorAll('#hb-hero, .hb-hero, .hb-trustbar, .hb-static-banner, [data-theme="dark"]');
+        for (var i = 0; i < darkElements.length; i++) {
+            var rect = darkElements[i].getBoundingClientRect();
+            if (rect.top <= probeY && rect.bottom >= probeY) {
+                isDark = true;
+                break;
+            }
         }
 
         if (isDark) {
@@ -461,15 +463,15 @@ if (function_exists('nocache_headers') && !headers_sent()) {
         }
     }
 
-    window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
-    window.addEventListener('resize', updateHeaderOnScroll);
+    window.addEventListener('scroll', updateAdaptiveHeader, { passive: true });
+    window.addEventListener('resize', updateAdaptiveHeader);
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateHeaderOnScroll);
+        document.addEventListener('DOMContentLoaded', updateAdaptiveHeader);
     } else {
-        updateHeaderOnScroll();
+        updateAdaptiveHeader();
     }
-    setTimeout(updateHeaderOnScroll, 50);
-    setTimeout(updateHeaderOnScroll, 200);
+    setTimeout(updateAdaptiveHeader, 50);
+    setTimeout(updateAdaptiveHeader, 200);
 })();
 </script>
 
