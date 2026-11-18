@@ -30,6 +30,9 @@ else :
     <!-- 3. MID-PAGE PARALLAX BANNER -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-banner.php'; ?>
 
+    <!-- 3b. COLLECTIONS CAROUSEL (Matched to Hardbody Store Reference) -->
+    <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-collections-carousel.php'; ?>
+
     <!-- 4. BUNDLES -->
     <?php include NESPORTS_PLUGIN_DIR . 'templates/sections/section-bundles.php'; ?>
 

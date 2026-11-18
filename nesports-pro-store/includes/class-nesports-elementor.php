@@ -49,6 +49,7 @@ class NESports_Elementor {
             'NESports_Elementor_TrustBar_Widget',
             'NESports_Elementor_Categories_Widget',
             'NESports_Elementor_Banner_Widget',
+            'NESports_Elementor_Collections_Widget',
             'NESports_Elementor_Bundles_Widget',
             'NESports_Elementor_Clothing_Widget',
             'NESports_Elementor_Color_Widget',
@@ -83,6 +84,7 @@ class NESports_Elementor {
             'NESports_Elementor_TrustBar_Widget',
             'NESports_Elementor_Categories_Widget',
             'NESports_Elementor_Banner_Widget',
+            'NESports_Elementor_Collections_Widget',
             'NESports_Elementor_Bundles_Widget',
             'NESports_Elementor_Clothing_Widget',
             'NESports_Elementor_Color_Widget',
@@ -107,6 +109,7 @@ class NESports_Elementor {
         require_once $dir . 'widget-trustbar.php';
         require_once $dir . 'widget-categories.php';
         require_once $dir . 'widget-banner.php';
+        require_once $dir . 'widget-collections.php';
         require_once $dir . 'widget-bundles.php';
         require_once $dir . 'widget-clothing.php';
         require_once $dir . 'widget-color.php';
@@ -203,6 +206,21 @@ class NESports_Elementor {
                             'id'         => 'nesbanrw3',
                             'elType'     => 'widget',
                             'widgetType' => 'nesports_banner_widget',
+                            'settings'   => array(),
+                            'elements'   => array(),
+                        ),
+                    ),
+                    'isInner'  => false,
+                ),
+                array(
+                    'id'       => 'nescol03b',
+                    'elType'   => 'container',
+                    'settings' => array('content_width' => 'full', 'padding' => $zero_pad, 'margin' => $zero_pad),
+                    'elements' => array(
+                        array(
+                            'id'         => 'nescolw3b',
+                            'elType'     => 'widget',
+                            'widgetType' => 'nesports_collections_widget',
                             'settings'   => array(),
                             'elements'   => array(),
                         ),

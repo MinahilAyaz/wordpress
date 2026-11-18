@@ -14,6 +14,7 @@ class NESports_Frontend {
         add_shortcode('nesports_trustbar', array($this, 'render_trustbar_shortcode'));
         add_shortcode('nesports_products', array($this, 'render_products_shortcode'));
         add_shortcode('nesports_banner', array($this, 'render_banner_shortcode'));
+        add_shortcode('nesports_collections', array($this, 'render_collections_shortcode'));
         add_shortcode('nesports_categories', array($this, 'render_categories_shortcode'));
         add_shortcode('nesports_bundles', array($this, 'render_bundles_shortcode'));
         add_shortcode('nesports_clothing', array($this, 'render_clothing_shortcode'));
@@ -190,6 +191,12 @@ class NESports_Frontend {
     public function render_banner_shortcode() {
         ob_start();
         include NESPORTS_PLUGIN_DIR . 'templates/sections/section-banner.php';
+        return ob_get_clean();
+    }
+
+    public function render_collections_shortcode() {
+        ob_start();
+        include NESPORTS_PLUGIN_DIR . 'templates/sections/section-collections-carousel.php';
         return ob_get_clean();
     }
 
