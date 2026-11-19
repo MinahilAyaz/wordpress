@@ -114,7 +114,25 @@ function nesports_hero_slides() {
  * Product catalog (names, prices and images from nesports3.com or live WooCommerce).
  * price = current price, old = regular price, main/hover = files or URLs.
  */
+function nesports_get_managed_catalog() {
+    $catalog = get_option('nesports_managed_catalog', null);
+    if (!is_array($catalog) || empty($catalog)) {
+        $catalog = nesports_preset_catalog();
+        update_option('nesports_managed_catalog', $catalog);
+    }
+    return $catalog;
+}
+
 function nesports_catalog() {
+    static $cached_catalog = null;
+    if ($cached_catalog !== null) {
+        return $cached_catalog;
+    }
+    $managed = get_option('nesports_managed_catalog', null);
+    if (is_array($managed) && !empty($managed)) {
+        $cached_catalog = $managed;
+        return $cached_catalog;
+    }
     static $cached_catalog = null;
     if ($cached_catalog !== null) {
         return $cached_catalog;
