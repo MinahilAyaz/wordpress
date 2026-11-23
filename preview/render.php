@@ -9,9 +9,18 @@ define('NESPORTS_VERSION', 'dev');
 define('NESPORTS_PLUGIN_DIR', dirname(__DIR__) . '/nesports-pro-store/');
 define('NESPORTS_PLUGIN_URL', '/nesports-pro-store/');
 
-$GLOBALS['nes_settings'] = json_decode(getenv('NES_SETTINGS') ?: '{}', true) ?: array();
+$settings_file = __DIR__ . '/settings.json';
+$local_file_settings = file_exists($settings_file) ? (json_decode(file_get_contents($settings_file), true) ?: array()) : array();
+$GLOBALS['nes_settings'] = array_merge($local_file_settings, json_decode(getenv('NES_SETTINGS') ?: '{}', true) ?: array());
 
-function get_option($k, $d = false) { return $k === 'nesports_store_settings' ? $GLOBALS['nes_settings'] : $d; }
+$catalog_file = __DIR__ . '/catalog.json';
+$GLOBALS['nes_catalog'] = file_exists($catalog_file) ? (json_decode(file_get_contents($catalog_file), true) ?: array()) : array();
+
+function get_option($k, $d = false) {
+    if ($k === 'nesports_store_settings') return $GLOBALS['nes_settings'];
+    if ($k === 'nesports_managed_catalog') return !empty($GLOBALS['nes_catalog']) ? $GLOBALS['nes_catalog'] : $d;
+    return $d;
+}
 function esc_html($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); }
 function esc_attr($s) { return esc_html($s); }
 function esc_url($s) { return esc_html($s); }

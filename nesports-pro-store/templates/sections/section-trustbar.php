@@ -10,19 +10,19 @@ if (!defined('ABSPATH')) {
 $trust_items = array(
     array(
         'icon'  => 'fa-solid fa-truck-fast',
-        'title' => 'FREE & FAST SHIPPING',
+        'title' => nesports_setting('trust_1_title', 'FREE & FAST SHIPPING'),
     ),
     array(
         'icon'  => 'fa-solid fa-shield-halved',
-        'title' => 'COMPETITION-GRADE GEAR',
+        'title' => nesports_setting('trust_2_title', 'COMPETITION-GRADE GEAR'),
     ),
     array(
         'icon'  => 'fa-solid fa-rotate-left',
-        'title' => '30-DAY EASY RETURNS',
+        'title' => nesports_setting('trust_3_title', '30-DAY EASY RETURNS'),
     ),
     array(
         'icon'  => 'fa-solid fa-award',
-        'title' => 'ENGINEERED IN GERMANY',
+        'title' => nesports_setting('trust_4_title', 'ENGINEERED IN GERMANY'),
     ),
 );
 ?>

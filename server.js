@@ -20,48 +20,53 @@ let settings = {
 
 const mime = { '.css': 'text/css', '.js': 'application/javascript', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ttf': 'font/ttf', '.woff': 'font/woff', '.woff2': 'font/woff2' };
 
+function getLiveSettings() {
+    const sFile = path.join(ROOT, 'preview', 'settings.json');
+    if (fs.existsSync(sFile)) {
+        try {
+            const raw = fs.readFileSync(sFile, 'utf8');
+            return Object.assign({}, settings, JSON.parse(raw));
+        } catch(e){}
+    }
+    return settings;
+}
+
 function renderFrontend(page = 'home', extraEnv = {}) {
     return execFileSync('php', [path.join(ROOT, 'preview', 'render.php')], {
-        env: { ...process.env, NES_SETTINGS: JSON.stringify(settings), NES_PAGE: page, ...extraEnv },
+        env: { ...process.env, NES_SETTINGS: JSON.stringify(getLiveSettings()), NES_PAGE: page, ...extraEnv },
         encoding: 'utf8'
     });
 }
 
-function renderAdmin() {
-    const css = fs.readFileSync(path.join(PLUGIN_DIR, 'assets', 'css', 'nesports-admin.css'), 'utf8');
-    const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-    return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>NESPORTS3 - Admin</title>
-<style>
-body{background:#f0f0f1;margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif}
-.bar{background:#1d2327;color:#c3c4c7;height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:13px}
-.bar a{color:#c3c4c7;text-decoration:none}
-.layout{display:flex;min-height:calc(100vh - 32px)}
-.side{width:170px;background:#1d2327;padding-top:10px;flex-shrink:0}
-.side a{display:block;padding:10px 16px;font-size:13px;color:#c3c4c7;text-decoration:none}
-.side a.on{background:#e11d48;color:#fff;font-weight:700}
-.main{flex:1;padding:24px 30px}
-${css}
-.button{display:inline-block;font-size:13px;min-height:30px;line-height:28px;padding:0 12px;border-radius:3px;cursor:pointer;border:1px solid #dcdcde;background:#f6f7f7;color:#2c3338;text-decoration:none}
-.button-primary{background:#e11d48;border-color:#e11d48;color:#fff}
-.widefat{width:100%;padding:8px 10px;border:1px solid #8c8f94;border-radius:4px}
-.ok{display:none;background:#e6f4ea;border-left:4px solid #34a853;padding:12px 16px;margin-bottom:16px;border-radius:4px;color:#137333;font-weight:600}
-</style></head><body>
-<div class="bar"><div><strong>NESPORTS3</strong> &bull; <a href="/" target="_blank">Visit storefront</a></div><div>Howdy, Admin</div></div>
-<div class="layout"><aside class="side"><a>Dashboard</a><a>WooCommerce</a><a>Pages</a><a class="on" href="/admin">NE Sports Store</a><a>Settings</a></aside>
-<main class="main"><div class="nesports-admin-wrap">
-<div class="nesports-admin-header"><div class="nesports-brand"><span class="nesports-badge">NESPORTS3</span><h1>STORE <span>SETTINGS</span></h1><p>Controls for the storefront top bar, accent colour and contact details.</p></div>
-<div class="nesports-quick-actions"><a class="button" href="/" target="_blank">View live store</a></div></div>
-<div class="ok" id="ok">Saved. Refresh the storefront to see it.</div>
-<div class="nesports-card"><div class="nesports-card-header"><h2>Storefront</h2></div><div class="nesports-card-body">
-<div class="nesports-form-group"><label><strong>Top bar announcement</strong></label><input class="widefat" id="announcement_text" value="${esc(settings.announcement_text)}"></div>
-<div class="nesports-form-group"><label><strong>Support phone</strong></label><input class="widefat" id="support_phone" value="${esc(settings.support_phone)}"></div>
-<div class="nesports-form-group"><label><strong>Support email</strong></label><input class="widefat" id="support_email" value="${esc(settings.support_email)}"></div>
-<div class="nesports-form-group"><label><strong>Accent colour</strong></label><input type="color" id="accent_color" value="${esc(settings.accent_color)}"></div>
-<button class="button button-primary" onclick="save()">Save settings</button></div></div></div></main></div>
-<script>
-function save(){var d={};['announcement_text','support_phone','support_email','accent_color'].forEach(function(k){d[k]=document.getElementById(k).value});
-fetch('/api/settings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(){var o=document.getElementById('ok');o.style.display='block';setTimeout(function(){o.style.display='none'},3000)})}
-</script></body></html>`;
+function renderAdminPHP(req, res, postBody = '') {
+    const u = new URL(req.url, `http://${req.headers.host}`);
+    const query = u.search ? u.search.substring(1) : '';
+    const env = {
+        ...process.env,
+        REQUEST_METHOD: req.method,
+        QUERY_STRING: query,
+        CONTENT_TYPE: req.headers['content-type'] || 'application/x-www-form-urlencoded',
+        CONTENT_LENGTH: String(Buffer.byteLength(postBody || ''))
+    };
+    try {
+        const output = execFileSync('php', [path.join(ROOT, 'preview', 'admin.php')], {
+            input: postBody || '',
+            env: env,
+            encoding: 'utf8'
+        });
+        if (output.includes('Location: ')) {
+            const loc = output.match(/Location:\s*([^\r\n]+)/);
+            if (loc && loc[1]) {
+                res.writeHead(302, { 'Location': loc[1].trim() });
+                return res.end();
+            }
+        }
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(output);
+    } catch(e) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Admin PHP error:\n' + (e.stderr || e.message));
+    }
 }
 
 http.createServer((req, res) => {
@@ -77,9 +82,13 @@ http.createServer((req, res) => {
         return;
     }
 
-    if (pathname === '/admin' || pathname === '/wp-admin') {
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        return res.end(renderAdmin());
+        if (pathname === '/admin' || pathname === '/wp-admin' || pathname === '/options.php' || pathname === '/admin.php') {
+        let body = '';
+        req.on('data', c => (body += c));
+        req.on('end', () => {
+            renderAdminPHP(req, res, body);
+        });
+        return;
     }
 
     let cleanPath = decodeURIComponent(pathname);

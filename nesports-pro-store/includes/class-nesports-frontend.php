@@ -7,6 +7,7 @@ class NESports_Frontend {
 
     public function init() {
         add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
+        add_action('template_redirect', array($this, 'redirect_legacy_pages'));
         add_filter('template_include', array($this, 'route_custom_templates'), 999999);
 
         // Elementor & WordPress Section Shortcodes
@@ -77,6 +78,22 @@ class NESports_Frontend {
     }
 
     /**
+     * Redirect legacy / about-us-3 duplicate pages to /our-story/
+     */
+    public function redirect_legacy_pages() {
+        if (!is_admin() && (is_page(4400) || (isset($_GET['p']) && $_GET['p'] == 4400))) {
+            if (is_user_logged_in() && current_user_can('edit_pages')) {
+                return;
+            }
+            if (isset($_GET['elementor-preview']) || isset($_GET['preview']) || isset($_GET['preview_id']) || (class_exists('\Elementor\Plugin') && (\Elementor\Plugin::$instance->preview->is_preview_mode() || \Elementor\Plugin::$instance->editor->is_edit_mode()))) {
+                return;
+            }
+            wp_safe_redirect(home_url('/our-story/'), 301);
+            exit;
+        }
+    }
+
+    /**
      * Route template when viewing generated pages
      */
     public function route_custom_templates($template) {
@@ -142,7 +159,7 @@ class NESports_Frontend {
             if ($page_type === 'home' && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-home.php')) {
                 return NESPORTS_PLUGIN_DIR . 'templates/page-home.php';
             }
-            if (($page_type === 'our-story' || is_page(array('our-story', 'about-us', 'about-us-3'))) && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-story.php')) {
+            if (($page_type === 'our-story' || is_page(array('our-story', 'about-us', 'about-us-3', 4400, 30090)) || (isset($_GET['p']) && in_array((int)$_GET['p'], array(4400, 30090), true))) && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-story.php')) {
                 return NESPORTS_PLUGIN_DIR . 'templates/page-story.php';
             }
             if (($page_type === 'contact' || is_page(array('contact-us', 'contact'))) && file_exists(NESPORTS_PLUGIN_DIR . 'templates/page-contact.php')) {

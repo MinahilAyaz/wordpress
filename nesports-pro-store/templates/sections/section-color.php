@@ -434,7 +434,10 @@ $active_color = 'red'; // Default active color
     <div class="hb-color-container">
         <div class="hb-color-nav-grid">
             <div class="hb-color-title-wrap">
-                <h2 class="hb-color-title">Shop by Color</h2>
+                <h2 class="hb-color-title"><?php echo esc_html(nesports_setting('color_title', 'Shop by Color')); ?></h2>
+                <?php $color_desc = nesports_setting('color_desc', ''); if (!empty($color_desc)): ?>
+                    <p class="hb-color-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($color_desc); ?></p>
+                <?php endif; ?>
             </div>
 
             <div class="hb-color-pills-wrap">

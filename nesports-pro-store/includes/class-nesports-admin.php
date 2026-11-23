@@ -9,8 +9,135 @@ class NESports_Admin {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'register_settings'));
         add_action('admin_init', array($this, 'handle_product_actions'));
+        add_action('admin_init', array($this, 'redirect_legacy_editor'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
         add_action('wp_ajax_nesports_regenerate_pages', array($this, 'ajax_regenerate_pages'));
+        add_action('update_option_nesports_store_settings', array($this, 'on_settings_updated'), 10, 2);
+        add_action('elementor/document/save', array($this, 'on_elementor_saved'), 10, 2);
+        add_action('save_post', array($this, 'on_wp_post_saved'), 10, 3);
+    }
+
+    public function redirect_legacy_editor() {
+        if (isset($_GET['post']) && $_GET['post'] == 4400 && isset($_GET['action']) && $_GET['action'] === 'elementor') {
+            wp_redirect(admin_url('post.php?post=30090&action=elementor'));
+            exit;
+        }
+    }
+
+    public function on_settings_updated($old_val, $new_val) {
+        $target_posts = array(30090, 4400);
+        foreach ($target_posts as $post_id) {
+            $meta = get_post_meta($post_id, '_elementor_data', true);
+            if (!empty($meta)) {
+                $decoded = json_decode($meta, true);
+                if (is_array($decoded)) {
+                    $changed = false;
+                    array_walk_recursive($decoded, function(&$item, $key) use ($new_val, &$changed) {
+                        if ($key === 'url' && !empty($new_val['about_feature_img'])) {
+                            if (strpos($item, 'WhatsApp-Image') !== false || strpos($item, 'logo.png') !== false || strpos($item, 'uploads') !== false) {
+                                $item = $new_val['about_feature_img'];
+                                $changed = true;
+                            }
+                        }
+                    });
+                    if ($changed) {
+                        update_post_meta($post_id, '_elementor_data', wp_slash(json_encode($decoded)));
+                    }
+                }
+            }
+        }
+        if (class_exists('\Elementor\Plugin')) {
+            \Elementor\Plugin::$instance->files_manager->clear_cache();
+        }
+    }
+
+    public function on_elementor_saved($document, $data) {
+        $post_id = $document ? $document->get_main_id() : 0;
+        if (!$post_id) return;
+
+        if ($post_id == 4400 || $post_id == 30090) {
+            $other_id = ($post_id == 4400) ? 30090 : 4400;
+            $raw_data = get_post_meta($post_id, '_elementor_data', true);
+            if (!empty($raw_data)) {
+                // Instantly sync & clone exact Elementor content to the sister page!
+                update_post_meta($other_id, '_elementor_data', wp_slash($raw_data));
+                update_post_meta($other_id, '_elementor_edit_mode', 'builder');
+                clean_post_cache($other_id);
+
+                $elements = json_decode($raw_data, true);
+                if (is_array($elements)) {
+                    $this->extract_and_sync_story_settings($elements);
+                }
+            }
+        }
+
+        if (class_exists('\Elementor\Plugin')) {
+            \Elementor\Plugin::$instance->files_manager->clear_cache();
+        }
+    }
+
+    public function on_wp_post_saved($post_id, $post, $update) {
+        if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) return;
+        if ($post_id == 4400 || $post_id == 30090) {
+            $other_id = ($post_id == 4400) ? 30090 : 4400;
+            $raw_data = get_post_meta($post_id, '_elementor_data', true);
+            if (!empty($raw_data)) {
+                update_post_meta($other_id, '_elementor_data', wp_slash($raw_data));
+                update_post_meta($other_id, '_elementor_edit_mode', 'builder');
+                clean_post_cache($other_id);
+
+                $elements = json_decode($raw_data, true);
+                if (is_array($elements)) {
+                    $this->extract_and_sync_story_settings($elements);
+                }
+            }
+        }
+    }
+
+    private function extract_and_sync_story_settings($elements) {
+        $found = false;
+        $updates = array();
+
+        $scan = function($items) use (&$scan, &$updates, &$found) {
+            foreach ($items as $item) {
+                if (isset($item['widgetType']) && in_array($item['widgetType'], array('nesports-story', 'nesports_story_widget'), true)) {
+                    $st = $item['settings'] ?? array();
+                    if (isset($st['story_text']) && $st['story_text'] !== '') {
+                        $updates['about_story_text'] = $st['story_text'];
+                        $found = true;
+                    }
+                    if (isset($st['banner_title']) && $st['banner_title'] !== '') {
+                        $updates['about_banner_title'] = $st['banner_title'];
+                        $found = true;
+                    }
+                    if (isset($st['story_title']) && $st['story_title'] !== '') {
+                        $updates['about_story_title'] = $st['story_title'];
+                        $found = true;
+                    }
+                    if (!empty($st['image']['url'])) {
+                        $updates['about_feature_img'] = $st['image']['url'];
+                        $found = true;
+                    }
+                    if (isset($st['motto']) && $st['motto'] !== '') {
+                        $updates['about_motto'] = $st['motto'];
+                        $found = true;
+                    }
+                }
+                if (!empty($item['elements']) && is_array($item['elements'])) {
+                    $scan($item['elements']);
+                }
+            }
+        };
+
+        $scan($elements);
+
+        if ($found && !empty($updates)) {
+            $cur = get_option('nesports_store_settings', array());
+            $merged = array_merge($cur, $updates);
+            remove_action('update_option_nesports_store_settings', array($this, 'on_settings_updated'), 10);
+            update_option('nesports_store_settings', $merged);
+            add_action('update_option_nesports_store_settings', array($this, 'on_settings_updated'), 10, 2);
+        }
     }
 
     /**
@@ -78,8 +205,17 @@ class NESports_Admin {
 
     public function sanitize_settings($input) {
         $clean = array();
+        if (!is_array($input)) return $clean;
         foreach ($input as $key => $val) {
-            $clean[$key] = sanitize_text_field($val);
+            if ($key === 'about_story_text' || $key === 'hero_subtitle') {
+                $clean[$key] = wp_kses_post($val);
+            } elseif (strpos($key, 'url') !== false || strpos($key, 'img') !== false || strpos($key, 'image') !== false) {
+                $clean[$key] = esc_url_raw($val);
+            } elseif (is_string($val)) {
+                $clean[$key] = sanitize_text_field($val);
+            } else {
+                $clean[$key] = $val;
+            }
         }
         return $clean;
     }
@@ -667,213 +803,641 @@ class NESports_Admin {
         <?php
     }
 
+    public function render_master_dashboard() {
+        $this->render_admin_dashboard();
+    }
+
     /**
-     * Render main dashboard
+     * Render main dashboard (Master Client Hub)
      */
     public function render_admin_dashboard() {
         $settings = get_option('nesports_store_settings', array());
         $pages = get_option('nesports_generated_pages', array());
         $front_page_id = (int) get_option('page_on_front');
+        $active_tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'pages';
         ?>
         <div class="wrap nesports-admin-wrap">
             <div class="nesports-admin-header">
                 <div class="nesports-brand">
-                    <span class="nesports-badge">PRO EDITION</span>
+                    <span class="nesports-badge">CLIENT MASTER CONTROL HUB</span>
                     <h1>NE SPORTS <span>STORE ENGINE</span></h1>
-                    <p>Hardbody-inspired athletic branding, automated page layouts & performance storefront controls.</p>
+                    <p>Complete self-serve controls: Edit pages, change images, update products, customize banners & colors in 1 click.</p>
                 </div>
                 <div class="nesports-quick-actions">
-                    <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-store-products')); ?>" class="button button-primary button-hero" style="background: #e11d48; border-color: #be123c;">
-                        <span class="dashicons dashicons-cart"></span> Manage Store Products & Prices
+                    <a href="<?php echo esc_url(home_url('/')); ?>" target="_blank" class="button button-primary button-hero" style="background: #e11d48; border-color: #be123c;">
+                        <span class="dashicons dashicons-external"></span> View Live Storefront
                     </a>
-                    <button type="button" id="btn-regenerate-pages" class="button button-secondary button-hero">
-                        <span class="dashicons dashicons-update"></span> Regenerate All Pages
-                    </button>
-                    <a href="<?php echo esc_url(home_url('/')); ?>" target="_blank" class="button button-secondary button-hero">
-                        <span class="dashicons dashicons-external"></span> View Live Store
+                    <a href="<?php echo esc_url(home_url('/our-story/')); ?>" target="_blank" class="button button-secondary button-hero">
+                        <span class="dashicons dashicons-visibility"></span> View Story Page
                     </a>
                 </div>
             </div>
 
-            <div id="nesports-ajax-notice" style="display:none;" class="notice notice-success is-dismissible">
-                <p id="nesports-ajax-message"></p>
-            </div>
+            <?php if (isset($_GET['settings-updated']) || isset($_GET['saved'])): ?>
+                <div class="notice notice-success is-dismissible" style="border-left-color: #10b981; padding: 12px 18px; margin: 15px 0;">
+                    <p style="margin: 0; font-size: 14px; font-weight: 600; color: #065f46;">
+                        <span class="dashicons dashicons-yes-alt" style="color: #10b981; vertical-align: text-top;"></span> 
+                        Storefront changes saved successfully! Live pages are updated.
+                    </p>
+                </div>
+            <?php endif; ?>
 
-            <!-- Dashboard Content Tabs -->
+            <!-- Navigation Tabs Bar -->
+            <nav class="nav-tab-wrapper" style="margin-bottom: 24px; border-bottom: 2px solid #cbd5e1; display: flex; gap: 6px;">
+                <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-pro-store&tab=pages')); ?>" 
+                   class="nav-tab <?php echo $active_tab === 'pages' ? 'nav-tab-active' : ''; ?>"
+                   style="<?php echo $active_tab === 'pages' ? 'background: #ffffff; border-color: #cbd5e1; border-bottom-color: #ffffff; color: #e11d48; font-weight: 700;' : 'background: #f1f5f9; color: #475569;'; ?> font-size: 14px; padding: 10px 18px; border-radius: 6px 6px 0 0; display: inline-flex; align-items: center; gap: 6px;">
+                    <span class="dashicons dashicons-admin-page"></span> All Pages & Story Content
+                </a>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-pro-store&tab=hero')); ?>" 
+                   class="nav-tab <?php echo $active_tab === 'hero' ? 'nav-tab-active' : ''; ?>"
+                   style="<?php echo $active_tab === 'hero' ? 'background: #ffffff; border-color: #cbd5e1; border-bottom-color: #ffffff; color: #e11d48; font-weight: 700;' : 'background: #f1f5f9; color: #475569;'; ?> font-size: 14px; padding: 10px 18px; border-radius: 6px 6px 0 0; display: inline-flex; align-items: center; gap: 6px;">
+                    <span class="dashicons dashicons-format-image"></span> Home Hero & Banners
+                </a>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-pro-store&tab=products')); ?>" 
+                   class="nav-tab <?php echo $active_tab === 'products' ? 'nav-tab-active' : ''; ?>"
+                   style="<?php echo $active_tab === 'products' ? 'background: #ffffff; border-color: #cbd5e1; border-bottom-color: #ffffff; color: #e11d48; font-weight: 700;' : 'background: #f1f5f9; color: #475569;'; ?> font-size: 14px; padding: 10px 18px; border-radius: 6px 6px 0 0; display: inline-flex; align-items: center; gap: 6px;">
+                    <span class="dashicons dashicons-cart"></span> Products & Catalog
+                </a>
+                <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-pro-store&tab=styling')); ?>" 
+                   class="nav-tab <?php echo $active_tab === 'styling' ? 'nav-tab-active' : ''; ?>"
+                   style="<?php echo $active_tab === 'styling' ? 'background: #ffffff; border-color: #cbd5e1; border-bottom-color: #ffffff; color: #e11d48; font-weight: 700;' : 'background: #f1f5f9; color: #475569;'; ?> font-size: 14px; padding: 10px 18px; border-radius: 6px 6px 0 0; display: inline-flex; align-items: center; gap: 6px;">
+                    <span class="dashicons dashicons-art"></span> Colors & Section Controls
+                </a>
+            </nav>
+
+            <!-- TAB 1: ALL PAGES & STORY CONTENT -->
+            <?php if ($active_tab === 'pages'): ?>
             <div class="nesports-admin-grid">
-                <!-- Left Column: Pages Status -->
+                <!-- Left Column: Pages List -->
                 <div class="nesports-card">
-                    <div class="nesports-card-header">
-                        <h2><span class="dashicons dashicons-admin-page"></span> Deployed Pages Status</h2>
-                        <span class="nesports-pill-live">3 Pages Connected</span>
+                    <?php
+                    $all_wp_pages_count = function_exists('wp_count_posts') ? (wp_count_posts('page')->publish + wp_count_posts('page')->draft) : 15;
+                    ?>
+                    <div class="nesports-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <h2><span class="dashicons dashicons-admin-page"></span> All Website Pages (<?php echo $all_wp_pages_count; ?> Available)</h2>
+                        </div>
+                        <div>
+                            <span class="nesports-pill-live">Real-time Connected</span>
+                        </div>
                     </div>
-                    <div class="nesports-card-body">
-                        <table class="nesports-table">
-                            <thead>
-                                <tr>
-                                    <th>Page Name</th>
-                                    <th>Slug</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $page_list = array(
-                                    'home' => array('name' => 'Flagship Home Page', 'slug' => 'home'),
-                                    'our-story' => array('name' => 'The NE Sports Story', 'slug' => 'our-story'),
-                                    'contact' => array('name' => 'Contact & Help Center', 'slug' => 'contact-us')
-                                );
+                    <div class="nesports-card-body" style="padding: 16px 20px;">
+                        <!-- Quick Help Banner -->
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #e11d48; border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: #334155; line-height: 1.5;">
+                            <strong>Quick Guide: Where to edit each page?</strong>
+                            <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px;">
+                                <span>🏠 <strong>Home:</strong> <a href="?tab=hero" style="color: #0369a1; text-decoration: none; font-weight: 600;">Tab 2 (Hero & Banners) &rarr;</a></span>
+                                <span>🛍️ <strong>Shop:</strong> <a href="?tab=products" style="color: #92400e; text-decoration: none; font-weight: 600;">Tab 3 (Products & Catalog) &rarr;</a></span>
+                                <span>📖 <strong>Story:</strong> Click <strong style="color: #e11d48;">Edit Story</strong> button below</span>
+                                <span>📞 <strong>Contact:</strong> Click <strong style="color: #047857;">Edit Contact</strong> button below</span>
+                            </div>
+                        </div>
 
-                                foreach ($page_list as $key => $pinfo):
-                                    $pid = isset($pages[$key]) ? $pages[$key] : 0;
-                                    $page_exists = $pid && get_post($pid) && get_post_status($pid) !== 'trash';
-                                    $is_front = ($pid && $pid === $front_page_id);
-                                ?>
-                                <tr>
-                                    <td>
-                                        <strong><?php echo esc_html($pinfo['name']); ?></strong>
-                                        <?php if ($is_front): ?>
-                                            <span class="nesports-badge-front">Front Page</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><code>/<?php echo esc_html($pinfo['slug']); ?>/</code></td>
-                                    <td>
-                                        <?php if ($page_exists): ?>
-                                            <span class="status-dot status-active"></span> Published
-                                        <?php else: ?>
-                                            <span class="status-dot status-missing"></span> Not Deployed
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($page_exists): ?>
-                                            <a href="<?php echo esc_url(get_permalink($pid)); ?>" target="_blank" class="button button-small">View</a>
-                                            <a href="<?php echo esc_url(admin_url('post.php?post=' . $pid . '&action=edit')); ?>" class="button button-small">Edit in WP</a>
-                                        <?php else: ?>
-                                            <button type="button" class="button button-small btn-single-gen" data-page="<?php echo esc_attr($key); ?>">Create</button>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                        <!-- Quick Search Filter -->
+                        <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <span class="dashicons dashicons-search" style="color: #94a3b8;"></span>
+                            <input type="text" id="nes-pages-search" onkeyup="nesFilterPagesTable()" placeholder="Quick filter pages by name or slug..." style="width: 100%; height: 36px; border-radius: 6px; padding: 0 12px; border: 1px solid #cbd5e1; font-size: 13.5px;" />
+                        </div>
+                        <div style="max-height: 580px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <table class="nesports-table" style="margin: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Page Name</th>
+                                        <th>Slug</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $all_wp_pages = function_exists('get_pages') ? get_pages(array(
+                                        'post_status' => 'publish,draft,private',
+                                        'sort_column' => 'post_date',
+                                        'sort_order'  => 'DESC'
+                                    )) : array();
+
+                                    foreach ($all_wp_pages as $p):
+                                        $pid = $p->ID;
+                                        $is_front = ($pid === $front_page_id || $p->post_name === 'home');
+                                        $is_story = ($pid === 30090 || $p->post_name === 'our-story');
+                                        $is_contact = ($pid === 4439 || $p->post_name === 'contact-us');
+                                        $is_shop = ($pid === 47 || $p->post_name === 'shop');
+                                        $is_draft = ($p->post_status === 'draft');
+                                        $title = !empty(trim($p->post_title)) ? $p->post_title : '(Untitled Page #' . $pid . ')';
+                                    ?>
+                                    <tr class="nes-page-item-row" data-name="<?php echo esc_attr(strtolower($title)); ?>" data-slug="<?php echo esc_attr(strtolower($p->post_name)); ?>">
+                                        <td style="padding: 10px 12px; vertical-align: middle;">
+                                            <strong style="color: #0f172a; font-size: 13px;"><?php echo esc_html($title); ?></strong>
+                                            <?php if ($is_front): ?>
+                                                <span style="margin-left: 4px; font-size: 10px; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 999px; font-weight: 700;">Home</span>
+                                            <?php elseif ($is_story): ?>
+                                                <span style="margin-left: 4px; font-size: 10px; background: #ecfdf5; color: #047857; padding: 2px 6px; border-radius: 999px; font-weight: 700;">Our Story</span>
+                                            <?php elseif ($is_contact): ?>
+                                                <span style="margin-left: 4px; font-size: 10px; background: #ecfdf5; color: #047857; padding: 2px 6px; border-radius: 999px; font-weight: 700;">Contact</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td style="padding: 10px 12px; vertical-align: middle;">
+                                            <code style="font-size: 11.5px; background: #f1f5f9; padding: 2px 5px; border-radius: 4px;">/<?php echo esc_html($p->post_name); ?>/</code>
+                                        </td>
+                                        <td style="padding: 10px 12px; vertical-align: middle;">
+                                            <?php if ($is_draft): ?>
+                                                <span style="background: #f1f5f9; color: #64748b; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">Draft</span>
+                                            <?php else: ?>
+                                                <span style="display: inline-block; width: 6px; height: 6px; background: #10b981; border-radius: 50%; margin-right: 3px;"></span>
+                                                <span style="color: #059669; font-weight: 600; font-size: 11.5px;">Live</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td style="padding: 10px 12px; vertical-align: middle; text-align: right; white-space: nowrap;">
+                                            <a href="<?php echo esc_url(get_permalink($pid)); ?>" target="_blank" class="button button-small" style="font-size: 11px; height: 26px; line-height: 24px; padding: 0 6px;">View</a>
+                                            <?php if ($is_front): ?>
+                                                <a href="?tab=hero" class="button button-small" style="font-size: 11px; height: 26px; line-height: 24px; padding: 0 8px; background: #e0f2fe; color: #0369a1; border-color: #bae6fd; font-weight: 700;">Edit Home &rarr;</a>
+                                            <?php elseif ($is_story): ?>
+                                                <button type="button" onclick="nesSwitchPageEditor('story')" class="button button-small button-primary" style="font-size: 11px; height: 26px; line-height: 24px; padding: 0 8px; background: #e11d48; border-color: #be123c;">Edit Story</button>
+                                            <?php elseif ($is_contact): ?>
+                                                <button type="button" onclick="nesSwitchPageEditor('contact')" class="button button-small" style="font-size: 11px; height: 26px; line-height: 24px; padding: 0 8px; background: #ecfdf5; color: #047857; border-color: #a7f3d0; font-weight: 700;">Edit Contact</button>
+                                            <?php elseif ($is_shop): ?>
+                                                <a href="?tab=products" class="button button-small" style="font-size: 11px; height: 26px; line-height: 24px; padding: 0 8px; background: #fef3c7; color: #92400e; border-color: #fde68a; font-weight: 700;">Edit Shop &rarr;</a>
+                                            <?php else: ?>
+                                                <a href="<?php echo esc_url(admin_url('post.php?post=' . $pid . '&action=edit')); ?>" class="button button-small" style="font-size: 11px; height: 26px; line-height: 24px; padding: 0 6px;">Edit in WP</a>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Column: Quick Settings -->
-                <div class="nesports-card">
-                    <div class="nesports-card-header">
-                        <h2><span class="dashicons dashicons-admin-generic"></span> Quick Storefront Controls</h2>
+                <!-- Right Column: Interactive Page Visual Editor (Story & Contact) -->
+                <div class="nesports-card" id="editor-page-card">
+                    <div class="nesports-card-header" style="background: #0f172a; color: #ffffff; border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 12px 20px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button type="button" id="tab-btn-story" onclick="nesSwitchPageEditor('story')" class="button button-primary" style="background: #e11d48; border-color: #be123c; color: #ffffff; font-size: 12.5px; height: 32px; line-height: 30px; font-weight: 700;">
+                                <span class="dashicons dashicons-format-aside" style="vertical-align: middle;"></span> Story & About Us
+                            </button>
+                            <button type="button" id="tab-btn-contact" onclick="nesSwitchPageEditor('contact')" class="button" style="background: #1e293b; color: #cbd5e1; border-color: #334155; font-size: 12.5px; height: 32px; line-height: 30px; font-weight: 600;">
+                                <span class="dashicons dashicons-phone" style="vertical-align: middle;"></span> Contact Us Page
+                            </button>
+                        </div>
+                        <span style="font-size: 12px; background: #1e293b; color: #94a3b8; padding: 4px 10px; border-radius: 4px; font-weight: 500;">Direct Page Editor</span>
                     </div>
-                    <div class="nesports-card-body">
+
+                    <!-- PANEL 1: STORY PAGE EDITOR -->
+                    <div id="editor-story-panel" class="nesports-card-body" style="padding: 20px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0;">
+                            <h3 style="margin: 0; font-size: 15px; color: #0f172a;"><span class="dashicons dashicons-book"></span> Editing Page: <em>The NE Sports Story & Mission (/our-story/)</em></h3>
+                            <a href="/our-story" target="_blank" class="button button-small" style="font-size: 11px;">View Live Page &rarr;</a>
+                        </div>
                         <form method="post" action="options.php">
-                            <?php
-                            settings_fields('nesports_store_options_group');
-                            ?>
+                            <?php settings_fields('nesports_store_options_group'); ?>
+                            <input type="hidden" name="tab" value="pages" />
+
                             <div class="nesports-form-group">
-                                <label for="announcement_text"><strong>Top Announcement Ticker:</strong></label>
-                                <input type="text" id="announcement_text" name="nesports_store_settings[announcement_text]" 
-                                    value="<?php echo esc_attr(isset($settings['announcement_text']) ? $settings['announcement_text'] : 'Free shipping on All DE orders over 150€'); ?>" 
-                                    class="widefat" />
-                                <p class="description">Displays across the top bar.</p>
+                                <label for="about_banner_title"><strong>Page Top Banner Title:</strong></label>
+                                <input type="text" id="about_banner_title" name="nesports_store_settings[about_banner_title]" 
+                                    value="<?php echo esc_attr(isset($settings['about_banner_title']) ? $settings['about_banner_title'] : 'About Us'); ?>" class="widefat" />
                             </div>
 
                             <div class="nesports-form-group">
-                                <label for="support_phone"><strong>Support Phone / WhatsApp:</strong></label>
-                                <input type="text" id="support_phone" name="nesports_store_settings[support_phone]" 
-                                    value="<?php echo esc_attr(isset($settings['support_phone']) ? $settings['support_phone'] : '+1 (800) 555-0199'); ?>" 
-                                    class="widefat" />
+                                <label for="about_story_title"><strong>Main Story Headline:</strong></label>
+                                <input type="text" id="about_story_title" name="nesports_store_settings[about_story_title]" 
+                                    value="<?php echo esc_attr(isset($settings['about_story_title']) ? $settings['about_story_title'] : 'NE Sports3 — Built for the Relentless'); ?>" class="widefat" />
+                            </div>
+
+                            <!-- Feature Image with Live Preview and 1-Click Upload -->
+                            <div class="nesports-form-group" style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px;">
+                                <label style="display: block; margin-bottom: 8px;"><strong>Story Feature Photo (Left Side Image):</strong></label>
+                                <?php 
+                                $current_about_img = isset($settings['about_feature_img']) && !empty($settings['about_feature_img']) ? $settings['about_feature_img'] : 'https://www.nesports3.com/wp-content/uploads/2026/09/WhatsApp-Image-2026-07-14-.jpeg';
+                                ?>
+                                <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 10px;">
+                                    <div style="width: 140px; height: 95px; border-radius: 6px; overflow: hidden; background: #e2e8f0; border: 1px solid #cbd5e1; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                                        <img id="preview-about-img" src="<?php echo esc_url(nesports_img($current_about_img)); ?>" alt="Preview" style="width: 100%; height: 100%; object-fit: cover;" />
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <input type="text" id="about_feature_img" name="nesports_store_settings[about_feature_img]" 
+                                            value="<?php echo esc_attr($current_about_img); ?>" class="widefat" style="margin-bottom: 8px; font-size: 13px;" placeholder="Paste image URL or use button..." />
+                                        <button type="button" class="button button-secondary nes-media-btn" data-target="#about_feature_img" data-preview="#preview-about-img">
+                                            <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> Choose / Upload Photo
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Quick Presets for 1-Click Demo -->
+                                <div style="font-size: 12px; color: #64748b; margin-top: 6px;">
+                                    <strong>Quick Presets:</strong>
+                                    <button type="button" class="button button-small nes-preset-btn" data-target="#about_feature_img" data-preview="#preview-about-img" data-url="https://www.nesports3.com/wp-content/uploads/2025/08/logo.png" style="font-size: 11px; margin-left: 4px;">NESports Logo</button>
+                                    <button type="button" class="button button-small nes-preset-btn" data-target="#about_feature_img" data-preview="#preview-about-img" data-url="https://www.nesports3.com/wp-content/uploads/2026/09/WhatsApp-Image-2026-07-14-.jpeg" style="font-size: 11px; margin-left: 2px;">Wrist Wraps</button>
+                                    <button type="button" class="button button-small nes-preset-btn" data-target="#about_feature_img" data-preview="#preview-about-img" data-url="/nesports-pro-store/assets/images/WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg" style="font-size: 11px; margin-left: 2px;">Athlete Model</button>
+                                </div>
                             </div>
 
                             <div class="nesports-form-group">
-                                <label for="support_email"><strong>Support Email:</strong></label>
-                                <input type="email" id="support_email" name="nesports_store_settings[support_email]" 
-                                    value="<?php echo esc_attr(isset($settings['support_email']) ? $settings['support_email'] : 'support@nesports3.com'); ?>" 
-                                    class="widefat" />
+                                <label for="about_story_text"><strong>Story Text Content:</strong></label>
+                                <textarea id="about_story_text" name="nesports_store_settings[about_story_text]" rows="5" class="widefat" style="font-size: 13px; line-height: 1.6;"><?php echo esc_textarea(isset($settings['about_story_text']) ? $settings['about_story_text'] : "At NE Sports3, we believe sports and fitness are more than just activities – they are a lifestyle. Our mission is to empower athletes, fitness enthusiasts, and everyday champions with the highest-quality sports and gym products that inspire performance, strength, and confidence.\n\nFrom durable gym equipment and training accessories to premium sports gear, we carefully select every product to ensure it meets the needs of both beginners and professionals."); ?></textarea>
                             </div>
 
                             <div class="nesports-form-group">
-                                <label for="accent_color"><strong>Brand Accent Color:</strong></label>
-                                <input type="color" id="accent_color" name="nesports_store_settings[accent_color]" 
-                                    value="<?php echo esc_attr(isset($settings['accent_color']) ? $settings['accent_color'] : '#e11d48'); ?>" />
+                                <label for="about_motto"><strong>Bottom Motto Line:</strong></label>
+                                <input type="text" id="about_motto" name="nesports_store_settings[about_motto]" 
+                                    value="<?php echo esc_attr(isset($settings['about_motto']) ? $settings['about_motto'] : 'Train harder. Play stronger. Live better – with NE Sports3.'); ?>" class="widefat" />
                             </div>
 
-                            <?php submit_button('Save Storefront Settings', 'primary', 'submit', false); ?>
+                            <div style="margin-top: 20px;">
+                                <?php submit_button('Save Story Page Changes', 'primary', 'submit', false); ?>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- PANEL 2: CONTACT US PAGE EDITOR -->
+                    <div id="editor-contact-panel" class="nesports-card-body" style="padding: 20px; display: none;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0;">
+                            <h3 style="margin: 0; font-size: 15px; color: #0f172a;"><span class="dashicons dashicons-phone"></span> Editing Page: <em>Contact Us (/contact-us/)</em></h3>
+                            <a href="/contact-us" target="_blank" class="button button-small" style="font-size: 11px;">View Live Page &rarr;</a>
+                        </div>
+                        <form method="post" action="options.php">
+                            <?php settings_fields('nesports_store_options_group'); ?>
+                            <input type="hidden" name="tab" value="pages" />
+
+                            <div class="nesports-form-group">
+                                <label for="contact_eyebrow"><strong>Top Eyebrow Badge:</strong></label>
+                                <input type="text" id="contact_eyebrow" name="nesports_store_settings[contact_eyebrow]" 
+                                    value="<?php echo esc_attr(isset($settings['contact_eyebrow']) ? $settings['contact_eyebrow'] : 'INFORMATION ABOUT US'); ?>" class="widefat" />
+                            </div>
+
+                            <div class="nesports-form-group">
+                                <label for="contact_heading"><strong>Main Page Heading:</strong></label>
+                                <input type="text" id="contact_heading" name="nesports_store_settings[contact_heading]" 
+                                    value="<?php echo esc_attr(isset($settings['contact_heading']) ? $settings['contact_heading'] : 'CONTACT US FOR ANY QUESTIONS'); ?>" class="widefat" />
+                            </div>
+
+                            <div class="nesports-form-group">
+                                <label for="contact_desc"><strong>Intro Subheading / Note:</strong></label>
+                                <input type="text" id="contact_desc" name="nesports_store_settings[contact_desc]" 
+                                    value="<?php echo esc_attr(isset($settings['contact_desc']) ? $settings['contact_desc'] : 'We are here to assist with any questions regarding our products, orders, or custom fitness gear.'); ?>" class="widefat" />
+                            </div>
+
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+                                <h4 style="margin: 0 0 12px; font-size: 13.5px; color: #0f172a;"><span class="dashicons dashicons-admin-site"></span> Direct Support Channels:</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                                    <div class="nesports-form-group">
+                                        <label for="support_phone"><strong>Phone / WhatsApp:</strong></label>
+                                        <input type="text" id="support_phone" name="nesports_store_settings[support_phone]" 
+                                            value="<?php echo esc_attr(isset($settings['support_phone']) ? $settings['support_phone'] : '+1 (800) 555-0199'); ?>" class="widefat" />
+                                    </div>
+                                    <div class="nesports-form-group">
+                                        <label for="support_email"><strong>Support Email:</strong></label>
+                                        <input type="email" id="support_email" name="nesports_store_settings[support_email]" 
+                                            value="<?php echo esc_attr(isset($settings['support_email']) ? $settings['support_email'] : 'support@nesports3.com'); ?>" class="widefat" />
+                                    </div>
+                                </div>
+                                <div class="nesports-form-group" style="margin-top: 10px;">
+                                    <label for="contact_address"><strong>Office / Warehouse Address:</strong></label>
+                                    <input type="text" id="contact_address" name="nesports_store_settings[contact_address]" 
+                                        value="<?php echo esc_attr(isset($settings['contact_address']) ? $settings['contact_address'] : 'Berlin, Germany / European Distribution'); ?>" class="widefat" />
+                                </div>
+                            </div>
+
+                            <div class="nesports-form-group">
+                                <label for="contact_btn_text"><strong>Contact Form Submit Button Text:</strong></label>
+                                <input type="text" id="contact_btn_text" name="nesports_store_settings[contact_btn_text]" 
+                                    value="<?php echo esc_attr(isset($settings['contact_btn_text']) ? $settings['contact_btn_text'] : 'ASK A QUESTION'); ?>" class="widefat" />
+                            </div>
+
+                            <div style="margin-top: 20px;">
+                                <?php submit_button('Save Contact Page Changes', 'primary', 'submit', false); ?>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <?php
-    }
+            <?php endif; ?>
 
-    /**
-     * Render Hero & Banners sub-settings
-     */
-    public function render_hero_settings() {
-        $settings = get_option('nesports_store_settings', array());
-        ?>
-        <div class="wrap nesports-admin-wrap">
-            <div class="nesports-admin-header">
-                <div class="nesports-brand">
-                    <span class="nesports-badge">HERO CUSTOMIZER</span>
-                    <h1>HOMEPAGE HERO & <span>BANNER SETTINGS</span></h1>
-                </div>
-            </div>
-
+            <!-- TAB 2: HOME HERO & BANNERS -->
+            <?php if ($active_tab === 'hero'): ?>
             <div class="nesports-card">
-                <div class="nesports-card-body">
+                <div class="nesports-card-header" style="background: #0f172a; color: #ffffff; border-radius: 8px 8px 0 0;">
+                    <h2 style="color: #ffffff;"><span class="dashicons dashicons-format-image" style="color: #e11d48;"></span> Homepage Hero Banner & Ticker Controls</h2>
+                </div>
+                <div class="nesports-card-body" style="padding: 24px;">
                     <form method="post" action="options.php">
                         <?php settings_fields('nesports_store_options_group'); ?>
-                        
-                        <div class="nesports-form-group">
-                            <label><strong>Hero Top Badge:</strong></label>
-                            <input type="text" name="nesports_store_settings[hero_badge]" 
-                                value="<?php echo esc_attr(isset($settings['hero_badge']) ? $settings['hero_badge'] : 'ENGINEERED FOR THE RELENTLESS'); ?>" class="widefat" />
+                        <input type="hidden" name="tab" value="hero" />
+
+                        <!-- Top Announcement Bar -->
+                        <h3 style="margin-top: 0; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; font-size: 15px; color: #0f172a;">
+                            <span class="dashicons dashicons-megaphone"></span> 1. Top Announcement Bar (Header Ticker)
+                        </h3>
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                            <div class="nesports-form-group">
+                                <label for="announcement_text"><strong>Announcement Text:</strong></label>
+                                <input type="text" id="announcement_text" name="nesports_store_settings[announcement_text]" 
+                                    value="<?php echo esc_attr(isset($settings['announcement_text']) ? $settings['announcement_text'] : 'Free shipping on All DE orders over 150€'); ?>" class="widefat" />
+                            </div>
+                            <div class="nesports-form-group">
+                                <label for="announcement_bg"><strong>Ticker Background:</strong></label>
+                                <input type="color" id="announcement_bg" name="nesports_store_settings[announcement_bg]" 
+                                    value="<?php echo esc_attr(isset($settings['announcement_bg']) ? $settings['announcement_bg'] : '#000000'); ?>" />
+                            </div>
+                            <div class="nesports-form-group">
+                                <label for="announcement_color"><strong>Ticker Text Color:</strong></label>
+                                <input type="color" id="announcement_color" name="nesports_store_settings[announcement_color]" 
+                                    value="<?php echo esc_attr(isset($settings['announcement_color']) ? $settings['announcement_color'] : '#ffffff'); ?>" />
+                            </div>
                         </div>
 
-                        <div class="nesports-form-group">
-                            <label><strong>Main Hero Title (Headline):</strong></label>
-                            <input type="text" name="nesports_store_settings[hero_title]" 
-                                value="<?php echo esc_attr(isset($settings['hero_title']) ? $settings['hero_title'] : 'BUILT TO OUTLAST YOUR HARDEST SETS'); ?>" class="widefat" />
+                        <!-- Hero Main Banner -->
+                        <h3 style="padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; font-size: 15px; color: #0f172a;">
+                            <span class="dashicons dashicons-star-filled"></span> 2. Main Hero Slide (First Slide)
+                        </h3>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="nesports-form-group">
+                                <label><strong>Hero Top Badge:</strong></label>
+                                <input type="text" name="nesports_store_settings[hero_badge]" 
+                                    value="<?php echo esc_attr(isset($settings['hero_badge']) ? $settings['hero_badge'] : 'ENGINEERED FOR THE RELENTLESS'); ?>" class="widefat" />
+                            </div>
+                            <div class="nesports-form-group">
+                                <label><strong>Main Hero Headline:</strong></label>
+                                <input type="text" name="nesports_store_settings[hero_title]" 
+                                    value="<?php echo esc_attr(isset($settings['hero_title']) ? $settings['hero_title'] : 'BUILT TO OUTLAST YOUR HARDEST SETS'); ?>" class="widefat" />
+                            </div>
                         </div>
 
                         <div class="nesports-form-group">
                             <label><strong>Hero Subtitle / Description:</strong></label>
-                            <textarea name="nesports_store_settings[hero_subtitle]" rows="3" class="widefat"><?php echo esc_textarea(isset($settings['hero_subtitle']) ? $settings['hero_subtitle'] : 'Competition-grade lever belts, reinforced padded straps, and elite lifting accessories engineered for maximum PRs.'); ?></textarea>
+                            <textarea name="nesports_store_settings[hero_subtitle]" rows="2" class="widefat"><?php echo esc_textarea(isset($settings['hero_subtitle']) ? $settings['hero_subtitle'] : 'Competition-grade lever belts, reinforced padded straps, and elite lifting accessories engineered for maximum PRs.'); ?></textarea>
                         </div>
 
-                        <div style="display: flex; gap: 20px;">
-                            <div class="nesports-form-group" style="flex: 1;">
-                                <label><strong>Primary CTA Button Text:</strong></label>
-                                <input type="text" name="nesports_store_settings[hero_primary_cta]" 
-                                    value="<?php echo esc_attr(isset($settings['hero_primary_cta']) ? $settings['hero_primary_cta'] : 'SHOP LEVER BELTS'); ?>" class="widefat" />
+                        <!-- Hero Background Image Upload -->
+                        <div class="nesports-form-group" style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px; margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px;"><strong>Hero Background Photo:</strong></label>
+                            <?php 
+                            $current_hero_img = isset($settings['hero_bg_image']) && !empty($settings['hero_bg_image']) ? $settings['hero_bg_image'] : 'hero-slide-knee-wraps.jpg';
+                            ?>
+                            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 10px;">
+                                <div style="width: 140px; height: 95px; border-radius: 6px; overflow: hidden; background: #e2e8f0; border: 1px solid #cbd5e1; flex-shrink: 0;">
+                                    <img id="preview-hero-img" src="<?php echo esc_url(nesports_img($current_hero_img)); ?>" alt="Hero Preview" style="width: 100%; height: 100%; object-fit: cover;" />
+                                </div>
+                                <div style="flex: 1;">
+                                    <input type="text" id="hero_bg_image" name="nesports_store_settings[hero_bg_image]" 
+                                        value="<?php echo esc_attr($current_hero_img); ?>" class="widefat" style="margin-bottom: 8px; font-size: 13px;" />
+                                    <button type="button" class="button button-secondary nes-media-btn" data-target="#hero_bg_image" data-preview="#preview-hero-img">
+                                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> Choose / Upload Hero Photo
+                                    </button>
+                                </div>
                             </div>
-                            <div class="nesports-form-group" style="flex: 1;">
-                                <label><strong>Primary CTA Link:</strong></label>
+                        </div>
+
+                        <!-- CTA Buttons -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div style="background: #fdf2f8; padding: 12px; border-radius: 6px; border: 1px solid #fbcfe8;">
+                                <label><strong>Primary Button Text:</strong></label>
+                                <input type="text" name="nesports_store_settings[hero_primary_cta]" 
+                                    value="<?php echo esc_attr(isset($settings['hero_primary_cta']) ? $settings['hero_primary_cta'] : 'SHOP LEVER BELTS'); ?>" class="widefat" style="margin-bottom: 8px;" />
+                                <label><strong>Primary Button Link:</strong></label>
                                 <input type="text" name="nesports_store_settings[hero_primary_url]" 
                                     value="<?php echo esc_attr(isset($settings['hero_primary_url']) ? $settings['hero_primary_url'] : '/product-category/weightlifting-belts/'); ?>" class="widefat" />
                             </div>
-                        </div>
 
-                        <div style="display: flex; gap: 20px;">
-                            <div class="nesports-form-group" style="flex: 1;">
-                                <label><strong>Secondary CTA Button Text:</strong></label>
+                            <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                <label><strong>Secondary Button Text:</strong></label>
                                 <input type="text" name="nesports_store_settings[hero_secondary_cta]" 
-                                    value="<?php echo esc_attr(isset($settings['hero_secondary_cta']) ? $settings['hero_secondary_cta'] : 'EXPLORE ALL GEAR'); ?>" class="widefat" />
-                            </div>
-                            <div class="nesports-form-group" style="flex: 1;">
-                                <label><strong>Secondary CTA Link:</strong></label>
+                                    value="<?php echo esc_attr(isset($settings['hero_secondary_cta']) ? $settings['hero_secondary_cta'] : 'EXPLORE ALL GEAR'); ?>" class="widefat" style="margin-bottom: 8px;" />
+                                <label><strong>Secondary Button Link:</strong></label>
                                 <input type="text" name="nesports_store_settings[hero_secondary_url]" 
                                     value="<?php echo esc_attr(isset($settings['hero_secondary_url']) ? $settings['hero_secondary_url'] : '/shop/'); ?>" class="widefat" />
                             </div>
                         </div>
 
-                        <?php submit_button('Update Hero Section', 'primary'); ?>
+                        <div>
+                            <?php submit_button('Save Hero & Banner Settings', 'primary', 'submit', false); ?>
+                        </div>
                     </form>
                 </div>
             </div>
+            <?php endif; ?>
+
+            <!-- TAB 3: PRODUCTS & CATALOG -->
+            <?php if ($active_tab === 'products'): ?>
+            <div class="nesports-card">
+                <div class="nesports-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2><span class="dashicons dashicons-cart"></span> Store Products & Quick Prices</h2>
+                    <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-store-products')); ?>" class="button button-primary" style="background: #e11d48; border-color: #be123c;">
+                        Full Product Manager &rarr;
+                    </a>
+                </div>
+                <div class="nesports-card-body" style="padding: 20px;">
+                    <p style="color: #64748b; font-size: 14px; margin-top: 0;">
+                        Manage all products, change prices, update images, and edit descriptions directly.
+                    </p>
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center;">
+                        <span class="dashicons dashicons-products" style="font-size: 48px; width: 48px; height: 48px; color: #e11d48; margin-bottom: 12px;"></span>
+                        <h3 style="margin: 0 0 8px;">Store Products & Inventory Engine</h3>
+                        <p style="color: #64748b; max-width: 500px; margin: 0 auto 16px;">Add new lifting gear, edit live prices, set sales discounts, and manage photos in 1 click.</p>
+                        <a href="<?php echo esc_url(admin_url('admin.php?page=nesports-store-products')); ?>" class="button button-primary button-hero" style="background: #e11d48; border-color: #be123c;">
+                            <span class="dashicons dashicons-cart"></span> Open Product & Price Editor
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <!-- TAB 4: COLORS & SECTION CONTROLS -->
+            <?php if ($active_tab === 'styling'): ?>
+            <div class="nesports-admin-grid">
+                <!-- Left: Brand Colors -->
+                <div class="nesports-card">
+                    <div class="nesports-card-header">
+                        <h2><span class="dashicons dashicons-art"></span> Brand Styling & Accent Colors</h2>
+                    </div>
+                    <div class="nesports-card-body" style="padding: 20px;">
+                        <form method="post" action="options.php">
+                            <?php settings_fields('nesports_store_options_group'); ?>
+                            <input type="hidden" name="tab" value="styling" />
+
+                            <div class="nesports-form-group">
+                                <label for="accent_color"><strong>Main Brand Accent Color:</strong></label>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+                                    <input type="color" id="accent_color" name="nesports_store_settings[accent_color]" 
+                                        value="<?php echo esc_attr(isset($settings['accent_color']) ? $settings['accent_color'] : '#e11d48'); ?>" />
+                                    <code><?php echo esc_html(isset($settings['accent_color']) ? $settings['accent_color'] : '#e11d48'); ?></code>
+                                </div>
+                                <p class="description">Used on buttons, badges, hover links, and highlights.</p>
+                            </div>
+
+                            <div class="nesports-form-group">
+                                <label for="btn_bg_color"><strong>Primary Buttons Background:</strong></label>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+                                    <input type="color" id="btn_bg_color" name="nesports_store_settings[btn_bg_color]" 
+                                        value="<?php echo esc_attr(isset($settings['btn_bg_color']) ? $settings['btn_bg_color'] : '#e11d48'); ?>" />
+                                    <code><?php echo esc_html(isset($settings['btn_bg_color']) ? $settings['btn_bg_color'] : '#e11d48'); ?></code>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 24px;">
+                                <?php submit_button('Save Color Settings', 'primary', 'submit', false); ?>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Homepage Section Toggles -->
+                <div class="nesports-card">
+                    <div class="nesports-card-header">
+                        <h2><span class="dashicons dashicons-visibility"></span> Homepage Sections On/Off Switches</h2>
+                    </div>
+                    <div class="nesports-card-body" style="padding: 20px;">
+                        <form method="post" action="options.php">
+                            <?php settings_fields('nesports_store_options_group'); ?>
+                            <input type="hidden" name="tab" value="styling" />
+
+                            <p style="color: #64748b; font-size: 13px; margin-top: 0;">Check or uncheck to instantly show or hide sections on the homepage:</p>
+
+                            <?php 
+                            $sections = array(
+                                'show_announcement' => 'Top Announcement Ticker Bar',
+                                'show_hero'         => 'Hero Carousel & Action Banner',
+                                'show_trustbar'     => 'Trust Badges (Shipping, Guarantee, 30-Day Returns)',
+                                'show_categories'   => 'Popular Categories Grid (Belts, Wraps, Straps, Bags)',
+                                'show_products'     => 'Top Sellers & Featured Products Grid',
+                                'show_collections'  => 'Collections Carousel',
+                                'show_bundles'      => 'Bundles & Value Sets Section',
+                                'show_clothing'     => 'Performance Apparel & Clothing Grid',
+                                'show_story'        => 'Our Story & Brand Mission Section',
+                                'show_footer'       => 'Footer Brand Links & Payment Badges',
+                            );
+                            foreach ($sections as $s_key => $s_label):
+                                $is_on = nesports_section_enabled($s_key, true);
+                            ?>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+                                <label for="<?php echo esc_attr($s_key); ?>" style="font-size: 13.5px; font-weight: 500; color: #1e293b; cursor: pointer;">
+                                    <?php echo esc_html($s_label); ?>
+                                </label>
+                                <input type="hidden" name="nesports_store_settings[<?php echo esc_attr($s_key); ?>]" value="0" />
+                                <input type="checkbox" id="<?php echo esc_attr($s_key); ?>" name="nesports_store_settings[<?php echo esc_attr($s_key); ?>]" value="1" <?php checked($is_on, true); ?> style="width: 18px; height: 18px; accent-color: #e11d48;" />
+                            </div>
+                            <?php endforeach; ?>
+
+                            <div style="margin-top: 20px;">
+                                <?php submit_button('Save Section Visibility', 'primary', 'submit', false); ?>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <!-- Client Hub JavaScript Helper -->
+            <script>
+            function nesFilterPagesTable() {
+                var search = (document.getElementById('nes-pages-search').value || '').toLowerCase();
+                var rows = document.querySelectorAll('.nes-page-item-row');
+                rows.forEach(function(r) {
+                    var name = (r.getAttribute('data-name') || '').toLowerCase();
+                    var slug = (r.getAttribute('data-slug') || '').toLowerCase();
+                    if (!search || name.indexOf(search) !== -1 || slug.indexOf(search) !== -1) {
+                        r.style.display = '';
+                    } else {
+                        r.style.display = 'none';
+                    }
+                });
+            }
+
+            function nesSwitchPageEditor(panel) {
+                var storyPanel = document.getElementById('editor-story-panel');
+                var contactPanel = document.getElementById('editor-contact-panel');
+                var storyBtn = document.getElementById('tab-btn-story');
+                var contactBtn = document.getElementById('tab-btn-contact');
+                
+                if (panel === 'contact') {
+                    if (storyPanel) storyPanel.style.display = 'none';
+                    if (contactPanel) contactPanel.style.display = 'block';
+                    if (storyBtn) { storyBtn.style.background = '#1e293b'; storyBtn.style.color = '#cbd5e1'; storyBtn.style.borderColor = '#334155'; }
+                    if (contactBtn) { contactBtn.style.background = '#e11d48'; contactBtn.style.color = '#ffffff'; contactBtn.style.borderColor = '#be123c'; }
+                } else {
+                    if (storyPanel) storyPanel.style.display = 'block';
+                    if (contactPanel) contactPanel.style.display = 'none';
+                    if (storyBtn) { storyBtn.style.background = '#e11d48'; storyBtn.style.color = '#ffffff'; storyBtn.style.borderColor = '#be123c'; }
+                    if (contactBtn) { contactBtn.style.background = '#1e293b'; contactBtn.style.color = '#cbd5e1'; contactBtn.style.borderColor = '#334155'; }
+                }
+                
+                var card = document.getElementById('editor-page-card');
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Preset buttons click handler
+                document.querySelectorAll('.nes-preset-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var targetId = this.getAttribute('data-target');
+                        var previewId = this.getAttribute('data-preview');
+                        var url = this.getAttribute('data-url');
+                        var input = document.querySelector(targetId);
+                        var img = document.querySelector(previewId);
+                        if (input) input.value = url;
+                        if (img) img.src = url;
+                    });
+                });
+
+                // Media uploader button click handler
+                document.querySelectorAll('.nes-media-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var targetId = this.getAttribute('data-target');
+                        var previewId = this.getAttribute('data-preview');
+                        var input = document.querySelector(targetId);
+                        var img = document.querySelector(previewId);
+
+                        if (typeof wp !== 'undefined' && wp.media) {
+                            var customUploader = wp.media({
+                                title: 'Select or Upload Photo',
+                                button: { text: 'Use this photo' },
+                                multiple: false
+                            });
+                            customUploader.on('select', function() {
+                                var attachment = customUploader.state().get('selection').first().toJSON();
+                                if (input) input.value = attachment.url;
+                                if (img) img.src = attachment.url;
+                            });
+                            customUploader.open();
+                        } else {
+                            var currentVal = input ? input.value : '';
+                            var newUrl = prompt('Enter or paste image URL / filename:', currentVal);
+                            if (newUrl && input) {
+                                input.value = newUrl;
+                                if (img) img.src = newUrl;
+                            }
+                        }
+                    });
+                });
+
+                // Live preview on typing input
+                ['#about_feature_img', '#hero_bg_image'].forEach(function(id) {
+                    var inp = document.querySelector(id);
+                    if (inp) {
+                        inp.addEventListener('input', function() {
+                            var prevId = id === '#about_feature_img' ? '#preview-about-img' : '#preview-hero-img';
+                            var img = document.querySelector(prevId);
+                            if (img) img.src = this.value;
+                        });
+                    }
+                });
+            });
+            </script>
         </div>
         <?php
+    }
+
+    /**
+     * Render Hero & Banners sub-settings (redirects cleanly to Tab 2)
+     */
+    public function render_hero_settings() {
+        $_GET['tab'] = 'hero';
+        $this->render_admin_dashboard();
     }
 }

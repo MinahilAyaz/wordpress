@@ -6,6 +6,22 @@ if (!defined('ABSPATH')) {
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 
+if (!function_exists('nesports_setting')) {
+    function nesports_setting($key, $default = '') {
+        $settings = get_option('nesports_store_settings', array());
+        if (!is_array($settings)) $settings = array();
+        return (isset($settings[$key]) && $settings[$key] !== '') ? $settings[$key] : $default;
+    }
+}
+if (!function_exists('nesports_img')) {
+    function nesports_img($file) {
+        if (empty($file)) return '';
+        if (strpos($file, 'http://') === 0 || strpos($file, 'https://') === 0 || strpos($file, '//') === 0) return $file;
+        $url = defined('NESPORTS_PLUGIN_URL') ? NESPORTS_PLUGIN_URL : plugins_url('/', __DIR__ . '/../../');
+        return rtrim($url, '/') . '/assets/images/' . $file;
+    }
+}
+
 class NESports_Elementor_Story_Widget extends Widget_Base {
 
     public function get_name() {
@@ -70,8 +86,15 @@ class NESports_Elementor_Story_Widget extends Widget_Base {
             'story_text',
             array(
                 'label'   => esc_html__('Story Content', 'nesports-pro-store'),
-                'type'    => Controls_Manager::WYSIWYG,
-                'default' => '<p>At NE Sports3, we believe sports and fitness are more than just activities – they are a lifestyle. Our mission is to empower athletes, fitness enthusiasts, and everyday champions with the highest-quality sports and gym products that inspire performance, strength, and confidence.</p><p>From durable gym equipment and training accessories to premium sports gear, we carefully select every product to ensure it meets the needs of both beginners and professionals. Whether you’re building strength in the gym, training for competition, or simply staying active, NE Sports3 is here to support your journey.</p><p>We are passionate about helping our community stay fit, healthy, and motivated. That’s why we combine top-notch products, affordable prices, and reliable service – because your goals matter to us.</p><p>At NE Sports3, it’s not just about products, it’s about progress. Let us be your trusted partner in achieving your fitness and sports ambitions.</p>',
+                'type'    => Controls_Manager::TEXTAREA,
+                'rows'    => 10,
+                'default' => 'At NE Sports3, we believe sports and fitness are more than just activities – they are a lifestyle. Our mission is to empower athletes, fitness enthusiasts, and everyday champions with the highest-quality sports and gym products that inspire performance, strength, and confidence.
+
+From durable gym equipment and training accessories to premium sports gear, we carefully select every product to ensure it meets the needs of both beginners and professionals. Whether you’re building strength in the gym, training for competition, or simply staying active, NE Sports3 is here to support your journey.
+
+We are passionate about helping our community stay fit, healthy, and motivated. That’s why we combine top-notch products, affordable prices, and reliable service – because your goals matter to us.
+
+At NE Sports3, it’s not just about products, it’s about progress. Let us be your trusted partner in achieving your fitness and sports ambitions.',
             )
         );
 
@@ -90,18 +113,13 @@ class NESports_Elementor_Story_Widget extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $img_src = '';
-        if (!empty($settings['image']['url'])) {
-            $img_src = $settings['image']['url'];
-        } elseif (!empty($settings['fallback_img'])) {
-            $img_src = nesports_img($settings['fallback_img']);
-        } else {
-            $img_src = nesports_img('WhatsApp-Image-2024-07-08-at-19.17.50_f9c47d7b-800x530.jpg');
-        }
-
-        $banner_title = !empty($settings['banner_title']) ? $settings['banner_title'] : 'About Us';
-        $story_text   = !empty($settings['story_text']) ? $settings['story_text'] : '';
-        $motto        = !empty($settings['motto']) ? $settings['motto'] : '';
+        // Direct 1-to-1 priority: If edited in Elementor, show Elementor settings.
+        // Fall back gracefully to Dashboard global settings if not set.
+        $img_src = !empty($settings['image']['url']) ? $settings['image']['url'] : (!empty(nesports_setting('about_feature_img')) ? nesports_img(nesports_setting('about_feature_img')) : nesports_img($settings['fallback_img']));
+        $banner_title = !empty($settings['banner_title']) ? $settings['banner_title'] : nesports_setting('about_banner_title', 'About Us');
+        $story_title  = !empty($settings['story_title']) ? $settings['story_title'] : nesports_setting('about_story_title', '');
+        $story_text   = !empty($settings['story_text']) ? $settings['story_text'] : nesports_setting('about_story_text', '');
+        $motto        = !empty($settings['motto']) ? $settings['motto'] : nesports_setting('about_motto', '');
         ?>
         <div class="hb-about-page">
             <section class="hb-about-hero-banner">
@@ -115,7 +133,21 @@ class NESports_Elementor_Story_Widget extends Widget_Base {
                             <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($banner_title); ?>" class="hb-about-feature-img" loading="lazy">
                         </div>
                         <div class="hb-about-text-col">
-                            <?php echo wp_kses_post($story_text); ?>
+                            <?php if ($story_title): ?>
+                                <h2 style="font-size: 28px; font-weight: 700; color: #111111; margin: 0 0 16px;"><?php echo esc_html($story_title); ?></h2>
+                            <?php endif; ?>
+                            <?php 
+                            if (strpos($story_text, '<p>') !== false) {
+                                echo wp_kses_post($story_text);
+                            } else {
+                                $paras = explode("\n\n", str_replace("\r\n", "\n", $story_text));
+                                foreach ($paras as $p) {
+                                    if (trim($p) !== '') {
+                                        echo '<p>' . wp_kses_post(nl2br(trim($p))) . '</p>';
+                                    }
+                                }
+                            }
+                            ?>
                             <?php if ($motto): ?>
                                 <p class="hb-about-motto"><?php echo esc_html($motto); ?></p>
                             <?php endif; ?>

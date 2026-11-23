@@ -5,22 +5,53 @@
  */
 include NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
 
-if (function_exists('the_content') && did_action('elementor/loaded') && (isset($_GET['elementor-preview']) || get_post_meta(get_the_ID(), '_nesports_elementor_seeded', true))) :
+$page_id = get_queried_object_id();
+if (!$page_id) {
+    $page_id = get_the_ID();
+}
+
+$is_elementor = false;
+if (class_exists('\Elementor\Plugin')) {
+    if (\Elementor\Plugin::$instance->preview->is_preview_mode() 
+        || \Elementor\Plugin::$instance->editor->is_edit_mode() 
+        || isset($_GET['elementor-preview']) 
+        || isset($_GET['preview'])) {
+        $is_elementor = true;
+    } elseif (\Elementor\Plugin::$instance->db->is_built_with_elementor($page_id)) {
+        $is_elementor = true;
+    }
+}
+
+if ($is_elementor) :
 ?>
-<main class="hb-main hb-page-contact">
+<main class="hb-main hb-page-contact elementor-entry-content">
     <?php
-    while (have_posts()) :
-        the_post();
-        the_content();
-    endwhile;
+    if (have_posts()) {
+        while (have_posts()) {
+            the_post();
+            the_content();
+        }
+    } else {
+        $post_obj = get_post($page_id);
+        if ($post_obj) {
+            setup_postdata($post_obj);
+            the_content();
+            wp_reset_postdata();
+        } else {
+            the_content();
+        }
+    }
     ?>
 </main>
 <?php else : ?>
 <main class="hb-main hb-page-contact">
     <div class="hb-container">
         <div class="hb-contact-wrapper">
-            <span class="hb-contact-eyebrow">INFORMATION ABOUT US</span>
-            <h1 class="hb-contact-heading">CONTACT US FOR ANY QUESTIONS</h1>
+            <span class="hb-contact-eyebrow"><?php echo esc_html(nesports_setting('contact_eyebrow', 'INFORMATION ABOUT US')); ?></span>
+            <h1 class="hb-contact-heading"><?php echo esc_html(nesports_setting('contact_heading', 'CONTACT US FOR ANY QUESTIONS')); ?></h1>
+            <?php $contact_desc = nesports_setting('contact_desc', ''); if (!empty($contact_desc)): ?>
+                <p class="hb-contact-desc" style="color: #64748b; font-size: 15px; margin: -10px 0 24px; line-height: 1.5;"><?php echo esc_html($contact_desc); ?></p>
+            <?php endif; ?>
 
             <form class="hb-contact-form" id="hb-contact-form" onsubmit="handleContactSubmit(event)">
                 <div class="hb-form-row">
@@ -53,7 +84,7 @@ if (function_exists('the_content') && did_action('elementor/loaded') && (isset($
                 </div>
 
                 <div class="hb-form-actions">
-                    <button type="submit" class="hb-btn-ask" id="hb-btn-ask">ASK A QUESTION</button>
+                    <button type="submit" class="hb-btn-ask" id="hb-btn-ask"><?php echo esc_html(nesports_setting('contact_btn_text', 'ASK A QUESTION')); ?></button>
                 </div>
 
                 <div class="hb-form-success" id="hb-form-success" style="display: none;">

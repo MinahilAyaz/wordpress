@@ -361,7 +361,12 @@ $bundle_tabs = nesports_bundle_tabs();
 </style>
 
     <div class="hb-bundles-header">
-        <h2 class="hb-bundles-title">Bundles</h2>
+        <div>
+            <h2 class="hb-bundles-title"><?php echo esc_html(nesports_setting('bundles_title', 'Bundles')); ?></h2>
+            <?php $bundles_desc = nesports_setting('bundles_desc', 'Power, protection & performance built into every stack. Stack and save.'); if (!empty($bundles_desc)): ?>
+                <p class="hb-bundles-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($bundles_desc); ?></p>
+            <?php endif; ?>
+        </div>
         <div class="hb-bundles-carousel-controls">
             <button type="button" class="hb-bundles-arrow hb-bundles-prev" id="hb-bundles-prev" aria-label="Previous">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>

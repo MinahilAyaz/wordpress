@@ -18,6 +18,26 @@ function nesports_img($file) {
     return NESPORTS_PLUGIN_URL . 'assets/images/' . implode('/', $encoded);
 }
 
+if (!function_exists('wp_kses_post')) {
+    function wp_kses_post($s) { return (string) $s; }
+}
+
+function nesports_setting($key, $default = '') {
+    static $settings = null;
+    if ($settings === null) {
+        $settings = get_option('nesports_store_settings', array());
+        if (!is_array($settings)) {
+            $settings = array();
+        }
+    }
+    return (isset($settings[$key]) && $settings[$key] !== '') ? $settings[$key] : $default;
+}
+
+function nesports_section_enabled($key, $default = true) {
+    $val = nesports_setting($key, $default ? '1' : '0');
+    return ($val === '1' || $val === 1 || $val === true || $val === 'yes');
+}
+
 function nesports_money($value) {
     if (function_exists('wc_price')) {
         return wp_strip_all_tags(wc_price((float) $value));
@@ -131,10 +151,6 @@ function nesports_catalog() {
     $managed = get_option('nesports_managed_catalog', null);
     if (is_array($managed) && !empty($managed)) {
         $cached_catalog = $managed;
-        return $cached_catalog;
-    }
-    static $cached_catalog = null;
-    if ($cached_catalog !== null) {
         return $cached_catalog;
     }
 

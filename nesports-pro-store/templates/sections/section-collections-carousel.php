@@ -280,7 +280,12 @@ $collections_list = array(
     </style>
 
     <div class="hb-collections-carousel-header">
-        <h2 class="hb-collections-carousel-title">Collections</h2>
+        <div>
+            <h2 class="hb-collections-carousel-title"><?php echo esc_html(nesports_setting('collections_title', 'Collections')); ?></h2>
+            <?php $col_desc = nesports_setting('collections_desc', ''); if (!empty($col_desc)): ?>
+                <p class="hb-collections-carousel-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($col_desc); ?></p>
+            <?php endif; ?>
+        </div>
         <div class="hb-collections-carousel-controls">
             <button type="button" class="hb-collections-arrow hb-collections-arrow--prev" id="hb-collections-carousel-prev" aria-label="Previous Collections" disabled>
                 <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>

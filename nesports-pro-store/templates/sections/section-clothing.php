@@ -236,7 +236,12 @@ $clothing = nesports_clothing();
     </style>
 
     <div class="hb-clothing-header">
-        <h2 class="hb-clothing-title">Clothing</h2>
+        <div>
+            <h2 class="hb-clothing-title"><?php echo esc_html(nesports_setting('clothing_title', 'Clothing')); ?></h2>
+            <?php $clothing_desc = nesports_setting('clothing_desc', ''); if (!empty($clothing_desc)): ?>
+                <p class="hb-clothing-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($clothing_desc); ?></p>
+            <?php endif; ?>
+        </div>
         <div class="hb-clothing-carousel-controls">
             <button type="button" class="hb-clothing-arrow hb-clothing-arrow-prev" id="hb-clothing-prev" aria-label="Previous">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>

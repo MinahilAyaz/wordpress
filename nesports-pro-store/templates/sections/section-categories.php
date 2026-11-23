@@ -490,7 +490,7 @@ $collections = nesports_collections();
 
     <div class="hb-collections-container">
         <div class="hb-top-sellers-nav-grid">
-            <h2 class="hb-top-sellers-title">Top Sellers</h2>
+            <h2 class="hb-top-sellers-title"><?php echo esc_html(nesports_setting('categories_title', 'Top Sellers')); ?></h2>
 
             <div class="hb-filter-pills-wrap">
                 <div class="hb-filter-pills" id="hb-top-filter-pills">

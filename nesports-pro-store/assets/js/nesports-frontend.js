@@ -1060,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // document.querySelectorAll('.hb-card-quick-add').forEach(function(btn) {
+    document.querySelectorAll('.hb-card-quick-add').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();

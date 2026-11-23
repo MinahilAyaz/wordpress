@@ -495,6 +495,46 @@ if ($collection_data && !empty($collection_data['products'])) {
 }
 </style>
 
+<?php
+$page_id = get_queried_object_id();
+if (!$page_id) {
+    $page_id = get_the_ID();
+}
+$is_elementor = false;
+if (class_exists('\Elementor\Plugin')) {
+    if (\Elementor\Plugin::$instance->preview->is_preview_mode() 
+        || \Elementor\Plugin::$instance->editor->is_edit_mode() 
+        || isset($_GET['elementor-preview']) 
+        || isset($_GET['preview'])) {
+        $is_elementor = true;
+    } elseif ($page_id && \Elementor\Plugin::$instance->db->is_built_with_elementor($page_id)) {
+        $is_elementor = true;
+    }
+}
+
+if ($is_elementor) :
+?>
+<main class="hb-category-page hb-collection-page elementor-entry-content" style="padding: 40px 20px; min-height: 400px;">
+    <?php
+    if (have_posts()) {
+        while (have_posts()) {
+            the_post();
+            the_content();
+        }
+    } else {
+        $post_obj = get_post($page_id);
+        if ($post_obj) {
+            setup_postdata($post_obj);
+            the_content();
+            wp_reset_postdata();
+        } else {
+            the_content();
+        }
+    }
+    ?>
+</main>
+<?php else : ?>
+
 <main class="hb-category-page hb-collection-page">
     <!-- Category / Collection Hero Banner -->
     <section class="hb-cat-hero">
@@ -608,8 +648,7 @@ if ($collection_data && !empty($collection_data['products'])) {
         </div>
     </section>
 </main>
-
-<script id="hb-collection-page-js">
+<?php endif; ?>
 (function() {
     function initCardSliders() {
         var cards = document.querySelectorAll('.hb-card');
