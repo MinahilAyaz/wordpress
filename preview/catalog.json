@@ -7,7 +7,8 @@
         "old": 79.99,
         "reviews": 128,
         "main": "DSC_0167-scaled-1.jpg",
-        "hover": "DSC_0166-scaled-1.jpg"
+        "hover": "DSC_0166-scaled-1.jpg",
+        "desc": "10mm genuine leather core with quick-release stainless steel lever buckle."
     },
     {
         "name": "Power Lifting Belt 13mm (Black)",
@@ -17,7 +18,8 @@
         "old": 89.99,
         "reviews": 86,
         "main": "WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg",
-        "hover": "WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg"
+        "hover": "WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg",
+        "desc": "10mm genuine leather core with quick-release stainless steel lever buckle."
     },
     {
         "name": "Weightlifting Dip Belt with Steel Chain",
@@ -27,7 +29,8 @@
         "old": 84.99,
         "reviews": 54,
         "main": "Dip-Belt-800x800.jpg",
-        "hover": "Dip-Belt-1-800x800.jpg"
+        "hover": "Dip-Belt-1-800x800.jpg",
+        "desc": "10mm genuine leather core with quick-release stainless steel lever buckle."
     },
     {
         "name": "Heavy Duty Neoprene Elbow Wraps (Pair)",
@@ -37,7 +40,8 @@
         "old": 34.99,
         "reviews": 39,
         "main": "Knee-Wrap-800x800.jpg",
-        "hover": "Knee-wrap-1-800x800.jpg"
+        "hover": "Knee-wrap-1-800x800.jpg",
+        "desc": "Heavy-duty compression elbow wraps designed to reduce joint strain during pressing."
     },
     {
         "name": "Lifting Strap Padded (Blue)",
@@ -47,7 +51,8 @@
         "old": 14.99,
         "reviews": 112,
         "main": "A2.jpg",
-        "hover": "A3-1-800x800.jpg"
+        "hover": "A3-1-800x800.jpg",
+        "desc": "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull."
     },
     {
         "name": "Lifting Strap Padded (Red)",
@@ -57,7 +62,8 @@
         "old": 19.99,
         "reviews": 74,
         "main": "2-red-800x800.jpg",
-        "hover": "A8-800x800.jpg"
+        "hover": "A8-800x800.jpg",
+        "desc": "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull."
     },
     {
         "name": "Lifting Straps with Extra Padded (Black)",
@@ -67,7 +73,8 @@
         "old": 19.99,
         "reviews": 95,
         "main": "1-800x800.jpg",
-        "hover": "2-800x800.jpg"
+        "hover": "2-800x800.jpg",
+        "desc": "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull."
     },
     {
         "name": "Lifting Straps (Padded) Blue",
@@ -77,7 +84,8 @@
         "old": 19.99,
         "reviews": 63,
         "main": "WhatsApp-Image-2024-07-08-at-19.20.29_ba3cfe08-800x800.jpg",
-        "hover": "WhatsApp-Image-2024-07-08-at-19.20.29_13856fb5-Copy-800x800.jpg"
+        "hover": "WhatsApp-Image-2024-07-08-at-19.20.29_13856fb5-Copy-800x800.jpg",
+        "desc": "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull."
     },
     {
         "name": "Knee Wrap (Blue)",
@@ -87,7 +95,8 @@
         "old": 39.99,
         "reviews": 82,
         "main": "Knee-Wrap-9-800x800.jpg",
-        "hover": "Kne-wrap-4-800x800.jpg"
+        "hover": "Kne-wrap-4-800x800.jpg",
+        "desc": "7mm high-density neoprene compression knee sleeves for joint warmth & stability."
     },
     {
         "name": "Knee Wrap (Red)",
@@ -97,7 +106,8 @@
         "old": 39.99,
         "reviews": 118,
         "main": "Knee-Wrap-800x800.jpg",
-        "hover": "Knee-wrap-1-800x800.jpg"
+        "hover": "Knee-wrap-1-800x800.jpg",
+        "desc": "7mm high-density neoprene compression knee sleeves for joint warmth & stability."
     },
     {
         "name": "Speed Ball Set Maya Hide Leather Red Black",
@@ -107,7 +117,8 @@
         "old": 39.99,
         "reviews": 45,
         "main": "1-1-2-800x800.jpg",
-        "hover": "2-1-2-800x800.jpg"
+        "hover": "2-1-2-800x800.jpg",
+        "desc": "Durable Maya Hide leather speed ball precision-balanced for rapid rebound drills."
     },
     {
         "name": "Speed Ball Set Maya Hide Leather",
@@ -117,7 +128,8 @@
         "old": 39.99,
         "reviews": 67,
         "main": "1-1-1-800x800.jpg",
-        "hover": "2-1-1-800x800.jpg"
+        "hover": "2-1-1-800x800.jpg",
+        "desc": "Durable Maya Hide leather speed ball precision-balanced for rapid rebound drills."
     },
     {
         "name": "Speed Ball Set Maya Hide Leather Black Gold",
@@ -127,7 +139,8 @@
         "old": 39.99,
         "reviews": 53,
         "main": "1-1-800x800.jpg",
-        "hover": "2-1-800x800.jpg"
+        "hover": "2-1-800x800.jpg",
+        "desc": "Durable Maya Hide leather speed ball precision-balanced for rapid rebound drills."
     },
     {
         "name": "Wrist Bandages 45 cm (Black)",
@@ -137,7 +150,8 @@
         "old": 19.99,
         "reviews": 91,
         "main": "Wrist-Bandage-Black-800x800.jpg",
-        "hover": "Wrist-Bandage-1-800x800.jpg"
+        "hover": "Wrist-Bandage-1-800x800.jpg",
+        "desc": "45cm heavy-duty elastic wrist bandages with reinforced thumb loop & Velcro."
     },
     {
         "name": "Water Proof Gym Bag (Gray)",
@@ -147,7 +161,8 @@
         "old": 19.99,
         "reviews": 42,
         "main": "Gym-Bag-9-800x800.jpg",
-        "hover": "Gym-Bag-1-2-800x800.jpg"
+        "hover": "Gym-Bag-1-2-800x800.jpg",
+        "desc": "Spacious multi-compartment gym duffle bag with moisture-resistant fabric."
     },
     {
         "name": "Water Proof Gym Bag (Blue)",
@@ -157,7 +172,8 @@
         "old": 19.99,
         "reviews": 38,
         "main": "Gym-Bag-8-800x800.jpg",
-        "hover": "Gym-Bag-1-800x800.jpg"
+        "hover": "Gym-Bag-1-800x800.jpg",
+        "desc": "Spacious multi-compartment gym duffle bag with moisture-resistant fabric."
     },
     {
         "name": "Elbow Wrap",
@@ -167,7 +183,8 @@
         "old": 34.99,
         "reviews": 84,
         "main": "Elbow-Wrap-1-scaled.jpg",
-        "hover": "Elbow-Wrap-scaled.jpg"
+        "hover": "Elbow-Wrap-scaled.jpg",
+        "desc": "Heavy-duty compression elbow wraps designed to reduce joint strain during pressing."
     },
     {
         "name": "Ankle Strap Cable Pull (Black)",
@@ -177,7 +194,8 @@
         "old": 14.99,
         "reviews": 59,
         "main": "Ankle-Strap-Cable-pull-scaled.jpg",
-        "hover": "Ankle-Strap-Cable-pull-1-scaled.jpg"
+        "hover": "Ankle-Strap-Cable-pull-1-scaled.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
         "name": "Barbell Pad (Black)",
@@ -187,7 +205,8 @@
         "old": 24.99,
         "reviews": 70,
         "main": "Barbell-Pad-5-scaled.jpg",
-        "hover": "DSC_0179-Copy-scaled-1.jpg"
+        "hover": "DSC_0179-Copy-scaled-1.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
         "name": "Water Proof gym Bag (Black)",
@@ -197,7 +216,8 @@
         "old": 14.99,
         "reviews": 61,
         "main": "Gym-Bag-scaled.jpg",
-        "hover": "Gym-Bag-1-scaled.jpg"
+        "hover": "Gym-Bag-1-scaled.jpg",
+        "desc": "Spacious multi-compartment gym duffle bag with moisture-resistant fabric."
     },
     {
         "name": "Classic weightlifting belt Leather",
@@ -207,7 +227,8 @@
         "old": 29.99,
         "reviews": 71,
         "main": "DSC_0166-scaled-1.jpg",
-        "hover": "DSC_0167-scaled-1.jpg"
+        "hover": "DSC_0167-scaled-1.jpg",
+        "desc": "10mm genuine leather core with quick-release stainless steel lever buckle."
     },
     {
         "name": "Classic weightlifting belt",
@@ -217,7 +238,8 @@
         "old": 19.99,
         "reviews": 62,
         "main": "WhatsApp-Image-2024-07-08-at-19.21.32_c020a8d1.jpg",
-        "hover": "WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg"
+        "hover": "WhatsApp-Image-2024-07-08-at-19.21.33_efbbace4.jpg",
+        "desc": "10mm genuine leather core with quick-release stainless steel lever buckle."
     },
     {
         "name": "Barbell Pad (Camo Blue)",
@@ -227,7 +249,8 @@
         "old": 24.99,
         "reviews": 74,
         "main": "DSC_0177-scaled-1.jpg",
-        "hover": "DSC_0179-Copy-scaled-1.jpg"
+        "hover": "DSC_0179-Copy-scaled-1.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
         "name": "Barbell pad (Gray Camo)",
@@ -237,7 +260,8 @@
         "old": 24.99,
         "reviews": 67,
         "main": "Baerbell-Pad-scaled.jpg",
-        "hover": "Barbell-Pad-1-scaled.jpg"
+        "hover": "Barbell-Pad-1-scaled.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
         "name": "Ankle Strap Cable Pull (Camo Blue)",
@@ -247,7 +271,8 @@
         "old": 14.99,
         "reviews": 81,
         "main": "Ankle-Strap-Cable-pull-5-scaled.jpg",
-        "hover": "Ankle-Strap-Cable-pull-3-scaled.jpg"
+        "hover": "Ankle-Strap-Cable-pull-3-scaled.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
         "name": "Premium Ankle Straps",
@@ -257,7 +282,8 @@
         "old": 14.99,
         "reviews": 66,
         "main": "DSC_0210-scaled-1.jpg",
-        "hover": "DSC_2459-scaled-1.jpg"
+        "hover": "DSC_2459-scaled-1.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
         "name": "Lifting Straps (Padded) Black",
@@ -267,7 +293,8 @@
         "old": 19.99,
         "reviews": 89,
         "main": "WhatsApp-Image-2024-07-08-at-19.20.29_3dc5ad04.jpg",
-        "hover": "WhatsApp-Image-2024-07-08-at-19.20.29_13856fb5-Copy.jpg"
+        "hover": "WhatsApp-Image-2024-07-08-at-19.20.29_13856fb5-Copy.jpg",
+        "desc": "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull."
     },
     {
         "name": "Foot Loops Cable Pull (Black)",
@@ -277,17 +304,19 @@
         "old": 24.99,
         "reviews": 45,
         "main": "Foot-Strap-Cable-pull-padded.jpg",
-        "hover": "Foot-Strap-Cable-pull-padded-2.jpg"
+        "hover": "Foot-Strap-Cable-pull-padded-2.jpg",
+        "desc": "Engineered for high performance, maximum durability, and athletic training."
     },
     {
-        "name": "Wrist Bandages  45 cm Wrist  (Black\/Yellow)",
+        "name": "Wrist Bandages  45 cm Wrist  (Black/Yellow)",
         "slug": "wrist-bandages-45-cm-wrist-black",
         "cat": "wrist",
         "price": 9.99,
         "old": 19.99,
         "reviews": 83,
         "main": "Wrist-Bandage-3.jpg",
-        "hover": "Wrist-Bandage-1.jpg"
+        "hover": "Wrist-Bandage-1.jpg",
+        "desc": "45cm heavy-duty elastic wrist bandages with reinforced thumb loop & Velcro."
     },
     {
         "name": "Lifting Straps with Extra Padded",
@@ -297,7 +326,8 @@
         "old": 24.99,
         "reviews": 49,
         "main": "1-scaled.jpg",
-        "hover": "0-1-min-scaled.jpg"
+        "hover": "0-1-min-scaled.jpg",
+        "desc": "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull."
     },
     {
         "name": "Weighlifting Dip Belt with Chain",
@@ -307,7 +337,8 @@
         "old": 29.99,
         "reviews": 48,
         "main": "Dip-Belt.jpg",
-        "hover": "Dip-Belt-1.jpg"
+        "hover": "Dip-Belt-1.jpg",
+        "desc": "10mm genuine leather core with quick-release stainless steel lever buckle."
     },
     {
         "name": "Strength Club Oversized T-Shirt (Black)",
@@ -316,8 +347,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 94,
-        "main": "clothing\/Strength-Club-White-Flat.jpg",
-        "hover": "clothing\/Strength-Club-White-Model.jpg"
+        "main": "clothing/Strength-Club-White-Flat.jpg",
+        "hover": "clothing/Strength-Club-White-Model.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Strength Club Athletic Fit T-Shirt",
@@ -326,8 +358,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 88,
-        "main": "clothing\/Strength-Club-Blue-Flat.jpg",
-        "hover": "clothing\/Strength-Club-Blue-Model.jpg"
+        "main": "clothing/Strength-Club-Blue-Flat.jpg",
+        "hover": "clothing/Strength-Club-Blue-Model.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Strength Club Red Edition T-Shirt",
@@ -336,8 +369,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 91,
-        "main": "clothing\/Strength-Club-Red-Flat.jpg",
-        "hover": "clothing\/Strength-Club-Red-Model.jpg"
+        "main": "clothing/Strength-Club-Red-Flat.jpg",
+        "hover": "clothing/Strength-Club-Red-Model.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Lift The World Signature T-Shirt (Black)",
@@ -346,8 +380,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 108,
-        "main": "clothing\/Lift-The-World-T-Shirt-Black-1.jpg",
-        "hover": "clothing\/Lift-The-World-T-Shirt-Red-1.jpg"
+        "main": "clothing/Lift-The-World-T-Shirt-Black-1.jpg",
+        "hover": "clothing/Lift-The-World-T-Shirt-Red-1.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Lift The World Signature T-Shirt (Crimson Red)",
@@ -356,8 +391,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 76,
-        "main": "clothing\/Lift-The-World-T-Shirt-Red-1.jpg",
-        "hover": "clothing\/Lift-The-World-T-Shirt-Black-1.jpg"
+        "main": "clothing/Lift-The-World-T-Shirt-Red-1.jpg",
+        "hover": "clothing/Lift-The-World-T-Shirt-Black-1.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Anime Dark Edition Graphic T-Shirt",
@@ -366,8 +402,9 @@
         "price": 39.99,
         "old": 49.99,
         "reviews": 120,
-        "main": "clothing\/Anime-6.jpg",
-        "hover": "clothing\/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg"
+        "main": "clothing/Anime-6.jpg",
+        "hover": "clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Anime Berserk Statement T-Shirt",
@@ -376,8 +413,9 @@
         "price": 39.99,
         "old": 49.99,
         "reviews": 114,
-        "main": "clothing\/Anime-1.jpg",
-        "hover": "clothing\/Anime-6.jpg"
+        "main": "clothing/Anime-1.jpg",
+        "hover": "clothing/Anime-6.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Anime Shadow Graphic T-Shirt",
@@ -386,8 +424,9 @@
         "price": 39.99,
         "old": 49.99,
         "reviews": 98,
-        "main": "clothing\/Anime-2.jpg",
-        "hover": "clothing\/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg"
+        "main": "clothing/Anime-2.jpg",
+        "hover": "clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Anime Vanguard Graphic T-Shirt",
@@ -396,8 +435,9 @@
         "price": 39.99,
         "old": 49.99,
         "reviews": 84,
-        "main": "clothing\/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg",
-        "hover": "clothing\/Anime-1.jpg"
+        "main": "clothing/Anime_7f0fadc8-522d-45ac-b9e6-8208133f1390.jpg",
+        "hover": "clothing/Anime-1.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Son Of The West Statement T-Shirt",
@@ -406,8 +446,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 65,
-        "main": "clothing\/Back-Son-Of-The-West.jpg",
-        "hover": "clothing\/Anime-1.jpg"
+        "main": "clothing/Back-Son-Of-The-West.jpg",
+        "hover": "clothing/Anime-1.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Pro Coach Performance Oversized T-Shirt (Green)",
@@ -416,8 +457,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 58,
-        "main": "clothing\/Procoach-T-Shirt-Green.jpg",
-        "hover": "clothing\/Vintage Navy Pro Coach T-Shirt Graphic.png"
+        "main": "clothing/Procoach-T-Shirt-Green.jpg",
+        "hover": "clothing/Vintage Navy Pro Coach T-Shirt Graphic.png",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Pro Coach Iron Tee (Red Back Print)",
@@ -426,8 +468,9 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 72,
-        "main": "clothing\/Red Pro Coach Iron Tee Back Print.png",
-        "hover": "clothing\/Procoach-T-Shirt-Green.jpg"
+        "main": "clothing/Red Pro Coach Iron Tee Back Print.png",
+        "hover": "clothing/Procoach-T-Shirt-Green.jpg",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     },
     {
         "name": "Pro Coach Vintage Navy Graphic T-Shirt",
@@ -436,7 +479,8 @@
         "price": 34.99,
         "old": 44.99,
         "reviews": 69,
-        "main": "clothing\/Vintage Navy Pro Coach T-Shirt Graphic.png",
-        "hover": "clothing\/Red Pro Coach Iron Tee Back Print.png"
+        "main": "clothing/Vintage Navy Pro Coach T-Shirt Graphic.png",
+        "hover": "clothing/Red Pro Coach Iron Tee Back Print.png",
+        "desc": "Premium combed cotton workout shirt designed for all-day comfort & durability."
     }
 ]

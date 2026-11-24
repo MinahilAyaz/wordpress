@@ -481,6 +481,20 @@ if ($collection_data && !empty($collection_data['products'])) {
     color: #a1a1aa !important;
     margin-left: 6px !important;
 }
+.hb-card-desc {
+    margin: 6px 0 0 !important;
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+    color: #64748b !important;
+    text-align: center !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-weight: 400 !important;
+    font-family: var(--hb-font, 'Poppins', sans-serif) !important;
+}
 
 .hb-cat-empty {
     text-align: center !important;
@@ -640,6 +654,9 @@ if ($is_elementor) :
                                 <span class="now"><?php echo esc_html(nesports_money($price)); ?></span>
                                 <?php if ($on_sale): ?><s><?php echo esc_html(nesports_money($p['old'])); ?></s><?php endif; ?>
                             </div>
+                            <?php if (!empty($p['desc'])): ?>
+                                <p class="hb-card-desc"><?php echo esc_html($p['desc']); ?></p>
+                            <?php endif; ?>
                         </div>
                     </article>
                     <?php endforeach; ?>

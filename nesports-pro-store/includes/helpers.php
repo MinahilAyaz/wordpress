@@ -130,6 +130,72 @@ function nesports_hero_slides() {
     );
 }
 
+function nesports_get_tailored_desc($name, $cat = '', $slug = '') {
+    $n = strtolower($name . ' ' . $slug);
+    $c = strtolower($cat);
+    
+    if ($c === 'belts' || strpos($n, 'belt') !== false) {
+        if (strpos($n, 'dip') !== false || strpos($n, 'chain') !== false) {
+            return "Heavy-duty steel chain and reinforced padding for weighted dips & pull-ups.";
+        }
+        if (strpos($n, 'lever') !== false || strpos($n, '10mm') !== false) {
+            return "10mm genuine leather core with quick-release stainless steel lever buckle.";
+        }
+        if (strpos($n, '13mm') !== false) {
+            return "13mm competition-grade genuine leather engineered for maximum core stability.";
+        }
+        return "Premium genuine layered leather support with heavy-duty steel prong buckle.";
+    }
+
+    if ($c === 'straps' || strpos($n, 'strap') !== false) {
+        if (strpos($n, 'figure') !== false || strpos($n, '8') !== false) {
+            return "Heavy-duty figure-8 woven cotton straps designed for locked-in deadlift grip.";
+        }
+        if (strpos($n, 'pad') !== false || strpos($n, 'wrist') !== false) {
+            return "Neoprene-padded wrist support with heavy-duty cotton webbing for a secure pull.";
+        }
+        return "Industrial-strength non-slip lifting straps engineered to maximize grip strength.";
+    }
+
+    if ($c === 'wrist' || strpos($n, 'wrist') !== false || strpos($n, 'bandage') !== false) {
+        if (strpos($n, '45') !== false || strpos($n, 'bandage') !== false) {
+            return "45cm heavy-duty elastic wrist bandages with reinforced thumb loop & Velcro.";
+        }
+        return "Competition-grade elastic wrist wraps providing maximum wrist joint support.";
+    }
+
+    if ($c === 'knee' || strpos($n, 'knee') !== false) {
+        if (strpos($n, 'sleeve') !== false || strpos($n, '7mm') !== false) {
+            return "7mm high-density neoprene compression knee sleeves for joint warmth & stability.";
+        }
+        return "Heavy-duty elastic compression knee wraps engineered for maximum rebound.";
+    }
+
+    if ($c === 'elbow' || strpos($n, 'elbow') !== false) {
+        return "Heavy-duty compression elbow wraps designed to reduce joint strain during pressing.";
+    }
+
+    if ($c === 'ankle' || strpos($n, 'ankle') !== false) {
+        return "Comfortable padded ankle cuffs with dual steel D-rings for cable kickbacks.";
+    }
+
+    if ($c === 'speed' || strpos($n, 'speed') !== false || strpos($n, 'ball') !== false) {
+        return "Durable Maya Hide leather speed ball precision-balanced for rapid rebound drills.";
+    }
+
+    if ($c === 'clothing' || strpos($n, 'shirt') !== false) {
+        if (strpos($n, 'anime') !== false || strpos($n, 'berserk') !== false || strpos($n, 'oversized') !== false) {
+            return "Ultra-soft 100% combed cotton oversized fit with high-definition graphic print.";
+        }
+        if (strpos($n, 'athletic') !== false || strpos($n, 'strength club') !== false) {
+            return "Breathable 4-way stretch cotton blend tailored for athletic gym mobility.";
+        }
+        return "Premium combed cotton workout shirt designed for all-day comfort & durability.";
+    }
+
+    return "Engineered for high performance, maximum durability, and serious athletic training.";
+}
+
 /**
  * Product catalog (names, prices and images from nesports3.com or live WooCommerce).
  * price = current price, old = regular price, main/hover = files or URLs.
@@ -185,6 +251,13 @@ function nesports_catalog() {
                 $curr_price = (float) $p->get_price();
                 $old_price  = ($reg_price > $curr_price) ? $reg_price : $curr_price;
 
+                $short_desc = $p->get_short_description();
+                if (empty($short_desc)) {
+                    $short_desc = nesports_get_tailored_desc($p->get_name(), $cat_slug, $p->get_slug());
+                } else {
+                    $short_desc = wp_strip_all_tags($short_desc);
+                }
+
                 $catalog[] = array(
                     'id'      => $id,
                     'name'    => $p->get_name(),
@@ -195,6 +268,7 @@ function nesports_catalog() {
                     'reviews' => (int) $p->get_rating_count(),
                     'main'    => $main_img,
                     'hover'   => $hover_img,
+                    'desc'    => $short_desc,
                 );
             }
             if (!empty($catalog)) {

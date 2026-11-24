@@ -141,6 +141,9 @@ class NESports_Elementor_Products_Widget extends Widget_Base {
                             <span class="now"><?php echo esc_html(nesports_money($p['price'])); ?></span>
                             <?php if ($on_sale): ?><s><?php echo esc_html(nesports_money($p['old'])); ?></s><?php endif; ?>
                         </div>
+                        <?php if (!empty($p['desc'])): ?>
+                            <p class="hb-card-desc"><?php echo esc_html($p['desc']); ?></p>
+                        <?php endif; ?>
                     </div>
                 </article>
                 <?php endforeach; ?>

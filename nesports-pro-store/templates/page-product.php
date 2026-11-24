@@ -320,6 +320,9 @@ $related = array_slice($related, 0, 4);
                             <span class="now"><?php echo esc_html(nesports_money($r['price'])); ?></span>
                             <?php if ($r_sale): ?><s><?php echo esc_html(nesports_money($r['old'])); ?></s><?php endif; ?>
                         </div>
+                        <?php if (!empty($r['desc'])): ?>
+                            <p class="hb-card-desc"><?php echo esc_html($r['desc']); ?></p>
+                        <?php endif; ?>
                     </div>
                 </article>
                 <?php endforeach; ?>

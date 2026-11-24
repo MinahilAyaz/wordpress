@@ -32,16 +32,40 @@ class NESports_Admin {
                 $decoded = json_decode($meta, true);
                 if (is_array($decoded)) {
                     $changed = false;
-                    array_walk_recursive($decoded, function(&$item, $key) use ($new_val, &$changed) {
-                        if ($key === 'url' && !empty($new_val['about_feature_img'])) {
-                            if (strpos($item, 'WhatsApp-Image') !== false || strpos($item, 'logo.png') !== false || strpos($item, 'uploads') !== false) {
-                                $item = $new_val['about_feature_img'];
-                                $changed = true;
+                    $sync_elements = function(&$elements) use (&$sync_elements, $new_val, &$changed) {
+                        foreach ($elements as &$el) {
+                            if (isset($el['widgetType']) && in_array($el['widgetType'], array('nesports-story', 'nesports_story_widget'), true)) {
+                                if (!isset($el['settings'])) $el['settings'] = array();
+                                if (isset($new_val['about_story_text'])) {
+                                    $el['settings']['story_text'] = $new_val['about_story_text'];
+                                    $changed = true;
+                                }
+                                if (isset($new_val['about_story_title'])) {
+                                    $el['settings']['story_title'] = $new_val['about_story_title'];
+                                    $changed = true;
+                                }
+                                if (isset($new_val['about_banner_title'])) {
+                                    $el['settings']['banner_title'] = $new_val['about_banner_title'];
+                                    $changed = true;
+                                }
+                                if (isset($new_val['about_motto'])) {
+                                    $el['settings']['motto'] = $new_val['about_motto'];
+                                    $changed = true;
+                                }
+                                if (!empty($new_val['about_feature_img'])) {
+                                    $el['settings']['image'] = array('url' => $new_val['about_feature_img'], 'id' => '', 'size' => '');
+                                    $changed = true;
+                                }
+                            }
+                            if (!empty($el['elements']) && is_array($el['elements'])) {
+                                $sync_elements($el['elements']);
                             }
                         }
-                    });
+                    };
+                    $sync_elements($decoded);
                     if ($changed) {
                         update_post_meta($post_id, '_elementor_data', wp_slash(json_encode($decoded)));
+                        clean_post_cache($post_id);
                     }
                 }
             }
@@ -280,6 +304,7 @@ class NESports_Admin {
             $old      = floatval($_POST['product_old_price'] ?? $price);
             $main_img = sanitize_text_field($_POST['product_main_img'] ?? '');
             $hover_img= sanitize_text_field($_POST['product_hover_img'] ?? '');
+            $desc     = sanitize_text_field($_POST['product_desc'] ?? '');
 
             if (empty($name)) {
                 wp_redirect(admin_url('admin.php?page=nesports-store-products&error=empty_name'));
@@ -307,6 +332,7 @@ class NESports_Admin {
                 'price'   => $price,
                 'old'     => $old > $price ? $old : $price,
                 'reviews' => rand(25, 95),
+                'desc'    => $desc,
                 'main'    => $main_img,
                 'hover'   => $hover_img
             );
@@ -346,6 +372,7 @@ class NESports_Admin {
             $old      = floatval($_POST['product_old_price'] ?? $price);
             $main_img = sanitize_text_field($_POST['product_main_img'] ?? '');
             $hover_img= sanitize_text_field($_POST['product_hover_img'] ?? '');
+            $desc     = sanitize_text_field($_POST['product_desc'] ?? '');
 
             foreach ($catalog as &$item) {
                 if (isset($item['slug']) && $item['slug'] === $slug) {
@@ -353,6 +380,7 @@ class NESports_Admin {
                     $item['cat']   = $cat;
                     $item['price'] = $price;
                     $item['old']   = ($old >= $price) ? $old : $price;
+                    $item['desc']  = $desc;
                     if (!empty($main_img)) $item['main'] = $main_img;
                     if (!empty($hover_img)) $item['hover'] = $hover_img;
                     break;
@@ -549,6 +577,11 @@ class NESports_Admin {
                                     </td>
                                     <td style="padding: 12px 16px; vertical-align: middle;">
                                         <strong class="nesports-prod-name" style="font-size: 14.5px; color: #0f172a; display: block; margin-bottom: 3px;"><?php echo esc_html($name); ?></strong>
+                                        <?php if (!empty($prod['desc'])): ?>
+                                            <div style="font-size: 12px; color: #64748b; margin-bottom: 4px; font-style: italic; line-height: 1.35; max-width: 320px;">
+                                                <?php echo esc_html($prod['desc']); ?>
+                                            </div>
+                                        <?php endif; ?>
                                         <code style="font-size: 11.5px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">/product/<?php echo esc_html($slug); ?>/</code>
                                     </td>
                                     <td style="padding: 12px 16px; vertical-align: middle;">
@@ -639,6 +672,12 @@ class NESports_Admin {
                     </div>
 
                     <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Short Product Description</label>
+                        <textarea name="product_desc" placeholder="e.g. 10mm genuine leather with heavy-duty stainless steel lever buckle" class="widefat" rows="2" style="border-radius: 6px; font-size: 13px;"></textarea>
+                        <p class="description" style="margin-top: 4px;">Displays directly under the product price on category & shop cards.</p>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Category *</label>
                         <select name="product_cat" required class="widefat" style="height: 40px; border-radius: 6px;">
                             <?php foreach ($categories as $cat_k => $cat_name): ?>
@@ -705,6 +744,12 @@ class NESports_Admin {
                     <div style="margin-bottom: 16px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Product Name</label>
                         <input type="text" id="edit-product-name" name="product_name" required class="widefat" style="height: 40px; border-radius: 6px;" />
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Short Product Description</label>
+                        <textarea id="edit-product-desc" name="product_desc" placeholder="e.g. 10mm genuine leather with heavy-duty stainless steel lever buckle" class="widefat" rows="2" style="border-radius: 6px; font-size: 13px;"></textarea>
+                        <p class="description" style="margin-top: 4px;">Displays directly under the product price on category & shop cards.</p>
                     </div>
 
                     <div style="margin-bottom: 16px;">
@@ -779,6 +824,7 @@ class NESports_Admin {
         function nesportsOpenEditModal(prod) {
             document.getElementById('edit-product-slug').value = prod.slug || '';
             document.getElementById('edit-product-name').value = prod.name || '';
+            document.getElementById('edit-product-desc').value = prod.desc || '';
             document.getElementById('edit-product-cat').value = prod.cat || 'belts';
             document.getElementById('edit-product-price').value = prod.price || '';
             document.getElementById('edit-product-old-price').value = prod.old || prod.price || '';
