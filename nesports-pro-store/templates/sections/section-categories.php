@@ -6,43 +6,143 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-$collections = nesports_collections();
 
-// Dynamically augment with any newly added custom categories
-$custom_cats = get_option('nesports_custom_categories', array());
-if (is_array($custom_cats) && !empty($custom_cats)) {
-    $existing_cats = array();
-    foreach ($collections as $col) {
-        $existing_cats[] = sanitize_title($col['category']);
+$default_collections = function_exists('nesports_collections') ? nesports_collections() : array();
+$catalog = function_exists('nesports_catalog') ? nesports_catalog() : array();
+
+// If Elementor provided custom categories repeater settings
+if (!empty($settings['categories']) && is_array($settings['categories'])) {
+    $collections = array();
+    
+    // Map defaults for fast lookup of fallback metadata
+    $defaults_map = array();
+    foreach ($default_collections as $def_c) {
+        $defaults_map[sanitize_title($def_c['title'])] = $def_c;
+        $defaults_map[sanitize_title($def_c['category'])] = $def_c;
     }
-    $catalog = function_exists('nesports_catalog') ? nesports_catalog() : array();
 
-    foreach ($custom_cats as $slug => $c_name) {
-        $slug = sanitize_title($slug);
-        if (!in_array($slug, $existing_cats, true)) {
-            // Find first product in this category if available
-            $matched_p = null;
+    foreach ($settings['categories'] as $item) {
+        $c_title = !empty($item['title']) ? trim($item['title']) : '';
+        if (empty($c_title)) continue;
+
+        $c_slug = sanitize_title($c_title);
+        $matched_def = isset($defaults_map[$c_slug]) ? $defaults_map[$c_slug] : null;
+
+        // Image resolving
+        $card_img = '';
+        if (!empty($item['image']['url'])) {
+            $card_img = $item['image']['url'];
+        } elseif (!empty($item['fallback_img'])) {
+            $card_img = $item['fallback_img'];
+        } elseif ($matched_def && !empty($matched_def['img'])) {
+            $card_img = $matched_def['img'];
+        } else {
+            // Look up in catalog products
             foreach ($catalog as $p) {
-                if (isset($p['category']) && (sanitize_title($p['category']) === $slug || stripos($p['category'], $c_name) !== false)) {
-                    $matched_p = $p;
+                if (isset($p['category']) && (sanitize_title($p['category']) === $c_slug || stripos($p['category'], $c_title) !== false)) {
+                    $card_img = $p['img'];
                     break;
                 }
             }
-            if ($matched_p) {
-                $collections[] = array(
-                    'title'     => $c_name,
-                    'subtitle'  => $matched_p['title'],
-                    'price'     => '€' . number_format((float)$matched_p['price'], 2),
-                    'old_price' => !empty($matched_p['regular_price']) ? '€' . number_format((float)$matched_p['regular_price'], 2) : '',
-                    'category'  => $slug,
-                    'img'       => $matched_p['img'],
-                    'images'    => !empty($matched_p['gallery']) ? array_merge(array($matched_p['img']), $matched_p['gallery']) : array($matched_p['img']),
-                    'url'       => '/product-category/' . $slug . '/',
-                );
+            if (empty($card_img)) {
+                $card_img = 'DSC_0167-scaled-1.jpg';
+            }
+        }
+
+        // Subtitle resolving
+        $c_sub = !empty($item['subtitle']) ? $item['subtitle'] : '';
+        if (empty($c_sub) && $matched_def && !empty($matched_def['subtitle'])) {
+            $c_sub = $matched_def['subtitle'];
+        }
+        if (empty($c_sub)) {
+            $c_sub = 'High Performance Gear';
+        }
+
+        // Price resolving
+        $c_price = !empty($item['price']) ? $item['price'] : '';
+        if (empty($c_price) && $matched_def && !empty($matched_def['price'])) {
+            $c_price = $matched_def['price'];
+        }
+        if (empty($c_price)) {
+            $c_price = '€19.99';
+        } elseif (is_numeric($c_price)) {
+            $c_price = '€' . number_format((float)$c_price, 2);
+        }
+
+        // Old Price resolving
+        $c_old = !empty($item['old_price']) ? $item['old_price'] : '';
+        if (empty($c_old) && $matched_def && !empty($matched_def['old_price'])) {
+            $c_old = $matched_def['old_price'];
+        }
+        if (!empty($c_old) && is_numeric($c_old)) {
+            $c_old = '€' . number_format((float)$c_old, 2);
+        }
+
+        // Link resolving
+        $c_url = !empty($item['url']['url']) ? $item['url']['url'] : '';
+        if (empty($c_url) && $matched_def && !empty($matched_def['url'])) {
+            $c_url = $matched_def['url'];
+        }
+        if (empty($c_url)) {
+            $c_url = '/product-category/' . $c_slug . '/';
+        }
+
+        // Multi-angle gallery images
+        $card_images = array($card_img);
+        if ($matched_def && !empty($matched_def['images']) && $card_img === $matched_def['img']) {
+            $card_images = $matched_def['images'];
+        }
+
+        $collections[] = array(
+            'title'     => $c_title,
+            'subtitle'  => $c_sub,
+            'price'     => $c_price,
+            'old_price' => $c_old,
+            'category'  => $c_slug,
+            'img'       => $card_img,
+            'images'    => $card_images,
+            'url'       => $c_url,
+        );
+    }
+} else {
+    $collections = $default_collections;
+
+    // Dynamically augment with any newly added custom categories
+    $custom_cats = get_option('nesports_custom_categories', array());
+    if (is_array($custom_cats) && !empty($custom_cats)) {
+        $existing_cats = array();
+        foreach ($collections as $col) {
+            $existing_cats[] = sanitize_title($col['category']);
+        }
+
+        foreach ($custom_cats as $slug => $c_name) {
+            $slug = sanitize_title($slug);
+            if (!in_array($slug, $existing_cats, true)) {
+                $matched_p = null;
+                foreach ($catalog as $p) {
+                    if (isset($p['category']) && (sanitize_title($p['category']) === $slug || stripos($p['category'], $c_name) !== false)) {
+                        $matched_p = $p;
+                        break;
+                    }
+                }
+                if ($matched_p) {
+                    $collections[] = array(
+                        'title'     => $c_name,
+                        'subtitle'  => $matched_p['title'],
+                        'price'     => '€' . number_format((float)$matched_p['price'], 2),
+                        'old_price' => !empty($matched_p['regular_price']) ? '€' . number_format((float)$matched_p['regular_price'], 2) : '',
+                        'category'  => $slug,
+                        'img'       => $matched_p['img'],
+                        'images'    => !empty($matched_p['gallery']) ? array_merge(array($matched_p['img']), $matched_p['gallery']) : array($matched_p['img']),
+                        'url'       => '/product-category/' . $slug . '/',
+                    );
+                }
             }
         }
     }
 }
+
+$show_pills = isset($settings['show_filter_pills']) ? ($settings['show_filter_pills'] === 'yes') : true;
 ?>
 <section class="hb-collections-section hb-top-sellers-section" id="top-sellers">
     <style id="hb-top-sellers-critical-css">
@@ -215,8 +315,6 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
         transform: none !important;
         box-shadow: none !important;
     }
-        transform: scale(0.92) !important;
-    }
 
     /* Carousel track */
     .hb-category-carousel-wrap {
@@ -242,7 +340,7 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
         display: none !important;
     }
 
-    /* Card styling - Clean single surface with NO card-in-card nested borders */
+    /* Card styling */
     .hb-category-card {
         flex: 0 0 calc((100% - 72px) / 5) !important;
         min-width: 220px !important;
@@ -280,7 +378,7 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
         animation: cardSlideLeftToRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
     }
 
-    /* Card Media container - Single crisp border, no inner borders or nested boxes */
+    /* Card Media container */
     .hb-category-media {
         position: relative !important;
         width: 100% !important;
@@ -303,10 +401,7 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
         box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.08) !important;
     }
 
-    .hb-card-badge {
-        display: none !important;
-    }
-    /* Multi-angle slide track matching Screenshot 1 */
+    /* Multi-angle slide track */
     .hb-category-media .hb-card-slider-track {
         display: flex !important;
         flex-direction: row !important;
@@ -356,7 +451,7 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
         transform: scale(1.04) !important;
     }
 
-    /* 3-dot indicator matching Hardbody Store Screenshot 1 */
+    /* Dots indicator */
     .hb-top-sellers-section .hb-card-dots-wrap {
         position: absolute !important;
         bottom: 10px !important;
@@ -529,25 +624,42 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
             <?php $ts_title = !empty($settings['section_title']) ? $settings['section_title'] : nesports_setting('categories_title', 'Top Sellers'); ?>
             <h2 class="hb-top-sellers-title"><?php echo esc_html($ts_title); ?></h2>
 
+            <?php if ($show_pills): ?>
             <div class="hb-filter-pills-wrap">
                 <div class="hb-filter-pills" id="hb-top-filter-pills">
                     <button type="button" class="hb-filter-pill is-active" data-filter="all">ALL ITEMS</button>
                     <?php 
+                    $pill_map = array();
+                    // 1. Categories present in active $collections (including any added in Elementor!)
+                    foreach ($collections as $c_item) {
+                        $p_slug = sanitize_title($c_item['category']);
+                        if (!isset($pill_map[$p_slug])) {
+                            $pill_map[$p_slug] = $c_item['title'];
+                        }
+                    }
+                    // 2. Also ensure store catalog categories
                     $top_categories = function_exists('nesports_categories') ? nesports_categories() : array();
-                    foreach ($top_categories as $cat_slug => $cat_info):
+                    foreach ($top_categories as $cat_slug => $cat_info) {
+                        $p_slug = sanitize_title($cat_slug);
                         $cat_name = is_array($cat_info) ? $cat_info['name'] : $cat_info;
+                        if (!isset($pill_map[$p_slug])) {
+                            $pill_map[$p_slug] = $cat_name;
+                        }
+                    }
+                    foreach ($pill_map as $cat_slug => $cat_name):
                     ?>
                     <button type="button" class="hb-filter-pill" data-filter="<?php echo esc_attr($cat_slug); ?>"><?php echo esc_html(strtoupper($cat_name)); ?></button>
                     <?php endforeach; ?>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="hb-carousel-controls">
                 <button type="button" class="hb-carousel-arrow hb-carousel-prev" id="hb-top-seller-prev" aria-label="Previous" disabled>
-                    <i class="fa-solid fa-chevron-left"></i>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
                 <button type="button" class="hb-carousel-arrow hb-carousel-next" id="hb-top-seller-next" aria-label="Next">
-                    <i class="fa-solid fa-chevron-right"></i>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                 </button>
             </div>
         </div>
@@ -698,7 +810,7 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
                 });
             });
 
-            // Left-to-right multi-angle hover scrubber for each category card (Screenshot 1 Hardbody reference)
+            // Multi-angle hover scrubber
             var categoryCards = track.querySelectorAll('.hb-category-card');
             categoryCards.forEach(function(card) {
                 var sliderTrack = card.querySelector('.hb-card-slider-track');
@@ -727,7 +839,6 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
                     });
                 }
 
-                // Left-to-right cursor movement across the card smoothly scrubs through images
                 card.addEventListener('mousemove', function(e) {
                     var rect = card.getBoundingClientRect();
                     var mouseX = e.clientX - rect.left;
@@ -752,12 +863,10 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
                     goTo(targetIndex);
                 });
 
-                // Mouse leaves the card: smoothly returns to the 1st view
                 card.addEventListener('mouseleave', function() {
                     goTo(0);
                 });
 
-                // Dot hover & click
                 dots.forEach(function(dot) {
                     function activate(e) {
                         if (e) {
@@ -782,6 +891,16 @@ if (is_array($custom_cats) && !empty($custom_cats)) {
             document.addEventListener('DOMContentLoaded', initTopSellers);
         } else {
             initTopSellers();
+        }
+
+        if (window.jQuery) {
+            jQuery(window).on('elementor/frontend/init', function() {
+                if (window.elementorFrontend && window.elementorFrontend.hooks) {
+                    window.elementorFrontend.hooks.addAction('frontend/element_ready/nesports_categories_widget.default', function($scope) {
+                        initTopSellers();
+                    });
+                }
+            });
         }
     })();
     </script>

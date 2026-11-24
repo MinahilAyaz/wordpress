@@ -7,6 +7,31 @@ if (!defined('ABSPATH')) {
     exit;
 }
 $clothing = nesports_clothing();
+
+if (!empty($settings['clothing_items']) && is_array($settings['clothing_items'])) {
+    $custom_clothing = array();
+    foreach ($settings['clothing_items'] as $item) {
+        $c_title = !empty($item['title']) ? $item['title'] : 'Clothing Item';
+        $c_img = '';
+        if (!empty($item['image']['url'])) {
+            $c_img = $item['image']['url'];
+        } elseif (!empty($item['fallback_img'])) {
+            $c_img = $item['fallback_img'];
+        } else {
+            $c_img = 'clothing/44.png';
+        }
+        $c_url = !empty($item['url']['url']) ? $item['url']['url'] : '/product-category/clothing/';
+
+        $custom_clothing[] = array(
+            'title' => $c_title,
+            'img'   => $c_img,
+            'url'   => $c_url,
+        );
+    }
+    if (!empty($custom_clothing)) {
+        $clothing = $custom_clothing;
+    }
+}
 ?>
 <section class="hb-clothing-section" id="clothing">
     <style id="hb-clothing-critical-css">

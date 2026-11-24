@@ -370,11 +370,16 @@ if (!empty($settings['custom_bundles']) && is_array($settings['custom_bundles'])
     foreach ($settings['custom_bundles'] as $cb) {
         $img_url = !empty($cb['bundle_image']['url']) ? $cb['bundle_image']['url'] : 'DSC_0167-scaled-1.jpg';
         $link_url = !empty($cb['bundle_link']['url']) ? $cb['bundle_link']['url'] : '/shop/';
+        $b_price = !empty($cb['bundle_price']) ? $cb['bundle_price'] : '€59.99';
+        if (is_numeric($b_price)) $b_price = '€' . number_format((float)$b_price, 2);
+        $b_old = !empty($cb['bundle_old_price']) ? $cb['bundle_old_price'] : '';
+        if (!empty($b_old) && is_numeric($b_old)) $b_old = '€' . number_format((float)$b_old, 2);
+
         $custom_list[] = array(
             'name'      => !empty($cb['bundle_name']) ? $cb['bundle_name'] : 'Pack',
             'cat'       => !empty($cb['bundle_cat']) ? $cb['bundle_cat'] : 'lifting',
-            'price'     => !empty($cb['bundle_price']) ? $cb['bundle_price'] : '€59.99',
-            'old'       => !empty($cb['bundle_old_price']) ? $cb['bundle_old_price'] : '',
+            'price'     => $b_price,
+            'old'       => $b_old,
             'url'       => $link_url,
             'images'    => array($img_url),
             'imgs'      => array($img_url),

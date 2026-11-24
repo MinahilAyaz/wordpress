@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use Elementor\Repeater;
 
 class NESports_Elementor_Clothing_Widget extends Widget_Base {
 
@@ -52,6 +53,94 @@ class NESports_Elementor_Clothing_Widget extends Widget_Base {
                 'label'   => esc_html__('Section Description', 'nesports-pro-store'),
                 'type'    => Controls_Manager::TEXTAREA,
                 'default' => '',
+            )
+        );
+
+        $this->end_controls_section();
+
+        // Clothing Items Repeater
+        $this->start_controls_section(
+            'section_items',
+            array(
+                'label' => esc_html__('Clothing Cards', 'nesports-pro-store'),
+                'tab'   => Controls_Manager::TAB_CONTENT,
+            )
+        );
+
+        $repeater = new Repeater();
+
+        $repeater->add_control(
+            'title',
+            array(
+                'label'       => esc_html__('Item Title', 'nesports-pro-store'),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => 'T-Shirts & Tanks',
+                'label_block' => true,
+            )
+        );
+
+        $repeater->add_control(
+            'image',
+            array(
+                'label'   => esc_html__('Card Image', 'nesports-pro-store'),
+                'type'    => Controls_Manager::MEDIA,
+                'default' => array(
+                    'url' => '',
+                ),
+            )
+        );
+
+        $repeater->add_control(
+            'fallback_img',
+            array(
+                'label'       => esc_html__('Internal Image (Fallback)', 'nesports-pro-store'),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => 'clothing/44.png',
+                'placeholder' => 'clothing/44.png',
+            )
+        );
+
+        $repeater->add_control(
+            'url',
+            array(
+                'label'       => esc_html__('Link URL', 'nesports-pro-store'),
+                'type'        => Controls_Manager::URL,
+                'placeholder' => esc_html__('https://your-link.com', 'nesports-pro-store'),
+                'default'     => array(
+                    'url' => '/product-category/clothing/',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'clothing_items',
+            array(
+                'label'       => esc_html__('Items', 'nesports-pro-store'),
+                'type'        => Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'title_field' => '{{{ title }}}',
+                'default'     => array(
+                    array(
+                        'title'        => 'T-Shirts & Tanks',
+                        'fallback_img' => 'clothing/44.png',
+                        'url'          => array('url' => '/product-category/clothing/'),
+                    ),
+                    array(
+                        'title'        => 'Hoodies & Sweats',
+                        'fallback_img' => 'clothing/55.png',
+                        'url'          => array('url' => '/product-category/clothing/'),
+                    ),
+                    array(
+                        'title'        => 'Shorts & Bottoms',
+                        'fallback_img' => 'clothing/66.png',
+                        'url'          => array('url' => '/product-category/clothing/'),
+                    ),
+                    array(
+                        'title'        => 'Performance Wear',
+                        'fallback_img' => 'clothing/11.png',
+                        'url'          => array('url' => '/product-category/clothing/'),
+                    ),
+                ),
             )
         );
 
