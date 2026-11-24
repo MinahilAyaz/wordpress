@@ -300,6 +300,15 @@ class NESports_Admin {
         if ($action === 'add_product') {
             $name     = sanitize_text_field($_POST['product_name'] ?? '');
             $cat      = sanitize_text_field($_POST['product_cat'] ?? 'belts');
+            if (!empty($_POST['new_category_name'])) {
+                $new_cat = sanitize_text_field($_POST['new_category_name']);
+                if (function_exists('nesports_add_custom_category')) {
+                    $created_slug = nesports_add_custom_category($new_cat);
+                    if ($created_slug) $cat = $created_slug;
+                } else {
+                    $cat = sanitize_title($new_cat);
+                }
+            }
             $price    = floatval($_POST['product_price'] ?? 0);
             $old      = floatval($_POST['product_old_price'] ?? $price);
             $main_img = sanitize_text_field($_POST['product_main_img'] ?? '');
@@ -368,6 +377,15 @@ class NESports_Admin {
             $slug     = sanitize_text_field($_POST['product_slug'] ?? '');
             $name     = sanitize_text_field($_POST['product_name'] ?? '');
             $cat      = sanitize_text_field($_POST['product_cat'] ?? 'belts');
+            if (!empty($_POST['new_category_name'])) {
+                $new_cat = sanitize_text_field($_POST['new_category_name']);
+                if (function_exists('nesports_add_custom_category')) {
+                    $created_slug = nesports_add_custom_category($new_cat);
+                    if ($created_slug) $cat = $created_slug;
+                } else {
+                    $cat = sanitize_title($new_cat);
+                }
+            }
             $price    = floatval($_POST['product_price'] ?? 0);
             $old      = floatval($_POST['product_old_price'] ?? $price);
             $main_img = sanitize_text_field($_POST['product_main_img'] ?? '');
@@ -390,6 +408,28 @@ class NESports_Admin {
 
             update_option('nesports_managed_catalog', $catalog);
             wp_redirect(admin_url('admin.php?page=nesports-store-products&msg=updated'));
+            exit;
+        }
+
+        if ($action === 'add_category') {
+            $cat_name = sanitize_text_field($_POST['category_name'] ?? '');
+            if (!empty($cat_name) && function_exists('nesports_add_custom_category')) {
+                nesports_add_custom_category($cat_name);
+                wp_redirect(admin_url('admin.php?page=nesports-store-products&msg=cat_added'));
+                exit;
+            }
+            wp_redirect(admin_url('admin.php?page=nesports-store-products&error=empty_cat'));
+            exit;
+        }
+
+        if ($action === 'delete_category') {
+            $cat_slug = sanitize_text_field($_POST['category_slug'] ?? '');
+            if (!empty($cat_slug) && function_exists('nesports_delete_custom_category')) {
+                nesports_delete_custom_category($cat_slug);
+                wp_redirect(admin_url('admin.php?page=nesports-store-products&msg=cat_deleted'));
+                exit;
+            }
+            wp_redirect(admin_url('admin.php?page=nesports-store-products'));
             exit;
         }
 
@@ -466,6 +506,9 @@ class NESports_Admin {
                     </p>
                 </div>
                 <div style="display: flex; gap: 10px;">
+                    <button type="button" onclick="document.getElementById('nesports-category-modal').style.display='flex';" class="button" style="height: 40px; padding: 0 16px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155;">
+                        <span class="dashicons dashicons-category" style="margin-top: 2px; color: #e11d48;"></span> Manage Categories
+                    </button>
                     <button type="button" onclick="document.getElementById('nesports-add-modal').style.display='flex';" class="button button-primary" style="background: #e11d48; border-color: #be123c; font-size: 14px; height: 40px; padding: 0 20px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border-radius: 8px;">
                         <span class="dashicons dashicons-plus-alt2" style="margin-top: 2px;"></span> Add New Product
                     </button>
@@ -495,6 +538,18 @@ class NESports_Admin {
             <?php elseif ($msg === 'reset'): ?>
                 <div class="notice notice-info is-dismissible" style="padding: 12px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;">
                     <p>Store catalog was restored to default preset products.</p>
+                </div>
+            <?php elseif ($msg === 'cat_added'): ?>
+                <div class="notice notice-success is-dismissible" style="padding: 12px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;">
+                    <p><strong>Category Added!</strong> New category has been registered and is now live across store filters and products.</p>
+                </div>
+            <?php elseif ($msg === 'cat_deleted'): ?>
+                <div class="notice notice-warning is-dismissible" style="padding: 12px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;">
+                    <p>Category was removed.</p>
+                </div>
+            <?php elseif ($error === 'empty_cat'): ?>
+                <div class="notice notice-error is-dismissible" style="padding: 12px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;">
+                    <p><strong>Error!</strong> Category Name cannot be empty.</p>
                 </div>
             <?php elseif ($error === 'empty_name'): ?>
                 <div class="notice notice-error is-dismissible" style="padding: 12px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;">
@@ -679,11 +734,16 @@ class NESports_Admin {
 
                     <div style="margin-bottom: 16px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Category *</label>
-                        <select name="product_cat" required class="widefat" style="height: 40px; border-radius: 6px;">
+                        <select name="product_cat" id="add-product-cat-select" onchange="nesportsToggleNewCatInput(this, 'add-new-cat-wrap')" required class="widefat" style="height: 40px; border-radius: 6px;">
                             <?php foreach ($categories as $cat_k => $cat_name): ?>
                                 <option value="<?php echo esc_attr($cat_k); ?>"><?php echo esc_html($cat_name); ?></option>
                             <?php endforeach; ?>
+                            <option value="__new__" style="color: #e11d48; font-weight: 700;">+ Add New Category...</option>
                         </select>
+                        <div id="add-new-cat-wrap" style="display: none; margin-top: 8px;">
+                            <input type="text" name="new_category_name" placeholder="Enter new category name (e.g. Gym Gloves)" class="widefat" style="height: 38px; border-radius: 6px; border: 1.5px solid #e11d48; background: #fff1f2;" />
+                            <p class="description" style="color: #e11d48; margin-top: 3px;">This new category will be created and added to your store automatically.</p>
+                        </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
@@ -754,11 +814,16 @@ class NESports_Admin {
 
                     <div style="margin-bottom: 16px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Category</label>
-                        <select id="edit-product-cat" name="product_cat" required class="widefat" style="height: 40px; border-radius: 6px;">
+                        <select id="edit-product-cat" name="product_cat" onchange="nesportsToggleNewCatInput(this, 'edit-new-cat-wrap')" required class="widefat" style="height: 40px; border-radius: 6px;">
                             <?php foreach ($categories as $cat_k => $cat_name): ?>
                                 <option value="<?php echo esc_attr($cat_k); ?>"><?php echo esc_html($cat_name); ?></option>
                             <?php endforeach; ?>
+                            <option value="__new__" style="color: #e11d48; font-weight: 700;">+ Add New Category...</option>
                         </select>
+                        <div id="edit-new-cat-wrap" style="display: none; margin-top: 8px;">
+                            <input type="text" name="new_category_name" placeholder="Enter new category name (e.g. Resistance Bands)" class="widefat" style="height: 38px; border-radius: 6px; border: 1.5px solid #e11d48; background: #fff1f2;" />
+                            <p class="description" style="color: #e11d48; margin-top: 3px;">This will create the category and move this product into it.</p>
+                        </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
@@ -800,7 +865,90 @@ class NESports_Admin {
             </div>
         </div>
 
+        <!-- =========================================================================
+             MODAL: MANAGE CATEGORIES
+             ========================================================================= -->
+        <div id="nesports-category-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.7); z-index: 100000; align-items: center; justify-content: center; padding: 20px;">
+            <div style="background: #ffffff; width: 100%; max-width: 520px; border-radius: 14px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;">
+                <div style="padding: 18px 24px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; background: #f8fafc;">
+                    <h3 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                        <span class="dashicons dashicons-category" style="color: #e11d48;"></span> Store Categories
+                    </h3>
+                    <button type="button" onclick="document.getElementById('nesports-category-modal').style.display='none';" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
+                </div>
+
+                <div style="padding: 24px; overflow-y: auto;">
+                    <!-- Add Category Form -->
+                    <form method="post" action="" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 22px;">
+                        <?php wp_nonce_field('nesports_product_action_nonce'); ?>
+                        <input type="hidden" name="nesports_product_action" value="add_category" />
+                        <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #0f172a; font-size: 13.5px;">+ Add New Category</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" name="category_name" required placeholder="e.g. Gym Gloves, Shakers, Bands" class="widefat" style="height: 40px; border-radius: 6px;" />
+                            <button type="submit" class="button button-primary" style="height: 40px; padding: 0 18px; background: #e11d48; border-color: #be123c; font-weight: 600; white-space: nowrap;">
+                                Add Category
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Existing Categories List -->
+                    <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #334155; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Current Categories (<?php echo count($categories); ?>)
+                    </label>
+                    <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; max-height: 280px; overflow-y: auto;">
+                        <table class="widefat striped" style="border: none;">
+                            <tbody>
+                                <?php 
+                                $custom_cats = get_option('nesports_custom_categories', array());
+                                foreach ($categories as $cat_slug => $cat_label): 
+                                    $is_custom = isset($custom_cats[$cat_slug]);
+                                ?>
+                                    <tr>
+                                        <td style="padding: 10px 14px; font-weight: 600; color: #0f172a;">
+                                            <?php echo esc_html($cat_label); ?>
+                                            <code style="font-size: 11px; margin-left: 6px; color: #64748b; font-weight: 400;">/<?php echo esc_html($cat_slug); ?>/</code>
+                                        </td>
+                                        <td style="padding: 10px 14px; text-align: right;">
+                                            <?php if ($is_custom): ?>
+                                                <form method="post" action="" onsubmit="return confirm('Delete category <?php echo esc_js($cat_label); ?>?');" style="display: inline;">
+                                                    <?php wp_nonce_field('nesports_product_action_nonce'); ?>
+                                                    <input type="hidden" name="nesports_product_action" value="delete_category" />
+                                                    <input type="hidden" name="category_slug" value="<?php echo esc_attr($cat_slug); ?>" />
+                                                    <button type="submit" class="button button-small" style="color: #dc2626; border-color: #fecaca; background: #fff5f5; height: 26px; line-height: 24px; font-size: 11.5px;">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            <?php else: ?>
+                                                <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Preset</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="padding: 14px 24px; border-top: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: flex-end;">
+                    <button type="button" onclick="document.getElementById('nesports-category-modal').style.display='none';" class="button button-secondary" style="height: 36px; padding: 0 16px;">Close</button>
+                </div>
+            </div>
+        </div>
+
         <script>
+        function nesportsToggleNewCatInput(selectEl, targetWrapId) {
+            var wrap = document.getElementById(targetWrapId);
+            if (!wrap) return;
+            if (selectEl.value === '__new__') {
+                wrap.style.display = 'block';
+                var inp = wrap.querySelector('input');
+                if (inp) { inp.required = true; inp.focus(); }
+            } else {
+                wrap.style.display = 'none';
+                var inp = wrap.querySelector('input');
+                if (inp) { inp.required = false; inp.value = ''; }
+            }
+        }
         function nesportsFilterTable() {
             var search = (document.getElementById('nesports-search-input').value || '').toLowerCase();
             var cat = (document.getElementById('nesports-cat-filter').value || '').toLowerCase();
@@ -826,6 +974,8 @@ class NESports_Admin {
             document.getElementById('edit-product-name').value = prod.name || '';
             document.getElementById('edit-product-desc').value = prod.desc || '';
             document.getElementById('edit-product-cat').value = prod.cat || 'belts';
+            var editNewCatWrap = document.getElementById('edit-new-cat-wrap');
+            if (editNewCatWrap) editNewCatWrap.style.display = 'none';
             document.getElementById('edit-product-price').value = prod.price || '';
             document.getElementById('edit-product-old-price').value = prod.old || prod.price || '';
             document.getElementById('edit-product-main-img').value = prod.main || '';

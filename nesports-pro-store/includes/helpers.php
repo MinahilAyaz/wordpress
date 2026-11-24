@@ -47,35 +47,67 @@ function nesports_money($value) {
 
 /** Category key => pill label (order = pill order). */
 function nesports_categories() {
-    if (function_exists('get_terms')) {
-        $terms = get_terms(array(
-            'taxonomy'   => 'product_cat',
-            'hide_empty' => true,
-        ));
-        if (!empty($terms) && !is_wp_error($terms)) {
-            $cats = array();
-            foreach ($terms as $t) {
-                if (strtolower($t->slug) === 'uncategorized') continue;
-                $cats[$t->slug] = strtoupper($t->name);
-            }
-            if (!empty($cats)) {
-                return $cats;
-            }
-        }
-    }
-
-    return array(
-        'belts'  => 'WEIGHTLIFTING BELTS',
-        'straps' => 'LIFTING STRAPS',
-        'knee'   => 'KNEE WRAPS',
-        'elbow'  => 'ELBOW WRAPS',
-        'speed'  => 'SPEED BALL',
-        'wrist'  => 'WRIST WRAPS',
-        'bags'   => 'GYM BAGS',
+    $base_cats = array(
+        'belts'    => 'WEIGHTLIFTING BELTS',
+        'straps'   => 'LIFTING STRAPS',
+        'knee'     => 'KNEE WRAPS',
+        'elbow'    => 'ELBOW WRAPS',
+        'speed'    => 'SPEED BALL',
+        'wrist'    => 'WRIST WRAPS',
+        'bags'     => 'GYM BAGS',
         'ankle'    => 'ANKLE STRAPS',
         'pads'     => 'BARBELL PADS',
         'clothing' => 'CLOTHING',
     );
+
+    if (function_exists('get_terms')) {
+        $terms = get_terms(array(
+            'taxonomy'   => 'product_cat',
+            'hide_empty' => false,
+        ));
+        if (!empty($terms) && !is_wp_error($terms)) {
+            foreach ($terms as $t) {
+                if (strtolower($t->slug) === 'uncategorized') continue;
+                $base_cats[$t->slug] = strtoupper($t->name);
+            }
+        }
+    }
+
+    $custom = get_option('nesports_custom_categories', array());
+    if (is_array($custom) && !empty($custom)) {
+        foreach ($custom as $k => $v) {
+            $base_cats[sanitize_title($k)] = strtoupper(trim($v));
+        }
+    }
+
+    return $base_cats;
+}
+
+function nesports_add_custom_category($cat_name) {
+    $cat_name = trim(sanitize_text_field($cat_name));
+    if (empty($cat_name)) return false;
+    $slug = sanitize_title($cat_name);
+
+    if (taxonomy_exists('product_cat') && !term_exists($slug, 'product_cat')) {
+        wp_insert_term($cat_name, 'product_cat', array('slug' => $slug));
+    }
+
+    $custom = get_option('nesports_custom_categories', array());
+    if (!is_array($custom)) $custom = array();
+    $custom[$slug] = strtoupper($cat_name);
+    update_option('nesports_custom_categories', $custom);
+    return $slug;
+}
+
+function nesports_delete_custom_category($slug) {
+    $slug = sanitize_title($slug);
+    $custom = get_option('nesports_custom_categories', array());
+    if (is_array($custom) && isset($custom[$slug])) {
+        unset($custom[$slug]);
+        update_option('nesports_custom_categories', $custom);
+        return true;
+    }
+    return false;
 }
 
 /**
