@@ -23,6 +23,34 @@ class NESports_Elementor {
 
         // Auto-seed Elementor pages so Home, Story, and Contact open in Elementor with NESPORTS3 widgets ready to edit
         add_action('init', array($this, 'maybe_seed_elementor_pages'), 20);
+        add_action('init', array($this, 'ensure_header_footer_pages'), 25);
+    }
+
+    /**
+     * Ensure Store Header and Store Footer pages are registered and appear under WordPress Pages
+     */
+    public function ensure_header_footer_pages() {
+        if (!is_admin()) return;
+        $header_page = get_page_by_path('store-header');
+        if (!$header_page) {
+            wp_insert_post(array(
+                'post_title'     => 'Store Header (Top Bar & Navigation)',
+                'post_name'      => 'store-header',
+                'post_content'   => '<!-- NESPORTS_STORE_HEADER -->',
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+            ));
+        }
+        $footer_page = get_page_by_path('store-footer');
+        if (!$footer_page) {
+            wp_insert_post(array(
+                'post_title'     => 'Store Footer (Links, Logos & Socials)',
+                'post_name'      => 'store-footer',
+                'post_content'   => '<!-- NESPORTS_STORE_FOOTER -->',
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+            ));
+        }
     }
 
     /**

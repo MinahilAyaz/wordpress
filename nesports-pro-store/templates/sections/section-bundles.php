@@ -360,11 +360,36 @@ $bundle_tabs = nesports_bundle_tabs();
     }
 </style>
 
+<?php
+$b_title = !empty($settings['section_title']) ? $settings['section_title'] : nesports_setting('bundles_title', 'Bundles');
+$b_desc  = isset($settings['section_desc']) ? $settings['section_desc'] : nesports_setting('bundles_desc', 'Power, protection & performance built into every stack. Stack and save.');
+$b_show_filters = isset($settings['show_filters']) ? ($settings['show_filters'] === 'yes') : true;
+
+if (!empty($settings['custom_bundles']) && is_array($settings['custom_bundles'])) {
+    $custom_list = array();
+    foreach ($settings['custom_bundles'] as $cb) {
+        $img_url = !empty($cb['bundle_image']['url']) ? $cb['bundle_image']['url'] : 'DSC_0167-scaled-1.jpg';
+        $link_url = !empty($cb['bundle_link']['url']) ? $cb['bundle_link']['url'] : '/shop/';
+        $custom_list[] = array(
+            'name'      => !empty($cb['bundle_name']) ? $cb['bundle_name'] : 'Pack',
+            'cat'       => !empty($cb['bundle_cat']) ? $cb['bundle_cat'] : 'lifting',
+            'price'     => !empty($cb['bundle_price']) ? $cb['bundle_price'] : '€59.99',
+            'old'       => !empty($cb['bundle_old_price']) ? $cb['bundle_old_price'] : '',
+            'url'       => $link_url,
+            'images'    => array($img_url),
+            'imgs'      => array($img_url),
+        );
+    }
+    if (!empty($custom_list)) {
+        $bundles = $custom_list;
+    }
+}
+?>
     <div class="hb-bundles-header">
         <div>
-            <h2 class="hb-bundles-title"><?php echo esc_html(nesports_setting('bundles_title', 'Bundles')); ?></h2>
-            <?php $bundles_desc = nesports_setting('bundles_desc', 'Power, protection & performance built into every stack. Stack and save.'); if (!empty($bundles_desc)): ?>
-                <p class="hb-bundles-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($bundles_desc); ?></p>
+            <h2 class="hb-bundles-title"><?php echo esc_html($b_title); ?></h2>
+            <?php if (!empty($b_desc)): ?>
+                <p class="hb-bundles-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($b_desc); ?></p>
             <?php endif; ?>
         </div>
         <div class="hb-bundles-carousel-controls">
@@ -376,12 +401,14 @@ $bundle_tabs = nesports_bundle_tabs();
             </button>
         </div>
     </div>
+    <?php if ($b_show_filters): ?>
     <div class="hb-pills hb-bundles-pills">
         <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>
         <?php foreach ($bundle_tabs as $key => $label): ?>
             <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
         <?php endforeach; ?>
     </div>
+    <?php endif; ?>
     <div class="hb-bundles-carousel-wrap">
         <div class="hb-cards hb-bundles-track" id="hb-bundles-track">
         <?php foreach ($bundles as $b):

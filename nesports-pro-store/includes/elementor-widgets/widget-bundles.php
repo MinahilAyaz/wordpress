@@ -48,6 +48,15 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
         );
 
         $this->add_control(
+            'section_desc',
+            array(
+                'label'   => esc_html__('Section Description', 'nesports-pro-store'),
+                'type'    => Controls_Manager::TEXTAREA,
+                'default' => 'Power, protection & performance built into every stack. Stack and save.',
+            )
+        );
+
+        $this->add_control(
             'show_filters',
             array(
                 'label'        => esc_html__('Show Filter Pills', 'nesports-pro-store'),
@@ -56,6 +65,83 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
                 'label_off'    => esc_html__('No', 'nesports-pro-store'),
                 'return_value' => 'yes',
                 'default'      => 'yes',
+            )
+        );
+
+        $repeater = new Repeater();
+
+        $repeater->add_control(
+            'bundle_name',
+            array(
+                'label'       => esc_html__('Bundle / Pack Name', 'nesports-pro-store'),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => 'Pro Power Pack',
+                'label_block' => true,
+            )
+        );
+
+        $repeater->add_control(
+            'bundle_cat',
+            array(
+                'label'   => esc_html__('Filter Category', 'nesports-pro-store'),
+                'type'    => Controls_Manager::SELECT,
+                'default' => 'lifting',
+                'options' => array(
+                    'lifting'  => esc_html__('Lifting Packs', 'nesports-pro-store'),
+                    'legs'     => esc_html__('Leg & Knee Packs', 'nesports-pro-store'),
+                    'training' => esc_html__('Training Packs', 'nesports-pro-store'),
+                ),
+            )
+        );
+
+        $repeater->add_control(
+            'bundle_price',
+            array(
+                'label'   => esc_html__('Sale Price (€)', 'nesports-pro-store'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '€59.99',
+            )
+        );
+
+        $repeater->add_control(
+            'bundle_old_price',
+            array(
+                'label'   => esc_html__('Regular Price (€)', 'nesports-pro-store'),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '€79.99',
+            )
+        );
+
+        $repeater->add_control(
+            'bundle_image',
+            array(
+                'label'   => esc_html__('Image', 'nesports-pro-store'),
+                'type'    => Controls_Manager::MEDIA,
+                'default' => array(
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ),
+            )
+        );
+
+        $repeater->add_control(
+            'bundle_link',
+            array(
+                'label'       => esc_html__('Link', 'nesports-pro-store'),
+                'type'        => Controls_Manager::URL,
+                'placeholder' => esc_html__('https://your-link.com', 'nesports-pro-store'),
+                'default'     => array(
+                    'url' => '/shop/',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'custom_bundles',
+            array(
+                'label'       => esc_html__('Custom Bundles & Packs (Leave empty to use catalog defaults)', 'nesports-pro-store'),
+                'type'        => Controls_Manager::REPEATER,
+                'fields'      => $repeater->get_controls(),
+                'title_field' => '{{{ bundle_name }}}',
             )
         );
 
@@ -96,6 +182,7 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
     }
 
     protected function render() {
+        $settings = $this->get_settings_for_display();
         include NESPORTS_PLUGIN_DIR . 'templates/sections/section-bundles.php';
     }
 }

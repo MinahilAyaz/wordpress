@@ -46,10 +46,20 @@ class NESports_Elementor_Clothing_Widget extends Widget_Base {
             )
         );
 
+        $this->add_control(
+            'section_desc',
+            array(
+                'label'   => esc_html__('Section Description', 'nesports-pro-store'),
+                'type'    => Controls_Manager::TEXTAREA,
+                'default' => '',
+            )
+        );
+
         $this->end_controls_section();
     }
 
     protected function render() {
+        $settings = $this->get_settings_for_display();
         include NESPORTS_PLUGIN_DIR . 'templates/sections/section-clothing.php';
     }
 }

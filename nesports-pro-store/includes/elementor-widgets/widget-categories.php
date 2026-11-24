@@ -177,6 +177,7 @@ class NESports_Elementor_Categories_Widget extends Widget_Base {
     }
 
     protected function render() {
+        $settings = $this->get_settings_for_display();
         include NESPORTS_PLUGIN_DIR . 'templates/sections/section-categories.php';
     }
 }

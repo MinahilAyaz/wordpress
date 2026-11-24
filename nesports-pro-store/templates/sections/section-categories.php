@@ -7,6 +7,42 @@ if (!defined('ABSPATH')) {
     exit;
 }
 $collections = nesports_collections();
+
+// Dynamically augment with any newly added custom categories
+$custom_cats = get_option('nesports_custom_categories', array());
+if (is_array($custom_cats) && !empty($custom_cats)) {
+    $existing_cats = array();
+    foreach ($collections as $col) {
+        $existing_cats[] = sanitize_title($col['category']);
+    }
+    $catalog = function_exists('nesports_catalog') ? nesports_catalog() : array();
+
+    foreach ($custom_cats as $slug => $c_name) {
+        $slug = sanitize_title($slug);
+        if (!in_array($slug, $existing_cats, true)) {
+            // Find first product in this category if available
+            $matched_p = null;
+            foreach ($catalog as $p) {
+                if (isset($p['category']) && (sanitize_title($p['category']) === $slug || stripos($p['category'], $c_name) !== false)) {
+                    $matched_p = $p;
+                    break;
+                }
+            }
+            if ($matched_p) {
+                $collections[] = array(
+                    'title'     => $c_name,
+                    'subtitle'  => $matched_p['title'],
+                    'price'     => '€' . number_format((float)$matched_p['price'], 2),
+                    'old_price' => !empty($matched_p['regular_price']) ? '€' . number_format((float)$matched_p['regular_price'], 2) : '',
+                    'category'  => $slug,
+                    'img'       => $matched_p['img'],
+                    'images'    => !empty($matched_p['gallery']) ? array_merge(array($matched_p['img']), $matched_p['gallery']) : array($matched_p['img']),
+                    'url'       => '/product-category/' . $slug . '/',
+                );
+            }
+        }
+    }
+}
 ?>
 <section class="hb-collections-section hb-top-sellers-section" id="top-sellers">
     <style id="hb-top-sellers-critical-css">
@@ -490,20 +526,19 @@ $collections = nesports_collections();
 
     <div class="hb-collections-container">
         <div class="hb-top-sellers-nav-grid">
-            <h2 class="hb-top-sellers-title"><?php echo esc_html(nesports_setting('categories_title', 'Top Sellers')); ?></h2>
+            <?php $ts_title = !empty($settings['section_title']) ? $settings['section_title'] : nesports_setting('categories_title', 'Top Sellers'); ?>
+            <h2 class="hb-top-sellers-title"><?php echo esc_html($ts_title); ?></h2>
 
             <div class="hb-filter-pills-wrap">
                 <div class="hb-filter-pills" id="hb-top-filter-pills">
                     <button type="button" class="hb-filter-pill is-active" data-filter="all">ALL ITEMS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="belts">BELTS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="straps">LIFTING STRAPS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="knee-wrap">KNEE WRAPS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="elbow-wrap">ELBOW WRAPS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="wrist-straps">WRIST STRAPS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="gym-bag">GYM BAGS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="speed-ball">SPEED BALL</button>
-                    <button type="button" class="hb-filter-pill" data-filter="ankle-straps">ANKLE STRAPS</button>
-                    <button type="button" class="hb-filter-pill" data-filter="barbell-pads">BARBELL PADS</button>
+                    <?php 
+                    $top_categories = function_exists('nesports_categories') ? nesports_categories() : array();
+                    foreach ($top_categories as $cat_slug => $cat_info):
+                        $cat_name = is_array($cat_info) ? $cat_info['name'] : $cat_info;
+                    ?>
+                    <button type="button" class="hb-filter-pill" data-filter="<?php echo esc_attr($cat_slug); ?>"><?php echo esc_html(strtoupper($cat_name)); ?></button>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -642,9 +677,11 @@ $collections = nesports_collections();
 
                     var delay = 0;
                     cards.forEach(function(card) {
-                        var cardCat = card.getAttribute('data-cat');
+                        var cardCat = (card.getAttribute('data-cat') || '').toLowerCase().trim();
+                        var filterCat = (cat || '').toLowerCase().trim();
                         card.classList.remove('anim-l2r');
-                        if (cat === 'all' || cardCat === cat) {
+                        var isMatch = (filterCat === 'all' || cardCat === filterCat || (cardCat && cardCat.indexOf(filterCat) !== -1) || (filterCat && filterCat.indexOf(cardCat) !== -1));
+                        if (isMatch) {
                             card.style.display = 'flex';
                             card.style.animationDelay = (delay * 0.06) + 's';
                             void card.offsetWidth; // Reflow for restart

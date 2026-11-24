@@ -401,17 +401,15 @@ if (function_exists('nocache_headers') && !headers_sent()) {
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="<?php echo ($current_page === '' || $current_page === 'home' || $current_page === 'wordpress') ? 'hb-nav-active' : ''; ?>">HOME</a>
                 </li>
                 <li class="hb-has-dropdown">
-                    <a href="<?php echo esc_url(home_url('/#shop')); ?>">CATEGORIES <i class="fa-solid fa-chevron-down hb-arrow-sm"></i></a>
+                    <a href="<?php echo esc_url(home_url('/shop/')); ?>">CATEGORIES <i class="fa-solid fa-chevron-down hb-arrow-sm"></i></a>
                     <div class="hb-dropdown">
-                        <a href="<?php echo esc_url(home_url('/product-category/weightlifting-belts/')); ?>">Weightlifting Belts</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/lifting-straps/')); ?>">Lifting Straps</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/knee-wrap/')); ?>">Knee Wraps</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/elbow-wrap/')); ?>">Elbow Wraps</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/wrist-straps/')); ?>">Wrist Straps</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/gym-bag/')); ?>">Gym Bags</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/speed-ball/')); ?>">Speed Ball Sets</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/ankle-straps/')); ?>">Ankle Straps</a>
-                        <a href="<?php echo esc_url(home_url('/product-category/barbell-pads/')); ?>">Barbell Pads</a>
+                        <?php 
+                        $header_cats = function_exists('nesports_categories') ? nesports_categories() : array();
+                        foreach ($header_cats as $h_slug => $h_info):
+                            $h_label = is_array($h_info) ? $h_info['name'] : $h_info;
+                        ?>
+                        <a href="<?php echo esc_url(home_url('/product-category/' . sanitize_title($h_slug) . '/')); ?>"><?php echo esc_html(ucwords(strtolower($h_label))); ?></a>
+                        <?php endforeach; ?>
                     </div>
                 </li>
                 <li>

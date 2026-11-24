@@ -235,11 +235,15 @@ $clothing = nesports_clothing();
     }
     </style>
 
+<?php 
+$cl_title = !empty($settings['section_title']) ? $settings['section_title'] : nesports_setting('clothing_title', 'Clothing');
+$cl_desc  = isset($settings['section_desc']) ? $settings['section_desc'] : nesports_setting('clothing_desc', '');
+?>
     <div class="hb-clothing-header">
         <div>
-            <h2 class="hb-clothing-title"><?php echo esc_html(nesports_setting('clothing_title', 'Clothing')); ?></h2>
-            <?php $clothing_desc = nesports_setting('clothing_desc', ''); if (!empty($clothing_desc)): ?>
-                <p class="hb-clothing-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($clothing_desc); ?></p>
+            <h2 class="hb-clothing-title"><?php echo esc_html($cl_title); ?></h2>
+            <?php if (!empty($cl_desc)): ?>
+                <p class="hb-clothing-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($cl_desc); ?></p>
             <?php endif; ?>
         </div>
         <div class="hb-clothing-carousel-controls">

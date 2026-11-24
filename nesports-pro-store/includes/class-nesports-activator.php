@@ -80,6 +80,20 @@ class NESports_Activator {
                 'content'   => '<!-- NESPORTS_PRO_SHOP_PAGE -->',
                 'template'  => 'templates/page-category.php',
                 'set_front' => false,
+            ),
+            'store-header' => array(
+                'title'     => 'Store Header (Top Bar & Navigation)',
+                'slug'      => 'store-header',
+                'content'   => '<!-- NESPORTS_STORE_HEADER -->',
+                'template'  => '',
+                'set_front' => false,
+            ),
+            'store-footer' => array(
+                'title'     => 'Store Footer (Links, Logos & Socials)',
+                'slug'      => 'store-footer',
+                'content'   => '<!-- NESPORTS_STORE_FOOTER -->',
+                'template'  => '',
+                'set_front' => false,
             )
         );
 
