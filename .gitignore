@@ -6,5 +6,9 @@ enhance_images.py
 *.zip
 .DS_Store
 Thumbs.db
+node_modules/
+scratch/
 
 
+
+node_modules

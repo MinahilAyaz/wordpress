@@ -123,6 +123,7 @@ class NESports_Elementor {
      * so opening "Edit with Elementor" immediately displays the new NESPORTS3 sections.
      */
     public function maybe_seed_elementor_pages() {
+        return; // Disabled: prevent overwriting user edits in Elementor
         if (get_option('nesports_elementor_seeded_v11') === 'yes') {
             return;
         }

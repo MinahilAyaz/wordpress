@@ -649,6 +649,7 @@ if ($is_elementor) :
     </section>
 </main>
 <?php endif; ?>
+<script>
 (function() {
     function initCardSliders() {
         var cards = document.querySelectorAll('.hb-card');
