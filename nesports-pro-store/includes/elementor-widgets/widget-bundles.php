@@ -85,11 +85,26 @@ class NESports_Elementor_Bundles_Widget extends Widget_Base {
             array(
                 'label'   => esc_html__('Filter Category', 'nesports-pro-store'),
                 'type'    => Controls_Manager::SELECT,
-                'default' => 'lifting',
+                'default' => 'training',
                 'options' => array(
+                    'training' => esc_html__('Training Packs', 'nesports-pro-store'),
                     'lifting'  => esc_html__('Lifting Packs', 'nesports-pro-store'),
                     'legs'     => esc_html__('Leg & Knee Packs', 'nesports-pro-store'),
-                    'training' => esc_html__('Training Packs', 'nesports-pro-store'),
+                    'custom'   => esc_html__('+ Add New Category (Custom)', 'nesports-pro-store'),
+                ),
+            )
+        );
+
+        $repeater->add_control(
+            'custom_cat',
+            array(
+                'label'       => esc_html__('New Category Name', 'nesports-pro-store'),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => '',
+                'placeholder' => esc_html__('e.g. Wrist Packs, Speed Ball, Belts...', 'nesports-pro-store'),
+                'description' => esc_html__('Type any new category name. It will automatically show as a filter tab button at the top!', 'nesports-pro-store'),
+                'condition'   => array(
+                    'bundle_cat' => 'custom',
                 ),
             )
         );

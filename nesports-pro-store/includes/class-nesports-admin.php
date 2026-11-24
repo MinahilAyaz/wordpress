@@ -87,6 +87,7 @@ class NESports_Admin {
                 update_post_meta($other_id, '_elementor_data', wp_slash($raw_data));
                 update_post_meta($other_id, '_elementor_edit_mode', 'builder');
                 clean_post_cache($other_id);
+                clean_post_cache($post_id);
 
                 $elements = json_decode($raw_data, true);
                 if (is_array($elements)) {
@@ -97,6 +98,9 @@ class NESports_Admin {
 
         if (class_exists('\Elementor\Plugin')) {
             \Elementor\Plugin::$instance->files_manager->clear_cache();
+        }
+        if (function_exists('wp_cache_flush')) {
+            wp_cache_flush();
         }
     }
 

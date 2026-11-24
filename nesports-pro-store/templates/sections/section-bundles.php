@@ -375,9 +375,21 @@ if (!empty($settings['custom_bundles']) && is_array($settings['custom_bundles'])
         $b_old = !empty($cb['bundle_old_price']) ? $cb['bundle_old_price'] : '';
         if (!empty($b_old) && is_numeric($b_old)) $b_old = '€' . number_format((float)$b_old, 2);
 
+        $cat_raw = (!empty($cb['bundle_cat']) && $cb['bundle_cat'] === 'custom' && !empty($cb['custom_cat'])) 
+            ? $cb['custom_cat'] 
+            : (!empty($cb['bundle_cat']) ? $cb['bundle_cat'] : 'training');
+        
+        $cat_slug = sanitize_title($cat_raw);
+        if (empty($cat_slug)) $cat_slug = 'training';
+        $cat_label = trim($cat_raw);
+        if ($cat_slug === 'lifting') $cat_label = 'Lifting Packs';
+        elseif ($cat_slug === 'legs') $cat_label = 'Leg & Knee Packs';
+        elseif ($cat_slug === 'training') $cat_label = 'Training Packs';
+
         $custom_list[] = array(
             'name'      => !empty($cb['bundle_name']) ? $cb['bundle_name'] : 'Pack',
-            'cat'       => !empty($cb['bundle_cat']) ? $cb['bundle_cat'] : 'lifting',
+            'cat'       => $cat_slug,
+            'cat_label' => $cat_label,
             'price'     => $b_price,
             'old'       => $b_old,
             'url'       => $link_url,
@@ -387,6 +399,20 @@ if (!empty($settings['custom_bundles']) && is_array($settings['custom_bundles'])
     }
     if (!empty($custom_list)) {
         $bundles = $custom_list;
+    }
+}
+
+// Build dynamic filter tabs from default tabs + any custom categories defined
+$dynamic_tabs = array();
+foreach ($bundle_tabs as $k => $l) {
+    $dynamic_tabs[$k] = $l;
+}
+foreach ($bundles as $b) {
+    if (!empty($b['cat']) && $b['cat'] !== 'all') {
+        $slug = sanitize_title($b['cat']);
+        if (!isset($dynamic_tabs[$slug])) {
+            $dynamic_tabs[$slug] = !empty($b['cat_label']) ? $b['cat_label'] : ucwords(str_replace(array('-', '_'), ' ', $b['cat']));
+        }
     }
 }
 ?>
@@ -409,8 +435,8 @@ if (!empty($settings['custom_bundles']) && is_array($settings['custom_bundles'])
     <?php if ($b_show_filters): ?>
     <div class="hb-pills hb-bundles-pills">
         <button type="button" class="hb-pill is-active" data-filter="all">ALL PACKS</button>
-        <?php foreach ($bundle_tabs as $key => $label): ?>
-            <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></button>
+        <?php foreach ($dynamic_tabs as $key => $label): ?>
+            <button type="button" class="hb-pill" data-filter="<?php echo esc_attr($key); ?>"><?php echo esc_html(strtoupper($label)); ?></button>
         <?php endforeach; ?>
     </div>
     <?php endif; ?>

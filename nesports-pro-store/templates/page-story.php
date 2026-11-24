@@ -14,6 +14,7 @@ if (!$page_id) {
     $page_id = 30090;
 }
 
+$rendered = false;
 $is_elementor = false;
 if (class_exists('\Elementor\Plugin')) {
     if (\Elementor\Plugin::$instance->preview->is_preview_mode() 
@@ -23,31 +24,44 @@ if (class_exists('\Elementor\Plugin')) {
         $is_elementor = true;
     } elseif (\Elementor\Plugin::$instance->db->is_built_with_elementor($page_id)) {
         $is_elementor = true;
+    } elseif (\Elementor\Plugin::$instance->db->is_built_with_elementor(30090)) {
+        $is_elementor = true;
+        $page_id = 30090;
     }
 }
 
-if ($is_elementor) :
-?>
-<main class="hb-about-page elementor-entry-content">
-    <?php
-    if (have_posts()) {
-        while (have_posts()) {
-            the_post();
-            the_content();
-        }
-    } else {
-        $post_obj = get_post($page_id);
-        if ($post_obj) {
-            setup_postdata($post_obj);
-            the_content();
-            wp_reset_postdata();
-        } else {
-            the_content();
-        }
-    }
+if ($is_elementor) {
     ?>
-</main>
-<?php else : ?>
+    <main class="hb-about-page elementor-entry-content">
+        <?php
+        $target_post = get_post($page_id);
+        if (!$target_post && $page_id != 30090) {
+            $target_post = get_post(30090);
+        }
+
+        if ($target_post) {
+            global $post;
+            $orig_post = $post;
+            $post = $target_post;
+            setup_postdata($target_post);
+            the_content();
+            $post = $orig_post;
+            wp_reset_postdata();
+            $rendered = true;
+        } elseif (have_posts()) {
+            while (have_posts()) {
+                the_post();
+                the_content();
+            }
+            $rendered = true;
+        }
+        ?>
+    </main>
+    <?php
+}
+
+if (!$rendered) :
+?>
 <main class="hb-about-page">
     <!-- Top Black Header Banner Matching Screenshot -->
     <section class="hb-about-hero-banner">
@@ -164,15 +178,11 @@ if ($is_elementor) :
     margin: 0;
 }
 
-.hb-about-text-col strong {
-    color: #111827;
-    font-weight: 400;
-}
-
 .hb-about-motto {
     font-size: 16.5px;
     color: #111827;
     padding-top: 8px;
+    font-weight: 600;
 }
 
 @media (max-width: 900px) {
@@ -189,4 +199,5 @@ if ($is_elementor) :
 }
 </style>
 
-<?php include NESPORTS_PLUGIN_DIR . 'templates/footer-nesports.php'; ?>
+<?php
+include NESPORTS_PLUGIN_DIR . 'templates/footer-nesports.php';
