@@ -51,6 +51,39 @@ class NESports_Elementor {
                 'post_type'      => 'page',
             ));
         }
+
+        $bundles_page = get_page_by_path('bundles');
+        if (!$bundles_page) {
+            $bid = wp_insert_post(array(
+                'post_title'     => 'Bundles (Packs & Bundles)',
+                'post_name'      => 'bundles',
+                'post_content'   => '<!-- NESPORTS_BUNDLES -->',
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+            ));
+            if ($bid && !is_wp_error($bid)) {
+                update_post_meta($bid, '_elementor_edit_mode', 'builder');
+                $zero_pad = array('unit' => 'px', 'top' => '0', 'right' => '0', 'bottom' => '0', 'left' => '0', 'isLinked' => true);
+                $b_data = array(
+                    array(
+                        'id'       => 'nesbund_page_c1',
+                        'elType'   => 'container',
+                        'settings' => array('content_width' => 'full', 'padding' => $zero_pad, 'margin' => $zero_pad),
+                        'elements' => array(
+                            array(
+                                'id'         => 'nesbund_page_w1',
+                                'elType'     => 'widget',
+                                'widgetType' => 'nesports_bundles_widget',
+                                'settings'   => array(),
+                                'elements'   => array(),
+                            ),
+                        ),
+                        'isInner'  => false,
+                    )
+                );
+                update_post_meta($bid, '_elementor_data', wp_slash(json_encode($b_data)));
+            }
+        }
     }
 
     /**

@@ -81,6 +81,36 @@ $collections_list = array(
         'alt'   => 'NESPORTS3 Graphic Power Hoodies Collection',
     ),
 );
+
+if (!empty($settings['collection_cards']) && is_array($settings['collection_cards'])) {
+    $custom_cols = array();
+    foreach ($settings['collection_cards'] as $item) {
+        $c_title = !empty($item['title']) ? $item['title'] : 'Collection';
+        $c_img = '';
+        if (!empty($item['image']['url'])) {
+            $c_img = $item['image']['url'];
+        } elseif (!empty($item['fallback_img'])) {
+            $c_img = $item['fallback_img'];
+        } else {
+            $c_img = 'DSC_0167-scaled-1.jpg';
+        }
+        $c_url = !empty($item['url']['url']) ? $item['url']['url'] : '/product-category/weightlifting-belts/';
+        $c_alt = !empty($item['alt']) ? $item['alt'] : 'NESPORTS3 ' . $c_title;
+
+        $custom_cols[] = array(
+            'title' => $c_title,
+            'url'   => $c_url,
+            'img'   => $c_img,
+            'alt'   => $c_alt,
+        );
+    }
+    if (!empty($custom_cols)) {
+        $collections_list = $custom_cols;
+    }
+}
+
+$c_sec_title = !empty($settings['section_title']) ? $settings['section_title'] : nesports_setting('collections_title', 'Collections');
+$c_sec_desc  = isset($settings['section_desc']) ? $settings['section_desc'] : nesports_setting('collections_desc', '');
 ?>
 
 <section class="hb-collections-carousel-section" id="collections">
@@ -281,9 +311,9 @@ $collections_list = array(
 
     <div class="hb-collections-carousel-header">
         <div>
-            <h2 class="hb-collections-carousel-title"><?php echo esc_html(nesports_setting('collections_title', 'Collections')); ?></h2>
-            <?php $col_desc = nesports_setting('collections_desc', ''); if (!empty($col_desc)): ?>
-                <p class="hb-collections-carousel-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($col_desc); ?></p>
+            <h2 class="hb-collections-carousel-title"><?php echo esc_html($c_sec_title); ?></h2>
+            <?php if (!empty($c_sec_desc)): ?>
+                <p class="hb-collections-carousel-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($c_sec_desc); ?></p>
             <?php endif; ?>
         </div>
         <div class="hb-collections-carousel-controls">
@@ -352,6 +382,16 @@ $collections_list = array(
         track.addEventListener('scroll', updateArrows, { passive: true });
         window.addEventListener('resize', updateArrows, { passive: true });
         setTimeout(updateArrows, 100);
+
+        if (window.jQuery) {
+            jQuery(window).on('elementor/frontend/init', function() {
+                if (window.elementorFrontend && window.elementorFrontend.hooks) {
+                    window.elementorFrontend.hooks.addAction('frontend/element_ready/nesports_collections_widget.default', function($scope) {
+                        updateArrows();
+                    });
+                }
+            });
+        }
     })();
     </script>
 </section>

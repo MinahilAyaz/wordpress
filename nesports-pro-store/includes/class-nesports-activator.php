@@ -94,6 +94,13 @@ class NESports_Activator {
                 'content'   => '<!-- NESPORTS_STORE_FOOTER -->',
                 'template'  => '',
                 'set_front' => false,
+            ),
+            'bundles' => array(
+                'title'     => 'Bundles (Packs & Bundles)',
+                'slug'      => 'bundles',
+                'content'   => '<!-- NESPORTS_BUNDLES -->',
+                'template'  => '',
+                'set_front' => false,
             )
         );
 

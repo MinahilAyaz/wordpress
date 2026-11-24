@@ -8,6 +8,63 @@ if (!defined('ABSPATH')) {
 }
 $color_groups = nesports_color_items();
 $active_color = 'red'; // Default active color
+
+if (!empty($settings['color_cards']) && is_array($settings['color_cards'])) {
+    $custom_groups = array();
+    $color_meta = array(
+        'red'   => array('label' => 'RED', 'hex' => '#dc2626'),
+        'black' => array('label' => 'BLACK', 'hex' => '#18181b'),
+        'blue'  => array('label' => 'BLUE', 'hex' => '#2563eb'),
+        'green' => array('label' => 'GREEN', 'hex' => '#16a34a'),
+        'grey'  => array('label' => 'GREY', 'hex' => '#71717a'),
+        'gold'  => array('label' => 'GOLD', 'hex' => '#eab308'),
+    );
+
+    foreach ($settings['color_cards'] as $card) {
+        $c_key = !empty($card['color']) ? strtolower(trim($card['color'])) : 'red';
+        if (!isset($custom_groups[$c_key])) {
+            $label = isset($color_meta[$c_key]) ? $color_meta[$c_key]['label'] : strtoupper($c_key);
+            $hex   = isset($color_meta[$c_key]) ? $color_meta[$c_key]['hex'] : '#3b82f6';
+            $custom_groups[$c_key] = array(
+                'label' => $label,
+                'hex'   => $hex,
+                'items' => array(),
+            );
+        }
+
+        $p_img = '';
+        if (!empty($card['image']['url'])) {
+            $p_img = $card['image']['url'];
+        } elseif (!empty($card['fallback_img'])) {
+            $p_img = $card['fallback_img'];
+        } else {
+            $p_img = 'clothing/norm-lift-the-world-red.jpg';
+        }
+
+        $p_price = !empty($card['price']) ? $card['price'] : '34.99';
+        if (is_string($p_price)) $p_price = (float) preg_replace('/[^0-9.]/', '', $p_price);
+        $p_old = !empty($card['old_price']) ? $card['old_price'] : '';
+        if (is_string($p_old) && !empty($p_old)) $p_old = (float) preg_replace('/[^0-9.]/', '', $p_old);
+
+        $custom_groups[$c_key]['items'][] = array(
+            'name'      => !empty($card['name']) ? $card['name'] : 'Product',
+            'price'     => $p_price,
+            'old_price' => $p_old,
+            'img'       => $p_img,
+            'images'    => array($p_img),
+            'url'       => !empty($card['url']['url']) ? $card['url']['url'] : '/shop/',
+            'cat'       => !empty($card['cat']) ? $card['cat'] : 'gear',
+        );
+    }
+
+    if (!empty($custom_groups)) {
+        $color_groups = $custom_groups;
+        $active_color = array_key_first($color_groups);
+    }
+}
+
+$color_title = !empty($settings['section_title']) ? $settings['section_title'] : nesports_setting('color_title', 'Shop by Colour');
+$color_desc  = isset($settings['section_desc']) ? $settings['section_desc'] : nesports_setting('color_desc', '');
 ?>
 <section class="hb-color-section" id="shop-by-color">
     <style id="hb-color-critical-css">
@@ -434,8 +491,8 @@ $active_color = 'red'; // Default active color
     <div class="hb-color-container">
         <div class="hb-color-nav-grid">
             <div class="hb-color-title-wrap">
-                <h2 class="hb-color-title"><?php echo esc_html(nesports_setting('color_title', 'Shop by Color')); ?></h2>
-                <?php $color_desc = nesports_setting('color_desc', ''); if (!empty($color_desc)): ?>
+                <h2 class="hb-color-title"><?php echo esc_html($color_title); ?></h2>
+                <?php if (!empty($color_desc)): ?>
                     <p class="hb-color-desc" style="margin: 4px 0 0; color: var(--hb-text-color, #64748b); font-size: 14px;"><?php echo esc_html($color_desc); ?></p>
                 <?php endif; ?>
             </div>
@@ -689,6 +746,16 @@ $active_color = 'red'; // Default active color
             document.addEventListener('DOMContentLoaded', initColorSection);
         } else {
             initColorSection();
+        }
+
+        if (window.jQuery) {
+            jQuery(window).on('elementor/frontend/init', function() {
+                if (window.elementorFrontend && window.elementorFrontend.hooks) {
+                    window.elementorFrontend.hooks.addAction('frontend/element_ready/nesports_color_widget.default', function($scope) {
+                        initColorSection();
+                    });
+                }
+            });
         }
     })();
     </script>
