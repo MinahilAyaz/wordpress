@@ -137,31 +137,38 @@ $related = array_slice($related, 0, 4);
                 </div>
 
                 <!-- Price Row -->
-                <div class="hb-pdp-price-row">
-                    <span class="hb-pdp-price-current" id="hb-pdp-price-display"><?php echo esc_html(nesports_money($product['price'])); ?></span>
+                <!-- Price Row (Hardbody Red Accent & Strikethrough) -->
+                <div class="hb-pdp-price-row" style="display: flex; align-items: baseline; gap: 10px; margin: 4px 0 8px;">
+                    <span class="hb-pdp-price-current" id="hb-pdp-price-display" style="color: #e11d48; font-size: 24px; font-weight: 700;"><?php echo esc_html(nesports_money($product['price'])); ?></span>
                     <?php if ($on_sale): ?>
-                        <s class="hb-pdp-price-was"><?php echo esc_html(nesports_money($product['old'])); ?></s>
+                        <s class="hb-pdp-price-was" style="color: #e11d48; opacity: 0.75; font-size: 16px; text-decoration: line-through;"><?php echo esc_html(nesports_money($product['old'])); ?></s>
                     <?php endif; ?>
                 </div>
-                <div class="hb-pdp-tax-notice">Taxes included. Free shipping on all orders.</div>
+                <div class="hb-pdp-tax-notice" style="font-size: 12px; color: #71717a; margin-bottom: 12px;">Taxes included. Free shipping on all orders over &euro;150.</div>
 
                 <div class="hb-pdp-divider"></div>
 
-                <!-- Color Swatches (Clean Visual Circles For THIS Product Only) -->
+                <!-- Color Swatches (Hardbody Square Thumbnail Swatches) -->
                 <?php if (!empty($color_options)): ?>
                 <div class="hb-pdp-section-opt">
                     <div class="hb-pdp-opt-title-bar">
                         <span class="hb-pdp-opt-label">Color:</span>
                         <span class="hb-pdp-opt-selected" id="hb-color-val"><?php echo esc_html($color_options[0]['name']); ?></span>
                     </div>
-                    <div class="hb-pdp-color-swatches">
-                        <?php foreach ($color_options as $idx => $opt): ?>
-                            <button type="button" class="hb-color-circle-btn<?php echo $idx === 0 ? ' is-active' : ''; ?>" 
+                    <div class="hb-pdp-color-swatches" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
+                        <?php foreach ($color_options as $idx => $opt): 
+                            $opt_img = !empty($opt['img']) ? nesports_img($opt['img']) : '';
+                        ?>
+                            <button type="button" class="hb-color-circle-btn hb-color-thumb-btn<?php echo $idx === 0 ? ' is-active' : ''; ?>" 
                                 data-color="<?php echo esc_attr($opt['name']); ?>" 
-                                data-src="<?php echo esc_url(nesports_img($opt['img'])); ?>"
+                                data-src="<?php echo esc_url($opt_img ? $opt_img : nesports_img($gallery_images[0])); ?>"
                                 title="<?php echo esc_attr($opt['name']); ?>"
                                 aria-label="<?php echo esc_attr($opt['name']); ?>">
-                                <span class="hb-color-dot" style="background: <?php echo esc_attr($opt['color']); ?>;"></span>
+                                <?php if (!empty($opt_img)): ?>
+                                    <img src="<?php echo esc_url($opt_img); ?>" alt="<?php echo esc_attr($opt['name']); ?>">
+                                <?php else: ?>
+                                    <span class="hb-color-dot" style="background: <?php echo esc_attr($opt['color']); ?>;"></span>
+                                <?php endif; ?>
                             </button>
                         <?php endforeach; ?>
                     </div>
@@ -183,7 +190,7 @@ $related = array_slice($related, 0, 4);
                 </div>
                 <?php endif; ?>
 
-                <!-- Size / Dimension Selector -->
+                <!-- Size / Dimension Selector (Hardbody Minimal Clean Boxes) -->
                 <?php if (!empty($profile['has_size']) && !empty($profile['sizes'])): ?>
                 <div class="hb-pdp-section-opt">
                     <div class="hb-pdp-opt-title-bar">
@@ -197,7 +204,7 @@ $related = array_slice($related, 0, 4);
                         </button>
                         <?php endif; ?>
                     </div>
-                    <div class="hb-pdp-pills-row hb-pills-sizes">
+                    <div class="hb-pdp-pills-row hb-pills-sizes" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
                         <?php foreach ($profile['sizes'] as $s_idx => $s_item): ?>
                             <button type="button" class="hb-opt-pill<?php echo $s_idx === 0 ? ' is-active' : ''; ?>" data-group="size" data-val="<?php echo esc_attr($s_item['val']); ?>"><?php echo esc_html($s_item['label']); ?></button>
                         <?php endforeach; ?>
@@ -205,14 +212,8 @@ $related = array_slice($related, 0, 4);
                 </div>
                 <?php endif; ?>
 
-                <!-- Clean Add to Cart Action -->
-                <div class="hb-pdp-buy-actions">
-                    <div class="hb-pdp-qty-stepper">
-                        <button type="button" class="hb-qty-btn" id="hb-pdp-qty-minus" aria-label="Decrease quantity">-</button>
-                        <input type="number" id="hb-pdp-qty-input" value="1" min="1" max="99" readonly>
-                        <button type="button" class="hb-qty-btn" id="hb-pdp-qty-plus" aria-label="Increase quantity">+</button>
-                    </div>
-
+                <!-- Hardbody Primary Buy Action: Full-Width Clean Black Pill Button -->
+                <div class="hb-pdp-buy-actions" style="margin: 16px 0 12px; display: block;">
                     <button type="button" class="hb-pdp-main-add-btn" id="hb-pdp-add-to-cart"
                         data-id="<?php echo esc_attr($product['slug']); ?>"
                         data-name="<?php echo esc_attr($product['name']); ?>"
@@ -220,6 +221,16 @@ $related = array_slice($related, 0, 4);
                         data-img="<?php echo esc_url(nesports_img($gallery_images[0])); ?>">
                         ADD TO CART
                     </button>
+                </div>
+
+                <!-- Hardbody Guarantee & Trust Badges -->
+                <div class="hb-pdp-trust-pills-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px;">
+                    <div class="hb-trust-pill-box">
+                        Free Shipping Over &euro;150
+                    </div>
+                    <div class="hb-trust-pill-box">
+                        30 Day Money Back Guarantee
+                    </div>
                 </div>
 
                 <!-- Hardbody Minimal Accordions (Collapsible Information) -->

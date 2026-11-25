@@ -871,12 +871,12 @@ class NESports_Admin {
                             <span style="font-size: 11px; color: #64748b;">Optional</span>
                         </div>
                         <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
-                            <?php foreach (array('S', 'M', 'L', 'XL', 'XXL', '10mm', '13mm', 'One Size') as $preset_s): ?>
+                            <?php foreach (array('XS', 'S', 'M', 'L', 'XL', 'XXL', '10mm', '13mm', 'One Size') as $preset_s): ?>
                                 <button type="button" class="button button-small" onclick="nesportsAddVariationPill('add-product-sizes', '<?php echo esc_js($preset_s); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_s); ?></button>
                             <?php endforeach; ?>
                         </div>
-                        <input type="text" id="add-product-sizes" name="product_sizes" placeholder="e.g. S, M, L, XL, XXL or 10mm, 13mm (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
-                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated sizes. Shows as size pills on product page.</p>
+                        <input type="text" id="add-product-sizes" name="product_sizes" placeholder="e.g. XS, S, M, L, XL, XXL or 10mm, 13mm (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
+                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated sizes. Displays as clean Hardbody-style selection boxes on product page.</p>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 18px;">
@@ -984,12 +984,12 @@ class NESports_Admin {
                             <span style="font-size: 11px; color: #64748b;">Optional</span>
                         </div>
                         <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
-                            <?php foreach (array('S', 'M', 'L', 'XL', 'XXL', '10mm', '13mm', 'One Size') as $preset_s): ?>
+                            <?php foreach (array('XS', 'S', 'M', 'L', 'XL', 'XXL', '10mm', '13mm', 'One Size') as $preset_s): ?>
                                 <button type="button" class="button button-small" onclick="nesportsAddVariationPill('edit-product-sizes', '<?php echo esc_js($preset_s); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_s); ?></button>
                             <?php endforeach; ?>
                         </div>
-                        <input type="text" id="edit-product-sizes" name="product_sizes" placeholder="e.g. S, M, L, XL, XXL or 10mm, 13mm (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
-                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated sizes. Shows as size pills on product page.</p>
+                        <input type="text" id="edit-product-sizes" name="product_sizes" placeholder="e.g. XS, S, M, L, XL, XXL or 10mm, 13mm (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
+                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated sizes. Displays as clean Hardbody-style selection boxes on product page.</p>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 18px;">

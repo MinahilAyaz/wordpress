@@ -1490,9 +1490,9 @@ function nesports_product_profile($product) {
             'has_size' => true,
             'size_label' => 'Size:',
             'sizes' => array(
-                array('label' => 'M (10" - 12")', 'val' => 'M (10" - 12" Elbow Circumference)'),
-                array('label' => 'L (12" - 14")', 'val' => 'L (12" - 14" Elbow Circumference)'),
-                array('label' => 'XL (14" - 16")', 'val' => 'XL (14" - 16" Elbow Circumference)')
+                array('label' => 'M',  'val' => 'M (10" - 12" Elbow Circumference)'),
+                array('label' => 'L',  'val' => 'L (12" - 14" Elbow Circumference)'),
+                array('label' => 'XL', 'val' => 'XL (14" - 16" Elbow Circumference)')
             ),
             'has_size_guide' => false,
             'pack_includes' => array(

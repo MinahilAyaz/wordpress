@@ -5066,37 +5066,55 @@ body.hb-theme a { color: inherit; text-decoration: none; }
     align-items: center;
     padding: 2px 0;
 }
-.hb-color-circle-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid #e4e4e7;
+/* Hardbody Square Thumbnail Swatches */
+.hb-pdp-color-swatches {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 4px 0;
+}
+.hb-color-circle-btn,
+.hb-color-thumb-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    border: 1.5px solid #e4e4e7;
     padding: 2px;
-    background: transparent;
+    background: #ffffff;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.15s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     outline: none;
+    overflow: hidden;
 }
-.hb-color-circle-btn:hover {
-    border-color: #71717a;
-    transform: scale(1.08);
-}
-.hb-color-circle-btn.is-active {
+.hb-color-circle-btn:hover,
+.hb-color-thumb-btn:hover {
     border-color: #111111;
+}
+.hb-color-circle-btn.is-active,
+.hb-color-thumb-btn.is-active {
+    border: 2px solid #111111 !important;
     box-shadow: 0 0 0 1px #111111;
+}
+.hb-color-circle-btn img,
+.hb-color-thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
 }
 .hb-color-dot {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 2px;
     display: block;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* Option Pills */
+/* Option Pills - Hardbody Clean Minimalist Boxes */
 .hb-pdp-pills-row {
     display: flex;
     gap: 8px;
@@ -5104,90 +5122,90 @@ body.hb-theme a { color: inherit; text-decoration: none; }
 }
 .hb-opt-pill {
     background: #ffffff;
-    border: 1px solid #d4d4d8;
+    border: 1.5px solid #e4e4e7;
     border-radius: 4px;
     padding: 8px 16px;
-    font-size: 12.5px;
-    font-family: inherit;
-    color: #18181b;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.hb-opt-pill:hover:not(.is-active) {
-    border-color: #18181b;
-    background: #f9f9fb;
-}
-.hb-opt-pill.is-active {
-    background: #111111 !important;
-    color: #ffffff !important;
-    border-color: #111111 !important;
-}
-
-.hb-pills-sizes .hb-opt-pill {
-    min-width: 44px;
-    text-align: center;
-    padding: 8px 14px;
-}
-
-/* Primary Buy Actions */
-.hb-pdp-buy-actions {
-    display: flex;
-    gap: 10px;
-    margin: 8px 0 6px;
-}
-.hb-pdp-qty-stepper {
-    display: inline-flex;
-    border: 1px solid #d4d4d8;
-    border-radius: 4px;
-    background: #ffffff;
-}
-.hb-pdp-qty-stepper button {
-    width: 38px;
-    height: 48px;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    font-size: 15px;
-    color: #18181b;
-    transition: background 0.15s;
-}
-.hb-pdp-qty-stepper button:hover {
-    background: #f4f4f5;
-}
-.hb-pdp-qty-stepper input {
-    width: 38px;
-    height: 48px;
-    border: 0;
-    text-align: center;
-    font-size: 14px;
-    font-family: inherit;
-    color: #18181b;
-    outline: none;
-    background: transparent;
-}
-.hb-pdp-main-add-btn {
-    flex: 1;
-    height: 48px;
-    background: #111111;
-    color: #ffffff !important;
-    border: 1px solid #111111;
-    border-radius: 4px;
     font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #18181b;
     cursor: pointer;
-    transition: all 0.25s ease;
-    display: flex;
+    transition: all 0.15s ease;
+    min-height: 42px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
+.hb-opt-pill:hover:not(.is-active) {
+    border-color: #111111;
+    background: #ffffff;
+}
+.hb-opt-pill.is-active {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 2px solid #111111 !important;
+    font-weight: 700 !important;
+    box-shadow: inset 0 0 0 1px #111111 !important;
+}
+
+.hb-pills-sizes .hb-opt-pill {
+    min-width: 48px;
+    text-align: center;
+    padding: 0 14px;
+    text-transform: uppercase;
+}
+
+/* Hardbody Primary Buy Action: Full Width Black Pill Button */
+.hb-pdp-buy-actions {
+    display: block;
+    margin: 14px 0 10px;
+}
+.hb-pdp-main-add-btn {
+    width: 100% !important;
+    height: 52px !important;
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 9999px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16) !important;
+}
 .hb-pdp-main-add-btn:hover {
-    background: #27272a;
-    border-color: #27272a;
-    transform: translateY(-1px);
+    background: #27272a !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) !important;
 }
 .hb-pdp-main-add-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.99) !important;
+}
+
+/* Hardbody Trust Pills Row */
+.hb-pdp-trust-pills-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+    margin-bottom: 22px;
+}
+.hb-trust-pill-box {
+    background: #f4f4f5;
+    border-radius: 9999px;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #18181b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Accordions (Collapsible) */
