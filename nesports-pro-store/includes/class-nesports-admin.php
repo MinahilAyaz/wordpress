@@ -342,6 +342,7 @@ class NESports_Admin {
                     }
                 }
             }
+            $sizes_raw = sanitize_text_field($_POST['product_sizes'] ?? '');
             $sizes = array();
             if (!empty($sizes_raw)) {
                 foreach (explode(',', $sizes_raw) as $s_part) {
@@ -452,6 +453,7 @@ class NESports_Admin {
                     }
                 }
             }
+            $sizes_raw = sanitize_text_field($_POST['product_sizes'] ?? '');
             $sizes = array();
             if (!empty($sizes_raw)) {
                 foreach (explode(',', $sizes_raw) as $s_part) {

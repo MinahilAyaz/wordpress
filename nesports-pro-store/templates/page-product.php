@@ -120,8 +120,9 @@ $related = array_slice($related, 0, 4);
                     <?php endforeach; ?>
                 </div>
 
-                <div class="hb-pdp-main-viewport">
+                <div class="hb-pdp-main-viewport" id="hb-pdp-main-viewport">
                     <img id="hb-pdp-active-img" src="<?php echo esc_url(nesports_img($gallery_images[0])); ?>" alt="<?php echo esc_attr($product['name']); ?>" class="hb-pdp-active-img">
+                    <span class="hb-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Hover to zoom</span>
                 </div>
             </div>
 
@@ -200,7 +201,7 @@ $related = array_slice($related, 0, 4);
                 <?php endif; ?>
 
                 <!-- Size / Dimension Selector (Hardbody Minimal Clean Boxes) -->
-                <?php if (!empty($profile['has_size']) && !empty($profile['sizes'])): ?>
+                <?php if (!empty($profile['sizes'])): ?>
                 <div class="hb-pdp-section-opt">
                     <div class="hb-pdp-opt-title-bar">
                         <div>
@@ -423,6 +424,31 @@ $related = array_slice($related, 0, 4);
     // 1. Vertical thumbnail switcher
     var vthumbs = document.querySelectorAll('.hb-pdp-vthumb');
     var activeImg = document.getElementById('hb-pdp-active-img');
+    var mainViewport = document.getElementById('hb-pdp-main-viewport');
+    var zoomHint = document.querySelector('.hb-zoom-hint');
+
+    // Smooth hover zoom expansion (cursor tracking)
+    if (mainViewport && activeImg) {
+        mainViewport.addEventListener('mouseenter', function() {
+            activeImg.style.transition = 'transform 0.12s ease-out';
+            activeImg.style.transform = 'scale(2.2)';
+            if (zoomHint) zoomHint.style.opacity = '0';
+        });
+
+        mainViewport.addEventListener('mousemove', function(e) {
+            var rect = mainViewport.getBoundingClientRect();
+            var x = ((e.clientX - rect.left) / rect.width) * 100;
+            var y = ((e.clientY - rect.top) / rect.height) * 100;
+            activeImg.style.transformOrigin = x + '% ' + y + '%';
+        });
+
+        mainViewport.addEventListener('mouseleave', function() {
+            activeImg.style.transition = 'transform 0.25s ease-out';
+            activeImg.style.transform = 'scale(1)';
+            activeImg.style.transformOrigin = 'center center';
+            if (zoomHint) zoomHint.style.opacity = '1';
+        });
+    }
 
     vthumbs.forEach(function(btn) {
         btn.addEventListener('click', function() {
