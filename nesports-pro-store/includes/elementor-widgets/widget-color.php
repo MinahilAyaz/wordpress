@@ -86,12 +86,32 @@ class NESports_Elementor_Color_Widget extends Widget_Base {
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'red',
                 'options' => array(
-                    'red'   => esc_html__('RED', 'nesports-pro-store'),
-                    'black' => esc_html__('BLACK', 'nesports-pro-store'),
-                    'blue'  => esc_html__('BLUE', 'nesports-pro-store'),
-                    'green' => esc_html__('GREEN', 'nesports-pro-store'),
-                    'grey'  => esc_html__('GREY', 'nesports-pro-store'),
-                    'gold'  => esc_html__('GOLD', 'nesports-pro-store'),
+                    'red'    => esc_html__('RED', 'nesports-pro-store'),
+                    'black'  => esc_html__('BLACK', 'nesports-pro-store'),
+                    'blue'   => esc_html__('BLUE', 'nesports-pro-store'),
+                    'green'  => esc_html__('GREEN', 'nesports-pro-store'),
+                    'grey'   => esc_html__('GREY', 'nesports-pro-store'),
+                    'gold'   => esc_html__('GOLD', 'nesports-pro-store'),
+                    'white'  => esc_html__('WHITE', 'nesports-pro-store'),
+                    'yellow' => esc_html__('YELLOW', 'nesports-pro-store'),
+                    'pink'   => esc_html__('PINK', 'nesports-pro-store'),
+                    'purple' => esc_html__('PURPLE', 'nesports-pro-store'),
+                    'orange' => esc_html__('ORANGE', 'nesports-pro-store'),
+                    'custom' => esc_html__('+ Add Other / Custom Color', 'nesports-pro-store'),
+                ),
+            )
+        );
+
+        $repeater->add_control(
+            'custom_color',
+            array(
+                'label'       => esc_html__('Custom Color Name', 'nesports-pro-store'),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => '',
+                'placeholder' => esc_html__('e.g. Navy Blue, Camo, Maroon, White...', 'nesports-pro-store'),
+                'description' => esc_html__('Type any custom color name. A new tab for this color will automatically appear in the Shop by Color bar!', 'nesports-pro-store'),
+                'condition'   => array(
+                    'color' => 'custom',
                 ),
             )
         );

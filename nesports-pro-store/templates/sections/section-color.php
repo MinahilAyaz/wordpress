@@ -12,18 +12,33 @@ $active_color = 'red'; // Default active color
 if (!empty($settings['color_cards']) && is_array($settings['color_cards'])) {
     $custom_groups = array();
     $color_meta = array(
-        'red'   => array('label' => 'RED', 'hex' => '#dc2626'),
-        'black' => array('label' => 'BLACK', 'hex' => '#18181b'),
-        'blue'  => array('label' => 'BLUE', 'hex' => '#2563eb'),
-        'green' => array('label' => 'GREEN', 'hex' => '#16a34a'),
-        'grey'  => array('label' => 'GREY', 'hex' => '#71717a'),
-        'gold'  => array('label' => 'GOLD', 'hex' => '#eab308'),
+        'red'    => array('label' => 'RED', 'hex' => '#dc2626'),
+        'black'  => array('label' => 'BLACK', 'hex' => '#18181b'),
+        'blue'   => array('label' => 'BLUE', 'hex' => '#2563eb'),
+        'green'  => array('label' => 'GREEN', 'hex' => '#16a34a'),
+        'grey'   => array('label' => 'GREY', 'hex' => '#71717a'),
+        'gray'   => array('label' => 'GREY', 'hex' => '#71717a'),
+        'gold'   => array('label' => 'GOLD', 'hex' => '#eab308'),
+        'white'  => array('label' => 'WHITE', 'hex' => '#f4f4f5'),
+        'yellow' => array('label' => 'YELLOW', 'hex' => '#facc15'),
+        'pink'   => array('label' => 'PINK', 'hex' => '#ec4899'),
+        'purple' => array('label' => 'PURPLE', 'hex' => '#9333ea'),
+        'orange' => array('label' => 'ORANGE', 'hex' => '#ea580c'),
+        'navy'   => array('label' => 'NAVY', 'hex' => '#1e3a8a'),
+        'camo'   => array('label' => 'CAMO', 'hex' => '#57534e'),
+        'maroon' => array('label' => 'MAROON', 'hex' => '#881337'),
     );
 
     foreach ($settings['color_cards'] as $card) {
-        $c_key = !empty($card['color']) ? strtolower(trim($card['color'])) : 'red';
+        $color_raw = (!empty($card['color']) && $card['color'] === 'custom' && !empty($card['custom_color'])) 
+            ? $card['custom_color'] 
+            : (!empty($card['color']) ? $card['color'] : 'red');
+
+        $c_key = sanitize_title($color_raw);
+        if (empty($c_key)) $c_key = 'red';
+
         if (!isset($custom_groups[$c_key])) {
-            $label = isset($color_meta[$c_key]) ? $color_meta[$c_key]['label'] : strtoupper($c_key);
+            $label = isset($color_meta[$c_key]) ? $color_meta[$c_key]['label'] : strtoupper(trim($color_raw));
             $hex   = isset($color_meta[$c_key]) ? $color_meta[$c_key]['hex'] : '#3b82f6';
             $custom_groups[$c_key] = array(
                 'label' => $label,
