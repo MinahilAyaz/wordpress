@@ -77,6 +77,15 @@ $profile        = nesports_product_profile($product);
 $gallery_images = !empty($custom_gallery) ? $custom_gallery : (!empty($profile['gallery']) ? $profile['gallery'] : array($product['main']));
 $color_options  = !empty($profile['colors']) ? $profile['colors'] : array();
 
+// Ensure all color variation images are also included in gallery thumbnails:
+if (!empty($color_options)) {
+    foreach ($color_options as $c_opt) {
+        if (!empty($c_opt['img']) && !in_array($c_opt['img'], $gallery_images)) {
+            $gallery_images[] = $c_opt['img'];
+        }
+    }
+}
+
 // Related gear
 $related = array_filter($all_products, function($p) use ($product) {
     return $p['slug'] !== $product['slug'];
@@ -427,7 +436,7 @@ $related = array_slice($related, 0, 4);
         });
     });
 
-    // 2. Color Circles
+    // 2. Color Circles / Thumbnails
     var colorBtns = document.querySelectorAll('.hb-color-circle-btn');
     var colorVal = document.getElementById('hb-color-val');
 
@@ -442,6 +451,14 @@ $related = array_slice($related, 0, 4);
                 activeImg.src = btn.dataset.src;
                 setTimeout(function() { activeImg.style.opacity = '1'; }, 100);
             }
+            // Sync with vertical thumbnail strip
+            var vthumbs = document.querySelectorAll('.hb-pdp-vthumb');
+            vthumbs.forEach(function(vt) {
+                if (vt.dataset.src === btn.dataset.src) {
+                    vthumbs.forEach(function(v) { v.classList.remove('is-active'); });
+                    vt.classList.add('is-active');
+                }
+            });
         });
     });
 

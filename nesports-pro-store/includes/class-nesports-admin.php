@@ -319,14 +319,27 @@ class NESports_Admin {
             $hover_img= sanitize_text_field($_POST['product_hover_img'] ?? '');
             $desc     = sanitize_text_field($_POST['product_desc'] ?? '');
 
-            // Process Color & Size variations
-            $colors_raw = sanitize_text_field($_POST['product_colors'] ?? '');
-            $sizes_raw  = sanitize_text_field($_POST['product_sizes'] ?? '');
+            // Process Color variations (Repeater or Comma-separated)
             $colors = array();
-            if (!empty($colors_raw)) {
+            if (!empty($_POST['variant_color_name']) && is_array($_POST['variant_color_name'])) {
+                $var_names = $_POST['variant_color_name'];
+                $var_imgs  = !empty($_POST['variant_color_img']) && is_array($_POST['variant_color_img']) ? $_POST['variant_color_img'] : array();
+                for ($ci = 0; $ci < count($var_names); $ci++) {
+                    $c_name = sanitize_text_field($var_names[$ci] ?? '');
+                    if (empty($c_name)) continue;
+                    $c_img = sanitize_text_field($var_imgs[$ci] ?? '');
+                    $colors[] = array(
+                        'name' => $c_name,
+                        'img'  => $c_img
+                    );
+                }
+            } elseif (!empty($_POST['product_colors'])) {
+                $colors_raw = sanitize_text_field($_POST['product_colors'] ?? '');
                 foreach (explode(',', $colors_raw) as $c_part) {
                     $c_part = trim($c_part);
-                    if (!empty($c_part)) $colors[] = $c_part;
+                    if (!empty($c_part)) {
+                        $colors[] = array('name' => $c_part, 'img' => '');
+                    }
                 }
             }
             $sizes = array();
@@ -416,14 +429,27 @@ class NESports_Admin {
             $hover_img= sanitize_text_field($_POST['product_hover_img'] ?? '');
             $desc     = sanitize_text_field($_POST['product_desc'] ?? '');
 
-            // Process Color & Size variations
-            $colors_raw = sanitize_text_field($_POST['product_colors'] ?? '');
-            $sizes_raw  = sanitize_text_field($_POST['product_sizes'] ?? '');
+            // Process Color variations (Repeater or Comma-separated)
             $colors = array();
-            if (!empty($colors_raw)) {
+            if (!empty($_POST['variant_color_name']) && is_array($_POST['variant_color_name'])) {
+                $var_names = $_POST['variant_color_name'];
+                $var_imgs  = !empty($_POST['variant_color_img']) && is_array($_POST['variant_color_img']) ? $_POST['variant_color_img'] : array();
+                for ($ci = 0; $ci < count($var_names); $ci++) {
+                    $c_name = sanitize_text_field($var_names[$ci] ?? '');
+                    if (empty($c_name)) continue;
+                    $c_img = sanitize_text_field($var_imgs[$ci] ?? '');
+                    $colors[] = array(
+                        'name' => $c_name,
+                        'img'  => $c_img
+                    );
+                }
+            } elseif (!empty($_POST['product_colors'])) {
+                $colors_raw = sanitize_text_field($_POST['product_colors'] ?? '');
                 foreach (explode(',', $colors_raw) as $c_part) {
                     $c_part = trim($c_part);
-                    if (!empty($c_part)) $colors[] = $c_part;
+                    if (!empty($c_part)) {
+                        $colors[] = array('name' => $c_part, 'img' => '');
+                    }
                 }
             }
             $sizes = array();
@@ -688,9 +714,15 @@ class NESports_Admin {
                                                 <span style="font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase;">Colors:</span>
                                                 <?php foreach ((array)$prod['colors'] as $c): 
                                                     $c_label = is_array($c) ? ($c['name'] ?? '') : $c;
+                                                    $c_img   = is_array($c) ? ($c['img'] ?? '') : '';
                                                     if (!$c_label) continue;
                                                 ?>
-                                                    <span style="display: inline-block; padding: 1px 6px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 10.5px; color: #1e293b;"><?php echo esc_html($c_label); ?></span>
+                                                    <span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 10.5px; color: #1e293b;">
+                                                        <?php if (!empty($c_img)): ?>
+                                                            <img src="<?php echo esc_url(nesports_img($c_img)); ?>" style="width: 14px; height: 14px; object-fit: cover; border-radius: 2px;" alt="" />
+                                                        <?php endif; ?>
+                                                        <?php echo esc_html($c_label); ?>
+                                                    </span>
                                                 <?php endforeach; ?>
                                             </div>
                                         <?php endif; ?>
@@ -845,21 +877,29 @@ class NESports_Admin {
                         </div>
                     </div>
 
-                    <!-- Variations: Colors -->
+                    <!-- Variations: Colors & Photos -->
                     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 16px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                             <label style="font-weight: 700; color: #0f172a; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
-                                <span class="dashicons dashicons-art" style="color: #e11d48; font-size: 18px; width: 18px; height: 18px;"></span> Available Colors (Variations)
+                                <span class="dashicons dashicons-art" style="color: #e11d48; font-size: 18px; width: 18px; height: 18px;"></span> Available Colors & Photos (Variations)
                             </label>
                             <span style="font-size: 11px; color: #64748b;">Optional</span>
                         </div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                        <p class="description" style="margin: 0 0 8px 0; font-size: 11.5px; color: #64748b;">
+                            Add each color variant and upload/select its specific photo. Displays as Hardbody-style interactive color thumbnails on the product page.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; align-items: center;">
+                            <span style="font-size: 11px; font-weight: 600; color: #64748b;">Quick Presets:</span>
                             <?php foreach (array('Black', 'Red', 'Royal Blue', 'Grey', 'Army Green', 'White', 'Gold', 'Pink') as $preset_c): ?>
-                                <button type="button" class="button button-small" onclick="nesportsAddVariationPill('add-product-colors', '<?php echo esc_js($preset_c); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_c); ?></button>
+                                <button type="button" class="button button-small" onclick="nesportsAddColorVariantRow('add-color-variants-list', '<?php echo esc_js($preset_c); ?>', '')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_c); ?></button>
                             <?php endforeach; ?>
                         </div>
-                        <input type="text" id="add-product-colors" name="product_colors" placeholder="e.g. Black, Red, Royal Blue, Grey (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
-                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated color names. Shows as color circles on product page.</p>
+                        <div id="add-color-variants-list" style="margin-bottom: 8px;">
+                            <!-- Dynamic color rows appended here -->
+                        </div>
+                        <button type="button" class="button button-secondary" onclick="nesportsAddColorVariantRow('add-color-variants-list', '', '')" style="height: 32px; line-height: 30px; font-size: 12px; font-weight: 600;">
+                            <span class="dashicons dashicons-plus-alt2" style="line-height: 30px; font-size: 14px; vertical-align: middle;"></span> Add Color & Photo
+                        </button>
                     </div>
 
                     <!-- Variations: Sizes -->
@@ -958,21 +998,29 @@ class NESports_Admin {
                         </div>
                     </div>
 
-                    <!-- Variations: Colors -->
+                    <!-- Variations: Colors & Photos -->
                     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 16px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                             <label style="font-weight: 700; color: #0f172a; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
-                                <span class="dashicons dashicons-art" style="color: #e11d48; font-size: 18px; width: 18px; height: 18px;"></span> Available Colors (Variations)
+                                <span class="dashicons dashicons-art" style="color: #e11d48; font-size: 18px; width: 18px; height: 18px;"></span> Available Colors & Photos (Variations)
                             </label>
                             <span style="font-size: 11px; color: #64748b;">Optional</span>
                         </div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                        <p class="description" style="margin: 0 0 8px 0; font-size: 11.5px; color: #64748b;">
+                            Add each color variant and upload/select its specific photo. Displays as Hardbody-style interactive color thumbnails on the product page.
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; align-items: center;">
+                            <span style="font-size: 11px; font-weight: 600; color: #64748b;">Quick Presets:</span>
                             <?php foreach (array('Black', 'Red', 'Royal Blue', 'Grey', 'Army Green', 'White', 'Gold', 'Pink') as $preset_c): ?>
-                                <button type="button" class="button button-small" onclick="nesportsAddVariationPill('edit-product-colors', '<?php echo esc_js($preset_c); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_c); ?></button>
+                                <button type="button" class="button button-small" onclick="nesportsAddColorVariantRow('edit-color-variants-list', '<?php echo esc_js($preset_c); ?>', '')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_c); ?></button>
                             <?php endforeach; ?>
                         </div>
-                        <input type="text" id="edit-product-colors" name="product_colors" placeholder="e.g. Black, Red, Royal Blue, Grey (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
-                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated color names. Shows as color circles on product page.</p>
+                        <div id="edit-color-variants-list" style="margin-bottom: 8px;">
+                            <!-- Dynamic color rows populated when Edit modal opens -->
+                        </div>
+                        <button type="button" class="button button-secondary" onclick="nesportsAddColorVariantRow('edit-color-variants-list', '', '')" style="height: 32px; line-height: 30px; font-size: 12px; font-weight: 600;">
+                            <span class="dashicons dashicons-plus-alt2" style="line-height: 30px; font-size: 14px; vertical-align: middle;"></span> Add Color & Photo
+                        </button>
                     </div>
 
                     <!-- Variations: Sizes -->
@@ -1104,6 +1152,65 @@ class NESports_Admin {
             });
         }
 
+        var nesportsColorRowIndex = 0;
+
+        function nesportsEscapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function nesportsUpdateRowPreview(inputId) {
+            var inp = document.getElementById(inputId);
+            var wrap = document.getElementById(inputId + '_preview_wrap');
+            if (!inp || !wrap) return;
+            var val = (inp.value || '').trim();
+            if (val) {
+                var src = (val.indexOf('/') !== -1 || val.indexOf('http') === 0) ? val : ('https://www.nesports3.com/wp-content/themes/nesports/assets/images/' + val);
+                wrap.innerHTML = '<img src="' + src + '" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; border: 1px solid #cbd5e1; display: block;" onerror="this.style.display=\'none\';" />';
+            } else {
+                wrap.innerHTML = '<span style="width: 32px; height: 32px; border-radius: 4px; background: #f1f5f9; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 10px; font-weight: 600;">IMG</span>';
+            }
+        }
+
+        function nesportsAddColorVariantRow(containerId, nameVal, imgVal) {
+            nesportsColorRowIndex++;
+            var uniqueId = 'cvar_img_' + nesportsColorRowIndex + '_' + Math.floor(Math.random() * 10000);
+            nameVal = nameVal || '';
+            imgVal = imgVal || '';
+            
+            var container = document.getElementById(containerId);
+            if (!container) return;
+            
+            var row = document.createElement('div');
+            row.className = 'nesports-color-row';
+            row.style.cssText = 'display: flex; gap: 8px; align-items: center; margin-bottom: 8px; background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0;';
+            
+            var previewSrc = (imgVal.indexOf('/') !== -1 || imgVal.indexOf('http') === 0) ? imgVal : ('https://www.nesports3.com/wp-content/themes/nesports/assets/images/' + imgVal);
+            var thumbHtml = imgVal 
+                ? '<img src="' + previewSrc + '" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; border: 1px solid #cbd5e1; display: block;" onerror="this.style.display=\'none\';" />' 
+                : '<span style="width: 32px; height: 32px; border-radius: 4px; background: #f1f5f9; border: 1px dashed #cbd5e1; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 10px; font-weight: 600;">IMG</span>';
+
+            row.innerHTML = 
+                '<div style="flex: 1; min-width: 120px;">' +
+                    '<input type="text" name="variant_color_name[]" value="' + nesportsEscapeHtml(nameVal) + '" placeholder="Color Name (e.g. Uniform, Stealth Black)" class="widefat" style="height: 34px; font-size: 13px; border-radius: 4px;" required />' +
+                '</div>' +
+                '<div style="flex: 1.8; display: flex; gap: 6px; align-items: center;">' +
+                    '<div id="' + uniqueId + '_preview_wrap" style="flex-shrink: 0;">' + thumbHtml + '</div>' +
+                    '<input type="text" id="' + uniqueId + '" name="variant_color_img[]" value="' + nesportsEscapeHtml(imgVal) + '" placeholder="Image URL / filename" class="widefat" style="height: 34px; font-size: 12px; border-radius: 4px;" oninput="nesportsUpdateRowPreview(\'' + uniqueId + '\')" />' +
+                    '<button type="button" class="button" onclick="nesportsSelectMedia(\'' + uniqueId + '\')" style="height: 34px; line-height: 32px; padding: 0 10px; font-size: 11.5px; white-space: nowrap;">' +
+                        'Upload / Media' +
+                    '</button>' +
+                '</div>' +
+                '<button type="button" onclick="this.closest(\'.nesports-color-row\').remove();" class="button-link-delete" style="background: none; border: none; color: #ef4444; font-size: 20px; line-height: 34px; height: 34px; padding: 0 6px; cursor: pointer;" title="Remove this color variation">&times;</button>';
+            
+            container.appendChild(row);
+        }
+
         function nesportsAddVariationPill(inputId, val) {
             var inp = document.getElementById(inputId);
             if (!inp) return;
@@ -1132,15 +1239,26 @@ class NESports_Admin {
             document.getElementById('edit-product-main-img').value = prod.main || '';
             document.getElementById('edit-product-hover-img').value = prod.hover || '';
 
-            // Populate Color variations
-            var colorsVal = '';
-            if (Array.isArray(prod.colors)) {
-                colorsVal = prod.colors.map(function(c){ return typeof c === 'object' ? (c.name || '') : c; }).filter(Boolean).join(', ');
-            } else if (typeof prod.colors === 'string') {
-                colorsVal = prod.colors;
+            // Populate Color variations repeater
+            var editColorContainer = document.getElementById('edit-color-variants-list');
+            if (editColorContainer) {
+                editColorContainer.innerHTML = '';
+                if (Array.isArray(prod.colors) && prod.colors.length > 0) {
+                    prod.colors.forEach(function(c) {
+                        if (typeof c === 'object' && c !== null) {
+                            nesportsAddColorVariantRow('edit-color-variants-list', c.name || '', c.img || '');
+                        } else if (typeof c === 'string' && c.trim()) {
+                            nesportsAddColorVariantRow('edit-color-variants-list', c.trim(), '');
+                        }
+                    });
+                } else if (typeof prod.colors === 'string' && prod.colors.trim()) {
+                    prod.colors.split(',').forEach(function(c) {
+                        if (c.trim()) nesportsAddColorVariantRow('edit-color-variants-list', c.trim(), '');
+                    });
+                } else {
+                    nesportsAddColorVariantRow('edit-color-variants-list', '', '');
+                }
             }
-            var colorsInput = document.getElementById('edit-product-colors');
-            if (colorsInput) colorsInput.value = colorsVal;
 
             // Populate Size variations
             var sizesVal = '';
@@ -1157,16 +1275,27 @@ class NESports_Admin {
 
         function nesportsSelectMedia(targetInputId) {
             var mediaUploader = wp.media({
-                title: 'Select Product Image',
+                title: 'Select Image',
                 button: { text: 'Use this Image' },
                 multiple: false
             });
             mediaUploader.on('select', function() {
                 var attachment = mediaUploader.state().get('selection').first().toJSON();
-                document.getElementById(targetInputId).value = attachment.url;
+                var target = document.getElementById(targetInputId);
+                if (target) {
+                    target.value = attachment.url;
+                    nesportsUpdateRowPreview(targetInputId);
+                }
             });
             mediaUploader.open();
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var addList = document.getElementById('add-color-variants-list');
+            if (addList && addList.children.length === 0) {
+                nesportsAddColorVariantRow('add-color-variants-list', '', '');
+            }
+        });
         </script>
         <?php
     }

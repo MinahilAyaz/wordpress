@@ -1982,6 +1982,15 @@ function nesports_product_profile($product) {
         }
         if (!empty($parsed_colors)) {
             $base_profile['colors'] = $parsed_colors;
+            // Also ensure custom color variant photos are added to gallery thumbnails
+            if (!isset($base_profile['gallery']) || !is_array($base_profile['gallery'])) {
+                $base_profile['gallery'] = array();
+            }
+            foreach ($parsed_colors as $pc) {
+                if (!empty($pc['img']) && !in_array($pc['img'], $base_profile['gallery'])) {
+                    $base_profile['gallery'][] = $pc['img'];
+                }
+            }
         }
     }
 
