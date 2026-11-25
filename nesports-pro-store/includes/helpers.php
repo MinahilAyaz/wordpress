@@ -39,10 +39,24 @@ function nesports_section_enabled($key, $default = true) {
 }
 
 function nesports_money($value) {
-    if (function_exists('wc_price')) {
-        return wp_strip_all_tags(wc_price((float) $value));
+    if (is_string($value)) {
+        $trimmed = trim($value);
+        if (preg_match('/[0-9]+(?:[.,][0-9]+)?/', $trimmed, $m)) {
+            $num = (float) str_replace(',', '.', $m[0]);
+            if (function_exists('wc_price')) {
+                return wp_strip_all_tags(wc_price($num));
+            }
+            return '€' . number_format($num, 2);
+        }
     }
-    return '€' . number_format((float) $value, 2);
+    if (is_numeric($value)) {
+        $num = (float) $value;
+        if (function_exists('wc_price')) {
+            return wp_strip_all_tags(wc_price($num));
+        }
+        return '€' . number_format($num, 2);
+    }
+    return $value;
 }
 
 /** Category key => pill label (order = pill order). */

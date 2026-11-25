@@ -371,9 +371,7 @@ if (!empty($settings['custom_bundles']) && is_array($settings['custom_bundles'])
         $img_url = !empty($cb['bundle_image']['url']) ? $cb['bundle_image']['url'] : 'DSC_0167-scaled-1.jpg';
         $link_url = !empty($cb['bundle_link']['url']) ? $cb['bundle_link']['url'] : '/shop/';
         $b_price = !empty($cb['bundle_price']) ? $cb['bundle_price'] : '€59.99';
-        if (is_numeric($b_price)) $b_price = '€' . number_format((float)$b_price, 2);
         $b_old = !empty($cb['bundle_old_price']) ? $cb['bundle_old_price'] : '';
-        if (!empty($b_old) && is_numeric($b_old)) $b_old = '€' . number_format((float)$b_old, 2);
 
         $cat_raw = (!empty($cb['bundle_cat']) && $cb['bundle_cat'] === 'custom' && !empty($cb['custom_cat'])) 
             ? $cb['custom_cat'] 
@@ -466,9 +464,11 @@ foreach ($bundles as $b) {
             </a>
             <div class="hb-card-body">
                 <h3 class="hb-card-title"><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($b['name']); ?></a></h3>
-                <div class="hb-card-price is-sale">
+                <div class="hb-card-price<?php echo !empty($b['old']) ? ' is-sale' : ''; ?>">
                     <span class="now"><?php echo esc_html(nesports_money($b['price'])); ?></span>
+                    <?php if (!empty($b['old'])): ?>
                     <s><?php echo esc_html(nesports_money($b['old'])); ?></s>
+                    <?php endif; ?>
                 </div>
             </div>
         </article>
