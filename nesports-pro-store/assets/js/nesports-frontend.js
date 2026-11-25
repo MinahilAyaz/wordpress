@@ -937,10 +937,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 cartItems.style.display = 'flex';
                 var html = '';
                 cart.forEach(function(item, index) {
+                    var metaParts = [];
+                    if (item.color) metaParts.push('Color: ' + item.color);
+                    if (item.size) metaParts.push('Size: ' + item.size);
+                    var metaHtml = metaParts.length > 0 ? '<div class="hb-cart-row-meta" style="font-size: 11.5px; color: #64748b; margin: 2px 0 4px; font-weight: 500;">' + metaParts.join(' &bull; ') + '</div>' : '';
+
                     html += '<div class="hb-cart-row" data-index="' + index + '">';
                     html += '  <img src="' + item.img + '" alt="" class="hb-cart-thumb">';
                     html += '  <div class="hb-cart-row-details">';
                     html += '    <h4 class="hb-cart-row-title">' + item.name + '</h4>';
+                    html += metaHtml;
                     html += '    <div class="hb-cart-row-price">' + formatMoney(item.price) + '</div>';
                     html += '    <div class="hb-cart-qty-ctrl">';
                     html += '      <button type="button" class="hb-cart-qty-btn hb-cart-minus" data-index="' + index + '">-</button>';
@@ -1019,17 +1025,25 @@ document.addEventListener('DOMContentLoaded', function () {
     window.nesportsAddToCart = function(product) {
         if (!product) return;
         var id = product.id || product.slug;
-        var existing = cart.find(function(item) { return item.id === id; });
+        var color = product.color || '';
+        var size  = product.size || '';
+        var itemKey = id + (color ? '-' + color : '') + (size ? '-' + size : '');
+        var existing = cart.find(function(item) {
+            return (item.itemKey && item.itemKey === itemKey) || (item.id === id && (item.color || '') === color && (item.size || '') === size);
+        });
         var addQty = parseInt(product.qty, 10) || 1;
         if (existing) {
             existing.qty += addQty;
         } else {
             cart.push({
                 id: id,
+                itemKey: itemKey,
                 name: product.name,
                 price: parseFloat(product.price) || 0,
                 img: product.img || '',
-                qty: addQty
+                qty: addQty,
+                color: color,
+                size: size
             });
         }
         saveCart();

@@ -730,6 +730,11 @@ require_once NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
             totalQty += qty;
             subtotal += (price * qty);
 
+            var vParts = [];
+            if (item.color) vParts.push(item.color);
+            if (item.size) vParts.push(item.size);
+            var vText = vParts.length > 0 ? vParts.join(' / ') : 'Standard Edition';
+
             html += '<div class="hb-summary-item">';
             html += '  <div class="hb-summary-thumb">';
             html += '    <img src="' + (item.img || '') + '" alt="' + item.name + '">';
@@ -737,7 +742,7 @@ require_once NESPORTS_PLUGIN_DIR . 'templates/header-nesports.php';
             html += '  </div>';
             html += '  <div class="hb-summary-info">';
             html += '    <div class="hb-summary-name">' + item.name + '</div>';
-            html += '    <div class="hb-summary-variant">Standard Edition</div>';
+            html += '    <div class="hb-summary-variant">' + vText + '</div>';
             html += '  </div>';
             html += '  <div class="hb-summary-price">€' + (price * qty).toFixed(2) + '</div>';
             html += '</div>';

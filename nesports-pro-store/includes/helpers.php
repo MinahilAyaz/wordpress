@@ -1870,65 +1870,140 @@ function nesports_product_profile($product) {
         )
     );
 
-    if (isset($profiles[$slug])) {
-        return $profiles[$slug];
+    if (is_string($product)) {
+        $catalog = function_exists('nesports_catalog') ? nesports_catalog() : array();
+        foreach ($catalog as $c_item) {
+            if (isset($c_item['slug']) && $c_item['slug'] === $product) {
+                $product = $c_item;
+                break;
+            }
+        }
     }
 
-    // Fallback safe profile
     $main = is_array($product) && !empty($product['main']) ? $product['main'] : 'DSC_0166-scaled-1.jpg';
     $hover = is_array($product) && !empty($product['hover']) ? $product['hover'] : $main;
 
-    $is_clothing = (is_array($product) && isset($product['cat']) && $product['cat'] === 'clothing');
+    $base_profile = isset($profiles[$slug]) ? $profiles[$slug] : null;
 
-    if ($is_clothing) {
-        return array(
-            'gallery' => array($main, $hover),
-            'colors'  => array(
-                array('name' => 'Original', 'color' => '#18181b', 'img' => $main)
-            ),
-            'has_thickness' => false,
-            'has_size'      => true,
-            'size_label'    => 'Size:',
-            'sizes'         => array(
-                array('label' => 'S',   'val' => 'S (Chest 38" - 40")'),
-                array('label' => 'M',   'val' => 'M (Chest 40" - 42")'),
-                array('label' => 'L',   'val' => 'L (Chest 42" - 44")'),
-                array('label' => 'XL',  'val' => 'XL (Chest 44" - 46")'),
-                array('label' => 'XXL', 'val' => 'XXL (Chest 46" - 48")'),
-            ),
-            'has_size_guide'=> true,
-            'pack_includes' => array(
-                '1x NESPORTS3 ' . (is_array($product) ? $product['name'] : 'Oversized T-Shirt'),
-                'Authentic Heavyweight Lifter Boxy Fit',
-                'Official NESPORTS3 Quality Tag'
-            ),
-            'specs' => array(
-                'Material'   => '100% Heavyweight Combed Cotton (240 GSM)',
-                'Fit'        => 'Oversized Drop-Shoulder Boxy Fit',
-                'Print'      => 'High-Density Textured Screen Print',
-                'Pre-Shrunk' => 'Yes (Pre-washed for zero shrinkage)',
-                'Care'       => 'Machine wash cold inside out, hang dry'
-            )
-        );
+    if (!$base_profile) {
+        $is_clothing = (is_array($product) && isset($product['cat']) && $product['cat'] === 'clothing');
+
+        if ($is_clothing) {
+            $base_profile = array(
+                'gallery' => array($main, $hover),
+                'colors'  => array(
+                    array('name' => 'Original', 'color' => '#18181b', 'img' => $main)
+                ),
+                'has_thickness' => false,
+                'has_size'      => true,
+                'size_label'    => 'Size:',
+                'sizes'         => array(
+                    array('label' => 'S',   'val' => 'S (Chest 38" - 40")'),
+                    array('label' => 'M',   'val' => 'M (Chest 40" - 42")'),
+                    array('label' => 'L',   'val' => 'L (Chest 42" - 44")'),
+                    array('label' => 'XL',  'val' => 'XL (Chest 44" - 46")'),
+                    array('label' => 'XXL', 'val' => 'XXL (Chest 46" - 48")'),
+                ),
+                'has_size_guide'=> true,
+                'pack_includes' => array(
+                    '1x NESPORTS3 ' . (is_array($product) ? $product['name'] : 'Oversized T-Shirt'),
+                    'Authentic Heavyweight Lifter Boxy Fit',
+                    'Official NESPORTS3 Quality Tag'
+                ),
+                'specs' => array(
+                    'Material'   => '100% Heavyweight Combed Cotton (240 GSM)',
+                    'Fit'        => 'Oversized Drop-Shoulder Boxy Fit',
+                    'Print'      => 'High-Density Textured Screen Print',
+                    'Pre-Shrunk' => 'Yes (Pre-washed for zero shrinkage)',
+                    'Care'       => 'Machine wash cold inside out, hang dry'
+                )
+            );
+        } else {
+            $base_profile = array(
+                'gallery' => array($main, $hover),
+                'colors'  => array(),
+                'has_thickness' => false,
+                'has_size'      => false,
+                'has_size_guide'=> false,
+                'pack_includes' => array(
+                    '1x ' . (is_array($product) ? $product['name'] : 'Authentic Gear Item'),
+                    'Official NESPORTS3 Quality Guarantee'
+                ),
+                'specs' => array(
+                    'Brand'    => 'NESPORTS3 Official',
+                    'Category' => is_array($product) && isset($product['cat']) ? ucfirst($product['cat']) : 'Gear',
+                    'Quality'  => 'Reinforced Commercial Grade Craftsmanship'
+                )
+            );
+        }
     }
 
-    return array(
-        'gallery' => array($main, $hover),
-        'colors'  => array(
-            array('name' => 'Default', 'color' => '#18181b', 'img' => $main)
-        ),
-        'has_thickness' => false,
-        'has_size'      => false,
-        'has_size_guide'=> false,
-        'pack_includes' => array(
-            '1x ' . (is_array($product) ? $product['name'] : 'Authentic Gear Item'),
-            'Official NESPORTS3 Quality Guarantee'
-        ),
-        'specs' => array(
-            'Brand'    => 'NESPORTS3 Official',
-            'Category' => is_array($product) && isset($product['cat']) ? ucfirst($product['cat']) : 'Gear',
-            'Quality'  => 'Reinforced Commercial Grade Craftsmanship'
-        )
+    // Color palette dictionary for automatic hex rendering
+    $color_palette = array(
+        'black'        => '#18181b',
+        'stealth black'=> '#09090b',
+        'red'          => '#dc2626',
+        'crimson'      => '#be123c',
+        'blue'         => '#2563eb',
+        'royal blue'   => '#1d4ed8',
+        'navy'         => '#1e3a8a',
+        'navy blue'    => '#1e3a8a',
+        'grey'         => '#64748b',
+        'gray'         => '#64748b',
+        'steel gray'   => '#64748b',
+        'white'        => '#f8fafc',
+        'green'        => '#16a34a',
+        'army green'   => '#4d5c3d',
+        'olive'        => '#556b2f',
+        'gold'         => '#d97706',
+        'yellow'       => '#eab308',
+        'orange'       => '#ea580c',
+        'purple'       => '#7c3aed',
+        'pink'         => '#ec4899',
+        'brown'        => '#78350f',
+        'camo'         => 'linear-gradient(135deg, #4d5c3d 50%, #78350f 50%)',
     );
+
+    // Apply managed catalog colors if set
+    if (is_array($product) && !empty($product['colors'])) {
+        $parsed_colors = array();
+        $raw_c = is_array($product['colors']) ? $product['colors'] : explode(',', $product['colors']);
+        foreach ($raw_c as $c_item) {
+            $name = is_array($c_item) ? ($c_item['name'] ?? '') : trim($c_item);
+            if (empty($name)) continue;
+            $lower_name = strtolower($name);
+            $bg = isset($color_palette[$lower_name]) ? $color_palette[$lower_name] : (preg_match('/^#[a-f0-9]{3,6}$/i', $name) ? $name : '#334155');
+            $img = is_array($c_item) && !empty($c_item['img']) ? $c_item['img'] : $main;
+            $parsed_colors[] = array(
+                'name'  => $name,
+                'color' => $bg,
+                'img'   => $img
+            );
+        }
+        if (!empty($parsed_colors)) {
+            $base_profile['colors'] = $parsed_colors;
+        }
+    }
+
+    // Apply managed catalog sizes if set
+    if (is_array($product) && !empty($product['sizes'])) {
+        $parsed_sizes = array();
+        $raw_s = is_array($product['sizes']) ? $product['sizes'] : explode(',', $product['sizes']);
+        foreach ($raw_s as $s_item) {
+            $label = is_array($s_item) ? ($s_item['label'] ?? $s_item['val'] ?? '') : trim($s_item);
+            $val   = is_array($s_item) ? ($s_item['val'] ?? $s_item['label'] ?? '') : trim($s_item);
+            if (empty($label)) continue;
+            $parsed_sizes[] = array('label' => $label, 'val' => $val);
+        }
+        if (!empty($parsed_sizes)) {
+            $base_profile['has_size']   = true;
+            $base_profile['sizes']      = $parsed_sizes;
+            if (empty($base_profile['size_label'])) {
+                $base_profile['size_label'] = 'Size:';
+            }
+        }
+    }
+
+    return $base_profile;
 }
 

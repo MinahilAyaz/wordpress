@@ -494,10 +494,26 @@ $related = array_slice($related, 0, 4);
             var img = activeImg ? activeImg.src : mainAddBtn.dataset.img;
             var qty = parseInt(qtyInput ? qtyInput.value : 1, 10) || 1;
 
-            if (typeof window.hbAddToCart === 'function') {
-                window.hbAddToCart(id, name, price, img, qty);
-            } else if (typeof window.nesportsAddToCart === 'function') {
-                window.nesportsAddToCart({ id: id, name: name, price: price, img: img, qty: qty });
+            // Collect selected color & size variations
+            var colorEl = document.getElementById('hb-color-val');
+            var selectedColor = colorEl ? colorEl.textContent.trim() : '';
+            var sizeEl = document.getElementById('hb-size-val');
+            var selectedSize = sizeEl ? sizeEl.textContent.trim() : '';
+
+            var itemData = {
+                id: id,
+                name: name,
+                price: price,
+                img: img,
+                qty: qty,
+                color: selectedColor,
+                size: selectedSize
+            };
+
+            if (typeof window.nesportsAddToCart === 'function') {
+                window.nesportsAddToCart(itemData);
+            } else if (typeof window.hbAddToCart === 'function') {
+                window.hbAddToCart(itemData);
             }
 
             mainAddBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PROCEEDING TO PAYMENT...';

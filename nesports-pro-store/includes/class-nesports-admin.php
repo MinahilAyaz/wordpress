@@ -319,6 +319,24 @@ class NESports_Admin {
             $hover_img= sanitize_text_field($_POST['product_hover_img'] ?? '');
             $desc     = sanitize_text_field($_POST['product_desc'] ?? '');
 
+            // Process Color & Size variations
+            $colors_raw = sanitize_text_field($_POST['product_colors'] ?? '');
+            $sizes_raw  = sanitize_text_field($_POST['product_sizes'] ?? '');
+            $colors = array();
+            if (!empty($colors_raw)) {
+                foreach (explode(',', $colors_raw) as $c_part) {
+                    $c_part = trim($c_part);
+                    if (!empty($c_part)) $colors[] = $c_part;
+                }
+            }
+            $sizes = array();
+            if (!empty($sizes_raw)) {
+                foreach (explode(',', $sizes_raw) as $s_part) {
+                    $s_part = trim($s_part);
+                    if (!empty($s_part)) $sizes[] = $s_part;
+                }
+            }
+
             if (empty($name)) {
                 wp_redirect(admin_url('admin.php?page=nesports-store-products&error=empty_name'));
                 exit;
@@ -347,7 +365,9 @@ class NESports_Admin {
                 'reviews' => rand(25, 95),
                 'desc'    => $desc,
                 'main'    => $main_img,
-                'hover'   => $hover_img
+                'hover'   => $hover_img,
+                'colors'  => $colors,
+                'sizes'   => $sizes
             );
 
             // Prepend new product to top of catalog
@@ -396,6 +416,24 @@ class NESports_Admin {
             $hover_img= sanitize_text_field($_POST['product_hover_img'] ?? '');
             $desc     = sanitize_text_field($_POST['product_desc'] ?? '');
 
+            // Process Color & Size variations
+            $colors_raw = sanitize_text_field($_POST['product_colors'] ?? '');
+            $sizes_raw  = sanitize_text_field($_POST['product_sizes'] ?? '');
+            $colors = array();
+            if (!empty($colors_raw)) {
+                foreach (explode(',', $colors_raw) as $c_part) {
+                    $c_part = trim($c_part);
+                    if (!empty($c_part)) $colors[] = $c_part;
+                }
+            }
+            $sizes = array();
+            if (!empty($sizes_raw)) {
+                foreach (explode(',', $sizes_raw) as $s_part) {
+                    $s_part = trim($s_part);
+                    if (!empty($s_part)) $sizes[] = $s_part;
+                }
+            }
+
             foreach ($catalog as &$item) {
                 if (isset($item['slug']) && $item['slug'] === $slug) {
                     if (!empty($name)) $item['name'] = $name;
@@ -405,6 +443,8 @@ class NESports_Admin {
                     $item['desc']  = $desc;
                     if (!empty($main_img)) $item['main'] = $main_img;
                     if (!empty($hover_img)) $item['hover'] = $hover_img;
+                    $item['colors'] = $colors;
+                    $item['sizes']  = $sizes;
                     break;
                 }
             }
@@ -642,6 +682,29 @@ class NESports_Admin {
                                             </div>
                                         <?php endif; ?>
                                         <code style="font-size: 11.5px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">/product/<?php echo esc_html($slug); ?>/</code>
+                                        
+                                        <?php if (!empty($prod['colors'])): ?>
+                                            <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center;">
+                                                <span style="font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase;">Colors:</span>
+                                                <?php foreach ((array)$prod['colors'] as $c): 
+                                                    $c_label = is_array($c) ? ($c['name'] ?? '') : $c;
+                                                    if (!$c_label) continue;
+                                                ?>
+                                                    <span style="display: inline-block; padding: 1px 6px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 10.5px; color: #1e293b;"><?php echo esc_html($c_label); ?></span>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($prod['sizes'])): ?>
+                                            <div style="margin-top: 4px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center;">
+                                                <span style="font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase;">Sizes:</span>
+                                                <?php foreach ((array)$prod['sizes'] as $s): 
+                                                    $s_label = is_array($s) ? ($s['label'] ?? $s['val'] ?? '') : $s;
+                                                    if (!$s_label) continue;
+                                                ?>
+                                                    <span style="display: inline-block; padding: 1px 6px; background: #e0e7ff; border: 1px solid #c7d2fe; border-radius: 4px; font-size: 10.5px; color: #3730a3; font-weight: 600;"><?php echo esc_html($s_label); ?></span>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </td>
                                     <td style="padding: 12px 16px; vertical-align: middle;">
                                         <span style="display: inline-block; padding: 3px 10px; background: #e0f2fe; color: #0369a1; border-radius: 999px; font-size: 11.5px; font-weight: 600; text-transform: uppercase;">
@@ -772,7 +835,7 @@ class NESports_Admin {
                         <p class="description" style="margin-top: 4px;">Click "Upload / Media" to pick from WordPress Media Library or enter image name.</p>
                     </div>
 
-                    <div style="margin-bottom: 22px;">
+                    <div style="margin-bottom: 18px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Hover / Secondary Image (Optional)</label>
                         <div style="display: flex; gap: 8px;">
                             <input type="text" id="add-product-hover-img" name="product_hover_img" placeholder="Optional 2nd angle image" class="widefat" style="height: 40px; border-radius: 6px;" />
@@ -780,6 +843,40 @@ class NESports_Admin {
                                 Upload / Media
                             </button>
                         </div>
+                    </div>
+
+                    <!-- Variations: Colors -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <label style="font-weight: 700; color: #0f172a; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+                                <span class="dashicons dashicons-art" style="color: #e11d48; font-size: 18px; width: 18px; height: 18px;"></span> Available Colors (Variations)
+                            </label>
+                            <span style="font-size: 11px; color: #64748b;">Optional</span>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                            <?php foreach (array('Black', 'Red', 'Royal Blue', 'Grey', 'Army Green', 'White', 'Gold', 'Pink') as $preset_c): ?>
+                                <button type="button" class="button button-small" onclick="nesportsAddVariationPill('add-product-colors', '<?php echo esc_js($preset_c); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_c); ?></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <input type="text" id="add-product-colors" name="product_colors" placeholder="e.g. Black, Red, Royal Blue, Grey (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
+                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated color names. Shows as color circles on product page.</p>
+                    </div>
+
+                    <!-- Variations: Sizes -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 22px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <label style="font-weight: 700; color: #0f172a; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+                                <span class="dashicons dashicons-tag" style="color: #2563eb; font-size: 18px; width: 18px; height: 18px;"></span> Available Sizes (Variations)
+                            </label>
+                            <span style="font-size: 11px; color: #64748b;">Optional</span>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                            <?php foreach (array('S', 'M', 'L', 'XL', 'XXL', '10mm', '13mm', 'One Size') as $preset_s): ?>
+                                <button type="button" class="button button-small" onclick="nesportsAddVariationPill('add-product-sizes', '<?php echo esc_js($preset_s); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_s); ?></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <input type="text" id="add-product-sizes" name="product_sizes" placeholder="e.g. S, M, L, XL, XXL or 10mm, 13mm (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
+                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated sizes. Shows as size pills on product page.</p>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 18px;">
@@ -851,7 +948,7 @@ class NESports_Admin {
                         </div>
                     </div>
 
-                    <div style="margin-bottom: 22px;">
+                    <div style="margin-bottom: 18px;">
                         <label style="display: block; font-weight: 600; margin-bottom: 6px; color: #334155;">Hover Image (Optional)</label>
                         <div style="display: flex; gap: 8px;">
                             <input type="text" id="edit-product-hover-img" name="product_hover_img" class="widefat" style="height: 40px; border-radius: 6px;" />
@@ -859,6 +956,40 @@ class NESports_Admin {
                                 Upload / Media
                             </button>
                         </div>
+                    </div>
+
+                    <!-- Variations: Colors -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <label style="font-weight: 700; color: #0f172a; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+                                <span class="dashicons dashicons-art" style="color: #e11d48; font-size: 18px; width: 18px; height: 18px;"></span> Available Colors (Variations)
+                            </label>
+                            <span style="font-size: 11px; color: #64748b;">Optional</span>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                            <?php foreach (array('Black', 'Red', 'Royal Blue', 'Grey', 'Army Green', 'White', 'Gold', 'Pink') as $preset_c): ?>
+                                <button type="button" class="button button-small" onclick="nesportsAddVariationPill('edit-product-colors', '<?php echo esc_js($preset_c); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_c); ?></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <input type="text" id="edit-product-colors" name="product_colors" placeholder="e.g. Black, Red, Royal Blue, Grey (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
+                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated color names. Shows as color circles on product page.</p>
+                    </div>
+
+                    <!-- Variations: Sizes -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 22px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <label style="font-weight: 700; color: #0f172a; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+                                <span class="dashicons dashicons-tag" style="color: #2563eb; font-size: 18px; width: 18px; height: 18px;"></span> Available Sizes (Variations)
+                            </label>
+                            <span style="font-size: 11px; color: #64748b;">Optional</span>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                            <?php foreach (array('S', 'M', 'L', 'XL', 'XXL', '10mm', '13mm', 'One Size') as $preset_s): ?>
+                                <button type="button" class="button button-small" onclick="nesportsAddVariationPill('edit-product-sizes', '<?php echo esc_js($preset_s); ?>')" style="border-radius: 14px; font-size: 11px; height: 24px; line-height: 22px;">+ <?php echo esc_html($preset_s); ?></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <input type="text" id="edit-product-sizes" name="product_sizes" placeholder="e.g. S, M, L, XL, XXL or 10mm, 13mm (comma-separated)" class="widefat" style="height: 38px; border-radius: 6px; font-size: 13px;" />
+                        <p class="description" style="margin-top: 4px; font-size: 11.5px;">Click quick presets above or type comma-separated sizes. Shows as size pills on product page.</p>
                     </div>
 
                     <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 18px;">
@@ -973,6 +1104,22 @@ class NESports_Admin {
             });
         }
 
+        function nesportsAddVariationPill(inputId, val) {
+            var inp = document.getElementById(inputId);
+            if (!inp) return;
+            var current = inp.value.trim();
+            if (!current) {
+                inp.value = val;
+            } else {
+                var items = current.split(',').map(function(s){ return s.trim(); });
+                if (items.indexOf(val) === -1) {
+                    items.push(val);
+                    inp.value = items.join(', ');
+                }
+            }
+            inp.focus();
+        }
+
         function nesportsOpenEditModal(prod) {
             document.getElementById('edit-product-slug').value = prod.slug || '';
             document.getElementById('edit-product-name').value = prod.name || '';
@@ -984,6 +1131,27 @@ class NESports_Admin {
             document.getElementById('edit-product-old-price').value = prod.old || prod.price || '';
             document.getElementById('edit-product-main-img').value = prod.main || '';
             document.getElementById('edit-product-hover-img').value = prod.hover || '';
+
+            // Populate Color variations
+            var colorsVal = '';
+            if (Array.isArray(prod.colors)) {
+                colorsVal = prod.colors.map(function(c){ return typeof c === 'object' ? (c.name || '') : c; }).filter(Boolean).join(', ');
+            } else if (typeof prod.colors === 'string') {
+                colorsVal = prod.colors;
+            }
+            var colorsInput = document.getElementById('edit-product-colors');
+            if (colorsInput) colorsInput.value = colorsVal;
+
+            // Populate Size variations
+            var sizesVal = '';
+            if (Array.isArray(prod.sizes)) {
+                sizesVal = prod.sizes.map(function(s){ return typeof s === 'object' ? (s.val || s.label || '') : s; }).filter(Boolean).join(', ');
+            } else if (typeof prod.sizes === 'string') {
+                sizesVal = prod.sizes;
+            }
+            var sizesInput = document.getElementById('edit-product-sizes');
+            if (sizesInput) sizesInput.value = sizesVal;
+
             document.getElementById('nesports-edit-modal').style.display = 'flex';
         }
 
